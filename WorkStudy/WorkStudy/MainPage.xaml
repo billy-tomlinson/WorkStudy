@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <workStudy:MainListView/>
     </ContentPage.BindingContext>
-
+<StackLayout>
     <ListView Margin="0,80"  
               ItemTapped="ListViewItem_Tabbed"  
               ItemsSource="{Binding Products}"  
@@ -34,7 +34,7 @@
                                     FontSize="15"  
                                     BackgroundColor="CornflowerBlue"  
                                     TextColor="DarkBlue"/>
-                            <Button Text="Rating"  
+                            <Button Text="Absent"  
                                     WidthRequest="110"  
                                     FontSize="15"  
                                     BackgroundColor="LightCoral"  
@@ -44,24 +44,65 @@
                                      Orientation="Horizontal"  
                                      Margin="0,0,80,0">
                             <Button Text="10"  
-                                    WidthRequest="30"  
-                                    FontSize="15"  
-                                    BackgroundColor="Chocolate"  
-                                    TextColor="White"/>
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
                             <Button Text="20"  
-                                    WidthRequest="30"  
-                                    FontSize="15"  
-                                    BackgroundColor="CornflowerBlue"  
-                                    TextColor="DarkBlue"/>
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
                             <Button Text="30"  
-                                    WidthRequest="30"  
-                                    FontSize="15"  
-                                    BackgroundColor="LightCoral"  
-                                    TextColor="Maroon"/>
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="40"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="50"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="60"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="70"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="80"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="90"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            <Button Text="100"  
+                                    WidthRequest="50"  
+                                    FontSize="10"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+    <Button Text="Submit Study"  
+            WidthRequest="110"  
+            FontSize="10"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"/>
+    </StackLayout>
 </ContentPage>  
