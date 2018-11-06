@@ -40,6 +40,25 @@
                                     BackgroundColor="LightCoral"  
                                     TextColor="Maroon"/>
                         </StackLayout>
+                        <StackLayout IsVisible="{Binding Isvisible}"  
+                                     Orientation="Horizontal"  
+                                     Margin="0,0,80,0">
+                            <Button Text="10"  
+                                    WidthRequest="30"  
+                                    FontSize="15"  
+                                    BackgroundColor="Chocolate"  
+                                    TextColor="White"/>
+                            <Button Text="20"  
+                                    WidthRequest="30"  
+                                    FontSize="15"  
+                                    BackgroundColor="CornflowerBlue"  
+                                    TextColor="DarkBlue"/>
+                            <Button Text="30"  
+                                    WidthRequest="30"  
+                                    FontSize="15"  
+                                    BackgroundColor="LightCoral"  
+                                    TextColor="Maroon"/>
+                        </StackLayout>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
