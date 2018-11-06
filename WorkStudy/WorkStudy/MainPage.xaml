@@ -8,113 +8,124 @@
     <ContentPage.BindingContext>
         <workStudy:MainListView/>
     </ContentPage.BindingContext>
-<StackLayout>
-    <ListView Margin="0,80"  
+    <StackLayout>
+        <ListView Margin="0,80"  
               ItemTapped="ListViewItem_Tabbed"  
               ItemsSource="{Binding Products}"  
               HasUnevenRows="True"  
               BackgroundColor="Black">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Padding="20" Orientation="Horizontal">
-            <Label Text="{Binding Title}"  
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="5">
+                            <Label Text="{Binding Title}"  
                                FontSize="25"  
                                TextColor="Azure"/>
-            <StackLayout IsVisible="{Binding Isvisible}"  
+                            <Label Text="Activities"  IsVisible="{Binding Isvisible}"
+                                   FontSize="15"  
+                                   TextColor="DarkBlue"/>
+                            <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
-                                     Margin="0,0,0,0">
-                <Button Text="Working"  
-                        WidthRequest="80"  
-                        FontSize="11"  
-                        BackgroundColor="Chocolate"  
-                        TextColor="White"/>
-                <Button Text="Idle"  
-                        WidthRequest="80"  
-                        FontSize="11"  
-                        BackgroundColor="CornflowerBlue"  
-                        TextColor="DarkBlue"/>
-                 <Button Text="Absent"  
-                        WidthRequest="80"  
-                        FontSize="11"  
-                        BackgroundColor="LightCoral"  
-                        TextColor="Maroon"/>
-                <Button Text="Walking"  
-                        WidthRequest="80"  
-                        FontSize="11"  
-                        BackgroundColor="Chocolate"  
-                        TextColor="White"/>
-                <Button Text="On Break"  
-                        WidthRequest="80"  
-                        FontSize="11"  
-                        BackgroundColor="CornflowerBlue"  
-                        TextColor="DarkBlue"/>
-                <Button Text="Cleaning"  
-                        WidthRequest="80"  
-                        FontSize="11"  
-                        BackgroundColor="LightCoral"  
-                        TextColor="Maroon"/>
+                                     Margin="0,0,80,0">
+                                <Button Text="Working"  
+                                    WidthRequest="110"  
+                                    FontSize="15"  
+                                    BackgroundColor="Chocolate"  
+                                    TextColor="White"/>
+                                <Button Text="Waiting"  
+                                    WidthRequest="110"  
+                                    FontSize="15"  
+                                    BackgroundColor="CornflowerBlue"  
+                                    TextColor="DarkBlue"/>
+                                <Button Text="Absent"  
+                                    WidthRequest="110"  
+                                    FontSize="15"  
+                                    BackgroundColor="LightCoral"  
+                                    TextColor="Maroon"/>    
                             </StackLayout>
-            <StackLayout IsVisible="{Binding Isvisible}"  
+                            <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
-                                     Padding="0" Margin="0">
-                <Button Text="10" 
-                        WidthRequest="28" 
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="20"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="30"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="40"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="50"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="60"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="70"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="80"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="90"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                <Button Text="100"  
-                        WidthRequest="28"  
-                        FontSize="8"  
-                        BackgroundColor="WhiteSmoke"  
-                        TextColor="Black"/>
-                        </StackLayout>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-    <Button Text="Submit Study"  
+                                     Margin="0,0,80,0">
+               
+                                    <Button Text="Walking"  
+                                                            WidthRequest="110"  
+                                                            FontSize="15"  
+                                                            BackgroundColor="Chocolate"  
+                                                            TextColor="White"/>
+                                    <Button Text="On Break"  
+                                                            WidthRequest="110"  
+                                                            FontSize="15"  
+                                                            BackgroundColor="CornflowerBlue"  
+                                                            TextColor="DarkBlue"/>
+                                    <Button Text="Cleaning"  
+                                                            WidthRequest="110"  
+                                                            FontSize="15"  
+                                                            BackgroundColor="LightCoral"  
+                                                            TextColor="Maroon"/>
+            </StackLayout>
+                            <Label Text="Rating" IsVisible="{Binding Isvisible}" 
+                                FontSize="15"  
+                                TextColor="DarkBlue"/>
+                            <StackLayout IsVisible="{Binding Isvisible}"  
+                                     Orientation="Horizontal"  
+                                     Margin="0">
+                                <Button Text="10"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="20"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="30"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="40"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="50"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="60"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="70"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="80"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="90"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                                <Button Text="100"  
+                                    WidthRequest="28"  
+                                    FontSize="9"  
+                                    BackgroundColor="WhiteSmoke"  
+                                    TextColor="Black"/>
+                            </StackLayout>
+                         </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Submit Study"  
             WidthRequest="110"  
             FontSize="10"  
             BackgroundColor="WhiteSmoke"  
