@@ -21,6 +21,11 @@
                         <Label Text="{Binding Title}"  
                                FontSize="25"  
                                TextColor="Azure"/>
+                        <StackLayout IsVisible="{Binding Isvisible}">
+                                <Label Text="Activities"  
+                                   FontSize="25"  
+                                   TextColor="Azure"/>
+                        </StackLayout>
                         <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
                                      Margin="0,0,80,0">
@@ -39,8 +44,13 @@
                                     FontSize="15"  
                                     BackgroundColor="LightCoral"  
                                     TextColor="Maroon"/>
+                        </StackLayout >
+                        <StackLayout IsVisible="{Binding Isvisible}">
+                            <Label Text="Rating"  
+                                   FontSize="25"  
+                                   TextColor="Azure"/>
                         </StackLayout>
-                        <StackLayout IsVisible="{Binding Isvisible}"  
+                            <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
                                      Padding="0,0,0,0," Margin="0,0,0,0">
                             <Button Text="10"  
