@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"  
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:workStudy="clr-namespace:WorkStudy;assembly=WorkStudy"
@@ -9,6 +9,13 @@
         <workStudy:MainListView/>
     </ContentPage.BindingContext>
     <StackLayout>
+        <StackLayout Orientation="Horizontal">
+           <Label Text="Study Number"
+                                   FontSize="25"  
+                                   TextColor="Black"/>
+            <Label Text="{Binding StudyNumber}" FontSize="25"  
+                                   TextColor="Black"/>
+        </StackLayout>                                
         <ListView Margin="0,80"  
               ItemTapped="ListViewItem_Tabbed"  
               ItemsSource="{Binding Products}"  
@@ -129,6 +136,7 @@
             WidthRequest="110"  
             FontSize="10"  
             BackgroundColor="WhiteSmoke"  
-            TextColor="Black"/>
+            TextColor="Black"
+            Clicked="Submit_Clicked"/>
     </StackLayout>
 </ContentPage>  

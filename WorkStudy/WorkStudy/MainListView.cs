@@ -1,13 +1,33 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace WorkStudy
 {
-    public class MainListView
+    public class MainListView : INotifyPropertyChanged
     {
         private Product _oldProduct;
         public ObservableCollection<Product> Products { get; set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        protected void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        int studyNumber;
+        public int StudyNumber
+        {
+            get { return studyNumber; }
+            set
+            {
+                studyNumber = value;
+                OnPropertyChanged("StudyNumber");
+            }
+        }
+       
 
         public MainListView()
         {
@@ -66,6 +86,12 @@ namespace WorkStudy
             _oldProduct = product;
         }
 
+
+        public void UpdateStudyNumber()
+        {
+            StudyNumber = StudyNumber + 1;
+        }
+
         private void UpDateProducts(Product product)
         {
 
@@ -74,5 +100,7 @@ namespace WorkStudy
             Products.Insert(Index, product);
 
         }
+
+
     }
 }

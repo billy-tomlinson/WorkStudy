@@ -4,6 +4,12 @@ namespace WorkStudy
 {
     public partial class MainPage : ContentPage
     {
+        void Submit_Clicked(object sender, System.EventArgs e)
+        {
+            var vm = BindingContext as MainListView;
+            vm?.UpdateStudyNumber();
+        }
+
         public MainPage()
         {
             InitializeComponent();
@@ -14,6 +20,5 @@ namespace WorkStudy
             var vm = BindingContext as MainListView;
             vm?.ShoworHiddenProducts(product);
         }
-
     }
 }
