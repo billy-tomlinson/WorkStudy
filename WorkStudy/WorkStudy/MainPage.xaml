@@ -17,7 +17,7 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <StackLayout Padding="20">
+                    <StackLayout Padding="20" Orientation="Horizontal">
                         <Label Text="{Binding Title}"  
                                FontSize="25"  
                                TextColor="Azure"/>
@@ -42,12 +42,12 @@
                         </StackLayout>
                         <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
-                                     Padding="0">
+                                     Padding="0" Margin="0">
                             <Button Text="10"  
                                     WidthRequest="28"  
                                     FontSize="8"  
                                     BackgroundColor="WhiteSmoke"  
-                                    TextColor="Black"/>
+                                    TextColor="Black" VerticalOptions="StartAndExpand"/>
                             <Button Text="20"  
                                     WidthRequest="28"  
                                     FontSize="8"  
