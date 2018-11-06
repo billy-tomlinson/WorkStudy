@@ -17,16 +17,16 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="5">
+                        <StackLayout Padding="20">
                             <Label Text="{Binding Title}"  
                                FontSize="25"  
                                TextColor="Azure"/>
                             <Label Text="Activities"  IsVisible="{Binding Isvisible}"
                                    FontSize="15"  
-                                   TextColor="DarkBlue"/>
+                                   TextColor="White"/>
                             <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
-                                     Margin="0,0,80,0">
+                                     Margin="0,0,80,0" BackgroundColor="Gainsboro">
                                 <Button Text="Working"  
                                     WidthRequest="110"  
                                     FontSize="15"  
@@ -45,7 +45,7 @@
                             </StackLayout>
                             <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
-                                     Margin="0,0,80,0">
+                                     Margin="0,0,80,0" BackgroundColor="Gainsboro">
                
                                     <Button Text="Walking"  
                                                             WidthRequest="110"  
@@ -65,10 +65,10 @@
             </StackLayout>
                             <Label Text="Rating" IsVisible="{Binding Isvisible}" 
                                 FontSize="15"  
-                                TextColor="DarkBlue"/>
+                                TextColor="White"/>
                             <StackLayout IsVisible="{Binding Isvisible}"  
                                      Orientation="Horizontal"  
-                                     Margin="0">
+                                     Margin="0" BackgroundColor="Gainsboro">
                                 <Button Text="10"  
                                     WidthRequest="28"  
                                     FontSize="9"  
