@@ -26,7 +26,7 @@ namespace WorkStudy
 
         async void Navigate()
         {
-            await System.Threading.Tasks.Task.Delay(2000);
+            //await System.Threading.Tasks.Task.Delay(2000);
             await Navigation.PushAsync(new MainPage());
         }
     }
