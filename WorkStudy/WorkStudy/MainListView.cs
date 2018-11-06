@@ -17,7 +17,7 @@ namespace WorkStudy
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        int studyNumber;
+        static int studyNumber;
         public int StudyNumber
         {
             get { return studyNumber; }
@@ -28,7 +28,6 @@ namespace WorkStudy
             }
         }
        
-
         public MainListView()
         {
             Products = new ObservableCollection<Product>
@@ -36,27 +35,31 @@ namespace WorkStudy
                 new Product
                 {
                     Title = "John The Welder",
-
+                    Observed = "",
                     Isvisible = false
                 },
                 new Product
                 {
                     Title = "Adam The Riveter",
+                    Observed = "",
                     Isvisible = false
                 },
                 new Product
                 {
                     Title = "Paul the Polisher",
+                    Observed = "",
                     Isvisible = false
                 },
                 new Product
                 {
                     Title = "Jake The Painter",
+                    Observed = "",
                     Isvisible = false
                 },
                 new Product
                 {
                     Title = "Sarah the Packer",
+                    Observed = "",
                     Isvisible = false
                 }
             };
@@ -68,6 +71,7 @@ namespace WorkStudy
             if (_oldProduct == product)
             {
                 product.Isvisible = !product.Isvisible;
+                product.Observed = "OBSERVED";
                 UpDateProducts(product);
             }
             else
@@ -75,11 +79,13 @@ namespace WorkStudy
                 if (_oldProduct != null)
                 {
                     _oldProduct.Isvisible = false;
+                    _oldProduct.Observed = "OBSERVED";
                     UpDateProducts(_oldProduct);
 
                 }
 
                 product.Isvisible = true;
+                product.Observed = "";
                 UpDateProducts(product);
             }
 
