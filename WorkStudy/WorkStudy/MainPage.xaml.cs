@@ -12,6 +12,12 @@ namespace WorkStudy
             vm?.UpdateStudyNumber();
         }
 
+        void End_Clicked(object sender, System.EventArgs e)
+        {
+
+            NavigateToReports();
+        }
+
         public MainPage()
         {
             InitializeComponent();
@@ -26,8 +32,13 @@ namespace WorkStudy
 
         async void Navigate()
         {
-            //await System.Threading.Tasks.Task.Delay(2000);
             await Navigation.PushAsync(new MainPage());
+        }
+
+        async void NavigateToReports()
+        {
+            await System.Threading.Tasks.Task.Delay(1000);
+            await Navigation.PushAsync(new ReportsPage());
         }
     }
 }

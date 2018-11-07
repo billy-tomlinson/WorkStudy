@@ -144,11 +144,21 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackLayout>
         <Button Text="Submit Study"  
             WidthRequest="110"  
             FontSize="10"  
             BackgroundColor="WhiteSmoke"  
             TextColor="Black"
             Clicked="Submit_Clicked"/>
+            </StackLayout>
+        <StackLayout>
+        <Button Text="End Study"  
+            WidthRequest="110"  
+            FontSize="10"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"
+            Clicked="End_Clicked"/>
+            </StackLayout>
     </StackLayout>
 </ContentPage>  

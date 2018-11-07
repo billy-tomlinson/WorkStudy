@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.ReportsPage">
+    <ContentPage.Content>
+        <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Analysis Reports" FontSize="40"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <Button Text="Top Level Stats"  
+            WidthRequest="300"  
+            FontSize="15"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"
+            Clicked="Submit_Clicked"/>
+             <Button Text="Individual Stats"
+            FontSize="15"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"
+            Clicked="Submit_Clicked"/>
+             <Button Text="BreakDown Report"  
+            WidthRequest="110"  
+            FontSize="15"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"
+            Clicked="Submit_Clicked"/>
+             <Button Text="Tailored Report"  
+            WidthRequest="110"  
+            FontSize="15"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"
+            Clicked="Submit_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

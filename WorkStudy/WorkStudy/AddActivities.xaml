@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.AddActivities">
+    <ContentPage.Content>
+         <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 1" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 2" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 3" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 4" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 5" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 6" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Acitivity 7" FontSize="25"  
+                                    TextColor="Black"/>
+            <Entry WidthRequest="200" FontSize="25"  
+                                    TextColor="Black"/>
+        </StackLayout>
+        <Button Text="Submit Activities"  
+            WidthRequest="110"  
+            FontSize="15"  
+            BackgroundColor="WhiteSmoke"  
+            TextColor="Black"
+            Clicked="Submit_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
