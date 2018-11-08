@@ -4,10 +4,11 @@
              x:Class="WorkStudy.WelcomePage">
     <StackLayout Padding="10" Spacing="10" CompressedLayout.IsHeadless="true" VerticalOptions="Center"  BackgroundColor="Transparent">
         <Label Text="Welcome to Tye Management Services!" VerticalOptions="Center"
-               HorizontalOptions="Center" TextColor="Black" XAlign="Center" />
+               HorizontalOptions="Center" TextColor="Black" XAlign="Center" FontSize="20"/>
         <Label Text="Work Study for the Professionals"
                VerticalOptions="Center" HorizontalOptions="Center"
-               TextColor="Black" XAlign="Center" />
+               TextColor="Black" XAlign="Center" FontSize="20" />
+        <Image x:Name="timeStudy" HeightRequest="400" WidthRequest="400"></Image>
         <ActivityIndicator x:Name="activityInd" IsVisible="true"
                            IsRunning="true" />
     </StackLayout>
