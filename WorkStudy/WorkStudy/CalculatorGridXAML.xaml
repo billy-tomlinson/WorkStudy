@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.CalculatorGridXAML">
+        <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="plainButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#eee"/>
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="FontSize" Value="40" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Text = "80" Grid.Row="0" Grid.Column="0"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "90" Grid.Row="0" Grid.Column="1"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "100" Grid.Row="0" Grid.Column="2"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "110" Grid.Row="0" Grid.Column="3"
+        Style="{StaticResource plainButton}" />
+            
+
+            <Button Text = "40" Grid.Row="1" Grid.Column="0"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "50" Grid.Row="1" Grid.Column="1"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "60" Grid.Row="1" Grid.Column="2"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "70" Grid.Row="1" Grid.Column="3"
+        Style="{StaticResource plainButton}" />
+
+            <Button Text = "0" Grid.Row="2" Grid.Column="0"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "10" Grid.Row="2" Grid.Column="1"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "20" Grid.Row="2" Grid.Column="2"
+        Style="{StaticResource plainButton}" />
+            <Button Text = "30" Grid.Row="2" Grid.Column="3"
+        Style="{StaticResource plainButton}" />
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -8,6 +8,7 @@ namespace WorkStudy
         public AddOperators()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void Submit_Clicked(object sender, System.EventArgs e)

@@ -10,6 +10,7 @@ namespace WorkStudy
         public StudyStartPAge()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void Submit_Clicked(object sender, System.EventArgs e)
@@ -21,6 +22,11 @@ namespace WorkStudy
         {
             await System.Threading.Tasks.Task.Delay(1000);
             await Navigation.PushAsync(new MainPage());
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

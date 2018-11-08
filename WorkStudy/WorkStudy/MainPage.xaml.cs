@@ -6,10 +6,22 @@ namespace WorkStudy
     {
         void Submit_Clicked(object sender, System.EventArgs e)
         {
+            
             var vm = BindingContext as MainListView;
-
-            Navigate();
             vm?.UpdateStudyNumber();
+            Navigate();
+        }
+
+
+        void Activity_Clicked(object sender, System.EventArgs e)
+        {
+            ratingView.IsVisible = true;
+        }
+
+
+        void Rating_Clicked(object sender, System.EventArgs e)
+        {
+            ratingView.IsVisible = false;
         }
 
         void End_Clicked(object sender, System.EventArgs e)
@@ -21,6 +33,7 @@ namespace WorkStudy
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void ListViewItem_Tabbed(object sender, ItemTappedEventArgs e)
@@ -39,6 +52,11 @@ namespace WorkStudy
         {
             await System.Threading.Tasks.Task.Delay(1000);
             await Navigation.PushAsync(new ReportsPage());
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

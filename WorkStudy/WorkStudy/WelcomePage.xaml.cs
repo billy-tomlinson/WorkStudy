@@ -9,6 +9,7 @@ namespace WorkStudy
 		public WelcomePage ()
 		{
 			InitializeComponent ();
+            NavigationPage.SetHasNavigationBar(this, false);
 		    Navigate();
         }
 
@@ -17,5 +18,10 @@ namespace WorkStudy
 	        await System.Threading.Tasks.Task.Delay(2000);
 	        await Navigation.PushAsync(new AddOperators());
 	    }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
