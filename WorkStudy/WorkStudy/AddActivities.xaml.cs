@@ -21,5 +21,10 @@ namespace WorkStudy
             await System.Threading.Tasks.Task.Delay(1000);
             await Navigation.PushAsync(new StudyStartPAge());
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
