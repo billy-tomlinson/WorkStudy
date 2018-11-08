@@ -11,8 +11,6 @@ namespace WorkStudy
         {
             InitializeComponent();
             List<string> items = new List<string> { "Xamarin.Forms", "Xamarin.iOS", "Xamarin.Android", "Xamarin Monkeys" };
-            //imgMonkey.Source = ImageSource.FromResource("XamarinCustomPopup.images.monkey-MVP.png");
-            //imgPopup.Source = ImageSource.FromResource("XamarinCustomPopup.images.xammonkey.png");
             sampleList.ItemsSource = items;
         }
 

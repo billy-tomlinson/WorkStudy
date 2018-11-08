@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.AddActivities">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="plainButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Gray" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
+            <Style x:Key="plainLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
+            <Style x:Key="plainEntry" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-         <StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 1" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 2" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 3" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 4" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 5" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 6" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Acitivity 7" FontSize="25"  
-                                    TextColor="Black"/>
-            <Entry WidthRequest="200" FontSize="25"  
-                                    TextColor="Black"/>
-        </StackLayout>
-        <Button Text="Submit Activities"  
-            WidthRequest="110"  
-            FontSize="15"  
-            BackgroundColor="WhiteSmoke"  
-            TextColor="Black"
-            Clicked="Submit_Clicked"/>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 1" Style="{StaticResource plainLabel}" />
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 2" Style="{StaticResource plainLabel}"/>
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 3" Style="{StaticResource plainLabel}" />
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 4" Style="{StaticResource plainLabel}" />
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 5" Style="{StaticResource plainLabel}" />
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 6" Style="{StaticResource plainLabel}" />
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Acitivity 7" Style="{StaticResource plainLabel}" />
+                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
+            </StackLayout>
+            <Button Text="Submit Activities" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -12,7 +12,7 @@ namespace WorkStudy
             InitializeComponent();
 
             MainPage = new NavigationPage(new WelcomePage());
-            //MainPage = new WelcomePage();
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()

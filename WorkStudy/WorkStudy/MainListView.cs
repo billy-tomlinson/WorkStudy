@@ -61,6 +61,30 @@ namespace WorkStudy
                     Title = "Sarah the Packer",
                     Observed = "",
                     Isvisible = false
+                },
+                new Product
+                {
+                    Title = "Julie the Stacker",
+                    Observed = "",
+                    Isvisible = false
+                },
+                new Product
+                {
+                    Title = "Ted the Driver",
+                    Observed = "",
+                    Isvisible = false
+                },
+                new Product
+                {
+                    Title = "Philip the Broom",
+                    Observed = "",
+                    Isvisible = false
+                },
+                new Product
+                {
+                    Title = "Colin the Stamper",
+                    Observed = "",
+                    Isvisible = false
                 }
             };
 

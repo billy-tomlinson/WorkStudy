@@ -5,6 +5,7 @@ namespace WorkStudy
     public partial class MainPage : ContentPage
     {
         static Product product;
+        static string Name;
 
         void Submit_Clicked(object sender, System.EventArgs e)
         {
@@ -17,6 +18,7 @@ namespace WorkStudy
 
         void Activity_Clicked(object sender, System.EventArgs e)
         {
+            activityView.IsVisible = false;
             ratingView.IsVisible = true;
         }
 
@@ -43,7 +45,10 @@ namespace WorkStudy
         private void ListViewItem_Tabbed(object sender, ItemTappedEventArgs e)
         {
             product = e.Item as Product;
+            Name = product.Title;
             var vm = BindingContext as MainListView;
+            displayNameEntry.Text = Name;
+            activityView.IsVisible = true;
             vm?.ShoworHiddenProducts(product);
         }
 

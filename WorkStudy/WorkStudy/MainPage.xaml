@@ -8,6 +8,17 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
+            <Style x:Key="activityButton" TargetType="Button">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="WidthRequest" Value="112" />
+            </Style>
+            <Style x:Key="plainLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.BindingContext>
@@ -16,8 +27,8 @@
     <ContentPage.Content>
         <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout>
-                <StackLayout Orientation="Horizontal" Padding="2,2,2,2" >
-                    <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start"/>
+                <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
+                    <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
                     <Label Text="{Binding StudyNumber}" FontSize="20" TextColor="Black" />
                 </StackLayout>
                 <ListView Margin="0,10" ItemTapped="ListViewItem_Tabbed" ItemsSource="{Binding Products}" HasUnevenRows="True" BackgroundColor="Gray" HeightRequest="450">
@@ -29,7 +40,7 @@
                                         <Label Text="{Binding Title}" FontSize="25" TextColor="Azure" />
                                         <Label Text="{Binding Observed}" FontSize="10" TextColor="Azure" />
                                     </StackLayout>
-                                    <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="White" />
+                                   <!-- <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="White" />
                                     <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,80,0" BackgroundColor="Gainsboro">
                                         <Button Text="Working" WidthRequest="110" FontSize="15" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
                                         <Button Text="Waiting" WidthRequest="110" FontSize="15" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
@@ -39,7 +50,7 @@
                                         <Button Text="Walking" WidthRequest="110" FontSize="15" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
                                         <Button Text="On Break" WidthRequest="110" FontSize="15" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
                                         <Button Text="Cleaning" WidthRequest="110" FontSize="15" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
-                                    </StackLayout>
+                                    </StackLayout>-->
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
@@ -80,6 +91,29 @@
                             <Button Text="20" Grid.Row="2" Grid.Column="2" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
                             <Button Text="30" Grid.Row="2" Grid.Column="3" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
                         </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+            <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
+                        <Label x:Name="displayNameEntry" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
+                        <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
+                        <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
+                            <Button Text="Working" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
+                            <Button Text="Waiting" Style="{StaticResource activityButton}" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
+                            <Button Text="Absent" Style="{StaticResource activityButton}" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
+                        </StackLayout>
+                        <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
+                            <Button Text="Walking" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
+                            <Button Text="On Break" Style="{StaticResource activityButton}" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
+                            <Button Text="Cleaning" Style="{StaticResource activityButton}" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
+                        </StackLayout>
+                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
+                            <Button Text="Paper Work" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
+                            <Button Text="Training" Style="{StaticResource activityButton}" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
+                            <Button Text="Delays" Style="{StaticResource activityButton}" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </ContentView>
