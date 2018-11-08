@@ -3,24 +3,27 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="Gray" />
+                <Setter Property="BackgroundColor" Value="#E8AD00" />
                 <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="20" />
             </Style>
             <Style x:Key="plainLabel" TargetType="Label">
                 <Setter Property="BackgroundColor" Value="#eee" />
                 <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="20" />
             </Style>
             <Style x:Key="plainEntry" TargetType="Entry">
                 <Setter Property="BackgroundColor" Value="#eee" />
                 <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="20" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10" Margin="10" BackgroundColor="Transparent">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="List Of Operators" Style="{StaticResource plainLabel}" HorizontalOptions="Center" />
+            </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Operator 1" Style="{StaticResource plainLabel}" />
                 <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
@@ -49,7 +52,7 @@
                 <Label Text="Operator 7" Style="{StaticResource plainLabel}" />
                 <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
             </StackLayout>
-            <Button Text="Submit Operators" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
+            <Button Text="Submit Operators" Style="{StaticResource plainButton}" WidthRequest="200" Clicked="Submit_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

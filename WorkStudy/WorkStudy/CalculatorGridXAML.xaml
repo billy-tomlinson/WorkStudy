@@ -3,7 +3,7 @@
         <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#eee"/>
+                <Setter Property="BackgroundColor" Value="#E8AD00"/>
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BorderRadius" Value="0"/>
                 <Setter Property="FontSize" Value="40" />

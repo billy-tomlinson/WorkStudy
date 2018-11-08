@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy;assembly=WorkStudy" x:Class="WorkStudy.MainPage" BackgroundColor="Bisque">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy;assembly=WorkStudy" x:Class="WorkStudy.MainPage" BackgroundColor="Transparent">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -25,8 +25,8 @@
         <workStudy:MainListView />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  BackgroundColor="Transparent">
+            <StackLayout  BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
                     <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
                     <Label Text="{Binding StudyNumber}" FontSize="20" TextColor="Black" />
@@ -57,14 +57,14 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackLayout>
-                    <Button Text="Submit Study" WidthRequest="110" FontSize="10" BackgroundColor="WhiteSmoke" TextColor="Black" Clicked="Submit_Clicked" />
+                    <Button Text="Submit Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit_Clicked" />
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="End Study" WidthRequest="110" FontSize="10" BackgroundColor="WhiteSmoke" TextColor="Black" Clicked="End_Clicked" />
+                    <Button Text="End Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="End_Clicked" />
                 </StackLayout>
             </StackLayout>
             <ContentView x:Name="ratingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
                     <StackLayout Orientation="Vertical" HeightRequest="170" WidthRequest="300" BackgroundColor="White">
                         <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1">
                             <Grid.RowDefinitions>
