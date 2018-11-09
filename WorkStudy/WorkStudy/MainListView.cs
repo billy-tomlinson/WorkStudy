@@ -17,7 +17,7 @@ namespace WorkStudy
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        static int studyNumber;
+        static int studyNumber = 1;
         public int StudyNumber
         {
             get { return studyNumber; }
