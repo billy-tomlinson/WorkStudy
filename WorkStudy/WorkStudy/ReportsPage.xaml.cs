@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 using Xamarin.Forms;
 
 namespace WorkStudy
@@ -10,12 +8,18 @@ namespace WorkStudy
         public ReportsPage()
         {
             InitializeComponent();
+            chart.Source = ImageSource.FromFile("chart.png");
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void Submit_Clicked(object sender, System.EventArgs e)
         {
-            DisplayAlert("Alert", "Some Riveting Report or Other", "OK");
+            chartView.IsVisible = true;
+        }
+
+        void Ok_Clicked(object sender, System.EventArgs e)
+        {
+            chartView.IsVisible = false;
         }
 
         protected override bool OnBackButtonPressed()

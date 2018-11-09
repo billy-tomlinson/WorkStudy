@@ -11,8 +11,8 @@ namespace WorkStudy
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new WelcomePage());
-            //MainPage = new MainPage();
+            //MainPage = new NavigationPage(new WelcomePage());
+            MainPage = new ReportsPage();
         }
 
         protected override void OnStart()
