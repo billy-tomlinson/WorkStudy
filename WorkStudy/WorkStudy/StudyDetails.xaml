@@ -33,9 +33,9 @@
                 <Label Text="Department" Style="{StaticResource plainLabel}" />
                 <Entry WidthRequest="150" Style="{StaticResource plainEntry}" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+             <StackLayout Orientation="Horizontal">
                 <Label Text="Date" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" />
+                <DatePicker WidthRequest="150"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Studied By" Style="{StaticResource plainLabel}" />
