@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="MasterPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="WelcomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -25,5 +28,17 @@
     <Compile Remove="ActivitySampleStudyRepository.cs" />
     <Compile Remove="IActivitySampleStudyRepository.cs" />
     <Compile Remove="DatabaseHelper.cs" />
+    <Compile Remove="MasterPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MasterPage1.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MasterPage.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NavigationItem.xaml" />
   </ItemGroup>
 </Project>

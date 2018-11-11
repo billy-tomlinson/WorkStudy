@@ -12,7 +12,14 @@ namespace WorkStudy
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new WelcomePage());
+            //MainPage = new NavigationPage(new WelcomePage());
+
+            MainPage = new MasterDetailPage()
+            {
+                Master = new MasterPage1() { Title = "Main Page" },
+                Detail = new NavigationPage(new WelcomePage())
+            };
+
 
             DatabasePath = databasePath;
         }
