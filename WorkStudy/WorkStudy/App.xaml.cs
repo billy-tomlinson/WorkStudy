@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -7,6 +6,17 @@ namespace WorkStudy
 {
     public partial class App : Application
     {
+
+        public static string DatabasePath = string.Empty;
+        public App(string databasePath)
+        {
+            InitializeComponent();
+
+            MainPage = new NavigationPage(new WelcomePage());
+
+            DatabasePath = databasePath;
+        }
+
         public App()
         {
             InitializeComponent();

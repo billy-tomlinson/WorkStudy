@@ -3,7 +3,7 @@ using Xamarin.Forms.Xaml;
 
 namespace WorkStudy
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class WelcomePage : ContentPage
 	{
 		public WelcomePage ()
@@ -11,7 +11,9 @@ namespace WorkStudy
 			InitializeComponent ();
             timeStudy.Source = ImageSource.FromFile("stopwatch.png");
             NavigationPage.SetHasNavigationBar(this, false);
+
 		    Navigate();
+
         }
 
 	    async void Navigate()

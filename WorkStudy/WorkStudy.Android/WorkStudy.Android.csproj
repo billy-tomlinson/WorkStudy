@@ -63,6 +63,9 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="25.4.0.2" />
     <PackageReference Include="Xamarin.Essentials" Version="0.6.0-preview" />
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.5.231</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

@@ -12,11 +12,18 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.550168-pre3" />
     <PackageReference Include="Xamarin.Essentials" Version="0.6.0-preview" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="WelcomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ActivitySampleDatabase.cs" />
+    <Compile Remove="ActivitySampleStudyRepository.cs" />
+    <Compile Remove="IActivitySampleStudyRepository.cs" />
+    <Compile Remove="DatabaseHelper.cs" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 
 using Foundation;
 using UIKit;
@@ -23,7 +21,11 @@ namespace WorkStudy.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+
+            string dbName = "WorkStudy.db3";
+            string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
+            string dbPath = Path.Combine(folderPath, dbName);
+            LoadApplication(new App(dbPath));
 
             return base.FinishedLaunching(app, options);
         }
