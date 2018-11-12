@@ -12,9 +12,9 @@
             <Grid>
             </Grid>
             <StackLayout Margin="20,20,20,0" Grid.Row="1" Spacing="15">
-                <local:NavigationItem Text="Page One" Icon="fa-archive" Command="{Binding NavigationCommand}" CommandParameter="1" />
+                <local:NavigationItem Text="Edit Activities" Icon="fa-archive" Command="{Binding NavigationCommand}" CommandParameter="1" />
                 <ContentView HeightRequest="1" BackgroundColor="Gray" />
-                <local:NavigationItem Text="Page Two" Icon="fa-cog" Command="{Binding NavigationCommand}" CommandParameter="2" />
+                <local:NavigationItem Text="Edit Operators" Icon="fa-cog" Command="{Binding NavigationCommand}" CommandParameter="2" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

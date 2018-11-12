@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SQLite;
 using Xamarin.Forms;
+using WorkStudy.Model;
 
 namespace WorkStudy
 {
