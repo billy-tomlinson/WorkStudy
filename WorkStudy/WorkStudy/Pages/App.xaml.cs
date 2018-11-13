@@ -7,8 +7,9 @@ namespace WorkStudy
 {
     public partial class App : Application
     {
-
         public static string DatabasePath = string.Empty;
+        public App(){ }
+
         public App(string databasePath)
         {
             InitializeComponent();

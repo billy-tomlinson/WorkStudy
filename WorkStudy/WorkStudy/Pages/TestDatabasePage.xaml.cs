@@ -10,12 +10,14 @@ namespace WorkStudy.Pages
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
         private readonly IBaseRepository<Operator> operatorRepo;
+        private readonly IBaseRepository<Observation> observationRepo;
         public TestDatabasePage()
         {
             InitializeComponent();
             sampleRepo = new BaseRepository<ActivitySampleStudy>(App.DatabasePath);
             activityRepo = new BaseRepository<Activity>(App.DatabasePath);
             operatorRepo = new BaseRepository<Operator>(App.DatabasePath);
+            observationRepo = new BaseRepository<Observation>(App.DatabasePath);
         }
 
         void Submit_Clicked(object sender, System.EventArgs e)
@@ -50,6 +52,16 @@ namespace WorkStudy.Pages
             GetOperators();
         }
 
+        void Submit6_Clicked(object sender, System.EventArgs e)
+        {
+            AddAndRetrieveObservation();
+        }
+
+        void Submit7_Clicked(object sender, System.EventArgs e)
+        {
+            GetObservations();
+        }
+
         public void AddAndRetrieveActivitySample()
         {
             var activityStudy = new ActivitySampleStudy()
@@ -71,8 +83,8 @@ namespace WorkStudy.Pages
 
         public void GetActivitySamples()
         {
-            var studies = sampleRepo.GetItems();
-            TotalStudies.Text = studies.Count.ToString();
+            var list = sampleRepo.GetItems();
+            TotalStudies.Text = list.Count.ToString();
         }
 
         public void AddAndRetrieveActivity()
@@ -93,8 +105,8 @@ namespace WorkStudy.Pages
 
         public void GetActivities()
         {
-            var studies = activityRepo.GetItems();
-            TotalActivities.Text = studies.Count.ToString();
+            var list = activityRepo.GetItems();
+            TotalActivities.Text = list.Count.ToString();
         }
 
         public void AddAndRetrieveOperator()
@@ -114,8 +126,30 @@ namespace WorkStudy.Pages
 
         public void GetOperators()
         {
-            var operatorsList = operatorRepo.GetItems();
-            TotalOperators.Text = operatorsList.Count.ToString();
+            var list = operatorRepo.GetItems();
+            TotalOperators.Text = list.Count.ToString();
+        }
+
+        public void AddAndRetrieveObservation()
+        {
+            var observation = new Observation()
+            {
+                Activity = 1,
+                Date = DateTime.Now,
+                OperatorId = 1,
+                Rating = 65
+            };
+
+            var id = observationRepo.SaveItem(observation);
+
+            var value = observationRepo.GetItem(id);
+            ObservationId.Text = value.Id.ToString();
+        }
+
+        public void GetObservations()
+        {
+            var list = observationRepo.GetItems();
+            TotalObservations.Text = list.Count.ToString();
         }
     }
 }

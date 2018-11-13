@@ -70,7 +70,6 @@
     <None Include="NavigationItem.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Pages\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

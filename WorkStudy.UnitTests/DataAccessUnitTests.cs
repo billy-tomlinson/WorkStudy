@@ -16,11 +16,13 @@ namespace WorkStudy.UnitTests
             private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
             private readonly IBaseRepository<Activity> activityRepo;
             private readonly IBaseRepository<Operator> operatorRepo;
+            private readonly IBaseRepository<Observation> observationRepo;
             public DataAccessTests()
             {
                 sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
                 activityRepo = new BaseRepository<Activity>(connString);
                 operatorRepo = new BaseRepository<Operator>(connString);
+                observationRepo = new BaseRepository<Observation>(connString);
             }
 
 
@@ -139,6 +141,31 @@ namespace WorkStudy.UnitTests
             {
                 var operatorsList = operatorRepo.GetItems();
                 Assert.IsTrue(operatorsList.Count > 0);
+            }
+
+            [TestMethod]
+            public void AddAndRetrieveObservation()
+            {
+                var observation = new Observation()
+                {
+                   Activity = 1,
+                   Date = DateTime.Now,
+                   OperatorId = 1,
+                   Rating = 85
+                };
+
+                var id = observationRepo.SaveItem(observation);
+
+                var value = observationRepo.GetItem(id);
+                Assert.AreEqual(id, value.Id);
+                Assert.AreEqual(value.Rating, observation.Rating);
+            }
+
+            [TestMethod]
+            public void GetObservations()
+            {
+                var observationsList = observationRepo.GetItems();
+                Assert.IsTrue(observationsList.Count > 0);
             }
         }
     }
