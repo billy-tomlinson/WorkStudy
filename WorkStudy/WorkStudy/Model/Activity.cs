@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using SQLite;
 
 namespace WorkStudy.Model
@@ -11,6 +10,6 @@ namespace WorkStudy.Model
         public string Comment { get; set; }
         public bool IsEnabled { get; set; }
         public int? MergedActivities { get; set; }
-        public DateTime Date { get; internal set; }
+        public DateTime Date { get; set; }
     }
 }
