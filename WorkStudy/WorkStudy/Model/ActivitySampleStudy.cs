@@ -4,10 +4,8 @@ using SQLite;
 namespace WorkStudy.Model
 {
     [Table("ActivitySampleStudy")] 
-    public class ActivitySampleStudy
+    public class ActivitySampleStudy : BaseEntity
     {     
-        [PrimaryKey, AutoIncrement]  
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }
         public string StudiedBy { get; set; }
