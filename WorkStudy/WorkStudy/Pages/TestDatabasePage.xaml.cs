@@ -60,7 +60,7 @@ namespace WorkStudy.Pages
             };
 
 
-            var id = service.AddActivitySampleStudy(activityStudy);
+            var id = service.Add(activityStudy);
 
             var sample = service.GetActivitySampleStudyById(id);
             StudyId.Text = sample.Id.ToString();
@@ -68,7 +68,7 @@ namespace WorkStudy.Pages
 
         public void GetActivitySamples()
         {
-            var studies = service.GetAllActivitySampleStudies();
+            var studies = service.GetAll<ActivitySampleStudy>();
             TotalStudies.Text = studies.Count.ToString();
         }
 
@@ -82,7 +82,7 @@ namespace WorkStudy.Pages
                 IsEnabled = true
             };
 
-            var id = service.AddActivity(activity);
+            var id = service.Add(activity);
 
             var value = service.GetActivityById(id);
             ActivityId.Text = value.Id.ToString();
@@ -90,7 +90,7 @@ namespace WorkStudy.Pages
 
         public void GetActivities()
         {
-            var studies = service.GetAllActivities();
+            var studies = service.GetAll<Activity>();
             TotalActivities.Text = studies.Count.ToString();
         }
 
@@ -103,7 +103,7 @@ namespace WorkStudy.Pages
                 LinkedActivitiesId = 1
             };
 
-            var id = service.AddOperator(operator1);
+            var id = service.Add(operator1);
 
             var value = service.GetOperatorById(id);
             OperatorId.Text = value.Id.ToString();
@@ -111,7 +111,7 @@ namespace WorkStudy.Pages
 
         public void GetOperators()
         {
-            var operatorsList = service.GetAllOperators();
+            var operatorsList = service.GetAll<Operator>();
             TotalOperators.Text = operatorsList.Count.ToString();
         }
     }

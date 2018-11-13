@@ -18,18 +18,17 @@ namespace WorkStudy.Services
             connection = new SQLiteConnection(connectionString);
         }
 
-        public int  AddActivitySampleStudy(ActivitySampleStudy value)
+        public int Add<T>(T value)
         {
-
-            connection.CreateTable<ActivitySampleStudy>();
+            connection.CreateTable<T>();
             connection.Insert(value);
             return GetId();
         }
 
-        public List<ActivitySampleStudy> GetAllActivitySampleStudies()
+        public List<T> GetAll<T>() where T : new()
         {
-            connection.CreateTable<ActivitySampleStudy>();
-            List<ActivitySampleStudy> values = connection.Table<ActivitySampleStudy>().ToList();
+            connection.CreateTable<T>();
+            List<T> values = connection.Table<T>().ToList();
             return values;
         }
 
@@ -40,39 +39,11 @@ namespace WorkStudy.Services
             return value;
         }
 
-        public int AddActivity(Activity value)
-        {
-            connection.CreateTable<Activity>();
-            connection.Insert(value);
-            return GetId();
-        }
-
-        public List<Activity> GetAllActivities()
-        {
-            connection.CreateTable<Activity>();
-            List<Activity> values = connection.Table<Activity>().ToList();
-            return values;
-        }
-
         public Activity GetActivityById(int id)
         {
             connection.CreateTable<Activity>();
             var value = connection.Table<Activity>().Where(_ => _.Id == id).FirstOrDefault();
             return value;
-        }
-
-        public int AddOperator(Operator value)
-        {
-            connection.CreateTable<Operator>();
-            var Id = connection.Insert(value);
-            return GetId();
-        }
-
-        public List<Operator> GetAllOperators()
-        {
-            connection.CreateTable<Operator>();
-            List<Operator> values = connection.Table<Operator>().ToList();
-            return values;
         }
 
         public Operator GetOperatorById(int id)
