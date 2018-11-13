@@ -5,7 +5,7 @@
             <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal">
                     <Label x:Name="StudyId" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
-                    <Button Text="Add Study" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit_Clicked" />-->
+                    <Button Text="Add Study" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit_Clicked" />
                 </StackLayout>
             </StackLayout>
             <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
