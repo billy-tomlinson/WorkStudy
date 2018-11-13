@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.Pages.TestDatabasePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="StudyId" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Add Study" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit_Clicked" />
+            </StackLayout>
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalStudies" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Get Studies" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit1_Clicked" />
+            </StackLayout>
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="ActivityId" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Add Activity" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit2_Clicked" />
+            </StackLayout>
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalActivities" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Get Activities" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit3_Clicked" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

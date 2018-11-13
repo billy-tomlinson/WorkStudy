@@ -14,6 +14,7 @@ namespace WorkStudy.Model
         public DateTime Date { get; set; }
         public int StudyNumber { get; set; }
         public bool IsRated { get; set; }
+        public bool Completed { get; set; }
 
     }
 }
