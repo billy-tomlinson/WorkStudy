@@ -26,6 +26,19 @@
                 </StackLayout>
                 <Button Text="Get Activities" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit3_Clicked" />
             </StackLayout>
+
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="OperatorId" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Add Operator" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit4_Clicked" />
+            </StackLayout>
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalOperators" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Get Operators" WidthRequest="110" FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit5_Clicked" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

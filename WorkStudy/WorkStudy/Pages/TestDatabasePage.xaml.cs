@@ -37,6 +37,16 @@ namespace WorkStudy.Pages
             GetActivities();
         }
 
+        void Submit4_Clicked(object sender, System.EventArgs e)
+        {
+            AddAndRetrieveOperator();
+        }
+
+        void Submit5_Clicked(object sender, System.EventArgs e)
+        {
+            GetOperators();
+        }
+
         public void AddAndRetrieveActivitySample()
         {
             var activityStudy = new ActivitySampleStudy()
@@ -58,9 +68,7 @@ namespace WorkStudy.Pages
 
         public void GetActivitySamples()
         {
-           
             var studies = service.GetAllActivitySampleStudies();
-
             TotalStudies.Text = studies.Count.ToString();
         }
 
@@ -82,10 +90,29 @@ namespace WorkStudy.Pages
 
         public void GetActivities()
         {
-
             var studies = service.GetAllActivities();
-
             TotalActivities.Text = studies.Count.ToString();
+        }
+
+        public void AddAndRetrieveOperator()
+        {
+            var operator1 = new Operator()
+            {
+                Name = "Activity One",
+                StudyId = 1,
+                LinkedActivitiesId = 1
+            };
+
+            var id = service.AddOperator(operator1);
+
+            var value = service.GetOperatorById(id);
+            OperatorId.Text = value.Id.ToString();
+        }
+
+        public void GetOperators()
+        {
+            var operatorsList = service.GetAllOperators();
+            TotalOperators.Text = operatorsList.Count.ToString();
         }
     }
 }
