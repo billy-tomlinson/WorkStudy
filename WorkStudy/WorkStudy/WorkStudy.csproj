@@ -73,6 +73,5 @@
     <Folder Include="Model\" />
     <Folder Include="Pages\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -8,11 +7,15 @@ namespace WorkStudy.Pages
 {
     public partial class TestDatabasePage : ContentPage
     {
-        DataAccessService service;
+        private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
+        private readonly IBaseRepository<Activity> activityRepo;
+        private readonly IBaseRepository<Operator> operatorRepo;
         public TestDatabasePage()
         {
             InitializeComponent();
-            service = new DataAccessService();
+            sampleRepo = new BaseRepository<ActivitySampleStudy>(App.DatabasePath);
+            activityRepo = new BaseRepository<Activity>(App.DatabasePath);
+            operatorRepo = new BaseRepository<Operator>(App.DatabasePath);
         }
 
         void Submit_Clicked(object sender, System.EventArgs e)
@@ -60,15 +63,15 @@ namespace WorkStudy.Pages
             };
 
 
-            var id = service.Add(activityStudy);
+            var id = sampleRepo.SaveItem(activityStudy);
 
-            var sample = service.GetActivitySampleStudyById(id);
+            var sample = sampleRepo.GetItem(id);
             StudyId.Text = sample.Id.ToString();
         }
 
         public void GetActivitySamples()
         {
-            var studies = service.GetAll<ActivitySampleStudy>();
+            var studies = sampleRepo.GetItems();
             TotalStudies.Text = studies.Count.ToString();
         }
 
@@ -82,15 +85,15 @@ namespace WorkStudy.Pages
                 IsEnabled = true
             };
 
-            var id = service.Add(activity);
+            var id = activityRepo.SaveItem(activity);
 
-            var value = service.GetActivityById(id);
+            var value = activityRepo.GetItem(id);
             ActivityId.Text = value.Id.ToString();
         }
 
         public void GetActivities()
         {
-            var studies = service.GetAll<Activity>();
+            var studies = activityRepo.GetItems();
             TotalActivities.Text = studies.Count.ToString();
         }
 
@@ -103,15 +106,15 @@ namespace WorkStudy.Pages
                 LinkedActivitiesId = 1
             };
 
-            var id = service.Add(operator1);
+            var id = operatorRepo.SaveItem(operator1);
 
-            var value = service.GetOperatorById(id);
+            var value = operatorRepo.GetItem(id);
             OperatorId.Text = value.Id.ToString();
         }
 
         public void GetOperators()
         {
-            var operatorsList = service.GetAll<Operator>();
+            var operatorsList = operatorRepo.GetItems();
             TotalOperators.Text = operatorsList.Count.ToString();
         }
     }

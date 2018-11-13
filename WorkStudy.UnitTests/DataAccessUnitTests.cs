@@ -12,14 +12,20 @@ namespace WorkStudy.UnitTests
         public class DataAccessTests
         {
             private const string connString = "WorkStudy.db3";
-            DataAccessService service;
+
+            private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
+            private readonly IBaseRepository<Activity> activityRepo;
+            private readonly IBaseRepository<Operator> operatorRepo;
             public DataAccessTests()
             {
-                service = new DataAccessService(connString);
+                sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
+                activityRepo = new BaseRepository<Activity>(connString);
+                operatorRepo = new BaseRepository<Operator>(connString);
             }
 
+
             [TestMethod]
-            public void AddAndRetrieveActivitySample()
+            public void AddAndRetrieveActivitySampleStudy()
             {
                 var activityStudy = new ActivitySampleStudy()
                 {
@@ -31,9 +37,49 @@ namespace WorkStudy.UnitTests
                     Department = "PaintShop"
                 };
 
-                var id = service.Add(activityStudy);
+                var id = sampleRepo.SaveItem(activityStudy);
 
-                var sample = service.GetActivitySampleStudyById(id);
+                var sample = sampleRepo.GetItem(id);
+
+                Assert.AreEqual(id, sample.Id);
+                Assert.AreEqual(activityStudy.Department, sample.Department);
+            }
+
+
+            [TestMethod]
+            public void AddAndUpdateAndRetrieveActivitySampleStudy()
+            {
+                var activityStudy = new ActivitySampleStudy()
+                {
+                    Name = "Activity One",
+                    Date = DateTime.Now,
+                    StudyNumber = 1,
+                    IsRated = true,
+                    StudiedBy = "Billy",
+                    Department = "PaintShop"
+                };
+
+                var id = sampleRepo.SaveItem(activityStudy);
+
+                var sample = sampleRepo.GetItem(id);
+
+                Assert.AreEqual(id, sample.Id);
+                Assert.AreEqual(activityStudy.Department, sample.Department);
+
+                activityStudy = new ActivitySampleStudy()
+                {
+                    Id = id,
+                    Name = "Activity Two",
+                    Date = DateTime.Now,
+                    StudyNumber = 5,
+                    IsRated = true,
+                    StudiedBy = "Ted",
+                    Department = "EngineBay"
+                };
+
+                sampleRepo.SaveItem(activityStudy);
+
+                sample = sampleRepo.GetItem(id);
 
                 Assert.AreEqual(id, sample.Id);
                 Assert.AreEqual(activityStudy.Department, sample.Department);
@@ -42,7 +88,7 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void GetActivitySamples()
             {
-                var studies = service.GetAll<ActivitySampleStudy>();
+                var studies = sampleRepo.GetItems();
                 Assert.IsTrue(studies.Count > 0); 
             }
 
@@ -57,9 +103,9 @@ namespace WorkStudy.UnitTests
                     IsEnabled = true
                 };
 
-                var id = service.Add(activity);
+                var id = activityRepo.SaveItem(activity);
 
-                var value = service.GetActivityById(id);
+                var value = activityRepo.GetItem(id);
                 Assert.AreEqual(id, value.Id);
                 Assert.AreEqual(value.Name, activity.Name);
             }
@@ -67,7 +113,7 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void GetActivities()
             {
-                var activities = service.GetAll<Activity>();
+                var activities = activityRepo.GetItems();
                 Assert.IsTrue(activities.Count > 0);
             }
 
@@ -81,9 +127,9 @@ namespace WorkStudy.UnitTests
                     LinkedActivitiesId = 1
                 };
 
-                var id = service.Add(operator1);
+                var id = operatorRepo.SaveItem(operator1);
 
-                var value = service.GetOperatorById(id);
+                var value = operatorRepo.GetItem(id);
                 Assert.AreEqual(id, value.Id);
                 Assert.AreEqual(value.Name, operator1.Name);
             }
@@ -91,7 +137,7 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void GetOperators()
             {
-                var operatorsList = service.GetAll<Operator>();
+                var operatorsList = operatorRepo.GetItems();
                 Assert.IsTrue(operatorsList.Count > 0);
             }
         }
