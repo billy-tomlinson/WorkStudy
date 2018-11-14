@@ -114,8 +114,8 @@ namespace WorkStudy.Pages
             var operator1 = new Operator()
             {
                 Name = "Activity One",
-                StudyId = 1,
-                LinkedActivitiesId = 1
+                StudyId = 1
+                //LinkedActivitiesId = 1
             };
 
             var id = operatorRepo.SaveItem(operator1);

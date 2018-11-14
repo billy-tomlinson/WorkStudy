@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace WorkStudy.Model
 {
@@ -8,8 +10,9 @@ namespace WorkStudy.Model
     {
         public int StudyId { get; set; }
         public string Name { get; set; }
-        public int LinkedActivitiesId { get; set; }
         public DateTime Date { get; set; }
         public bool IsEnabled { get; set; }
+        [ManyToMany(typeof(OperatorActivity))]
+        public List<Activity> Activities { get; set; }
     }
 }

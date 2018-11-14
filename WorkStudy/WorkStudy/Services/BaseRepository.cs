@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 
 namespace WorkStudy.Services
@@ -8,6 +9,7 @@ namespace WorkStudy.Services
     {
         private static readonly object locker = new object();
         private readonly SQLiteConnection databaseConnection;
+
 
         public BaseRepository()
         {
@@ -62,9 +64,13 @@ namespace WorkStudy.Services
             throw new System.NotImplementedException();
         }
 
+        public SQLiteConnection DatabaseConnection => databaseConnection;
+
+
         private int GetId()
         {
             return databaseConnection.ExecuteScalar<int>("SELECT last_insert_rowid()");
         }
+
     }
 }

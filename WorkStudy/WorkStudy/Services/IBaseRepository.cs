@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SQLite;
 using WorkStudy.Model;
 
 namespace WorkStudy.Services
@@ -14,6 +15,8 @@ namespace WorkStudy.Services
         int GetItemsCount();
 
         int SaveItem(T item);
+
+        SQLiteConnection DatabaseConnection { get; }
 
     }
 }
