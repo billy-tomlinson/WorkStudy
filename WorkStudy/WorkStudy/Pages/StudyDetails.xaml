@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.StudyDetails">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy"
+             x:Class="WorkStudy.StudyDetails">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -20,6 +23,9 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <local:StudyDetailsViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Padding="10" Margin="10" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
             <StackLayout Orientation="Horizontal">
@@ -27,21 +33,21 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Study Name" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" />
+                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Name}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Department" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" />
+                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Department}" />
             </StackLayout>
              <StackLayout Orientation="Horizontal">
                 <Label Text="Date" Style="{StaticResource plainLabel}" />
-                <DatePicker WidthRequest="150"/>
+                <DatePicker WidthRequest="150" Date="{Binding Date}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Studied By" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" />
+                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}"/>
             </StackLayout>
-            <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Clicked="Submit_Clicked" />
+            <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

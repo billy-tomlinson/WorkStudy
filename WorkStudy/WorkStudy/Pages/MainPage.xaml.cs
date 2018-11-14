@@ -10,7 +10,7 @@ namespace WorkStudy
         void Submit_Clicked(object sender, System.EventArgs e)
         {
             
-            var vm = BindingContext as MainListView;
+            var vm = BindingContext as MainPageViewModel;
             vm?.UpdateStudyNumber();
             Navigate();
         }
@@ -25,7 +25,7 @@ namespace WorkStudy
 
         void Rating_Clicked(object sender, System.EventArgs e)
         {
-            var vm = BindingContext as MainListView;
+            var vm = BindingContext as MainPageViewModel;
             vm?.ShoworHiddenProducts(product);
             ratingView.IsVisible = false;
         }
@@ -46,7 +46,7 @@ namespace WorkStudy
         {
             product = e.Item as Product;
             Name = product.Title;
-            var vm = BindingContext as MainListView;
+            var vm = BindingContext as MainPageViewModel;
             displayNameEntry.Text = Name;
             activityView.IsVisible = true;
             vm?.ShoworHiddenProducts(product);

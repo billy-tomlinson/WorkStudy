@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace WorkStudy
 {
-    public class MainListView : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         private Product _oldProduct;
         public ObservableCollection<Product> Products { get; set; }
@@ -12,9 +12,7 @@ namespace WorkStudy
 
         protected void OnPropertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         static int studyNumber = 1;
@@ -28,7 +26,7 @@ namespace WorkStudy
             }
         }
        
-        public MainListView()
+        public MainPageViewModel()
         {
             Products = new ObservableCollection<Product>
             {
@@ -130,7 +128,6 @@ namespace WorkStudy
             Products.Insert(Index, product);
 
         }
-
 
     }
 }

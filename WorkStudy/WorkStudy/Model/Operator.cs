@@ -12,6 +12,7 @@ namespace WorkStudy.Model
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public bool IsEnabled { get; set; }
+        public bool Observed { get; set; }
         [ManyToMany(typeof(OperatorActivity))]
         public List<Activity> Activities { get; set; }
     }
