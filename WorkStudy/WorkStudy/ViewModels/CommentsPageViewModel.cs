@@ -18,6 +18,7 @@ namespace WorkStudy.ViewModels
         public CommentsPageViewModel()
         {
             SaveComment = new Command(SaveCommentDetails);
+            Comment = string.Empty;
         }
 
         ObservableCollection<string> comments;
