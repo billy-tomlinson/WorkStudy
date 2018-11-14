@@ -1,46 +1,33 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using WorkStudy.Model;
 using WorkStudy.Services;
-using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
 {
-    public class StudyDetailsViewModel: INotifyPropertyChanged
+    public class StudyDetailsViewModel : BaseViewModel
     {
-        public Command SubmitDetails { get; set; }
-        private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
+        readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
 
         public StudyDetailsViewModel()
         {
-            SubmitDetails = new Command(SubmitDetailsAndNavigate);
             sampleRepo = new BaseRepository<ActivitySampleStudy>(App.DatabasePath);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        override public void SubmitDetailsAndNavigate()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        void SubmitDetailsAndNavigate()
-        {
-            ActivitySampleStudy sampleStudy = new ActivitySampleStudy 
-            { 
-                Name = Name ,
+            ActivitySampleStudy sampleStudy = new ActivitySampleStudy
+            {
+                Name = Name,
                 Date = Date,
                 IsRated = IsRated,
-                StudiedBy  =StudiedBy,
+                StudiedBy = StudiedBy,
                 Department = Department,
                 StudyNumber = StudyNumber
             };
 
             Utilities.StudyId = sampleRepo.SaveItem(sampleStudy);
 
-            Navigate();
+            Utilities.Navigate(new AddActivities());
         }
 
         string name;
@@ -66,7 +53,8 @@ namespace WorkStudy.ViewModels
         }
 
         string studiedBy;
-        public string StudiedBy{
+        public string StudiedBy
+        {
             get { return studiedBy; }
             set
             {
@@ -98,7 +86,8 @@ namespace WorkStudy.ViewModels
         }
 
         bool isRated;
-        public bool IsRated{
+        public bool IsRated
+        {
             get { return isRated; }
             set
             {
@@ -108,7 +97,8 @@ namespace WorkStudy.ViewModels
         }
 
         bool completed;
-        public bool Completed{
+        public bool Completed
+        {
             get { return completed; }
             set
             {
@@ -116,12 +106,5 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        async void Navigate()
-        {
-            await Task.Delay(1000);
-            await Application.Current.MainPage.Navigation.PushModalAsync(new AddActivities());
-        }
-
     }
 }

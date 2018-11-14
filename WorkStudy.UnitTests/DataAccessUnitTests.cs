@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SQLite;
 using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -133,7 +132,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity One",
                     StudyId = 1000
-                    //LinkedActivitiesId = 1
                 };
 
                 var id = operatorRepo.SaveItem(operator1);
@@ -156,7 +154,7 @@ namespace WorkStudy.UnitTests
             {
                 var observation = new Observation()
                 {
-                   Activity = 1,
+                   ActivityId = 1,
                    Date = DateTime.Now,
                    OperatorId = 1,
                    Rating = 85
@@ -177,51 +175,21 @@ namespace WorkStudy.UnitTests
             }
 
             [TestMethod]
-            public void LinkActivitiesToOperator()
+            public void LinkMergedActivitiesToOperator()
             {
-
-                var operator1 = new Operator()
-                {
-                    Name = "Activity One",
-                    StudyId = 1000
-                };
-
-                var operatorId = operatorRepo.SaveItem(operator1);
-
-                var returnedOperator = operatorRepo.GetItem(operatorId);
-
-                var activity1 = new Activity()
-                {
-                    Name = "Activity One",
-                    Comment = "Some comment or other",
-                    Date = DateTime.Now,
-                    IsEnabled = true
-                };
-
-
-                var activity2 = new Activity()
-                {
-                    Name = "Activity Two",
-                    Comment = "Some comment or other",
-                    Date = DateTime.Now,
-                    IsEnabled = true
-                };
-
-                var activityId1 = activityRepo.SaveItem(activity1);
-                var activityId2 = activityRepo.SaveItem(activity2);
-
-                var returnedActivity1 = activityRepo.GetItem(activityId1);
-                var returnedActivity2 = activityRepo.GetItem(activityId2);
-
-                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
-
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
+                LinkActivitiesToOperator();
             }
 
             [TestMethod]
             public void MergeActivitiesToActivity()
             {
+                TestActivityMerges();
+            }
 
+
+            private Activity TestActivityMerges()
+            {
+                  
                 var activity1 = new Activity()
                 {
                     Name = "Activity One",
@@ -258,6 +226,57 @@ namespace WorkStudy.UnitTests
                 returnedActivity1.Activities = new List<Activity> { returnedActivity2, returnedActivity3 };
 
                 activityRepo.DatabaseConnection.UpdateWithChildren(returnedActivity1);
+
+                var activityStored = activityRepo.DatabaseConnection.GetWithChildren<Activity>(returnedActivity1.Id);
+
+                Assert.AreEqual(returnedActivity1.Id, activityStored.Id);
+                Assert.AreEqual(returnedActivity2.Id, activityStored.Activities[0].Id);
+                Assert.AreEqual(returnedActivity3.Id, activityStored.Activities[1].Id);
+
+                return activityStored;
+
+            }
+
+            private Operator LinkActivitiesToOperator()
+            {
+                var operator1 = new Operator()
+                {
+                    Name = "Activity One",
+                    StudyId = 1000
+                };
+
+                var operatorId = operatorRepo.SaveItem(operator1);
+
+                var returnedOperator = operatorRepo.GetItem(operatorId);
+
+                var activity1 = new Activity()
+                {
+                    Name = "Activity One",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
+
+
+                var activity2 = new Activity()
+                {
+                    Name = "Activity Two",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
+
+                var activityId1 = activityRepo.SaveItem(activity1);
+                var activityId2 = activityRepo.SaveItem(activity2);
+
+                var returnedActivity1 = activityRepo.GetItem(activityId1);
+                var returnedActivity2 = activityRepo.GetItem(activityId2);
+
+                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+
+                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
+
+                return operator1;
             }
 
         }

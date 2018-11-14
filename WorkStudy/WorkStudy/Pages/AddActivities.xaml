@@ -52,7 +52,7 @@
                 <Label Text="Acitivity 7" Style="{StaticResource plainLabel}" />
                 <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
             </StackLayout>
-            <Button Text="Submit Activities" Style="{StaticResource plainButton}" WidthRequest="200" Clicked="Submit_Clicked" />
+            <Button Text="Submit Activities" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

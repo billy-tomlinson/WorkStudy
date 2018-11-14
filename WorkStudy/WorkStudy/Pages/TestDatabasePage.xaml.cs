@@ -134,7 +134,7 @@ namespace WorkStudy.Pages
         {
             var observation = new Observation()
             {
-                Activity = 1,
+                ActivityId = 1,
                 Date = DateTime.Now,
                 OperatorId = 1,
                 Rating = 65

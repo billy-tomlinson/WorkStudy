@@ -1,19 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 
-namespace WorkStudy
+namespace WorkStudy.ViewModels
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : BaseViewModel
     {
         private Product _oldProduct;
         public ObservableCollection<Product> Products { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         static int studyNumber = 1;
         public int StudyNumber
