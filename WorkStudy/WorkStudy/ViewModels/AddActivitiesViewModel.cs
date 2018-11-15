@@ -12,7 +12,7 @@ namespace WorkStudy.ViewModels
         public AddActivitiesViewModel()
         {
             SaveActivity = new Command(SaveActivityDetails);
-            activityRepo = new BaseRepository<Activity>(App.DatabasePath);
+            activityRepo = new BaseRepository<Activity>();
             Name = string.Empty;
         }
 

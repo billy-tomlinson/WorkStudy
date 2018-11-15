@@ -10,7 +10,7 @@ namespace WorkStudy.ViewModels
 
         public StudyDetailsViewModel()
         {
-            sampleRepo = new BaseRepository<ActivitySampleStudy>(App.DatabasePath);
+            sampleRepo = new BaseRepository<ActivitySampleStudy>();
         }
 
         override public void SubmitDetailsAndNavigate()

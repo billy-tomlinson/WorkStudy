@@ -11,12 +11,14 @@ namespace WorkStudy.Services
         public BaseRepository()
         {
             DatabaseConnection = new SQLiteConnection(App.DatabasePath);
+            //DatabaseConnection.DropTable<T>();
             DatabaseConnection.CreateTable<T>();
         }
 
         public BaseRepository(string dbPath)
         {
             DatabaseConnection = new SQLiteConnection(dbPath);
+            //DatabaseConnection.DropTable<T>();
             DatabaseConnection.CreateTable<T>();
         }
 

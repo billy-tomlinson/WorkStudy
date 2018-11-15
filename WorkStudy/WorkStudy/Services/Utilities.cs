@@ -13,11 +13,11 @@ namespace WorkStudy.Services
         }
         public static int StudyId { get; set; }
         public static int OperatorId { get; set; }
-        private static ObservableCollection<string> comments = new ObservableCollection<string>();
-        public static ObservableCollection<string> Comments
+        private static ObservableCollection<string> operators = new ObservableCollection<string>();
+        public static ObservableCollection<string> Operators
         {
-            get { return comments; }
-            set { comments = value; }
+            get { return operators; }
+            set { operators = value; }
         }
 
 

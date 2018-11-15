@@ -21,7 +21,7 @@ namespace WorkStudy
         async void Navigate()
         {
             await System.Threading.Tasks.Task.Delay(1000);
-            await Navigation.PushAsync(new MainPage());
+            await Navigation.PushModalAsync(new MainPage());
         }
 
         protected override bool OnBackButtonPressed()

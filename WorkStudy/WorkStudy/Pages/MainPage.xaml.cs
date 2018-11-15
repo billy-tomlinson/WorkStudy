@@ -56,13 +56,13 @@ namespace WorkStudy
 
         async void Navigate()
         {
-            await Navigation.PushAsync(new MainPage());
+            await Navigation.PushModalAsync(new MainPage());
         }
 
         async void NavigateToReports()
         {
             await System.Threading.Tasks.Task.Delay(1000);
-            await Navigation.PushAsync(new ReportsPage());
+            await Navigation.PushModalAsync(new ReportsPage());
         }
 
         protected override bool OnBackButtonPressed()

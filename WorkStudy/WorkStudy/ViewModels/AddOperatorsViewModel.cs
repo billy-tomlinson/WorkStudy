@@ -12,12 +12,12 @@ namespace WorkStudy.ViewModels
         public AddOperatorsViewModel()
         {
             SaveOperator = new Command(SaveOperatorDetails);
-            operatorRepo = new BaseRepository<Operator>(App.DatabasePath);
+            operatorRepo = new BaseRepository<Operator>();
             Name = string.Empty;
         }
 
         ObservableCollection<string> operators;
-        public ObservableCollection<string> Operators => Utilities.Activities;
+        public ObservableCollection<string> Operators => Utilities.Operators;
 
         private string name;
         public string Name
@@ -34,11 +34,11 @@ namespace WorkStudy.ViewModels
             if (operators == null)
             {
                 operators = new ObservableCollection<string>();
-                operators = Utilities.Activities;
+                operators = Utilities.Operators;
             }
 
             operators.Add(Name);
-            Utilities.Activities = operators;
+            Utilities.Operators = operators;
             Name = string.Empty;
         }
 

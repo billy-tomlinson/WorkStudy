@@ -23,7 +23,7 @@ namespace WorkStudy.ViewModels
        
         public MainPageViewModel()
         {
-            operatorRepo = new BaseRepository<Operator>(App.DatabasePath);
+            operatorRepo = new BaseRepository<Operator>();
             Operators =  new ObservableCollection<Operator>(operatorRepo.GetItems());
         }
 
