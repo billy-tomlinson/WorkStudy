@@ -13,11 +13,11 @@ namespace WorkStudy.ViewModels
         {
             SaveActivity = new Command(SaveActivityDetails);
             activityRepo = new BaseRepository<Activity>(App.DatabasePath);
-            Comment = string.Empty;
+            Name = string.Empty;
         }
 
         ObservableCollection<string> activities;
-        public ObservableCollection<string> Activities => Utilities.Comments;
+        public ObservableCollection<string> Activities => Utilities.Activities;
 
         private string comment;
         public string Comment
@@ -45,12 +45,12 @@ namespace WorkStudy.ViewModels
             if (activities == null)
             {
                 activities = new ObservableCollection<string>();
-                activities = Utilities.Comments;
+                activities = Utilities.Activities;
             }
 
-            activities.Add(Comment);
-            Utilities.Comments = activities;
-            Comment = string.Empty;
+            activities.Add(Name);
+            Utilities.Activities = activities;
+            Name = string.Empty;
         }
 
         public override void SubmitDetailsAndNavigate()
