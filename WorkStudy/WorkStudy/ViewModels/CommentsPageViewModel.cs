@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -51,7 +48,7 @@ namespace WorkStudy.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        async  void SaveCommentDetails()
+        void SaveCommentDetails()
         {
             if (comments == null)
             {
@@ -61,8 +58,8 @@ namespace WorkStudy.ViewModels
                 
             comments.Add(Comment);
             Utilities.Comments = comments;
+            Comment = string.Empty;
 
-            await Application.Current.MainPage.Navigation.PushModalAsync(new ListViewTestPage());
         }
 
     }
