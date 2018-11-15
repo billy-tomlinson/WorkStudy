@@ -27,6 +27,17 @@ namespace WorkStudy.ViewModels
             Operators =  new ObservableCollection<Operator>(operatorRepo.GetItems());
         }
 
+        private string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void ShowOrHideOperators(Operator value)
         {
             if (oldOperator == value)
