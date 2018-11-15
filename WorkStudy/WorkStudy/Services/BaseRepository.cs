@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SQLite;
-using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 
 namespace WorkStudy.Services
@@ -8,26 +7,24 @@ namespace WorkStudy.Services
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
     {
         private static readonly object locker = new object();
-        private readonly SQLiteConnection databaseConnection;
-
 
         public BaseRepository()
         {
-            databaseConnection = new SQLiteConnection(App.DatabasePath);
-            databaseConnection.CreateTable<T>();
+            DatabaseConnection = new SQLiteConnection(App.DatabasePath);
+            DatabaseConnection.CreateTable<T>();
         }
 
         public BaseRepository(string dbPath)
         {
-            databaseConnection = new SQLiteConnection(dbPath);
-            databaseConnection.CreateTable<T>();
+            DatabaseConnection = new SQLiteConnection(dbPath);
+            DatabaseConnection.CreateTable<T>();
         }
 
-        public List<T> GetItems()
+        public IEnumerable<T> GetItems()
         {
             lock (locker)
             {
-                return databaseConnection.Table<T>().ToList();
+                return DatabaseConnection.Table<T>().ToList();
             }
         }
 
@@ -35,7 +32,7 @@ namespace WorkStudy.Services
         {
             lock (locker)
             {
-                return databaseConnection.Table<T>().Count();
+                return DatabaseConnection.Table<T>().Count();
             }
         }
 
@@ -43,7 +40,7 @@ namespace WorkStudy.Services
         {
             lock (locker)
             {
-                return databaseConnection.Table<T>().FirstOrDefault(i => i.Id == id);
+                return DatabaseConnection.Table<T>().FirstOrDefault(i => i.Id == id);
             }
         }
 
@@ -52,9 +49,9 @@ namespace WorkStudy.Services
             lock (locker)
             {
                 if (item.Id != 0)
-                    return databaseConnection.Update(item);
+                    return DatabaseConnection.Update(item);
 
-                databaseConnection.Insert(item);
+                DatabaseConnection.Insert(item);
                 return GetId();
             }
         }
@@ -64,12 +61,12 @@ namespace WorkStudy.Services
             throw new System.NotImplementedException();
         }
 
-        public SQLiteConnection DatabaseConnection => databaseConnection;
+        public SQLiteConnection DatabaseConnection { get; }
 
 
         private int GetId()
         {
-            return databaseConnection.ExecuteScalar<int>("SELECT last_insert_rowid()");
+            return DatabaseConnection.ExecuteScalar<int>("SELECT last_insert_rowid()");
         }
 
     }

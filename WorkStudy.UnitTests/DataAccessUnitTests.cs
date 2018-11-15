@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
@@ -20,7 +21,8 @@ namespace WorkStudy.UnitTests
             private readonly IBaseRepository<Operator> operatorRepo;
             private readonly IBaseRepository<Observation> observationRepo;
             private readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
-           
+            private readonly IBaseRepository<MergedActivities> mergedActivityRepo;
+
 
             public DataAccessTests()
             {
@@ -29,6 +31,7 @@ namespace WorkStudy.UnitTests
                 operatorRepo = new BaseRepository<Operator>(connString);
                 observationRepo = new BaseRepository<Observation>(connString);
                 operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
+                mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
             }
 
 
@@ -97,7 +100,7 @@ namespace WorkStudy.UnitTests
             public void GetActivitySamples()
             {
                 var studies = sampleRepo.GetItems();
-                Assert.IsTrue(studies.Count > 0); 
+                Assert.IsTrue(studies.ToList().Count > 0); 
             }
 
             [TestMethod]
@@ -122,7 +125,7 @@ namespace WorkStudy.UnitTests
             public void GetActivities()
             {
                 var activities = activityRepo.GetItems();
-                Assert.IsTrue(activities.Count > 0);
+                Assert.IsTrue(activities.ToList().Count > 0);
             }
 
             [TestMethod]
@@ -146,7 +149,7 @@ namespace WorkStudy.UnitTests
             public void GetOperators()
             {
                 var operatorsList = operatorRepo.GetItems();
-                Assert.IsTrue(operatorsList.Count > 0);
+                Assert.IsTrue(operatorsList.ToList().Count > 0);
             }
 
             [TestMethod]
@@ -171,7 +174,7 @@ namespace WorkStudy.UnitTests
             public void GetObservations()
             {
                 var observationsList = observationRepo.GetItems();
-                Assert.IsTrue(observationsList.Count > 0);
+                Assert.IsTrue(observationsList.ToList().Count > 0);
             }
 
             [TestMethod]
@@ -189,7 +192,9 @@ namespace WorkStudy.UnitTests
 
             private Activity TestActivityMerges()
             {
-                  
+
+                mergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
+
                 var activity1 = new Activity()
                 {
                     Name = "Activity One",

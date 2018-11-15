@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -10,7 +11,7 @@ namespace WorkStudy
         public PopUpDemo()
         {
             InitializeComponent();
-            List<string> items = new List<string> { "Xamarin.Forms", "Xamarin.iOS", "Xamarin.Android", "Xamarin Monkeys" };
+            IEnumerable items = new List<string> { "Xamarin.Forms", "Xamarin.iOS", "Xamarin.Android", "Xamarin Monkeys" };
             sampleList.ItemsSource = items;
         }
 

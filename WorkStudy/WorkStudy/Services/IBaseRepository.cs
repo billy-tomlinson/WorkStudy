@@ -8,7 +8,7 @@ namespace WorkStudy.Services
     public interface IBaseRepository<T> : IDisposable
         where T : BaseEntity, new()
     {
-        List<T> GetItems();
+        IEnumerable<T> GetItems();
 
         T GetItem(int id);
 

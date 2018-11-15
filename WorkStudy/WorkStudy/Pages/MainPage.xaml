@@ -34,7 +34,7 @@
                     <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
                     <Label Text="{Binding StudyNumber}" FontSize="20" TextColor="Black" />
                 </StackLayout>
-                <ListView Margin="0,10" ItemTapped="ListViewItem_Tabbed" ItemsSource="{Binding Products}" HasUnevenRows="True" BackgroundColor="Gray" HeightRequest="450">
+                <ListView Margin="0,10" ItemTapped="ListViewItem_Tabbed" ItemsSource="{Binding Operators}" HasUnevenRows="True" BackgroundColor="Gray" HeightRequest="450">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -43,17 +43,6 @@
                                         <Label Text="{Binding Title}" FontSize="25" TextColor="Azure" />
                                         <Label Text="{Binding Observed}" FontSize="10" TextColor="Azure" />
                                     </StackLayout>
-                                   <!-- <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="White" />
-                                    <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,80,0" BackgroundColor="Gainsboro">
-                                        <Button Text="Working" WidthRequest="110" FontSize="15" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
-                                        <Button Text="Waiting" WidthRequest="110" FontSize="15" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
-                                        <Button Text="Absent" WidthRequest="110" FontSize="15" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
-                                    </StackLayout>
-                                    <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,80,0" BackgroundColor="Gainsboro">
-                                        <Button Text="Walking" WidthRequest="110" FontSize="15" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
-                                        <Button Text="On Break" WidthRequest="110" FontSize="15" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
-                                        <Button Text="Cleaning" WidthRequest="110" FontSize="15" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
-                                    </StackLayout>-->
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

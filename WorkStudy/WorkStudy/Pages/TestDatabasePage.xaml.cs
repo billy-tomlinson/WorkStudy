@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -84,7 +85,7 @@ namespace WorkStudy.Pages
         public void GetActivitySamples()
         {
             var list = sampleRepo.GetItems();
-            TotalStudies.Text = list.Count.ToString();
+            TotalStudies.Text = list.ToList().Count.ToString();
         }
 
         public void AddAndRetrieveActivity()
@@ -106,7 +107,7 @@ namespace WorkStudy.Pages
         public void GetActivities()
         {
             var list = activityRepo.GetItems();
-            TotalActivities.Text = list.Count.ToString();
+            TotalActivities.Text = list.ToList().Count.ToString();
         }
 
         public void AddAndRetrieveOperator()
@@ -127,7 +128,7 @@ namespace WorkStudy.Pages
         public void GetOperators()
         {
             var list = operatorRepo.GetItems();
-            TotalOperators.Text = list.Count.ToString();
+            TotalOperators.Text = list.ToList().Count.ToString();
         }
 
         public void AddAndRetrieveObservation()
@@ -149,7 +150,7 @@ namespace WorkStudy.Pages
         public void GetObservations()
         {
             var list = observationRepo.GetItems();
-            TotalObservations.Text = list.Count.ToString();
+            TotalObservations.Text = list.ToList().Count.ToString();
         }
     }
 }

@@ -1,124 +1,67 @@
 ﻿using System.Collections.ObjectModel;
+using WorkStudy.Model;
+using WorkStudy.Services;
 
 namespace WorkStudy.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private Product _oldProduct;
-        public ObservableCollection<Product> Products { get; set; }
+        private Operator oldOperator;
+        public ObservableCollection<Operator> Operators { get; set; }
+        readonly IBaseRepository<Operator> operatorRepo;
 
-        static int studyNumber = 1;
+        static int _studyNumber = 1;
         public int StudyNumber
         {
-            get { return studyNumber; }
+            get => _studyNumber;
             set
             {
-                studyNumber = value;
-                OnPropertyChanged("StudyNumber");
+                _studyNumber = value;
+                OnPropertyChanged();
             }
         }
        
         public MainPageViewModel()
         {
-            Products = new ObservableCollection<Product>
-            {
-                new Product
-                {
-                    Title = "John The Welder",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Adam The Riveter",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Paul the Polisher",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Jake The Painter",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Sarah the Packer",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Julie the Stacker",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Ted the Driver",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Philip the Broom",
-                    Observed = "",
-                    Isvisible = false
-                },
-                new Product
-                {
-                    Title = "Colin the Stamper",
-                    Observed = "",
-                    Isvisible = false
-                }
-            };
-
+            operatorRepo = new BaseRepository<Operator>(App.DatabasePath);
+            Operators = (ObservableCollection<Operator>)operatorRepo.GetItems();
         }
 
-        public void ShoworHiddenProducts(Product product)
+        public void ShowOrHideOperators(Operator value)
         {
-            if (_oldProduct == product)
+            if (oldOperator == value)
             {
-                product.Isvisible = !product.Isvisible;
-                product.Observed = "OBSERVED";
-                UpDateProducts(product);
+                value.Isvisible = !value.Isvisible;
+                value.Observed = "OBSERVED";
+                UpdateOperators(value);
             }
             else
             {
-                if (_oldProduct != null)
+                if (oldOperator != null)
                 {
-                    _oldProduct.Isvisible = false;
-                    _oldProduct.Observed = "OBSERVED";
-                    UpDateProducts(_oldProduct);
+                    oldOperator.Isvisible = false;
+                    oldOperator.Observed = "OBSERVED";
+                    UpdateOperators(oldOperator);
 
                 }
 
-                product.Isvisible = true;
-                product.Observed = "";
-                UpDateProducts(product);
+                value.Isvisible = true;
+                value.Observed = "";
+                UpdateOperators(value);
             }
 
-            _oldProduct = product;
+            oldOperator = value;
         }
-
 
         public void UpdateStudyNumber()
         {
             StudyNumber = StudyNumber + 1;
         }
-
-        private void UpDateProducts(Product product)
+        private void UpdateOperators(Operator product)
         {
-
-            var Index = Products.IndexOf(product);
-            Products.Remove(product);
-            Products.Insert(Index, product);
-
+            var index = Operators.IndexOf(product);
+            Operators.Remove(product);
+            Operators.Insert(index, product);
         }
 
     }

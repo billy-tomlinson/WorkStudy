@@ -1,11 +1,12 @@
-﻿using Xamarin.Forms;
+﻿using WorkStudy.Model;
+using Xamarin.Forms;
 using WorkStudy.ViewModels;
 
 namespace WorkStudy
 {
     public partial class MainPage : ContentPage
     {
-        static Product product;
+        static Operator _operator;
         static string Name;
 
         void Submit_Clicked(object sender, System.EventArgs e)
@@ -27,7 +28,7 @@ namespace WorkStudy
         void Rating_Clicked(object sender, System.EventArgs e)
         {
             var vm = BindingContext as MainPageViewModel;
-            vm?.ShoworHiddenProducts(product);
+            vm?.ShowOrHideOperators(_operator);
             ratingView.IsVisible = false;
         }
 
@@ -45,12 +46,12 @@ namespace WorkStudy
 
         private void ListViewItem_Tabbed(object sender, ItemTappedEventArgs e)
         {
-            product = e.Item as Product;
-            Name = product.Title;
+            _operator = e.Item as Operator;
+            Name = _operator.Name;
             var vm = BindingContext as MainPageViewModel;
             displayNameEntry.Text = Name;
             activityView.IsVisible = true;
-            vm?.ShoworHiddenProducts(product);
+            vm?.ShowOrHideOperators(_operator);
         }
 
         async void Navigate()
