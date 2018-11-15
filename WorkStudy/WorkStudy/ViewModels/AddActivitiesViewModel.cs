@@ -1,33 +1,28 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 using WorkStudy.Model;
 using WorkStudy.Services;
+using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
 {
     public class AddActivitiesViewModel : BaseViewModel
     {
         readonly IBaseRepository<Activity> activityRepo;
-       
+        public Command SaveActivity { get; set; }
         public AddActivitiesViewModel()
         {
-            activityRepo = new BaseRepository<Activity>();
+            SaveActivity = new Command(SaveActivityDetails);
+            activityRepo = new BaseRepository<Activity>(App.DatabasePath);
+            Comment = string.Empty;
         }
 
-        string name;
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                OnPropertyChanged();
-            }
-        }
+        ObservableCollection<string> activities;
+        public ObservableCollection<string> Activities => Utilities.Comments;
 
-        string comment;
+        private string comment;
         public string Comment
         {
-            get { return comment; }
+            get => comment;
             set
             {
                 comment = value;
@@ -35,39 +30,39 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        bool isEnabled;
-        public bool IsEnabled
+        private string name;
+        public string Name
         {
-            get { return isEnabled; }
+            get => name;
             set
             {
-                isEnabled = value;
+                name = value;
                 OnPropertyChanged();
             }
         }
-
-        DateTime date;
-        public DateTime Date
+        void SaveActivityDetails()
         {
-            get { return date; }
-            set
+            if (activities == null)
             {
-                date = value;
-                OnPropertyChanged();
+                activities = new ObservableCollection<string>();
+                activities = Utilities.Comments;
             }
+
+            activities.Add(Comment);
+            Utilities.Comments = activities;
+            Comment = string.Empty;
         }
 
-        override public void SubmitDetailsAndNavigate()
+        public override void SubmitDetailsAndNavigate()
         {
-            Activity acivity = new Activity
+            foreach (var element in Activities)
             {
-                Name = Name,
-                Date = DateTime.Now
-            };
-
-            activityRepo.SaveItem(acivity);
+                var activity = new Activity { Name = element };
+                activityRepo.SaveItem(activity);
+            }
 
             Utilities.Navigate(new AddOperators());
         }
     }
 }
+

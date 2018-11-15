@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.AddActivities">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy"
+             x:Class="WorkStudy.AddActivities">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -19,40 +21,41 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewModels:AddActivitiesViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Padding="10" Margin="10" BackgroundColor="Transparent">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="List Of Activities" Style="{StaticResource plainLabel}" HorizontalOptions="Center" />
+        <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand"
+             HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout BackgroundColor="Transparent">
+                <ListView ItemsSource="{Binding Activities}" Grid.Row="0"
+                     HeightRequest="400" CachingStrategy="RecycleElement">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Label Text="{Binding .}" Style="{StaticResource plainLabel}"/>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Editor Grid.Row="1" Text="{Binding Name}"
+                     HeightRequest="100" />
+                <Button Text="Add Activity" Command="{Binding SaveActivity}"
+                     Grid.Row="2" Style="{StaticResource plainButton}" />
+                <Button Text="Save Activities" Command="{Binding SubmitDetails}"
+                        Grid.Row="3" Style="{StaticResource plainButton}" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 1" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 2" Style="{StaticResource plainLabel}"/>
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 3" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 4" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 5" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 6" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Acitivity 7" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="200" Style="{StaticResource plainEntry}" />
-            </StackLayout>
-            <Button Text="Submit Activities" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
