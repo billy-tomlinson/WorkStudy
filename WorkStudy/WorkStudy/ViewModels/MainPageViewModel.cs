@@ -57,11 +57,11 @@ namespace WorkStudy.ViewModels
         {
             StudyNumber = StudyNumber + 1;
         }
-        private void UpdateOperators(Operator product)
+        private void UpdateOperators(Operator value)
         {
-            var index = Operators.IndexOf(product);
-            Operators.Remove(product);
-            Operators.Insert(index, product);
+            var index = Operators.IndexOf(value);
+            Operators.Remove(value);
+            Operators.Insert(index, value);
         }
 
     }
