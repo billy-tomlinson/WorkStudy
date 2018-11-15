@@ -10,9 +10,11 @@ namespace WorkStudy.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private Operator oldOperator;
+        private Operator operator1;
         public ObservableCollection<Operator> Operators { get; set; }
         public Command SaveObservations { get; set; }
         public Command ActivitySelected { get; set; }
+        public Command RatingSelected { get; set; }
         readonly IBaseRepository<Operator> operatorRepo;
         readonly IBaseRepository<Observation> observationRepo;
 
@@ -20,6 +22,7 @@ namespace WorkStudy.ViewModels
         {
             SaveObservations = new Command(SaveObservationDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
+            RatingSelected = new Command(RatingSelectedEvent);
             operatorRepo = new BaseRepository<Operator>();
             observationRepo = new BaseRepository<Observation>();
             Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
@@ -50,6 +53,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static bool ratingsVisible;
+        public bool RatingsVisible
+        {
+            get => ratingsVisible;
+            set
+            {
+                ratingsVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string name;
         public string Name
         {
@@ -60,7 +75,6 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         private int activityId;
         public int ActivityId
@@ -73,12 +87,24 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        private int rating;
+        public int Rating
+        {
+            get => rating;
+            set
+            {
+                rating = value;
+                OnPropertyChanged();
+            }
+        }
         public void ShowOrHideOperators(Operator value)
         {
+            value.Observed = "OBSERVED";
+
             if (oldOperator == value)
             {
                 value.Isvisible = !value.Isvisible;
-                value.Observed = "OBSERVED";
                 UpdateOperators(value);
             }
             else
@@ -86,13 +112,11 @@ namespace WorkStudy.ViewModels
                 if (oldOperator != null)
                 {
                     oldOperator.Isvisible = false;
-                    oldOperator.Observed = "OBSERVED";
                     UpdateOperators(oldOperator);
 
                 }
 
                 value.Isvisible = true;
-                value.Observed = "";
                 UpdateOperators(value);
             }
 
@@ -133,20 +157,31 @@ namespace WorkStudy.ViewModels
         {
             var button = sender as Custom.CustomButton;
             ActivityId = button.ActivityId;
+            RatingsVisible = true;
+            ActivitiesVisible = false;
+        }
+
+
+        void RatingSelectedEvent(object sender)
+        {
+            var button = sender as Custom.CustomButton;
+            Rating = button.Rating;
+            RatingsVisible = false;
+            ShowOrHideOperators(operator1);
         }
 
         public ICommand ItemClickedCommand
         {
-            get { return Navigate(); }
+            get { return ShowActivities(); }
         }
 
-        Command Navigate()
+        Command ShowActivities()
         {
             return new Command((item) =>
             {
-                var operator1 = item as Operator;
+                operator1 = item as Operator;
                 ActivitiesVisible = true;
-                //ShowOrHideOperators(operator1);
+                ShowOrHideOperators(operator1);
             });
         }
     }

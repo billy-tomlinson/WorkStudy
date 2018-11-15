@@ -15,6 +15,19 @@ namespace WorkStudy.Custom
         {  
             get { return (int)GetValue(ActivityIdProperty); }  
             set { SetValue(ActivityIdProperty, value); }  
+        } 
+
+        public static readonly BindableProperty RatingProperty =  
+           BindableProperty.Create(
+               nameof(Rating),  
+               typeof(int),  
+               typeof(CustomButton),  
+               0);  
+  
+        public int Rating  
+        {  
+            get { return (int)GetValue(RatingProperty); }  
+            set { SetValue(RatingProperty, value); }  
         }  
     }  
 }

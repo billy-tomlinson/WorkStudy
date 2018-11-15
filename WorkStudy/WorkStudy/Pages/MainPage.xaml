@@ -55,7 +55,7 @@
                     <Button Text="End Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="End_Clicked" />
                 </StackLayout>
             </StackLayout>
-            <ContentView x:Name="ratingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ContentView x:Name="ratingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="{Binding RatingsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
                     <StackLayout Orientation="Vertical" HeightRequest="170" WidthRequest="300" BackgroundColor="White">
                         <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1">
@@ -70,18 +70,18 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Button Text="80" Grid.Row="0" Grid.Column="0" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="90" Grid.Row="0" Grid.Column="1" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="100" Grid.Row="0" Grid.Column="2" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="110" Grid.Row="0" Grid.Column="3" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="40" Grid.Row="1" Grid.Column="0" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="50" Grid.Row="1" Grid.Column="1" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="60" Grid.Row="1" Grid.Column="2" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="70" Grid.Row="1" Grid.Column="3" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="0" Grid.Row="2" Grid.Column="0" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="10" Grid.Row="2" Grid.Column="1" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="20" Grid.Row="2" Grid.Column="2" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
-                            <Button Text="30" Grid.Row="2" Grid.Column="3" Style="{StaticResource plainButton}" Clicked="Rating_Clicked" />
+                            <local:CustomButton Text="80" Rating="80"  Grid.Row="0" Grid.Column="0" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}" />
+                            <local:CustomButton Text="90" Rating="90" Grid.Row="0" Grid.Column="1" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="100" Rating="100" Grid.Row="0" Grid.Column="2" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}" />
+                            <local:CustomButton Text="110" Rating="110" Grid.Row="0" Grid.Column="3" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="40" Rating="40" Grid.Row="1" Grid.Column="0" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="50" Rating="50" Grid.Row="1" Grid.Column="1" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="60" Rating="60" Grid.Row="1" Grid.Column="2" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="70" Rating="70" Grid.Row="1" Grid.Column="3" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="0" Rating="0" Grid.Row="2" Grid.Column="0" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="10" Rating="10" Grid.Row="2" Grid.Column="1" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="20" Rating="20" Grid.Row="2" Grid.Column="2" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
+                            <local:CustomButton Text="30" Rating="30" Grid.Row="2" Grid.Column="3" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton}"/>
                         </Grid>
                     </StackLayout>
                 </StackLayout>
