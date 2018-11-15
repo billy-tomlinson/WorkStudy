@@ -9,6 +9,7 @@ namespace WorkStudy.ViewModels
     {
         readonly IBaseRepository<Operator> operatorRepo;
         public Command SaveOperator { get; set; }
+
         public AddOperatorsViewModel()
         {
             SaveOperator = new Command(SaveOperatorDetails);

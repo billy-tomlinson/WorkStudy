@@ -18,11 +18,11 @@ namespace WorkStudy
         }
 
 
-        void Activity_Clicked(object sender, System.EventArgs e)
-        {
-            activityView.IsVisible = false;
-            ratingView.IsVisible = true;
-        }
+        //void Activity_Clicked(object sender, System.EventArgs e)
+        //{
+        //    activityView.IsVisible = false;
+        //    ratingView.IsVisible = true;
+        //}
 
 
         void Rating_Clicked(object sender, System.EventArgs e)

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             x:Class="WorkStudy.MainPage" BackgroundColor="Transparent">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.MainPage" BackgroundColor="Transparent">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -28,13 +25,16 @@
         <workStudy:MainPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  BackgroundColor="Transparent">
-            <StackLayout  BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+            <StackLayout BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
                     <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
                     <Label Text="{Binding StudyNumber}" FontSize="20" TextColor="Black" />
                 </StackLayout>
-                <ListView Margin="0,10" ItemTapped="ListViewItem_Tabbed" ItemsSource="{Binding Operators}" HasUnevenRows="True" BackgroundColor="Gray" HeightRequest="450">
+                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding Operators}" BackgroundColor="Gray" HasUnevenRows="True" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" HeightRequest="450">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -47,9 +47,9 @@
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </local:CustomListView>
                 <StackLayout>
-                    <Button Text="Submit Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit_Clicked" />
+                    <Button Text="Save Observations" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding SaveObservations}" />
                 </StackLayout>
                 <StackLayout>
                     <Button Text="End Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="End_Clicked" />
@@ -86,25 +86,13 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label x:Name="displayNameEntry" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <Button Text="Working" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
-                            <Button Text="Waiting" Style="{StaticResource activityButton}" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
-                            <Button Text="Absent" Style="{StaticResource activityButton}" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
-                        </StackLayout>
-                        <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <Button Text="Walking" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
-                            <Button Text="On Break" Style="{StaticResource activityButton}" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
-                            <Button Text="Cleaning" Style="{StaticResource activityButton}" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
-                        </StackLayout>
-                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <Button Text="Paper Work" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" Clicked="Activity_Clicked" />
-                            <Button Text="Training" Style="{StaticResource activityButton}" BackgroundColor="CornflowerBlue" TextColor="DarkBlue" Clicked="Activity_Clicked" />
-                            <Button Text="Delays" Style="{StaticResource activityButton}" BackgroundColor="LightCoral" TextColor="Maroon" Clicked="Activity_Clicked" />
+                            <local:CustomButton x:Name="myButton" Text="Working" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" ActivityId="4" Command="{Binding ActivitySelected}" CommandParameter="{x:Reference myButton}" />
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

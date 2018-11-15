@@ -40,6 +40,7 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         void SaveActivityDetails()
         {
             if (activities == null)

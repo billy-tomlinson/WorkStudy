@@ -17,13 +17,13 @@ namespace WorkStudy
 
         void Submit_Clicked(object sender, System.EventArgs e)
         {
-            DataBase();
+            //DataBase();
             chartView.IsVisible = true;
         }
 
         void Ok_Clicked(object sender, System.EventArgs e)
         {
-            DataBase();
+            //DataBase();
             chartView.IsVisible = false;
         }
 
