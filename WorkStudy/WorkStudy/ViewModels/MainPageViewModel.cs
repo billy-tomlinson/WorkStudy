@@ -98,6 +98,7 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public void ShowOrHideOperators(Operator value)
         {
             value.Observed = "OBSERVED";
@@ -121,6 +122,7 @@ namespace WorkStudy.ViewModels
             }
 
             oldOperator = value;
+            oldOperator.Observed = "OBSERVED";
         }
 
         public void UpdateStudyNumber()
@@ -151,6 +153,8 @@ namespace WorkStudy.ViewModels
 
             observations.Add(observation);
             Utilities.Observations = observations;
+            UpdateStudyNumber();
+            Utilities.Navigate(new MainPage());
         }
 
         void ActivitySelectedEvent(object sender)
