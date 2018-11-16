@@ -74,17 +74,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        private string name;
-        public string Name
-        {
-            get => name;
-            set
-            {
-                name = value;
-                OnPropertyChanged();
-            }
-        }
-
         public void ShowOrHideOperators(Operator value)
         {
             value.Observed = "OBSERVED";
