@@ -13,8 +13,7 @@ namespace WorkStudy.ViewModels
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
         public Activity Activity;
-        public ObservableCollection<Activity> Activities{ get; set; }
-
+       
         public AddActivitiesViewModel()
         {
             SaveActivity = new Command(SaveActivityDetails);
@@ -33,6 +32,18 @@ namespace WorkStudy.ViewModels
             set
             {
                 comment = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private ObservableCollection<Activity> activities;
+        public ObservableCollection<Activity> Activities
+        {
+            get => activities;
+            set
+            {
+                activities = value;
                 OnPropertyChanged();
             }
         }
@@ -62,6 +73,7 @@ namespace WorkStudy.ViewModels
         void SaveActivityDetails()
         {
             activityRepo.SaveItem(new Activity { Name = Name.ToUpper() });
+            Activities = new ObservableCollection<Activity>(activityRepo.GetItems());
 
             Name = string.Empty;
         }
