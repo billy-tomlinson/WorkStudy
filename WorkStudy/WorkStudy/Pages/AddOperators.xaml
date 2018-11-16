@@ -35,7 +35,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackLayout BackgroundColor="Transparent">
-                    <local:CustomListView ItemsSource="{Binding Operators}" Grid.Row="0" HeightRequest="400">
+                    <local:CustomListView ItemsSource="{Binding Operators}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
@@ -43,7 +43,7 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.View>
-                                        <Label Text="{Binding .}" Style="{StaticResource plainLabel}" />
+                                        <Label Text="{Binding Name}" Style="{StaticResource plainLabel}" />
                                     </ViewCell.View>
                                 </ViewCell>
                             </DataTemplate>
