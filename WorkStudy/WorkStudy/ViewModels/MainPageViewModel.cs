@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
@@ -12,9 +12,14 @@ namespace WorkStudy.ViewModels
         private Operator oldOperator;
         private Operator operator1;
         public ObservableCollection<Operator> Operators { get; set; }
+        List<Observation> Observations = new List<Observation>();
+
+
         public Command SaveObservations { get; set; }
         public Command ActivitySelected { get; set; }
         public Command RatingSelected { get; set; }
+        public Command EndStudy { get; set; }
+
         readonly IBaseRepository<Operator> operatorRepo;
         readonly IBaseRepository<Observation> observationRepo;
 
@@ -23,13 +28,17 @@ namespace WorkStudy.ViewModels
             SaveObservations = new Command(SaveObservationDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
             RatingSelected = new Command(RatingSelectedEvent);
+            EndStudy = new Command(TerminateStudy);
+
             operatorRepo = new BaseRepository<Operator>();
             observationRepo = new BaseRepository<Observation>();
+
             Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
         }
 
-        ObservableCollection<Observation> observations;
-        public ObservableCollection<Observation> Observations => Utilities.Observations;
+        private Observation Observation { get;set;}
+        private int ActivityId { get; set; }
+        private int Rating { get; set; }
 
         static int _studyNumber = 1;
         public int StudyNumber
@@ -76,29 +85,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        private int activityId;
-        public int ActivityId
-        {
-            get => activityId;
-            set
-            {
-                activityId = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        private int rating;
-        public int Rating
-        {
-            get => rating;
-            set
-            {
-                rating = value;
-                OnPropertyChanged();
-            }
-        }
-
         public void ShowOrHideOperators(Operator value)
         {
             value.Observed = "OBSERVED";
@@ -139,28 +125,30 @@ namespace WorkStudy.ViewModels
 
         void SaveObservationDetails()
         {
-            var observation = new Observation()
+            foreach (var item in Observations)
             {
-                Date = DateTime.Now
-                               
-            };
-
-            if (observations == null)
-            {
-                observations = new ObservableCollection<Observation>();
-                observations = Utilities.Observations;
+                observationRepo.SaveItem(item);
             }
 
-            observations.Add(observation);
-            Utilities.Observations = observations;
-            UpdateStudyNumber();
+            var x = observationRepo.GetItems();
+
             Utilities.Navigate(new MainPage());
+            UpdateStudyNumber();
+        }
+
+
+        void TerminateStudy()
+        {
+            Utilities.Navigate(new ReportsPage());
         }
 
         void ActivitySelectedEvent(object sender)
         {
             var button = sender as Custom.CustomButton;
             ActivityId = button.ActivityId;
+
+            Observation.ActivityId = ActivityId;
+
             RatingsVisible = true;
             ActivitiesVisible = false;
         }
@@ -170,6 +158,10 @@ namespace WorkStudy.ViewModels
         {
             var button = sender as Custom.CustomButton;
             Rating = button.Rating;
+
+            Observation.Rating = Rating;
+            Observations.Add(Observation);
+
             RatingsVisible = false;
             ShowOrHideOperators(operator1);
         }
@@ -184,6 +176,9 @@ namespace WorkStudy.ViewModels
             return new Command((item) =>
             {
                 operator1 = item as Operator;
+                Observation = new Observation();
+                Observation.OperatorId = operator1.Id;
+
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
             });

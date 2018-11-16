@@ -26,13 +26,6 @@ namespace WorkStudy.Services
             set { activities = value; }
         }
 
-        private static ObservableCollection<Observation> observations = new ObservableCollection<Observation>();
-        public static ObservableCollection<Observation> Observations
-        {
-            get { return observations; }
-            set { observations = value; }
-        }
-
         public static async void Navigate(ContentPage page)
         {
             await Task.Delay(1000);
