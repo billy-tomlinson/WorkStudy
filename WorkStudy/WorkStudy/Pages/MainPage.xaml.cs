@@ -1,6 +1,8 @@
 ﻿using WorkStudy.Model;
 using Xamarin.Forms;
 using WorkStudy.ViewModels;
+using System;
+using WorkStudy.Custom;
 
 namespace WorkStudy
 {
@@ -8,6 +10,7 @@ namespace WorkStudy
     {
         static Operator _operator;
         static string Name;
+        MainPageViewModel viewModel;
 
         void Submit_Clicked(object sender, System.EventArgs e)
         {
@@ -17,14 +20,50 @@ namespace WorkStudy
             Navigate();
         }
 
+        void CreateActivitiesGrid()
+        {
+            var items = viewModel.Activities;
+            double count = (double)items.Count / 3;
+            var rounded = Math.Ceiling(count);
 
-        //void Activity_Clicked(object sender, System.EventArgs e)
-        //{
-        //    activityView.IsVisible = false;
-        //    ratingView.IsVisible = true;
-        //}
+            for (int i = 0; i < rounded; i++)
+            {
+                gridLayout.RowDefinitions.Add(new RowDefinition());
+            }
 
+            gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
+            gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
+            gridLayout.ColumnDefinitions.Add(new ColumnDefinition());
 
+            var productIndex = 0;
+
+            for (int rowIndex = 0; rowIndex < rounded; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < 3; columnIndex++)
+                {
+                    if (productIndex >= items.Count)
+                    {
+                        break;
+                    }
+
+                    var product = items[productIndex];
+                    productIndex += 1;
+
+                    var label = new CustomButton
+                    {
+                        Text = product.Name,
+                        ActivityId = product.Id,
+                        Command = viewModel.ActivitySelected,
+                        VerticalOptions = LayoutOptions.Center,
+                        HorizontalOptions = LayoutOptions.Center,
+                        CommandParameter = product.Id
+                         
+                    };
+                    gridLayout.Children.Add(label, columnIndex, rowIndex);
+                }
+            }
+        }
+       
         void Rating_Clicked(object sender, System.EventArgs e)
         {
             var vm = BindingContext as MainPageViewModel;
@@ -41,6 +80,8 @@ namespace WorkStudy
         public MainPage()
         {
             InitializeComponent();
+            viewModel = BindingContext as MainPageViewModel;
+            CreateActivitiesGrid();
             NavigationPage.SetHasNavigationBar(this, false);
         }
 

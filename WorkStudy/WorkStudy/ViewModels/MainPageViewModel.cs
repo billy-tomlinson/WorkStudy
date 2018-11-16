@@ -22,6 +22,7 @@ namespace WorkStudy.ViewModels
 
         readonly IBaseRepository<Operator> operatorRepo;
         readonly IBaseRepository<Observation> observationRepo;
+        readonly IBaseRepository<Activity> activitiesRepo;
 
         public MainPageViewModel()
         {
@@ -32,6 +33,7 @@ namespace WorkStudy.ViewModels
 
             operatorRepo = new BaseRepository<Operator>();
             observationRepo = new BaseRepository<Observation>();
+            activitiesRepo = new BaseRepository<Activity>();
 
             Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
         }
@@ -39,6 +41,15 @@ namespace WorkStudy.ViewModels
         private Observation Observation { get;set;}
         private int ActivityId { get; set; }
         private int Rating { get; set; }
+
+        public List<Activity> Activities 
+        { 
+            get
+            {
+                return (List<Activity>)activitiesRepo.GetItems();
+               
+            } 
+        }
 
         static int _studyNumber = 1;
         public int StudyNumber
@@ -133,8 +144,8 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
-            var button = sender as Custom.CustomButton;
-            ActivityId = button.ActivityId;
+            var value = (int)sender;
+            ActivityId = value;
 
             Observation.ActivityId = ActivityId;
 

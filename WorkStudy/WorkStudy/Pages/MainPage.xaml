@@ -92,7 +92,7 @@
                         <Label x:Name="displayNameEntry" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <local:CustomButton x:Name="myButton" Text="Working" Style="{StaticResource activityButton}" BackgroundColor="Chocolate" TextColor="White" ActivityId="4" Command="{Binding ActivitySelected}" CommandParameter="{x:Reference myButton}" />
+                            <Grid x:Name="gridLayout"></Grid>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
