@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -72,7 +73,9 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
-            activityRepo.SaveItem(new Activity { Name = Name.ToUpper() });
+            List<Activity> duplicatesCheck = new List<Activity>(Activities);
+            if(duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
+                activityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim()});
             Activities = new ObservableCollection<Activity>(activityRepo.GetItems());
 
             Name = string.Empty;
