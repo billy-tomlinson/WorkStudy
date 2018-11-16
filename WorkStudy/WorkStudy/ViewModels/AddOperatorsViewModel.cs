@@ -92,7 +92,7 @@ namespace WorkStudy.ViewModels
             //Observation.ActivityId = ActivityId;
 
             //RatingsVisible = true;
-            ActivitiesVisible = false;
+            //ActivitiesVisible = false;
         }
 
         void SaveActivityDetails()
@@ -102,6 +102,7 @@ namespace WorkStudy.ViewModels
 
             //CommentsVisible = false;
             //Comment = string.Empty;
+            ActivitiesVisible = false;
         }
 
         void CancelActivityDetails()
