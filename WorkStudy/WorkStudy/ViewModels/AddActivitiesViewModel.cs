@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -13,8 +12,8 @@ namespace WorkStudy.ViewModels
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
-        public static string ActivityName;
-        List<Activity> AddedActivities = new List<Activity>();
+        public Activity Activity;
+        public ObservableCollection<Activity> Activities{ get; set; }
 
         public AddActivitiesViewModel()
         {
@@ -23,10 +22,9 @@ namespace WorkStudy.ViewModels
             CancelComment = new Command(CancelCommentDetails);
             activityRepo = new BaseRepository<Activity>();
             Name = string.Empty;
+            Activities = new ObservableCollection<Activity>(activityRepo.GetItems());
+            Activity = new Activity();
         }
-
-        ObservableCollection<string> activities;
-        public ObservableCollection<string> Activities => Utilities.Activities;
 
         private string comment;
         public string Comment
@@ -63,28 +61,15 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
-            if (activities == null)
-            {
-                activities = new ObservableCollection<string>();
-                activities = Utilities.Activities;
-            }
-
-            if(!activities.Contains(Name.ToUpper().Trim()))
-                activities.Add(Name.ToUpper());
-            
-            Utilities.Activities = activities;
-
-            AddedActivities.Add(new Activity { Name = Name.ToUpper() });
+            activityRepo.SaveItem(new Activity { Name = Name.ToUpper() });
 
             Name = string.Empty;
         }
 
         void SaveCommentDetails()
         {
-            var index  = AddedActivities.FindIndex(_ => _.Name == ActivityName);
-
-            AddedActivities.RemoveAt(index);
-            AddedActivities.Add(new Activity { Name = ActivityName, Comment = Comment });
+            Activity.Comment = Comment.ToUpper();
+            activityRepo.SaveItem(Activity);
 
             CommentsVisible = false;
             Comment = string.Empty;
@@ -98,11 +83,6 @@ namespace WorkStudy.ViewModels
 
         public override void SubmitDetailsAndNavigate()
         {
-            foreach (var element in AddedActivities)
-            {
-                activityRepo.SaveItem(element);
-            }
-
             Utilities.Navigate(new AddOperators());
         }
 
@@ -115,9 +95,8 @@ namespace WorkStudy.ViewModels
         {
             return new Command((item) =>
             {
-                ActivityName = (string)item;
-                var activity = AddedActivities.Find(_ => _.Name == ActivityName);
-                Comment = activity?.Comment;
+                Activity = item as Activity;
+                Comment = Activity.Comment;
                 CommentsVisible = true;
             });
         }

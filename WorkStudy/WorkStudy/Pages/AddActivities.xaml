@@ -47,7 +47,7 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.View>
-                                        <Label Text="{Binding .}" Style="{StaticResource plainLabel}" />
+                                        <Label Text="{Binding Name}" Style="{StaticResource plainLabel}" />
                                     </ViewCell.View>
                                 </ViewCell>
                             </DataTemplate>

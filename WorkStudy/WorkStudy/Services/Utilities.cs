@@ -18,14 +18,6 @@ namespace WorkStudy.Services
             set { operators = value; }
         }
 
-
-        private static ObservableCollection<string> activities = new ObservableCollection<string>();
-        public static ObservableCollection<string> Activities
-        {
-            get { return activities; }
-            set { activities = value; }
-        }
-
         public static async void Navigate(ContentPage page)
         {
             await Task.Delay(1000);
