@@ -54,6 +54,19 @@
                     <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
                 </StackLayout>
             </Grid>
+            <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
+                        <Label Text="Activities" FontSize="15" TextColor="Blue" />
+                        <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
+                            <Grid x:Name="gridLayout">
+                            </Grid>
+                            <Button Text="Save" Command="{Binding SaveActivities}" Style="{StaticResource plainButton}" />
+                            <Button Text="Cancel" Command="{Binding CancelActivities}" Style="{StaticResource plainButton}" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
