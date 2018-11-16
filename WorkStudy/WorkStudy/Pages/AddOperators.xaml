@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels"
-             x:Class="WorkStudy.AddOperators">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.AddOperators">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -25,37 +23,37 @@
         <viewModels1:AddOperatorsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand"
-             HorizontalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackLayout BackgroundColor="Transparent">
-                <ListView ItemsSource="{Binding Operators}" Grid.Row="0"
-                     HeightRequest="400" CachingStrategy="RecycleElement">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Label Text="{Binding .}" Style="{StaticResource plainLabel}"/>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Editor Grid.Row="1" Text="{Binding Name}"
-                     HeightRequest="100" />
-                <Button Text="Add Operator" Command="{Binding SaveOperator}"
-                     Grid.Row="2" Style="{StaticResource plainButton}" />
-                <Button Text="Save Operators" Command="{Binding SubmitDetails}"
-                        Grid.Row="3" Style="{StaticResource plainButton}" />
-            </StackLayout>
-        </Grid>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+            <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout BackgroundColor="Transparent">
+                    <local:CustomListView ItemsSource="{Binding Operators}" Grid.Row="0" HeightRequest="400">
+                        <x:Arguments>
+                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                        </x:Arguments>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Label Text="{Binding .}" Style="{StaticResource plainLabel}" />
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </local:CustomListView>
+                    <Editor Grid.Row="1" Text="{Binding Name}" HeightRequest="100" />
+                    <Button Text="Add Operator" Command="{Binding SaveOperator}" Grid.Row="2" Style="{StaticResource plainButton}" />
+                    <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
+                </StackLayout>
+            </Grid>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -30,9 +30,6 @@
     <Compile Update="MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\AddOperators.xaml.cs">
-      <DependentUpon>AddOperators.xaml</DependentUpon>
-    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\AddActivities.xaml.cs">
       <DependentUpon>AddActivities.xaml</DependentUpon>
       <SubType>Code</SubType>
