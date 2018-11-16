@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -10,13 +11,14 @@ namespace WorkStudy.ViewModels
     {
         readonly IBaseRepository<Operator> operatorRepo;
         public Command SaveOperator { get; set; }
-
+        public Operator Operator;
 
         public AddOperatorsViewModel()
         {
             SaveOperator = new Command(SaveOperatorDetails);
             operatorRepo = new BaseRepository<Operator>();
             Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
+            Operator = new Operator();
             Name = string.Empty;
         }
 
@@ -53,6 +55,19 @@ namespace WorkStudy.ViewModels
         public override void SubmitDetailsAndNavigate()
         {
             Utilities.Navigate(new StudyStartPAge());
+        }
+
+        public ICommand ItemClickedCommand
+        {
+            get { return ShowActivities(); }
+        }
+
+        Command ShowActivities()
+        {
+            return new Command((item) =>
+            {
+                Operator = item as Operator;
+            });
         }
     }
 }
