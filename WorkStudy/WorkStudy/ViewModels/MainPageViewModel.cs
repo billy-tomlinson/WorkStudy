@@ -187,6 +187,12 @@ namespace WorkStudy.ViewModels
             get { return ShowActivities(); }
         }
 
+        public ICommand ItemActivityClickedCommand
+        {
+
+            get { return ShowRatings(); }
+        }
+
         Command ShowActivities()
         {          
             return new Command((item) =>
@@ -198,6 +204,19 @@ namespace WorkStudy.ViewModels
                 Activities = new ObservableCollection<Activity>(operatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
+            });
+        }
+
+        Command ShowRatings()
+        {
+            return new Command((item) =>
+            {
+                //var value = (int)sender;
+                //ActivityId = value;
+                //Observation.ActivityId = ActivityId;
+
+                RatingsVisible = true;
+                ActivitiesVisible = false;
             });
         }
     }
