@@ -20,7 +20,7 @@ namespace WorkStudy
             Navigate();
         }
 
-        void CreateActivitiesGrid()
+        public void CreateActivitiesGrid()
         {
             var items = viewModel.Activities;
             double count = (double)items.Count / 3;
@@ -56,9 +56,16 @@ namespace WorkStudy
                         Command = viewModel.ActivitySelected,
                         VerticalOptions = LayoutOptions.Center,
                         HorizontalOptions = LayoutOptions.Center,
-                        CommandParameter = product.Id
-                         
+                        CommandParameter = product.Id,
+                        BackgroundColor = Color.Ivory,
+                        MinimumWidthRequest = 150,
+                        MinimumHeightRequest = 40,
+                        FontSize = 12,
+                        WidthRequest = 150,
+                        HeightRequest = 40
+
                     };
+
                     gridLayout.Children.Add(label, columnIndex, rowIndex);
                 }
             }

@@ -98,10 +98,11 @@
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
                             <Grid x:Name="gridLayout"></Grid>
+                            <!--<local:CustomGrid x:Name="myGrid" Activities="{Binding Activities}" Command="{Binding ActivitySelected}" IsVisible="true"></local:CustomGrid>-->
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </ContentView>
         </AbsoluteLayout>
     </ContentPage.Content>
-</ContentPage>
+</ContentPage> 
