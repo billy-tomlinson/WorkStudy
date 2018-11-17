@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -11,6 +12,8 @@ namespace WorkStudy.ViewModels
     {
         readonly IBaseRepository<Operator> operatorRepo;
         readonly IBaseRepository<Activity> activitiesRepo;
+        readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
+        readonly IBaseRepository<MergedActivities> mergedActivityRepo;
         public Command SaveOperator { get; set; }
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
@@ -23,10 +26,14 @@ namespace WorkStudy.ViewModels
             SaveActivities = new Command(SaveActivityDetails);
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
+
             operatorRepo = new BaseRepository<Operator>();
             activitiesRepo = new BaseRepository<Activity>();
-            Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
-            Activities = new ObservableCollection<Activity>(activitiesRepo.GetItems());
+            operatorActivityRepo = new BaseRepository<OperatorActivity>();
+            mergedActivityRepo = new BaseRepository<MergedActivities>();
+
+            Operators = new ObservableCollection<Operator>(operatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
+            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>());
             Operator = new Operator();
             Name = string.Empty;
         }
@@ -86,22 +93,16 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
+
             var value = (int)sender;
-            //ActivityId = value;
-
-            //Observation.ActivityId = ActivityId;
-
-            //RatingsVisible = true;
-            //ActivitiesVisible = false;
+            var activity = activitiesRepo.GetItem(value);
+            Operator.Activities.Add(activity);
         }
 
         void SaveActivityDetails()
         {
-            //Activity.Comment = Comment.ToUpper();
-            //activityRepo.SaveItem(Activity);
+            operatorActivityRepo.DatabaseConnection.UpdateWithChildren(Operator);
 
-            //CommentsVisible = false;
-            //Comment = string.Empty;
             ActivitiesVisible = false;
         }
 

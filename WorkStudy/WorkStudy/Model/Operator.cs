@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
@@ -9,6 +8,11 @@ namespace WorkStudy.Model
     [Table("Operator")]    
     public class Operator : BaseEntity
     {
+        public Operator()
+        {
+            Activities = new List<Activity>();
+        }
+
         [ForeignKey(typeof(ActivitySampleStudy))]
         public int StudyId { get; set; }
 
