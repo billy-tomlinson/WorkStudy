@@ -179,6 +179,7 @@ namespace WorkStudy.ViewModels
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
             BuildGroupOfActivities();
+            GroupActivities = BuildGroupOfActivities();
         }
 
         void RatingSelectedEvent(object sender)

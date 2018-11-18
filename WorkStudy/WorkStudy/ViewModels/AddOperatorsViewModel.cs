@@ -141,7 +141,7 @@ namespace WorkStudy.ViewModels
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
-            Utilities.BuildGroupOfActivities(Activities);
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
         Command ShowActivities()
