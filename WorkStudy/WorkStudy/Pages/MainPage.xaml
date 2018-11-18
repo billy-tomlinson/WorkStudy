@@ -98,7 +98,7 @@
                         <Label x:Name="displayNameEntry" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <local:RepeaterView ItemsSource="{Binding GroupEmployees}">
+                            <local:RepeaterView ItemsSource="{Binding GroupActivities}">
                                 <local:RepeaterView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
@@ -111,19 +111,19 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <local:CustomLabel Text="{Binding EmployeeOne.Name}" FontSize="36" Grid.Row="0" Grid.Column="0">
+                                                <local:CustomLabel Text="{Binding ActivityOne.Name}" FontSize="15" Grid.Row="0" Grid.Column="0">
                                                     <local:CustomLabel.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding EmployeeOne.Name}" />
+                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding ActivityOne.Id}" />
                                                     </local:CustomLabel.GestureRecognizers>
                                                 </local:CustomLabel>
-                                                <local:CustomLabel Text="{Binding EmployeeTwo.Name}" FontSize="36" Grid.Row="0" Grid.Column="1">
+                                                <local:CustomLabel Text="{Binding ActivityTwo.Name}" FontSize="15" Grid.Row="0" Grid.Column="1">
                                                     <local:CustomLabel.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding EmployeeTwo.Name}" />
+                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding ActivityTwo.Id}" />
                                                     </local:CustomLabel.GestureRecognizers>
                                                 </local:CustomLabel>
-                                                <local:CustomLabel Text="{Binding EmployeeThree.Name}" FontSize="36" Grid.Row="0" Grid.Column="2">
+                                                <local:CustomLabel Text="{Binding ActivityThree.Name}" FontSize="15" Grid.Row="0" Grid.Column="2">
                                                     <local:CustomLabel.GestureRecognizers>
-                                                       <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding EmployeeThree.Name}" />
+                                                       <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding ActivityThree.Id}" />
                                                     </local:CustomLabel.GestureRecognizers>
                                                 </local:CustomLabel>
                                             </Grid>

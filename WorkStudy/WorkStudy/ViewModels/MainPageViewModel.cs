@@ -8,33 +8,12 @@ using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
 {
-    public class Employee
-    {
-        public string Name
-        {
-            get;
-            set;
-        }
-    }
 
-    public class GroupOfEmployees
+    public class MultipleActivities
     {
-        public Employee EmployeeOne
-        {
-            get;
-            set;
-        }
-        public Employee EmployeeTwo
-        {
-            get;
-            set;
-        }
-
-        public Employee EmployeeThree
-        {
-            get;
-            set;
-        }
+        public Activity ActivityOne { get; set;}
+        public Activity ActivityTwo { get; set; }
+        public Activity ActivityThree { get; set; } 
     }
 
     public class MainPageViewModel : BaseViewModel
@@ -56,16 +35,6 @@ namespace WorkStudy.ViewModels
 
         public MainPageViewModel()
         {
-            Employees = new List<Employee>
-            {
-                new Employee{Name = "pilly"},
-                new Employee{Name = "silly"},
-                new Employee{Name = "dilly"},
-                new Employee{Name = "filly"},
-                new Employee{Name = "gilly"},
-                new Employee{Name = "milly"}
-            };
-
             SaveObservations = new Command(SaveObservationDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
             RatingSelected = new Command(RatingSelectedEvent);
@@ -74,9 +43,7 @@ namespace WorkStudy.ViewModels
             operatorRepo = new BaseRepository<Operator>();
             observationRepo = new BaseRepository<Observation>();
             activitiesRepo = new BaseRepository<Activity>();
-            //Operators = new ObservableCollection<Operator>(operatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
             Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
-            //Activities = new ObservableCollection<Activity>();
             Activities = new ObservableCollection<Activity>(activitiesRepo.GetItems());
         }
 
@@ -84,15 +51,6 @@ namespace WorkStudy.ViewModels
         private int ActivityId { get; set; }
         private int Rating { get; set; }
 
-        //public List<Activity> Activities 
-        //{ 
-        //    get
-        //    {
-        //        return (List<Activity>)activitiesRepo.GetItems();
-        //        //return operatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities;
-               
-        //    } 
-        //}
 
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities
@@ -241,6 +199,7 @@ namespace WorkStudy.ViewModels
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
                 Activities = new ObservableCollection<Activity>(operatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
+                BuildGroupOfActivities();
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
             });
@@ -259,63 +218,55 @@ namespace WorkStudy.ViewModels
             });
         }
 
-        private List<Employee> _employees;
-        private List<GroupOfEmployees> _groupEmployees;
 
-
-        public List<Employee> Employees
+        static ObservableCollection<MultipleActivities> _groupActivities;
+        public ObservableCollection<MultipleActivities> GroupActivities
         {
-            get => _employees;
+            get => _groupActivities;
             set
             {
-                _employees = value;
+                _groupActivities = value;
                 OnPropertyChanged();
             }
         }
 
-
-        public List<GroupOfEmployees> GroupEmployees
-        {
-            get => BuildGroupOfEmployees();
-            set
+        private ObservableCollection<MultipleActivities> BuildGroupOfActivities()
             {
-                _groupEmployees = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private List<GroupOfEmployees> BuildGroupOfEmployees()
-        {
-            int counter = 0;
-            GroupOfEmployees groupOfEmployee = new GroupOfEmployees();
-            var groupedEmployees = new List<GroupOfEmployees>();
-            for (int i = 0; i < Employees.Count; i++)
-            {
-
-                if (counter == 0)
+                int counter = 0;
+                bool added = false;
+                var multipleActivities = new MultipleActivities();
+                var groupedActivities = new ObservableCollection<MultipleActivities>();
+                
+                for (int i = 0; i < Activities.Count; i++)
                 {
-                    groupOfEmployee.EmployeeOne = Employees[i];
-                    counter++;
+
+                    if (counter == 0)
+                    {
+                    multipleActivities.ActivityOne = Activities[i];
+                        counter++;
+                    }
+
+                    else if (counter == 1)
+                    {
+                    multipleActivities.ActivityTwo = Activities[i];
+                        counter++;
+                    }
+
+                    else if (counter == 2)
+                    {
+                    multipleActivities.ActivityThree = Activities[i];
+                    groupedActivities.Add(multipleActivities);
+                    added = true;
+                    multipleActivities = new MultipleActivities();
+                        counter = 0;
+                    }
                 }
 
-                else if (counter == 1)
-                {
-                    groupOfEmployee.EmployeeTwo = Employees[i];
-                    counter++;
-                }
+                if(!added) groupedActivities.Add(multipleActivities);
 
-                else if (counter == 2)
-                {
-                    groupOfEmployee.EmployeeThree = Employees[i];
-                    groupedEmployees.Add(groupOfEmployee);
-                    groupOfEmployee = new GroupOfEmployees();
-                    counter = 0;
-                }
+            GroupActivities = groupedActivities;
 
-
-            }
-
-            return groupedEmployees;
+            return groupedActivities;
         }
 
     }
