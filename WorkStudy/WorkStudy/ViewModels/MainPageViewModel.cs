@@ -173,6 +173,7 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
+            ChangeButtonColour((int)sender);
             var value = (int)sender;
             ActivityId = value;
 
@@ -182,6 +183,17 @@ namespace WorkStudy.ViewModels
             ActivitiesVisible = false;
         }
 
+        private void ChangeButtonColour(int sender)
+        {
+            IEnumerable<Activity> obsCollection = Activities;
+            var list = new List<Activity>(obsCollection);
+            var activity = list.Find(_ => _.Id == sender);
+            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            list.RemoveAll(_ => _.Id == (int)sender);
+            list.Add(activity);
+            Activities = new ObservableCollection<Activity>(obsCollection);
+            BuildGroupOfActivities();
+        }
 
         void RatingSelectedEvent(object sender)
         {

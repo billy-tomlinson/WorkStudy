@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
@@ -12,6 +13,7 @@ namespace WorkStudy.Model
         {
             IsEnabled = false;
             Date = DateTime.Now;
+            Colour = Color.Aquamarine;
         }
 
         public string Name { get; set; }
@@ -21,6 +23,8 @@ namespace WorkStudy.Model
         public bool IsEnabled { get; set; }
 
         public DateTime Date { get; set; }
+        [Ignore]
+        public Color Colour { get; set; }
 
         [ManyToMany(typeof(OperatorActivity))]
         public List<Operator> Operators { get; set; }
