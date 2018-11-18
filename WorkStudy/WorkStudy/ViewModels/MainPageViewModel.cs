@@ -263,12 +263,14 @@ namespace WorkStudy.ViewModels
                     if (counter == 0)
                     {
                         multipleActivities.ActivityOne = activity;
+                        added = false;
                         counter++;
                     }
 
                     else if (counter == 1)
                     {
                         multipleActivities.ActivityTwo = activity;
+                        added = false;
                         counter++;
                     }
 
