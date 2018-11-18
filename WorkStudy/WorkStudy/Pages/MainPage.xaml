@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.MainPage" BackgroundColor="Transparent">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             x:Class="WorkStudy.MainPage" 
+             BackgroundColor="Transparent"
+             x:Name="MainPage1">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -92,25 +98,39 @@
                         <Label x:Name="displayNameEntry" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <!-- <Grid x:Name="gridLayout"></Grid>-->
-                            <!--<local:CustomGrid x:Name="myGrid" Activities="{Binding Activities}" Command="{Binding ActivitySelected}" IsVisible="true"></local:CustomGrid>-->
-                            <local:CustomListView x:Name="ActivityList" Margin="0,10" ItemsSource="{Binding Activities}" BackgroundColor="Gray" HasUnevenRows="True" ItemClickedCommand="{Binding ItemActivityClickedCommand}" HorizontalOptions="Center" HeightRequest="450">
-                                <x:Arguments>
-                                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                                </x:Arguments>
-                                <ListView.ItemTemplate>
+                            <local:RepeaterView ItemsSource="{Binding GroupEmployees}">
+                                <local:RepeaterView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
-                                            <StackLayout Padding="20">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label Text="{Binding Name}" FontSize="25" TextColor="Azure" />
-                                                   <!-- <local:CustomButton x:Name = "myButton1" Text="{Binding Name}" ActivityId="{Binding Id}" Style="{StaticResource plainButton}" Command="{Binding ActivitySelected}" CommandParameter="{x:Reference myButton1}" />-->
-                                                </StackLayout>
-                                            </StackLayout>
+                                            <Grid Padding="20" Margin="10" BackgroundColor="DodgerBlue">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <local:CustomLabel Text="{Binding EmployeeOne.Name}" FontSize="36" Grid.Row="0" Grid.Column="0">
+                                                    <local:CustomLabel.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding EmployeeOne.Name}" />
+                                                    </local:CustomLabel.GestureRecognizers>
+                                                </local:CustomLabel>
+                                                <local:CustomLabel Text="{Binding EmployeeTwo.Name}" FontSize="36" Grid.Row="0" Grid.Column="1">
+                                                    <local:CustomLabel.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding EmployeeTwo.Name}" />
+                                                    </local:CustomLabel.GestureRecognizers>
+                                                </local:CustomLabel>
+                                                <local:CustomLabel Text="{Binding EmployeeThree.Name}" FontSize="36" Grid.Row="0" Grid.Column="2">
+                                                    <local:CustomLabel.GestureRecognizers>
+                                                       <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding EmployeeThree.Name}" />
+                                                    </local:CustomLabel.GestureRecognizers>
+                                                </local:CustomLabel>
+                                            </Grid>
                                         </ViewCell>
                                     </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </local:CustomListView>
+                                </local:RepeaterView.ItemTemplate>
+                            </local:RepeaterView>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
