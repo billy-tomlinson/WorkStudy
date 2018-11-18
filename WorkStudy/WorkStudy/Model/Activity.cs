@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
@@ -9,6 +8,12 @@ namespace WorkStudy.Model
     [Table("Activity")] 
     public class Activity : BaseEntity
     {
+        public Activity()
+        {
+            IsEnabled = false;
+            Date = DateTime.Now;
+        }
+
         public string Name { get; set; }
 
         public string Comment { get; set; }

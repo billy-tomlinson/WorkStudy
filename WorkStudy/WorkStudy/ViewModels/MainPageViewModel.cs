@@ -11,6 +11,13 @@ namespace WorkStudy.ViewModels
 
     public class MultipleActivities
     {
+        public MultipleActivities()
+        {
+            ActivityOne = new Activity();
+            ActivityTwo = new Activity();
+            ActivityThree = new Activity();
+        }
+
         public Activity ActivityOne { get; set;}
         public Activity ActivityTwo { get; set; }
         public Activity ActivityThree { get; set; } 
@@ -239,25 +246,27 @@ namespace WorkStudy.ViewModels
                 
                 for (int i = 0; i < Activities.Count; i++)
                 {
+                    var activity = Activities[i];
+                    activity.IsEnabled = true;
 
                     if (counter == 0)
                     {
-                    multipleActivities.ActivityOne = Activities[i];
+                        multipleActivities.ActivityOne = activity;
                         counter++;
                     }
 
                     else if (counter == 1)
                     {
-                    multipleActivities.ActivityTwo = Activities[i];
+                        multipleActivities.ActivityTwo = activity;
                         counter++;
                     }
 
                     else if (counter == 2)
                     {
-                    multipleActivities.ActivityThree = Activities[i];
-                    groupedActivities.Add(multipleActivities);
-                    added = true;
-                    multipleActivities = new MultipleActivities();
+                        multipleActivities.ActivityThree = activity;
+                        groupedActivities.Add(multipleActivities);
+                        added = true;
+                        multipleActivities = new MultipleActivities();
                         counter = 0;
                     }
                 }
