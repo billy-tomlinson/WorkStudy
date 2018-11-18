@@ -93,7 +93,7 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
-
+            ChangeButtonColour((int)sender);
             var value = (int)sender;
             var activity = activitiesRepo.GetItem(value);
             Operator.Activities.Add(activity);
@@ -121,12 +121,36 @@ namespace WorkStudy.ViewModels
             get { return ShowActivities(); }
         }
 
+        static ObservableCollection<MultipleActivities> _groupActivities;
+        public ObservableCollection<MultipleActivities> GroupActivities
+        {
+            get => _groupActivities;
+            set
+            {
+                _groupActivities = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void ChangeButtonColour(int sender)
+        {
+            IEnumerable<Activity> obsCollection = Activities;
+            var list = new List<Activity>(obsCollection);
+            var activity = list.Find(_ => _.Id == sender);
+            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            list.RemoveAll(_ => _.Id == (int)sender);
+            list.Add(activity);
+            Activities = new ObservableCollection<Activity>(obsCollection);
+            Utilities.BuildGroupOfActivities(Activities);
+        }
+
         Command ShowActivities()
         {
             return new Command((item) =>
             {
                 Operator = item as Operator;
                 ActivitiesVisible = true;
+                GroupActivities = Utilities.BuildGroupOfActivities(Activities);
             });
         }
     }

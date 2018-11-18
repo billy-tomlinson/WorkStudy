@@ -9,20 +9,6 @@ using Xamarin.Forms;
 namespace WorkStudy.ViewModels
 {
 
-    public class MultipleActivities
-    {
-        public MultipleActivities()
-        {
-            ActivityOne = new Activity();
-            ActivityTwo = new Activity();
-            ActivityThree = new Activity();
-        }
-
-        public Activity ActivityOne { get; set;}
-        public Activity ActivityTwo { get; set; }
-        public Activity ActivityThree { get; set; } 
-    }
-
     public class MainPageViewModel : BaseViewModel
     {
         private Operator oldOperator;
@@ -229,7 +215,7 @@ namespace WorkStudy.ViewModels
                 Observation.OperatorId = operator1.Id;
                 OperatorName = operator1.Name;
                 Activities = new ObservableCollection<Activity>(operatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
-                BuildGroupOfActivities();
+                GroupActivities = BuildGroupOfActivities();
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
             });
@@ -297,8 +283,6 @@ namespace WorkStudy.ViewModels
                 }
 
                 if(!added) groupedActivities.Add(multipleActivities);
-
-            GroupActivities = groupedActivities;
 
             return groupedActivities;
         }
