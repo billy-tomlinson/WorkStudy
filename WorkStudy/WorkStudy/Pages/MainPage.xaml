@@ -30,11 +30,11 @@
             <Style x:Key="plainLabel" TargetType="Label">
                 <Setter Property="BackgroundColor" Value="#eee" />
                 <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="15" />
             </Style>
             <Style x:Key="boxView" TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="WidthRequest" Value="160" />
                 <Setter Property="HeightRequest" Value="50" />
             </Style>
         </ResourceDictionary>
@@ -106,15 +106,15 @@
             </ContentView>
             <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
-                        <Label x:Name="displayNameEntry" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
-                        <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
+                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="#eee" Margin="7" Padding="7">
+                        <Label Text="{Binding OperatorName}" Style="{StaticResource plainLabel}" IsVisible="{Binding Isvisible}"/>
+                        <Label Text="Activities" IsVisible="{Binding Isvisible}" Style="{StaticResource plainLabel}"/>
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Transparent">
                             <local:RepeaterView ItemsSource="{Binding GroupActivities}">
                                 <local:RepeaterView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
-                                            <Grid Padding="10" Margin="10" BackgroundColor="Transparent">
+                                            <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>

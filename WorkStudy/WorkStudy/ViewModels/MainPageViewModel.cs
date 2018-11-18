@@ -92,6 +92,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static string operatorName;
+        public string OperatorName
+        {
+            get => operatorName;
+            set
+            {
+                operatorName = value;
+                OnPropertyChanged();
+            }
+        }
 
         static bool ratingsVisible;
         public bool RatingsVisible
@@ -205,6 +215,7 @@ namespace WorkStudy.ViewModels
                 operator1 = item as Operator;
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
+                OperatorName = operator1.Name;
                 Activities = new ObservableCollection<Activity>(operatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
                 BuildGroupOfActivities();
                 ActivitiesVisible = true;

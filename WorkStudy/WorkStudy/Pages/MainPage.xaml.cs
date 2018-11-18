@@ -97,7 +97,7 @@ namespace WorkStudy
             _operator = e.Item as Operator;
             Name = _operator.Name;
             var vm = BindingContext as MainPageViewModel;
-            displayNameEntry.Text = Name;
+            //displayNameEntry.Text = Name;
             activityView.IsVisible = true;
             vm?.ShowOrHideOperators(_operator);
         }
