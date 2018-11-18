@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using WorkStudy.Pages;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -18,7 +19,7 @@ namespace WorkStudy
             MainPage = new MasterDetailPage()
             {
                 Master = new MasterPage1() { Title = "Main Page" },
-                Detail = new NavigationPage(new WelcomePage())
+                Detail = new NavigationPage(new RepeaterViewTests())
             };
         }
 
