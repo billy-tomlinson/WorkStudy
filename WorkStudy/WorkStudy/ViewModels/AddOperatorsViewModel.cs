@@ -167,7 +167,7 @@ namespace WorkStudy.ViewModels
                 list.RemoveAll(_ => _.Id == (int)specific.Id);
                 list.Add(activity);
             }
-            var newList = new ObservableCollection<Activity>(obsCollection);
+            var newList = new ObservableCollection<Activity>(list);
             GroupActivities = Utilities.BuildGroupOfActivities(newList);
         }
     }
