@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using WorkStudy.Pages;
 using Xamarin.Forms;
 
 namespace WorkStudy
@@ -24,7 +25,7 @@ namespace WorkStudy
 							navPage.PushAsync(new AddOperators());
 							break;
 						case "2":
-							navPage.PushAsync(new AddActivities());
+							navPage.PushAsync(new EditActivities());
 							break;
 					}
 					
