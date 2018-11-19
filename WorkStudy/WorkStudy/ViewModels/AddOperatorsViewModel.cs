@@ -38,6 +38,25 @@ namespace WorkStudy.ViewModels
             Name = string.Empty;
         }
 
+
+        public AddOperatorsViewModel(string conn)
+        {
+            SaveOperator = new Command(SaveOperatorDetails);
+            SaveActivities = new Command(SaveActivityDetails);
+            CancelActivities = new Command(CancelActivityDetails);
+            ActivitySelected = new Command(ActivitySelectedEvent);
+
+            operatorRepo = new BaseRepository<Operator>(conn);
+            activitiesRepo = new BaseRepository<Activity>(conn);
+            operatorActivityRepo = new BaseRepository<OperatorActivity>(conn);
+            mergedActivityRepo = new BaseRepository<MergedActivities>(conn);
+
+            Operators = new ObservableCollection<Operator>(operatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
+            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>());
+            Operator = new Operator();
+            Name = string.Empty;
+        }
+
         private ObservableCollection<Operator> operators;
         public ObservableCollection<Operator> Operators
         {
@@ -144,31 +163,41 @@ namespace WorkStudy.ViewModels
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
-        Command ShowActivities()
+        public Command ShowActivities()
         {
             return new Command((item) =>
             {
                 Operator = item as Operator;
                 ChangeButtonColoursOnLoad();
-                ActivitiesVisible = true;
-                //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                //ActivitiesVisible = true;
+                GroupActivities = Utilities.BuildGroupOfActivities(Activities);
 
             });
         }
 
-        private void ChangeButtonColoursOnLoad()
+        public void ChangeButtonColoursOnLoad()
         {
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
+            var list1 = new List<Activity>(obsCollection);
+
             var operatorSpecific = Operator.Activities;
+
+            foreach (var item in list)
+            {
+                list1.RemoveAll(_ => _.Id == (int)item.Id);
+                item.Colour = System.Drawing.Color.Aquamarine;
+                list1.Add(item);
+            }
+
             foreach (var specific in operatorSpecific)
             {
-                var activity = list.Find(_ => _.Id == specific.Id);
+                var activity = list1.Find(_ => _.Id == specific.Id);
                 activity.Colour = System.Drawing.Color.BlueViolet;
-                list.RemoveAll(_ => _.Id == (int)specific.Id);
-                list.Add(activity);
+                list1.RemoveAll(_ => _.Id == (int)specific.Id);
+                list1.Add(activity);
             }
-            Activities = new ObservableCollection<Activity>(list);
+            Activities = new ObservableCollection<Activity>(list1);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
     }

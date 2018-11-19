@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 using WorkStudy.Services;
+using WorkStudy.ViewModels;
 
 namespace WorkStudy.UnitTests
 {
@@ -100,7 +101,7 @@ namespace WorkStudy.UnitTests
             public void GetActivitySamples()
             {
                 var studies = sampleRepo.GetItems();
-                Assert.IsTrue(studies.ToList().Count > 0); 
+                Assert.IsTrue(studies.ToList().Count > 0);
             }
 
             [TestMethod]
@@ -157,10 +158,10 @@ namespace WorkStudy.UnitTests
             {
                 var observation = new Observation()
                 {
-                   ActivityId = 1,
-                   Date = DateTime.Now,
-                   OperatorId = 1,
-                   Rating = 85
+                    ActivityId = 1,
+                    Date = DateTime.Now,
+                    OperatorId = 1,
+                    Rating = 85
                 };
 
                 var id = observationRepo.SaveItem(observation);
@@ -189,6 +190,20 @@ namespace WorkStudy.UnitTests
                 TestActivityMerges();
             }
 
+            [TestMethod]
+            public void TestAddOperatorsViewModel()
+            {
+                var x = new AddOperatorsViewModel(connString);
+
+                var operator14 = x.Operators[14];
+                x.Operator = operator14;
+
+                x.ChangeButtonColoursOnLoad();
+
+                var operator12 = x.Operators[12];
+                x.Operator = operator12;
+                x.ChangeButtonColoursOnLoad();
+            }
 
             private Activity TestActivityMerges()
             {
@@ -228,7 +243,7 @@ namespace WorkStudy.UnitTests
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
                 var returnedActivity3 = activityRepo.GetItem(activityId3);
 
-                returnedActivity1.Activities = new List<Activity> { returnedActivity2, returnedActivity3 };
+                returnedActivity1.Activities = new List<Activity> {returnedActivity2, returnedActivity3};
 
                 activityRepo.DatabaseConnection.UpdateWithChildren(returnedActivity1);
 
@@ -277,7 +292,7 @@ namespace WorkStudy.UnitTests
                 var returnedActivity1 = activityRepo.GetItem(activityId1);
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
 
-                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+                operator1.Activities = new List<Activity> {returnedActivity1, returnedActivity2};
 
                 operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
 
@@ -287,3 +302,4 @@ namespace WorkStudy.UnitTests
         }
     }
 }
+
