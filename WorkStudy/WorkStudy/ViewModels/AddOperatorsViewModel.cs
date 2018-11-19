@@ -169,8 +169,8 @@ namespace WorkStudy.ViewModels
             {
                 Operator = item as Operator;
                 ChangeButtonColoursOnLoad();
-                //ActivitiesVisible = true;
-                GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                ActivitiesVisible = true;
+                //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
 
             });
         }
