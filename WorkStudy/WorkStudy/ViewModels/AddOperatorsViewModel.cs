@@ -150,8 +150,25 @@ namespace WorkStudy.ViewModels
             {
                 Operator = item as Operator;
                 ActivitiesVisible = true;
-                GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                ChangeButtonColoursOnLoad();
             });
+        }
+
+        private void ChangeButtonColoursOnLoad()
+        {
+            IEnumerable<Activity> obsCollection = Activities;
+            var list = new List<Activity>(obsCollection);
+            var operatorSpecific = Operator.Activities;
+            foreach (var specific in operatorSpecific)
+            {
+                var activity = list.Find(_ => _.Id == specific.Id);
+                activity.Colour = System.Drawing.Color.BlueViolet;
+                list.RemoveAll(_ => _.Id == (int)specific.Id);
+                list.Add(activity);
+            }
+            var newList = new ObservableCollection<Activity>(obsCollection);
+            GroupActivities = Utilities.BuildGroupOfActivities(newList);
         }
     }
 }
