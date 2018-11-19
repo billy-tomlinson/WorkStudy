@@ -149,9 +149,10 @@ namespace WorkStudy.ViewModels
             return new Command((item) =>
             {
                 Operator = item as Operator;
+                ChangeButtonColoursOnLoad();
                 ActivitiesVisible = true;
                 //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
-                ChangeButtonColoursOnLoad();
+
             });
         }
 
@@ -167,8 +168,8 @@ namespace WorkStudy.ViewModels
                 list.RemoveAll(_ => _.Id == (int)specific.Id);
                 list.Add(activity);
             }
-            var newList = new ObservableCollection<Activity>(list);
-            GroupActivities = Utilities.BuildGroupOfActivities(newList);
+            Activities = new ObservableCollection<Activity>(list);
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
     }
 }
