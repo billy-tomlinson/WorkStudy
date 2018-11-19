@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
@@ -112,10 +113,20 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
-            ChangeButtonColour((int)sender);
             var value = (int)sender;
-            var activity = activitiesRepo.GetItem(value);
-            Operator.Activities.Add(activity);
+            ChangeButtonColour(value);
+
+            var exisitingActivity = Operator.Activities.Find(_ => _.Id == value);
+
+            if(exisitingActivity == null)
+            {
+                var activity = activitiesRepo.GetItem(value);
+                Operator.Activities.Add(activity);
+            }
+            else
+            {
+                Operator.Activities.Remove(exisitingActivity);
+            }
         }
 
         void SaveActivityDetails()
@@ -170,8 +181,6 @@ namespace WorkStudy.ViewModels
                 Operator = item as Operator;
                 ChangeButtonColoursOnLoad();
                 ActivitiesVisible = true;
-                //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
-
             });
         }
 
@@ -197,7 +206,8 @@ namespace WorkStudy.ViewModels
                 list1.RemoveAll(_ => _.Id == (int)specific.Id);
                 list1.Add(activity);
             }
-            Activities = new ObservableCollection<Activity>(list1);
+
+            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
     }
