@@ -75,7 +75,7 @@ namespace WorkStudy.ViewModels
         {
             List<Activity> duplicatesCheck = new List<Activity>(Activities);
             if(duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                activityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim()});
+                activityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true});
             Activities = new ObservableCollection<Activity>(activityRepo.GetItems());
 
             Name = string.Empty;
