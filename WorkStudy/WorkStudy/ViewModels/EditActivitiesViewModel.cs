@@ -25,28 +25,6 @@ namespace WorkStudy.ViewModels
             MergedActivities = new List<Activity>();
         }
 
-        static ObservableCollection<MultipleActivities> _groupActivities;
-        public ObservableCollection<MultipleActivities> GroupActivities
-        {
-            get => _groupActivities;
-            set
-            {
-                _groupActivities = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private ObservableCollection<Activity> activities;
-        public ObservableCollection<Activity> Activities
-        {
-            get => activities;
-            set
-            {
-                activities = value;
-                OnPropertyChanged();
-            }
-        }
-
         private List<Activity> mergedActivities;
         public List<Activity> MergedActivities
         {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -32,6 +33,27 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>();
 
+        static ObservableCollection<Activity> activities;
+        public ObservableCollection<Activity> Activities
+        {
+            get => activities;
+            set
+            {
+                activities = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static ObservableCollection<MultipleActivities> _groupActivities;
+        public ObservableCollection<MultipleActivities> GroupActivities
+        {
+            get => _groupActivities;
+            set
+            {
+                _groupActivities = value;
+                OnPropertyChanged();
+            }
+        }
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

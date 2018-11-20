@@ -35,18 +35,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-
-        private ObservableCollection<Activity> activities;
-        public ObservableCollection<Activity> Activities
-        {
-            get => activities;
-            set
-            {
-                activities = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string name;
         public string Name
         {

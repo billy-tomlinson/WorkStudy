@@ -6,11 +6,7 @@ namespace WorkStudy.ViewModels
 {
     public class StudyDetailsViewModel : BaseViewModel
     {
-        public StudyDetailsViewModel()
-        {
-          
-        }
-
+        
         override public void SubmitDetailsAndNavigate()
         {
             ActivitySampleStudy sampleStudy = new ActivitySampleStudy

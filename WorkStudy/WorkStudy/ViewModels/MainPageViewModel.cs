@@ -37,18 +37,6 @@ namespace WorkStudy.ViewModels
         private int ActivityId { get; set; }
         private int Rating { get; set; }
 
-
-        static ObservableCollection<Activity> activities;
-        public ObservableCollection<Activity> Activities
-        {
-            get => activities;
-            set
-            {
-                activities = value;
-                OnPropertyChanged();
-            }
-        }
-
         static int _studyNumber = 1;
         public int StudyNumber
         {
@@ -224,18 +212,6 @@ namespace WorkStudy.ViewModels
                 RatingsVisible = true;
                 ActivitiesVisible = false;
             });
-        }
-
-
-        static ObservableCollection<MultipleActivities> _groupActivities;
-        public ObservableCollection<MultipleActivities> GroupActivities
-        {
-            get => _groupActivities;
-            set
-            {
-                _groupActivities = value;
-                OnPropertyChanged();
-            }
         }
 
         private ObservableCollection<MultipleActivities> BuildGroupOfActivities()

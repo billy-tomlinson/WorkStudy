@@ -56,17 +56,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        private ObservableCollection<Activity> activities;
-        public ObservableCollection<Activity> Activities
-        {
-            get => activities;
-            set
-            {
-                activities = value;
-                OnPropertyChanged();
-            }
-        }
-
         private string name;
         public string Name
         {
@@ -136,17 +125,6 @@ namespace WorkStudy.ViewModels
         public ICommand ItemClickedCommand
         {
             get { return ShowActivities(); }
-        }
-
-        static ObservableCollection<MultipleActivities> _groupActivities;
-        public ObservableCollection<MultipleActivities> GroupActivities
-        {
-            get => _groupActivities;
-            set
-            {
-                _groupActivities = value;
-                OnPropertyChanged();
-            }
         }
 
         private void ChangeButtonColour(int sender)
