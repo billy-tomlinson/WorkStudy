@@ -157,8 +157,7 @@ namespace WorkStudy.ViewModels
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
-            BuildGroupOfActivities();
-            GroupActivities = BuildGroupOfActivities();
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
         void RatingSelectedEvent(object sender)
@@ -195,7 +194,7 @@ namespace WorkStudy.ViewModels
                 Observation.OperatorId = operator1.Id;
                 OperatorName = operator1.Name;
                 Activities = new ObservableCollection<Activity>(OperatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
-                GroupActivities = BuildGroupOfActivities();
+                GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
             });
@@ -213,47 +212,5 @@ namespace WorkStudy.ViewModels
                 ActivitiesVisible = false;
             });
         }
-
-        private ObservableCollection<MultipleActivities> BuildGroupOfActivities()
-            {
-                int counter = 0;
-                bool added = false;
-                var multipleActivities = new MultipleActivities();
-                var groupedActivities = new ObservableCollection<MultipleActivities>();
-                
-                for (int i = 0; i < Activities.Count; i++)
-                {
-                    var activity = Activities[i];
-                    activity.IsEnabled = true;
-
-                    if (counter == 0)
-                    {
-                        multipleActivities.ActivityOne = activity;
-                        added = false;
-                        counter++;
-                    }
-
-                    else if (counter == 1)
-                    {
-                        multipleActivities.ActivityTwo = activity;
-                        added = false;
-                        counter++;
-                    }
-
-                    else if (counter == 2)
-                    {
-                        multipleActivities.ActivityThree = activity;
-                        groupedActivities.Add(multipleActivities);
-                        added = true;
-                        multipleActivities = new MultipleActivities();
-                        counter = 0;
-                    }
-                }
-
-                if(!added) groupedActivities.Add(multipleActivities);
-
-            return groupedActivities;
-        }
-
     }
 }
