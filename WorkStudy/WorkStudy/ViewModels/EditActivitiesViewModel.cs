@@ -76,6 +76,8 @@ namespace WorkStudy.ViewModels
         {
             if (mergedActivities.Count == 0) return;
 
+            var operators = OperatorRepo.GetItems().ToList();
+
             var parentActivity = MergedActivities[0];
             for (int i = 1; i < MergedActivities.Count; i++)
             {
@@ -84,6 +86,18 @@ namespace WorkStudy.ViewModels
                 parentActivity.Name = parentActivity.Name + "/" + merged.Name;
                 parentActivity.Activities.Add(merged);
                 ActivityRepo.SaveItem(merged);
+
+                foreach (var item in operators)
+                {
+                    for (int x = 0; x < item.Activities.Count; x++)
+                    {
+                        if (item.Activities[x].Id == MergedActivities[x].Id)
+                        {
+                            item.Activities[x] = parentActivity;
+                            OperatorRepo.SaveItem(item);
+                        }   
+                    }
+                }
             }
 
             MergedActivities = new List<Activity>();
