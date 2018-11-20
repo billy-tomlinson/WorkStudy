@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -60,5 +61,10 @@ namespace WorkStudy.ViewModels
         }
 
         public virtual void SubmitDetailsAndNavigate(){}
+
+        public ObservableCollection<Activity> GetEnabledActivities()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems().Where(x => x.IsEnabled == true));
+        }
     }
 }

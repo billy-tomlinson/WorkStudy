@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -20,7 +21,7 @@ namespace WorkStudy.ViewModels
             SaveComment = new Command(SaveCommentDetails);
             CancelComment = new Command(CancelCommentDetails);
             Name = string.Empty;
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems());
+            Activities = GetEnabledActivities();
             Activity = new Activity();
         }
 
@@ -60,9 +61,9 @@ namespace WorkStudy.ViewModels
         void SaveActivityDetails()
         {
             List<Activity> duplicatesCheck = new List<Activity>(Activities);
-            if(duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true});
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems());
+            if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
+                ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true });
+            Activities = GetEnabledActivities();
 
             Name = string.Empty;
         }

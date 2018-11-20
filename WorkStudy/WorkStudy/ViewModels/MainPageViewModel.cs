@@ -30,7 +30,7 @@ namespace WorkStudy.ViewModels
             EndStudy = new Command(TerminateStudy);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems().ToList().Where(x => x.IsEnabled == true));
+            Activities = GetEnabledActivities();
         }
 
         private Observation Observation { get;set;}
