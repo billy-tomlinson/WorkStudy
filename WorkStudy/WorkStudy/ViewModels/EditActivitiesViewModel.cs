@@ -20,7 +20,7 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
+            Activities = GetActivitiesWithChildren();
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
         }
@@ -89,7 +89,7 @@ namespace WorkStudy.ViewModels
             MergedActivities = new List<Activity>();
 
             ActivityRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
+            Activities = GetActivitiesWithChildren();
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 

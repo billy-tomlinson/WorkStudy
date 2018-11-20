@@ -66,5 +66,10 @@ namespace WorkStudy.ViewModels
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetItems().Where(x => x.IsEnabled == true));
         }
+
+        public ObservableCollection<Activity> GetActivitiesWithChildren()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
+        }
     }
 }

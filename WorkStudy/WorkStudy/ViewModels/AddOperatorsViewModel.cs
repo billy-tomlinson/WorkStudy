@@ -25,11 +25,10 @@ namespace WorkStudy.ViewModels
             ActivitySelected = new Command(ActivitySelectedEvent);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
+            Activities = GetActivitiesWithChildren();
             Operator = new Operator();
             Name = string.Empty;
         }
-
 
         public AddOperatorsViewModel(string conn)
         {
@@ -39,7 +38,7 @@ namespace WorkStudy.ViewModels
             ActivitySelected = new Command(ActivitySelectedEvent);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren().ToList());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().ToList().Where(x => x.IsEnabled == true));
+            Activities = GetActivitiesWithChildren();
             Operator = new Operator();
             Name = string.Empty;
         }
