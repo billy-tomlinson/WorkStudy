@@ -114,11 +114,14 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
+            if (mergedActivities.Count == 0) return;
+
             var parentActivity = MergedActivities[0];
             for (int i = 1; i < MergedActivities.Count; i++)
             {
                 var merged = MergedActivities[i];
                 merged.IsEnabled = false;
+                parentActivity.Name = parentActivity.Name + "/" + merged.Name;
                 parentActivity.Activities.Add(merged);
                 activitiesRepo.SaveItem(merged);
             }
