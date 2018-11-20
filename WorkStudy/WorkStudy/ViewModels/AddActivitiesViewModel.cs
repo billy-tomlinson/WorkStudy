@@ -68,9 +68,12 @@ namespace WorkStudy.ViewModels
 
         void SaveCommentDetails()
         {
-            Activity.Comment = Comment.ToUpper();
-            ActivityRepo.SaveItem(Activity);
-
+            if (Comment != null)
+            {
+                Activity.Comment = Comment.ToUpper();
+                ActivityRepo.SaveItem(Activity);
+            }
+           
             CommentsVisible = false;
             Comment = string.Empty;
         }

@@ -165,6 +165,7 @@ namespace WorkStudy.ViewModels
             foreach (var specific in operatorSpecific)
             {
                 var activity = list1.Find(_ => _.Id == specific.Id);
+                if (activity == null) return;
                 activity.Colour = System.Drawing.Color.BlueViolet;
                 list1.RemoveAll(_ => _.Id == (int)specific.Id);
                 list1.Add(activity);
