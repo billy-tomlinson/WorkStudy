@@ -14,7 +14,6 @@ namespace WorkStudy.Services
         {
             DatabaseConnection = new SQLiteConnection(App.DatabasePath);
             //DatabaseConnection.DropTable<T>();
-            DatabaseConnection.CreateTable<T>();
         }
 
         public BaseRepository(string dbPath)

@@ -10,16 +10,14 @@ using Xamarin.Forms;
 namespace WorkStudy.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
-    {
-       
+    {      
         public event PropertyChangedEventHandler PropertyChanged;
-
 
         public BaseViewModel()
         {
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
+            EnsureTableCreation();
         }
-
 
         public Command SubmitDetails { get; set; }
 
@@ -76,6 +74,16 @@ namespace WorkStudy.ViewModels
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
         {
             return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled == true));
+        }
+
+        private void EnsureTableCreation()
+        {
+            OperatorRepo.DatabaseConnection.CreateTable<Operator>();
+            ObservationRepo.DatabaseConnection.CreateTable<Observation>();
+            ActivityRepo.DatabaseConnection.CreateTable<Activity>();
+            MergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
+            OperatorActivityRepo.DatabaseConnection.CreateTable<ActivitySampleStudy>();
+            SampleRepo.DatabaseConnection.CreateTable<OperatorActivity>();
         }
     }
 }
