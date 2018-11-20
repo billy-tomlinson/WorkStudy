@@ -20,6 +20,8 @@ namespace WorkStudy.Services
 
         int SaveItem(T item);
 
+        void UpdateWithChildren(T item);
+
         SQLiteConnection DatabaseConnection { get; }
 
     }

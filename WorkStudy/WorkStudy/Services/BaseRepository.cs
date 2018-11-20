@@ -78,6 +78,14 @@ namespace WorkStudy.Services
             }
         }
 
+        public void UpdateWithChildren(T item)
+        {
+            lock (locker)
+            {
+                DatabaseConnection.UpdateWithChildren(item);
+            }
+        }
+
         public void Dispose()
         {
             throw new System.NotImplementedException();

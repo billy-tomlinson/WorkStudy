@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -107,7 +106,7 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
-            OperatorActivityRepo.DatabaseConnection.UpdateWithChildren(Operator);
+            OperatorRepo.UpdateWithChildren(Operator);
 
             ActivitiesVisible = false;
         }
