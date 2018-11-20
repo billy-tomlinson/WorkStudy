@@ -6,11 +6,9 @@ namespace WorkStudy.ViewModels
 {
     public class StudyDetailsViewModel : BaseViewModel
     {
-        readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
-
         public StudyDetailsViewModel()
         {
-            sampleRepo = new BaseRepository<ActivitySampleStudy>();
+          
         }
 
         override public void SubmitDetailsAndNavigate()
@@ -25,7 +23,7 @@ namespace WorkStudy.ViewModels
                 StudyNumber = StudyNumber
             };
 
-            Utilities.StudyId = sampleRepo.SaveItem(sampleStudy);
+            Utilities.StudyId = SampleRepo.SaveItem(sampleStudy);
 
             Utilities.Navigate(new AddActivities());
         }

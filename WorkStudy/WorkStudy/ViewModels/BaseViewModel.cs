@@ -30,6 +30,8 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>();
 
+        public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>();
+
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
