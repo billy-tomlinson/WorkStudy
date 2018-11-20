@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -193,7 +192,7 @@ namespace WorkStudy.ViewModels
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
                 OperatorName = operator1.Name;
-                Activities = new ObservableCollection<Activity>(OperatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
+                Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id).Activities);
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);

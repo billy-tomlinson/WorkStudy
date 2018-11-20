@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SQLite;
+using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 
 namespace WorkStudy.Services
@@ -26,7 +28,25 @@ namespace WorkStudy.Services
         {
             lock (locker)
             {
-                return DatabaseConnection.Table<T>().ToList();
+                return DatabaseConnection.Table<T>().ToList().OrderBy(x => x.Id);
+            }
+        }
+
+
+        public IEnumerable<T> GetAllWithChildren()
+        {
+            lock (locker)
+            {
+                return DatabaseConnection.GetAllWithChildren<T>().OrderBy(x => x.Id);
+            }
+        }
+
+
+        public T GetWithChildren(int id)
+        {
+            lock (locker)
+            {
+                return DatabaseConnection.GetWithChildren<T>(id);
             }
         }
 

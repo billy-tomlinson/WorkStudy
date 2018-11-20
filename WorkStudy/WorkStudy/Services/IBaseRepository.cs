@@ -10,7 +10,11 @@ namespace WorkStudy.Services
     {
         IEnumerable<T> GetItems();
 
+        IEnumerable<T> GetAllWithChildren();
+
         T GetItem(int id);
+
+        T GetWithChildren(int id);
 
         int GetItemsCount();
 

@@ -25,8 +25,8 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.DatabaseConnection.GetAllWithChildren<Activity>());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren());
             Operator = new Operator();
             Name = string.Empty;
         }
@@ -39,8 +39,8 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.DatabaseConnection.GetAllWithChildren<Activity>());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren().ToList());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().ToList());
             Operator = new Operator();
             Name = string.Empty;
         }
