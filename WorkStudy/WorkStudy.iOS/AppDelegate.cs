@@ -22,7 +22,7 @@ namespace WorkStudy.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            string dbName = "WorkStudy.db3";
+            string dbName = "WorkStudy1.db3";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
             string dbPath = Path.Combine(folderPath, dbName);
             LoadApplication(new App(dbPath));

@@ -27,7 +27,7 @@ namespace WorkStudy.ViewModels
             activitiesRepo = new BaseRepository<Activity>();
             mergedActivityRepo = new BaseRepository<MergedActivities>();
 
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(y => y.IsEnabled == true));
+            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
 
             MergedActivities = new List<Activity>();
@@ -36,7 +36,7 @@ namespace WorkStudy.ViewModels
         static ObservableCollection<MultipleActivities> _groupActivities;
         public ObservableCollection<MultipleActivities> GroupActivities
         {
-            get => _groupActivities;
+            get => ChangeButtonColourOnLoad();
             set
             {
                 _groupActivities = value;
@@ -108,7 +108,7 @@ namespace WorkStudy.ViewModels
                 list1.Add(item);
             }
 
-            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name).Where(y => y.IsEnabled == true));
+            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name));
             return Utilities.BuildGroupOfActivities(Activities);
         }
 
@@ -120,10 +120,11 @@ namespace WorkStudy.ViewModels
                 var merged = MergedActivities[i];
                 merged.IsEnabled = false;
                 parentActivity.Activities.Add(merged);
+                activitiesRepo.SaveItem(merged);
             }
 
             activitiesRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(y => y.IsEnabled == true));
+            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
