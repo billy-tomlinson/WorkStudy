@@ -26,7 +26,7 @@ namespace WorkStudy.ViewModels
             ActivitySelected = new Command(ActivitySelectedEvent);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
             Operator = new Operator();
             Name = string.Empty;
         }
@@ -40,7 +40,7 @@ namespace WorkStudy.ViewModels
             ActivitySelected = new Command(ActivitySelectedEvent);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren().ToList());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().ToList());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().ToList().Where(x => x.IsEnabled == true));
             Operator = new Operator();
             Name = string.Empty;
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -29,7 +30,7 @@ namespace WorkStudy.ViewModels
             EndStudy = new Command(TerminateStudy);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
-            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems().ToList().Where(x => x.IsEnabled == true));
         }
 
         private Observation Observation { get;set;}
@@ -192,7 +193,7 @@ namespace WorkStudy.ViewModels
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
                 OperatorName = operator1.Name;
-                Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id).Activities);
+                Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id).Activities.ToList().Where(x => x.IsEnabled == true));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
