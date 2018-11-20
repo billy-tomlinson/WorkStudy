@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -70,6 +71,11 @@ namespace WorkStudy.ViewModels
         public ObservableCollection<Activity> GetActivitiesWithChildren()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
+        }
+
+        public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
+        {
+            return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled == true));
         }
     }
 }

@@ -170,7 +170,7 @@ namespace WorkStudy.ViewModels
                 list1.Add(activity);
             }
 
-            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name));
+            Activities = ConvertListToObservable(list1);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
     }

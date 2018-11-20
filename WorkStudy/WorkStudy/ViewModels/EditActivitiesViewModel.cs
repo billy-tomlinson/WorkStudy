@@ -68,7 +68,7 @@ namespace WorkStudy.ViewModels
             var list = new List<Activity>(obsCollection);
             var list1 = new List<Activity>(obsCollection);
 
-            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name));
+            Activities = ConvertListToObservable(list1);
             return Utilities.BuildGroupOfActivities(Activities);
         }
 
@@ -106,7 +106,7 @@ namespace WorkStudy.ViewModels
                 list1.Add(item);
             }
 
-            Activities = new ObservableCollection<Activity>(list1.Where(x => x.IsEnabled == true));
+            Activities = ConvertListToObservable(list1);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);        
         }
     }
