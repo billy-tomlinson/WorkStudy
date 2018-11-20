@@ -52,7 +52,7 @@ namespace WorkStudy.ViewModels
             activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
-            Activities = new ObservableCollection<Activity>(list.OrderBy(x => x.Name));
+            Activities = ConvertListToObservable(list);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
 
             var merged = MergedActivities.Find(_ => _.Id == sender);
