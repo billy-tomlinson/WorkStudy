@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SQLiteNetExtensions.Extensions;
@@ -15,19 +14,13 @@ namespace WorkStudy.ViewModels
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
 
-        readonly IBaseRepository<Activity> activitiesRepo;
-        readonly IBaseRepository<MergedActivities> mergedActivityRepo;
-
         public EditActivitiesViewModel()
         {
             SaveActivities = new Command(SaveActivityDetails);
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            activitiesRepo = new BaseRepository<Activity>();
-            mergedActivityRepo = new BaseRepository<MergedActivities>();
-
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
+            Activities = new ObservableCollection<Activity>(ActivitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
         }
@@ -112,13 +105,13 @@ namespace WorkStudy.ViewModels
                 merged.IsEnabled = false;
                 parentActivity.Name = parentActivity.Name + "/" + merged.Name;
                 parentActivity.Activities.Add(merged);
-                activitiesRepo.SaveItem(merged);
+                ActivitiesRepo.SaveItem(merged);
             }
 
             MergedActivities = new List<Activity>();
 
-            activitiesRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
+            ActivitiesRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
+            Activities = new ObservableCollection<Activity>(ActivitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
