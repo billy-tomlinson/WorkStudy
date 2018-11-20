@@ -26,7 +26,6 @@ namespace WorkStudy.Services
             for (int i = 0; i < activites.Count; i++)
             {
                 var activity = activites[i];
-                //activity.IsEnabled = true;
 
                 if (counter == 0)
                 {

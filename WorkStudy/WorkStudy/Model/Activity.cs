@@ -11,7 +11,6 @@ namespace WorkStudy.Model
     {
         public Activity()
         {
-            //IsEnabled = true;
             Date = DateTime.Now;
             Colour = Color.Aquamarine;
         }

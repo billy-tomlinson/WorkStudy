@@ -27,16 +27,15 @@ namespace WorkStudy.ViewModels
             activitiesRepo = new BaseRepository<Activity>();
             mergedActivityRepo = new BaseRepository<MergedActivities>();
 
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name));
-            GroupActivities = ChangeButtonColourOnLoad();//Utilities.BuildGroupOfActivities(Activities);
-
+            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
+            GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
         }
 
         static ObservableCollection<MultipleActivities> _groupActivities;
         public ObservableCollection<MultipleActivities> GroupActivities
         {
-            get => _groupActivities;//ChangeButtonColourOnLoad();
+            get => _groupActivities;
             set
             {
                 _groupActivities = value;
@@ -98,16 +97,6 @@ namespace WorkStudy.ViewModels
             var list = new List<Activity>(obsCollection);
             var list1 = new List<Activity>(obsCollection);
 
-            foreach (var item in list)
-            {
-                list1.RemoveAll(_ => _.Id == (int)item.Id);
-                if(item.IsEnabled == true)
-                    item.Colour = System.Drawing.Color.Aquamarine;
-                else
-                    item.Colour = System.Drawing.Color.LightGray;
-                list1.Add(item);
-            }
-
             Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name));
             return Utilities.BuildGroupOfActivities(Activities);
         }
@@ -129,7 +118,7 @@ namespace WorkStudy.ViewModels
             MergedActivities = new List<Activity>();
 
             activitiesRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name));
+            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
@@ -146,7 +135,7 @@ namespace WorkStudy.ViewModels
                 list1.Add(item);
             }
 
-            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name));
+            Activities = new ObservableCollection<Activity>(list1.OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);        
         }
     }
