@@ -22,10 +22,6 @@ namespace WorkStudy.ViewModels
         public Command RatingSelected { get; set; }
         public Command EndStudy { get; set; }
 
-        readonly IBaseRepository<Operator> operatorRepo;
-        readonly IBaseRepository<Observation> observationRepo;
-        readonly IBaseRepository<Activity> activitiesRepo;
-
         public MainPageViewModel()
         {
             SaveObservations = new Command(SaveObservationDetails);
@@ -33,11 +29,8 @@ namespace WorkStudy.ViewModels
             RatingSelected = new Command(RatingSelectedEvent);
             EndStudy = new Command(TerminateStudy);
 
-            operatorRepo = new BaseRepository<Operator>();
-            observationRepo = new BaseRepository<Observation>();
-            activitiesRepo = new BaseRepository<Activity>();
-            Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
-            Activities = new ObservableCollection<Activity>(activitiesRepo.GetItems());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems());
         }
 
         private Observation Observation { get;set;}
@@ -142,10 +135,8 @@ namespace WorkStudy.ViewModels
         {
             foreach (var item in Observations)
             {
-                observationRepo.SaveItem(item);
+                ObservationRepo.SaveItem(item);
             }
-
-            var x = observationRepo.GetItems();
 
             Utilities.Navigate(new MainPage());
             UpdateStudyNumber();
@@ -215,7 +206,7 @@ namespace WorkStudy.ViewModels
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
                 OperatorName = operator1.Name;
-                Activities = new ObservableCollection<Activity>(operatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
+                Activities = new ObservableCollection<Activity>(OperatorRepo.DatabaseConnection.GetWithChildren<Operator>(operator1.Id).Activities);
                 GroupActivities = BuildGroupOfActivities();
                 ActivitiesVisible = true;
                 ShowOrHideOperators(operator1);
