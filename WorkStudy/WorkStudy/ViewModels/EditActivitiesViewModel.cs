@@ -20,7 +20,7 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Activities = new ObservableCollection<Activity>(ActivitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
+            Activities = new ObservableCollection<Activity>(ActivityRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
         }
@@ -105,13 +105,13 @@ namespace WorkStudy.ViewModels
                 merged.IsEnabled = false;
                 parentActivity.Name = parentActivity.Name + "/" + merged.Name;
                 parentActivity.Activities.Add(merged);
-                ActivitiesRepo.SaveItem(merged);
+                ActivityRepo.SaveItem(merged);
             }
 
             MergedActivities = new List<Activity>();
 
-            ActivitiesRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
-            Activities = new ObservableCollection<Activity>(ActivitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
+            ActivityRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
+            Activities = new ObservableCollection<Activity>(ActivityRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name).Where(x => x.IsEnabled == true));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 

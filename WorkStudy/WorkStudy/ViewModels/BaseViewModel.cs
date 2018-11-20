@@ -11,14 +11,12 @@ namespace WorkStudy.ViewModels
        
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public IBaseRepository<Operator> operatorRepo;
-        public IBaseRepository<Observation> observationRepo;
-        public IBaseRepository<Activity> activitiesRepo;
 
         public BaseViewModel()
         {
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
         }
+
 
         public Command SubmitDetails { get; set; }
 
@@ -26,9 +24,11 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>();
 
-        public IBaseRepository<Activity> ActivitiesRepo  => new BaseRepository<Activity>();
+        public IBaseRepository<Activity> ActivityRepo  => new BaseRepository<Activity>();
 
         public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>();
+
+        public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>();
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

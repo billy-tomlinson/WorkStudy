@@ -9,7 +9,6 @@ namespace WorkStudy.ViewModels
 {
     public class AddActivitiesViewModel : BaseViewModel
     {
-        readonly IBaseRepository<Activity> activityRepo;
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
@@ -20,9 +19,8 @@ namespace WorkStudy.ViewModels
             SaveActivity = new Command(SaveActivityDetails);
             SaveComment = new Command(SaveCommentDetails);
             CancelComment = new Command(CancelCommentDetails);
-            activityRepo = new BaseRepository<Activity>();
             Name = string.Empty;
-            Activities = new ObservableCollection<Activity>(activityRepo.GetItems());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems());
             Activity = new Activity();
         }
 
@@ -75,8 +73,8 @@ namespace WorkStudy.ViewModels
         {
             List<Activity> duplicatesCheck = new List<Activity>(Activities);
             if(duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                activityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true});
-            Activities = new ObservableCollection<Activity>(activityRepo.GetItems());
+                ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true});
+            Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems());
 
             Name = string.Empty;
         }
@@ -84,7 +82,7 @@ namespace WorkStudy.ViewModels
         void SaveCommentDetails()
         {
             Activity.Comment = Comment.ToUpper();
-            activityRepo.SaveItem(Activity);
+            ActivityRepo.SaveItem(Activity);
 
             CommentsVisible = false;
             Comment = string.Empty;

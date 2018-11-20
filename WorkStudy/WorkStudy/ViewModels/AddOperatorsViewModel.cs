@@ -11,10 +11,7 @@ namespace WorkStudy.ViewModels
 {
     public class AddOperatorsViewModel : BaseViewModel
     {
-        readonly IBaseRepository<Operator> operatorRepo;
-        readonly IBaseRepository<Activity> activitiesRepo;
-        readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
-        readonly IBaseRepository<MergedActivities> mergedActivityRepo;
+        
         public Command SaveOperator { get; set; }
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
@@ -28,13 +25,8 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            operatorRepo = new BaseRepository<Operator>();
-            activitiesRepo = new BaseRepository<Activity>();
-            operatorActivityRepo = new BaseRepository<OperatorActivity>();
-            mergedActivityRepo = new BaseRepository<MergedActivities>();
-
-            Operators = new ObservableCollection<Operator>(operatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.DatabaseConnection.GetAllWithChildren<Activity>());
             Operator = new Operator();
             Name = string.Empty;
         }
@@ -47,13 +39,8 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            operatorRepo = new BaseRepository<Operator>(conn);
-            activitiesRepo = new BaseRepository<Activity>(conn);
-            operatorActivityRepo = new BaseRepository<OperatorActivity>(conn);
-            mergedActivityRepo = new BaseRepository<MergedActivities>(conn);
-
-            Operators = new ObservableCollection<Operator>(operatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
-            Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.DatabaseConnection.GetAllWithChildren<Operator>());
+            Activities = new ObservableCollection<Activity>(ActivityRepo.DatabaseConnection.GetAllWithChildren<Activity>());
             Operator = new Operator();
             Name = string.Empty;
         }
@@ -106,8 +93,8 @@ namespace WorkStudy.ViewModels
         {
             List<Operator> duplicatesCheck = new List<Operator>(Operators);
             if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                operatorRepo.SaveItem(new Operator { Name = Name.ToUpper().Trim() });
-            Operators = new ObservableCollection<Operator>(operatorRepo.GetItems());
+                OperatorRepo.SaveItem(new Operator { Name = Name.ToUpper().Trim() });
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
             Name = string.Empty;
         }
 
@@ -120,7 +107,7 @@ namespace WorkStudy.ViewModels
 
             if(exisitingActivity == null)
             {
-                var activity = activitiesRepo.GetItem(value);
+                var activity = ActivityRepo.GetItem(value);
                 Operator.Activities.Add(activity);
             }
             else
@@ -131,7 +118,7 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
-            operatorActivityRepo.DatabaseConnection.UpdateWithChildren(Operator);
+            OperatorActivityRepo.DatabaseConnection.UpdateWithChildren(Operator);
 
             ActivitiesVisible = false;
         }
