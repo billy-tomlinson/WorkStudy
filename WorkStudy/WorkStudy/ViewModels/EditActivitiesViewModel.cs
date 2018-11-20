@@ -28,7 +28,7 @@ namespace WorkStudy.ViewModels
             mergedActivityRepo = new BaseRepository<MergedActivities>();
 
             Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name));
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+            GroupActivities = ChangeButtonColourOnLoad();//Utilities.BuildGroupOfActivities(Activities);
 
             MergedActivities = new List<Activity>();
         }
@@ -36,7 +36,7 @@ namespace WorkStudy.ViewModels
         static ObservableCollection<MultipleActivities> _groupActivities;
         public ObservableCollection<MultipleActivities> GroupActivities
         {
-            get => ChangeButtonColourOnLoad();
+            get => _groupActivities;//ChangeButtonColourOnLoad();
             set
             {
                 _groupActivities = value;
@@ -82,7 +82,7 @@ namespace WorkStudy.ViewModels
             activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
-            Activities = new ObservableCollection<Activity>(obsCollection);
+            Activities = new ObservableCollection<Activity>(list.OrderBy(x => x.Name));
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
 
             var merged = MergedActivities.Find(_ => _.Id == sender);
@@ -122,6 +122,8 @@ namespace WorkStudy.ViewModels
                 parentActivity.Activities.Add(merged);
                 activitiesRepo.SaveItem(merged);
             }
+
+            MergedActivities = new List<Activity>();
 
             activitiesRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
             Activities = new ObservableCollection<Activity>(activitiesRepo.DatabaseConnection.GetAllWithChildren<Activity>().OrderBy(x => x.Name));
