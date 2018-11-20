@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="MasterPage.xaml" />
+    <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -25,6 +26,7 @@
     <Compile Remove="IActivitySampleStudyRepository.cs" />
     <Compile Remove="DatabaseHelper.cs" />
     <Compile Remove="MasterPage.xaml.cs" />
+    <Compile Remove="Pages\TestDatabasePage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">
