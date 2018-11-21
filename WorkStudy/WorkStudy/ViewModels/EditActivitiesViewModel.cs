@@ -76,12 +76,10 @@ namespace WorkStudy.ViewModels
         {
             if (mergedActivities.Count == 0) return;
 
-            var operators = OperatorRepo.GetItems().ToList();
-
-            var operatorActivities = OperatorActivityRepo.GetItems().ToList();
+            var operators = OperatorRepo.GetAllWithChildren().ToList();
 
             var parentActivity = MergedActivities[0];
-            for (int i = 1; i < MergedActivities.Count; i++)
+            for (var i = 1; i < MergedActivities.Count; i++)
             {
                 var merged = MergedActivities[i];
                 merged.IsEnabled = false;
@@ -89,15 +87,14 @@ namespace WorkStudy.ViewModels
                 parentActivity.Activities.Add(merged);
                 ActivityRepo.SaveItem(merged);
 
-                //use upddate with children !!
                 foreach (var item in operators)
                 {
-                    foreach (var opAct in operatorActivities)
+                    for (int x = 0; x < item.Activities.Count; x++)
                     {
-                        if(opAct.ActivityId == merged.Id)
+                        if (item.Activities[x].Id == MergedActivities[x].Id)
                         {
-                            opAct.ActivityId = parentActivity.Id;
-                            OperatorActivityRepo.SaveItem(opAct);
+                            item.Activities[x] = parentActivity;
+                            OperatorRepo.UpdateWithChildren(item);
                         }
                     }
                 }
