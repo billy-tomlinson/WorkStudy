@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SQLiteNetExtensions.Extensions;
@@ -77,9 +78,13 @@ namespace WorkStudy.ViewModels
 
             var operators = OperatorRepo.GetAllWithChildren().ToList();
 
-            var parentActivity = MergedActivities[0];
-            for (var i = 1; i < MergedActivities.Count; i++)
+            var parentActivity = new Activity();
+            var returnId = ActivityRepo.SaveItem(parentActivity);
+            parentActivity = ActivityRepo.GetItem(returnId);
+
+            for (var i = 0; i < MergedActivities.Count; i++)
             {
+
                 var merged = MergedActivities[i];
                 merged.IsEnabled = false;
                 parentActivity.Name = parentActivity.Name + "/" + merged.Name;
@@ -88,12 +93,15 @@ namespace WorkStudy.ViewModels
 
                 foreach (var item in operators)
                 {
-                    for (int x = 0; x < item.Activities.Count; x++)
+                    for (int x = 0; x < item.Activities.Count - 1; x++)
                     {
-                        if (item.Activities[x].Id == MergedActivities[x].Id)
+                        if (item.Activities[x].Id == MergedActivities[i].Id)
                         {
-                            item.Activities[x] = parentActivity;
+                            parentActivity.IsEnabled = true;
+                            item.Activities.Add(parentActivity);
                             OperatorRepo.UpdateWithChildren(item);
+
+                            var c = OperatorRepo.GetWithChildren(item.Id);
                         }
                     }
                 }

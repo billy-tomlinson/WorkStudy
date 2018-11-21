@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
@@ -282,14 +283,21 @@ namespace WorkStudy.UnitTests
                 var operators = operatorRepo.GetAllWithChildren().ToList();
 
                 //merge Activity One and Activity Four. Activity Four will be disabled
-                var mergeModel = new EditActivitiesViewModel();
+                var mergeModel = new EditActivitiesViewModel(connString);
                 mergeModel.MergedActivities.Add(activities[0]);
                 mergeModel.MergedActivities.Add(activities[3]);
                 mergeModel.SaveActivityDetails();
 
 
-                 //activities should not have Activity Four
-                 activities = activityRepo.GetAllWithChildren().ToList();
+                //activities should not have Activity Four
+                activities = activityRepo.GetAllWithChildren().ToList();
+
+                operators = operatorRepo.GetAllWithChildren().ToList();
+
+                foreach (var item in operators)
+                {
+                    var v = operatorRepo.GetWithChildren(item.Id);
+                }
 
             }
 

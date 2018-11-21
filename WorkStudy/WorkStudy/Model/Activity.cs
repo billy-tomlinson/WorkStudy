@@ -13,6 +13,7 @@ namespace WorkStudy.Model
         {
             Date = DateTime.Now;
             Colour = Color.Aquamarine;
+            Activities  = new List<Activity>();
         }
 
         public string Name { get; set; }
