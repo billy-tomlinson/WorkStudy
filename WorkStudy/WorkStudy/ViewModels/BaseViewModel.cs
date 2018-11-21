@@ -12,26 +12,27 @@ namespace WorkStudy.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {      
         public event PropertyChangedEventHandler PropertyChanged;
+        private readonly string conn;
 
-        public BaseViewModel()
+        public BaseViewModel(string conn = null)
         {
+            this.conn = conn;
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
             EnsureTableCreation();
         }
-
         public Command SubmitDetails { get; set; }
 
-        public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>();
+        public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
 
-        public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>();
+        public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 
-        public IBaseRepository<Activity> ActivityRepo  => new BaseRepository<Activity>();
+        public IBaseRepository<Activity> ActivityRepo  => new BaseRepository<Activity>(conn);
 
-        public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>();
+        public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>(conn);
 
-        public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>();
+        public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>(conn);
 
-        public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>();
+        public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
 
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities

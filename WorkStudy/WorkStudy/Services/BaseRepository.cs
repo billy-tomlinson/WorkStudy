@@ -10,17 +10,9 @@ namespace WorkStudy.Services
     {
         private static readonly object locker = new object();
 
-        public BaseRepository()
+        public BaseRepository(string dbPath = null)
         {
-            DatabaseConnection = new SQLiteConnection(App.DatabasePath);
-            //DatabaseConnection.DropTable<T>();
-        }
-
-        public BaseRepository(string dbPath)
-        {
-            DatabaseConnection = new SQLiteConnection(dbPath);
-            //DatabaseConnection.DropTable<T>();
-            DatabaseConnection.CreateTable<T>();
+            DatabaseConnection = dbPath == null ? new SQLiteConnection(App.DatabasePath) : new SQLiteConnection(dbPath);
         }
 
         public IEnumerable<T> GetItems()

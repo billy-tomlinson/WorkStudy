@@ -30,7 +30,7 @@ namespace WorkStudy.ViewModels
             Name = string.Empty;
         }
 
-        public AddOperatorsViewModel(string conn)
+        public AddOperatorsViewModel(string conn) : base(conn)
         {
             SaveOperator = new Command(SaveOperatorDetails);
             SaveActivities = new Command(SaveActivityDetails);
