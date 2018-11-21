@@ -12,8 +12,17 @@ namespace WorkStudy.ViewModels
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
         public Activity Activity;
-       
+
         public AddActivitiesViewModel()
+        {
+            ConstructorSetUp();
+        }
+
+        public AddActivitiesViewModel(string conn) : base(conn)
+        {
+            ConstructorSetUp();
+        }
+        private void ConstructorSetUp()
         {
             SaveActivity = new Command(SaveActivityDetails);
             SaveComment = new Command(SaveCommentDetails);

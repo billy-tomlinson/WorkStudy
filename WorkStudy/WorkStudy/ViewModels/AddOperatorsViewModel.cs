@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -10,7 +9,6 @@ namespace WorkStudy.ViewModels
 {
     public class AddOperatorsViewModel : BaseViewModel
     {
-        
         public Command SaveOperator { get; set; }
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
@@ -19,28 +17,11 @@ namespace WorkStudy.ViewModels
 
         public AddOperatorsViewModel()
         {
-            SaveOperator = new Command(SaveOperatorDetails);
-            SaveActivities = new Command(SaveActivityDetails);
-            CancelActivities = new Command(CancelActivityDetails);
-            ActivitySelected = new Command(ActivitySelectedEvent);
-
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
-            Activities = GetActivitiesWithChildren();
-            Operator = new Operator();
-            Name = string.Empty;
+            ConstructorSetUp();
         }
-
         public AddOperatorsViewModel(string conn) : base(conn)
         {
-            SaveOperator = new Command(SaveOperatorDetails);
-            SaveActivities = new Command(SaveActivityDetails);
-            CancelActivities = new Command(CancelActivityDetails);
-            ActivitySelected = new Command(ActivitySelectedEvent);
-
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren().ToList());
-            Activities = GetActivitiesWithChildren();
-            Operator = new Operator();
-            Name = string.Empty;
+            ConstructorSetUp();
         }
 
         private ObservableCollection<Operator> operators;
@@ -173,6 +154,19 @@ namespace WorkStudy.ViewModels
 
             Activities = ConvertListToObservable(list1);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+        }
+
+        private void ConstructorSetUp()
+        {
+            SaveOperator = new Command(SaveOperatorDetails);
+            SaveActivities = new Command(SaveActivityDetails);
+            CancelActivities = new Command(CancelActivityDetails);
+            ActivitySelected = new Command(ActivitySelectedEvent);
+
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
+            Activities = GetActivitiesWithChildren();
+            Operator = new Operator();
+            Name = string.Empty;
         }
     }
 }

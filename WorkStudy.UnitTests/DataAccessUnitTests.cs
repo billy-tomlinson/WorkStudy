@@ -33,12 +33,14 @@ namespace WorkStudy.UnitTests
                 observationRepo = new BaseRepository<Observation>(connString);
                 operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
-            }
 
+                CleanDatabase();
+            }
 
             [TestMethod]
             public void AddAndRetrieveActivitySampleStudy()
             {
+
                 var activityStudy = new ActivitySampleStudy()
                 {
                     Name = "Activity One",
@@ -100,13 +102,26 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void GetActivitySamples()
             {
+                var activityStudy = new ActivitySampleStudy()
+                {
+                    Name = "Activity One",
+                    Date = DateTime.Now,
+                    StudyNumber = 1,
+                    IsRated = true,
+                    StudiedBy = "Billy",
+                    Department = "PaintShop"
+                };
+
+                sampleRepo.SaveItem(activityStudy);
+
                 var studies = sampleRepo.GetItems();
-                Assert.IsTrue(studies.ToList().Count > 0);
+                Assert.IsTrue(studies.ToList().Count == 1);
             }
 
             [TestMethod]
-            public void AddAndRetrieveActivity()
+            public void AddAndRetrieveActivity_And_Get_All_Activities()
             {
+
                 var activity = new Activity()
                 {
                     Name = "Activity One",
@@ -120,17 +135,13 @@ namespace WorkStudy.UnitTests
                 var value = activityRepo.GetItem(id);
                 Assert.AreEqual(id, value.Id);
                 Assert.AreEqual(value.Name, activity.Name);
-            }
 
-            [TestMethod]
-            public void GetActivities()
-            {
                 var activities = activityRepo.GetItems();
-                Assert.IsTrue(activities.ToList().Count > 0);
+                Assert.IsTrue(activities.ToList().Count == 1);
             }
 
             [TestMethod]
-            public void AddAndRetrieveOperator()
+            public void AddAndRetrieveOperator_And_Get_All_Operators()
             {
                 var operator1 = new Operator()
                 {
@@ -144,18 +155,15 @@ namespace WorkStudy.UnitTests
                 Assert.AreEqual(id, value.Id);
                 Assert.AreEqual(value.Name, operator1.Name);
                 Assert.AreEqual(value.StudyId, operator1.StudyId);
-            }
 
-            [TestMethod]
-            public void GetOperators()
-            {
                 var operatorsList = operatorRepo.GetItems();
                 Assert.IsTrue(operatorsList.ToList().Count > 0);
             }
 
             [TestMethod]
-            public void AddAndRetrieveObservation()
+            public void AddAndRetrieveObservation_And_Get_All_Observations()
             {
+
                 var observation = new Observation()
                 {
                     ActivityId = 1,
@@ -169,11 +177,7 @@ namespace WorkStudy.UnitTests
                 var value = observationRepo.GetItem(id);
                 Assert.AreEqual(id, value.Id);
                 Assert.AreEqual(value.Rating, observation.Rating);
-            }
 
-            [TestMethod]
-            public void GetObservations()
-            {
                 var observationsList = observationRepo.GetItems();
                 Assert.IsTrue(observationsList.ToList().Count > 0);
             }
@@ -181,28 +185,112 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void LinkMergedActivitiesToOperator()
             {
+
                 LinkActivitiesToOperator();
             }
 
             [TestMethod]
             public void MergeActivitiesToActivity()
             {
+
                 TestActivityMerges();
             }
 
             [TestMethod]
-            public void TestAddOperatorsViewModel()
+            public void Test_Activity_Merges_Work_with_Operators()
             {
-                var x = new AddOperatorsViewModel(connString);
 
-                var operator14 = x.Operators[14];
-                x.Operator = operator14;
+                var activity1 = new Activity()
+                {
+                    Name = "Activity One",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
 
-                x.ChangeButtonColoursOnLoad();
+                var activity2 = new Activity()
+                {
+                    Name = "Activity Two",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
+                var activity3 = new Activity()
+                {
+                    Name = "Activity Three",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
 
-                var operator12 = x.Operators[12];
-                x.Operator = operator12;
-                x.ChangeButtonColoursOnLoad();
+
+                var activity4 = new Activity()
+                {
+                    Name = "Activity Four",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
+                var activity5 = new Activity()
+                {
+                    Name = "Activity Five",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
+
+
+                var activity6 = new Activity()
+                {
+                    Name = "Activity Six",
+                    Comment = "Some comment or other",
+                    Date = DateTime.Now,
+                    IsEnabled = true
+                };
+
+                var activities = new List<Activity>()
+                {
+                    activity1, activity2 , activity3 , activity4 , activity5 , activity6
+                };
+
+                foreach (var item in activities)
+                {
+                    activityRepo.SaveItem(item);
+                }
+
+                activities = activityRepo.GetAllWithChildren().ToList();
+
+                var operator1 = new Operator()
+                {
+                    Name = "Operator One",
+                    StudyId = 1000,
+                    Activities = new List<Activity>() { activities[0], activities[1] , activities[2] }
+                };
+
+                var operator2 = new Operator()
+                {
+                    Name = "Operator Two",
+                    StudyId = 1000,
+                    Activities = new List<Activity>() { activities[3], activities[4], activities[5] }
+                };
+
+                operatorRepo.SaveItem(operator1);
+                operatorRepo.SaveItem(operator2);
+                operatorRepo.UpdateWithChildren(operator1);
+                operatorRepo.UpdateWithChildren(operator2);
+
+                var operators = operatorRepo.GetAllWithChildren().ToList();
+
+                //merge Activity One and Activity Four. Activity Four will be disabled
+                var mergeModel = new EditActivitiesViewModel();
+                mergeModel.MergedActivities.Add(activities[0]);
+                mergeModel.MergedActivities.Add(activities[3]);
+                mergeModel.SaveActivityDetails();
+
+
+                 //activities should not have Activity Four
+                 activities = activityRepo.GetAllWithChildren().ToList();
+
             }
 
             private Activity TestActivityMerges()
@@ -298,6 +386,28 @@ namespace WorkStudy.UnitTests
 
                 return operator1;
             }
+
+            private void CleanDatabase()
+            {
+                activityRepo.DatabaseConnection.DropTable<Activity>();
+                activityRepo.DatabaseConnection.CreateTable<Activity>();
+
+                operatorRepo.DatabaseConnection.DropTable<Operator>();
+                operatorRepo.DatabaseConnection.CreateTable<Operator>();
+
+                sampleRepo.DatabaseConnection.DropTable<ActivitySampleStudy>();
+                sampleRepo.DatabaseConnection.CreateTable<ActivitySampleStudy>();
+
+                observationRepo.DatabaseConnection.DropTable<Observation>();
+                observationRepo.DatabaseConnection.CreateTable<Observation>();
+
+                operatorActivityRepo.DatabaseConnection.DropTable<OperatorActivity>();
+                operatorActivityRepo.DatabaseConnection.CreateTable<OperatorActivity>();
+
+                mergedActivityRepo.DatabaseConnection.DropTable<MergedActivities>();
+                mergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
+            }
+
 
         }
     }

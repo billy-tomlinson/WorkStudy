@@ -6,7 +6,8 @@ namespace WorkStudy.ViewModels
 {
     public class StudyDetailsViewModel : BaseViewModel
     {
-        
+        public StudyDetailsViewModel(string conn) : base(conn) { }
+        public StudyDetailsViewModel() { }
         override public void SubmitDetailsAndNavigate()
         {
             ActivitySampleStudy sampleStudy = new ActivitySampleStudy

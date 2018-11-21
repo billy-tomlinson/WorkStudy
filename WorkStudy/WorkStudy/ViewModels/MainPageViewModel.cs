@@ -22,17 +22,14 @@ namespace WorkStudy.ViewModels
         public Command RatingSelected { get; set; }
         public Command EndStudy { get; set; }
 
+        public MainPageViewModel(string conn) : base(conn)
+        {
+            ConstructorSetUp();
+        }
         public MainPageViewModel()
         {
-            SaveObservations = new Command(SaveObservationDetails);
-            ActivitySelected = new Command(ActivitySelectedEvent);
-            RatingSelected = new Command(RatingSelectedEvent);
-            EndStudy = new Command(TerminateStudy);
-
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
-            Activities = GetEnabledActivities();
+            ConstructorSetUp();
         }
-
         private Observation Observation { get;set;}
         private int ActivityId { get; set; }
         private int Rating { get; set; }
@@ -211,6 +208,16 @@ namespace WorkStudy.ViewModels
                 RatingsVisible = true;
                 ActivitiesVisible = false;
             });
+        }
+        private void ConstructorSetUp()
+        {
+            SaveObservations = new Command(SaveObservationDetails);
+            ActivitySelected = new Command(ActivitySelectedEvent);
+            RatingSelected = new Command(RatingSelectedEvent);
+            EndStudy = new Command(TerminateStudy);
+
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
+            Activities = GetEnabledActivities();
         }
     }
 }

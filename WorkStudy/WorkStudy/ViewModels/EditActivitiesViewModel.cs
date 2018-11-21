@@ -14,15 +14,14 @@ namespace WorkStudy.ViewModels
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
 
+        public EditActivitiesViewModel(string conn): base(conn)
+        {
+            ConstructorSetUp();
+        }
+
         public EditActivitiesViewModel()
         {
-            SaveActivities = new Command(SaveActivityDetails);
-            CancelActivities = new Command(CancelActivityDetails);
-            ActivitySelected = new Command(ActivitySelectedEvent);
-
-            Activities = GetActivitiesWithChildren();
-            GroupActivities = ChangeButtonColourOnLoad();
-            MergedActivities = new List<Activity>();
+            ConstructorSetUp();
         }
 
         private List<Activity> mergedActivities;
@@ -72,7 +71,7 @@ namespace WorkStudy.ViewModels
             return Utilities.BuildGroupOfActivities(Activities);
         }
 
-        void SaveActivityDetails()
+        public void SaveActivityDetails()
         {
             if (mergedActivities.Count == 0) return;
 
@@ -123,5 +122,17 @@ namespace WorkStudy.ViewModels
             Activities = ConvertListToObservable(list1);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);        
         }
+
+        private void ConstructorSetUp()
+        {
+            SaveActivities = new Command(SaveActivityDetails);
+            CancelActivities = new Command(CancelActivityDetails);
+            ActivitySelected = new Command(ActivitySelectedEvent);
+
+            Activities = GetActivitiesWithChildren();
+            GroupActivities = ChangeButtonColourOnLoad();
+            MergedActivities = new List<Activity>();
+        }
+
     }
 }
