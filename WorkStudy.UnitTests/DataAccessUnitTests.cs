@@ -292,11 +292,11 @@ namespace WorkStudy.UnitTests
                 //activities should not have Activity Four
                 activities = activityRepo.GetAllWithChildren().ToList();
 
-                operators = operatorRepo.GetAllWithChildren().ToList();
+                operators = mergeModel.OperatorRepo.GetAllWithChildren().ToList();
 
                 foreach (var item in operators)
                 {
-                    var v = operatorRepo.GetWithChildren(item.Id);
+                    var v = mergeModel.OperatorRepo.GetWithChildren(item.Id);
                 }
 
             }
