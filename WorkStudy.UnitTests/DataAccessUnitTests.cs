@@ -16,7 +16,7 @@ namespace WorkStudy.UnitTests
         [TestClass]
         public class DataAccessTests
         {
-            private const string connString = "WorkStudy.db3";
+            private const string connString = "WorkStudy1.db1";
 
             private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
             private readonly IBaseRepository<Activity> activityRepo;

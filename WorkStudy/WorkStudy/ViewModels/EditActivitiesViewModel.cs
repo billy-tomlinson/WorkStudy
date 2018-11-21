@@ -99,9 +99,7 @@ namespace WorkStudy.ViewModels
                         {
                             parentActivity.IsEnabled = true;
                             item.Activities.Add(parentActivity);
-                            OperatorRepo.UpdateWithChildren(item);
-
-                            var c = OperatorRepo.GetWithChildren(item.Id);
+                            OperatorRepo.InsertOrReplaceWithChildren(item);
                         }
                     }
                 }
@@ -109,7 +107,7 @@ namespace WorkStudy.ViewModels
 
             MergedActivities = new List<Activity>();
 
-            ActivityRepo.DatabaseConnection.UpdateWithChildren(parentActivity);
+            ActivityRepo.UpdateWithChildren(parentActivity);
             Activities = GetActivitiesWithChildren();
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }

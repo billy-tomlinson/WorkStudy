@@ -90,5 +90,12 @@ namespace WorkStudy.Services
             return DatabaseConnection.ExecuteScalar<int>("SELECT last_insert_rowid()");
         }
 
+        public void InsertOrReplaceWithChildren(T item)
+        {
+            lock (locker)
+            {
+                DatabaseConnection.InsertOrReplaceWithChildren(item);
+            }
+        }
     }
 }
