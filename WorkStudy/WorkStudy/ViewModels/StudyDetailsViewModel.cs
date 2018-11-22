@@ -66,16 +66,13 @@ namespace WorkStudy.ViewModels
 
         private void ValidateValues()
         {
-            var valid = false;
+            IsInvalid = true;
 
-            if (SampleStudy.Department != null &&  SampleStudy.Department?.Trim().Length > 0)
-                valid = true;
-            if (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0)
-                valid = true;
-            if (SampleStudy.StudiedBy != null && SampleStudy.StudiedBy?.Trim().Length > 0)
-                valid = true;
+            if ((SampleStudy.Department != null &&  SampleStudy.Department?.Trim().Length > 0) &&
+                (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
+                (SampleStudy.StudiedBy != null && SampleStudy.StudiedBy?.Trim().Length > 0))
 
-            IsInvalid = !valid;
+                IsInvalid = false;
         }
 
         private void CloseValidationView()
