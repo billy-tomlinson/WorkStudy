@@ -98,7 +98,7 @@ namespace WorkStudy.ViewModels
 
                 foreach (var item in operators)
                 {
-                    for (int x = 0; x < item.Activities.Count - 1; x++)
+                    for (int x = 0; x < item.Activities.Count; x++)
                     {
                         if (item.Activities[x].Id == MergedActivities[i].Id)
                         {
