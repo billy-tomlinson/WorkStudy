@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace WorkStudy
 {
-    public partial class StudyStartPAge : ContentPage
+    public partial class StudyStartPage : ContentPage
     {
-        public StudyStartPAge()
+        public StudyStartPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

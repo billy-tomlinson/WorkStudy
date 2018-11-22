@@ -98,7 +98,7 @@ namespace WorkStudy.ViewModels
 
         public override void SubmitDetailsAndNavigate()
         {
-            Utilities.Navigate(new StudyStartPAge());
+            Utilities.Navigate(new StudyStartPage());
         }
 
         public ICommand ItemClickedCommand

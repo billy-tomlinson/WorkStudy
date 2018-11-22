@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             x:Class="WorkStudy.Pages.StudyMenu">
+  <ContentPage.BindingContext>
+        <workStudy:StudyMenuViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center"  BackgroundColor="Transparent">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Study Options" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+            </StackLayout>
+            <Button Text="Begin New Study" WidthRequest="200" 
+                    FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding NewStudy}"/>
+            <Button Text="Continue Existing Study" WidthRequest="200" 
+                    FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding ExistingStudy}"/>
+            <Button Text="View Completed Studies" WidthRequest="200" 
+                    FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding CompletedStudies}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
