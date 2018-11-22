@@ -18,7 +18,7 @@ namespace WorkStudy
             MainPage = new MasterDetailPage()
             {
                 Master = new MasterPage1() { Title = "Main Page" },
-                Detail = new NavigationPage(new WelcomePage())
+                Detail = new NavigationPage(new StudyDetails())
             };
         }
 
