@@ -167,7 +167,7 @@ namespace WorkStudy.ViewModels
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
             Activities = GetActivitiesWithChildren();
-            Operator = new Operator();
+            Operator = new Operator(){ StudyId = Utilities.StudyId};
             Name = string.Empty;
         }
     }
