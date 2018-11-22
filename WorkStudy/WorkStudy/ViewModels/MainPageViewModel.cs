@@ -130,6 +130,9 @@ namespace WorkStudy.ViewModels
 
         void TerminateStudy()
         {
+            var study = SampleRepo.GetItem(Utilities.StudyId);
+            study.Completed = true;
+            SampleRepo.SaveItem(study);
             Utilities.Navigate(new ReportsPage());
         }
 
