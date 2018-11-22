@@ -49,6 +49,10 @@
                     <Label Text="Date" Style="{StaticResource plainLabel}" />
                     <DatePicker WidthRequest="150" Date="{Binding Date}" />
                 </StackLayout>
+                 <StackLayout Orientation="Horizontal">
+                    <Label Text="Time" Style="{StaticResource plainLabel}" />
+                    <TimePicker WidthRequest="150"  Time="{Binding Time}"/>
+                </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Studied By" Style="{StaticResource plainLabel}" />
                     <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}" />

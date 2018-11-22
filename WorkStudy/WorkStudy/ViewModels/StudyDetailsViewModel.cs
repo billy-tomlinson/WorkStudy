@@ -34,8 +34,13 @@ namespace WorkStudy.ViewModels
             SampleStudy = new ActivitySampleStudy() 
             { 
                 IsRated = true, 
-                Date = DateTime.Now 
+                Date = DateTime.Now,
+                Time = DateTime.Now.TimeOfDay
             };
+
+            Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
+            SampleStudy.StudyNumber = Utilities.StudyId;
+
         }
     }
 }
