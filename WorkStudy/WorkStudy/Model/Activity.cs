@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
+using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {
@@ -13,9 +14,13 @@ namespace WorkStudy.Model
         {
             Colour = Color.Aquamarine;
             Activities  = new List<Activity>();
+            StudyId = Utilities.StudyId;
         }
 
         public string Name { get; set; }
+
+        [ForeignKey(typeof(ActivitySampleStudy))]
+        public int StudyId { get; set; }
 
         public string Comment { get; set; }
 

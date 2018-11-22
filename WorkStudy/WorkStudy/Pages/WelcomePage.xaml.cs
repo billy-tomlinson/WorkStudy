@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using WorkStudy.Pages;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace WorkStudy
@@ -19,7 +20,7 @@ namespace WorkStudy
 	    async void Navigate()
 	    {
 	        await System.Threading.Tasks.Task.Delay(3000);
-	        await Navigation.PushAsync(new StudyDetails());
+	        await Navigation.PushAsync(new StudyMenu());
 	    }
 
         protected override bool OnBackButtonPressed()

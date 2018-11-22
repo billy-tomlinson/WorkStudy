@@ -13,7 +13,7 @@ namespace WorkStudy.ViewModels
         override public void SubmitDetailsAndNavigate()
         {
          
-            Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
+            SampleRepo.SaveItem(SampleStudy);
 
             Utilities.Navigate(new AddActivities());
         }

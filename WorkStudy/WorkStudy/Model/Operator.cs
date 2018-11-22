@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
+using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {
@@ -11,6 +12,7 @@ namespace WorkStudy.Model
         public Operator()
         {
             Activities = new List<Activity>();
+            StudyId = Utilities.StudyId;
         }
 
         [ForeignKey(typeof(ActivitySampleStudy))]

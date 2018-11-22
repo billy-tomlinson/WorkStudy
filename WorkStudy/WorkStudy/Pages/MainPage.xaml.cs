@@ -1,6 +1,7 @@
 ﻿using WorkStudy.Model;
 using Xamarin.Forms;
 using WorkStudy.ViewModels;
+using WorkStudy.Pages;
 
 namespace WorkStudy
 {
@@ -28,6 +29,13 @@ namespace WorkStudy
 
             NavigateToReports();
         }
+
+        void Pause_Clicked(object sender, System.EventArgs e)
+        {
+
+            NavigateToStudyMenu();
+        }
+
         public MainPage()
         {
             InitializeComponent();
@@ -50,6 +58,12 @@ namespace WorkStudy
         {
             await System.Threading.Tasks.Task.Delay(1000);
             await Navigation.PushModalAsync(new ReportsPage());
+        }
+
+        async void NavigateToStudyMenu()
+        {
+            await System.Threading.Tasks.Task.Delay(1000);
+            await Navigation.PushModalAsync(new StudyMenu());
         }
         protected override bool OnBackButtonPressed()
         {

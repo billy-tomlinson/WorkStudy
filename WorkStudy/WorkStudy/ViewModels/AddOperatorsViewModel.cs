@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -62,7 +63,8 @@ namespace WorkStudy.ViewModels
             List<Operator> duplicatesCheck = new List<Operator>(Operators);
             if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
                 OperatorRepo.SaveItem(new Operator { Name = Name.ToUpper().Trim() });
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
+                                                           .Where(_ => _.StudyId == Utilities.StudyId));
             Name = string.Empty;
         }
 
@@ -111,7 +113,8 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) 
+                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
@@ -165,9 +168,10 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                                           .Where(_ => _.StudyId == Utilities.StudyId));
             Activities = GetActivitiesWithChildren();
-            Operator = new Operator(){ StudyId = Utilities.StudyId};
+            Operator = new Operator();
             Name = string.Empty;
         }
     }

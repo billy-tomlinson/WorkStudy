@@ -15,6 +15,7 @@ namespace WorkStudy.ViewModels
 
         public AddActivitiesViewModel()
         {
+            
             ConstructorSetUp();
         }
 

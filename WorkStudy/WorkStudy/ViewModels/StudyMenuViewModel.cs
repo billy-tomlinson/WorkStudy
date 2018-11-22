@@ -1,4 +1,5 @@
 ﻿using System;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -17,7 +18,6 @@ namespace WorkStudy.ViewModels
             CompletedStudies = new Command(CompletedStudiesPage);
         }
 
-
         void NewStudyPage()
         {
             Utilities.Navigate(new StudyDetails());
@@ -25,7 +25,7 @@ namespace WorkStudy.ViewModels
 
         void ExistingStudyPage()
         {
-            Utilities.Navigate(new MainPage());
+            Utilities.Navigate(new ExistingStudies());
         }
 
         void CompletedStudiesPage()

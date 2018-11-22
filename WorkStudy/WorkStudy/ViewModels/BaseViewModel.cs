@@ -64,12 +64,14 @@ namespace WorkStudy.ViewModels
 
         public ObservableCollection<Activity> GetEnabledActivities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetItems().Where(x => x.IsEnabled == true));
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                         .Where(x => x.IsEnabled == true && x.StudyId == Utilities.StudyId));;
         }
 
         public ObservableCollection<Activity> GetActivitiesWithChildren()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren().Where(x => x.IsEnabled == true));
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                                        .Where(x => x.IsEnabled == true && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)

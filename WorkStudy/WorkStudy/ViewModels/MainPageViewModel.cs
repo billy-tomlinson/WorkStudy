@@ -153,7 +153,8 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) 
+                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
@@ -215,7 +216,8 @@ namespace WorkStudy.ViewModels
             RatingSelected = new Command(RatingSelectedEvent);
             EndStudy = new Command(TerminateStudy);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems());
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
+                                                           .Where(_ => _.StudyId == Utilities.StudyId));
             Activities = GetEnabledActivities();
         }
     }
