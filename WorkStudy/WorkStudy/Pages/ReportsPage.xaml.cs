@@ -1,8 +1,4 @@
-﻿
-using System.Collections.Generic;
-using SQLite;
-using Xamarin.Forms;
-using WorkStudy.Model;
+﻿using Xamarin.Forms;
 
 namespace WorkStudy
 {
@@ -31,29 +27,5 @@ namespace WorkStudy
         {
             return true;
         }
-
-        void DataBase()
-        {
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabasePath))
-            {
-
-                var sample = new ActivitySampleStudy();
-                sample.Name = "Billy";
-
-                conn.CreateTable<ActivitySampleStudy>();
-                int itemsInserted = conn.Insert(sample);
-
-            }
-
-            using (SQLiteConnection conn = new SQLiteConnection(App.DatabasePath))
-            {
-                var sample = new ActivitySampleStudy();
-                conn.CreateTable<ActivitySampleStudy>();
-                List<ActivitySampleStudy> notes = conn.Table<ActivitySampleStudy>().ToList();
-                DisplayAlert(notes.Count.ToString(), "OK", "ok");
-            }
-        }
     }
-
-
 }

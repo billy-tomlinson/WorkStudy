@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using WorkStudy.Pages;
 
 namespace WorkStudy
 {
