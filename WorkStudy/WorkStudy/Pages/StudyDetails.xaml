@@ -77,8 +77,9 @@
             </AbsoluteLayout>-->
 
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" 
-                        Padding="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10">
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" 
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
                 <StackLayout BindingContext="{Binding SampleStudy}">
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Study Details" Style="{StaticResource plainLabel}" HorizontalOptions="Center" />
@@ -116,13 +117,15 @@
                     <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
                 </StackLayout>
             </StackLayout>
-            <ContentView BackgroundColor=" Silver" Padding="10, 0" IsVisible="{Binding IsInvalid}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
-                    <StackLayout Orientation="Vertical" HeightRequest="100" WidthRequest="200" BackgroundColor="Transparent">
-                        <Label Text="Please input all values." />
+            <ContentView BackgroundColor="Transparent" Padding="10, 0" IsVisible="{Binding IsInvalid}" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
+                             Margin="10" WidthRequest="250" HeightRequest="100" BackgroundColor="#d0e6e4">
+                    <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
+                        <Label Text="Please input all values."  HorizontalTextAlignment="Center"/>
                     </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent">
-                        <Button Text="OK" Style="{StaticResource plainButton}" Command="{Binding CloseView}" WidthRequest="120" />
+                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150">
+                        <Button Text="OK" Style="{StaticResource plainButton}" Command="{Binding CloseView}" Margin="60,10,60,10"  />
                     </StackLayout>
                 </StackLayout>
             </ContentView>
