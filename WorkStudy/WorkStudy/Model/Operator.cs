@@ -18,7 +18,7 @@ namespace WorkStudy.Model
 
         public string Name { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date => DateTime.Now;
 
         public bool IsEnabled { get; set; }
 

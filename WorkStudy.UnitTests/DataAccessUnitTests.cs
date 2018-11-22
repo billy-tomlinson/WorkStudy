@@ -127,7 +127,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity One",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -168,7 +167,6 @@ namespace WorkStudy.UnitTests
                 var observation = new Observation()
                 {
                     ActivityId = 1,
-                    Date = DateTime.Now,
                     OperatorId = 1,
                     Rating = 85
                 };
@@ -205,7 +203,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity One",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -213,14 +210,12 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity Two",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
                 var activity3 = new Activity()
                 {
                     Name = "Activity Three",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -229,14 +224,12 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity Four",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
                 var activity5 = new Activity()
                 {
                     Name = "Activity Five",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -245,7 +238,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity Six",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -310,7 +302,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity One",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -318,7 +309,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity Two",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -327,7 +317,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity Three",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -369,7 +358,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity One",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 
@@ -378,7 +366,6 @@ namespace WorkStudy.UnitTests
                 {
                     Name = "Activity Two",
                     Comment = "Some comment or other",
-                    Date = DateTime.Now,
                     IsEnabled = true
                 };
 

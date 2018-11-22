@@ -11,7 +11,7 @@ namespace WorkStudy.Model
         [ForeignKey(typeof(Activity))]
         public int ActivityId { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date => DateTime.Now;
 
         public int Rating { get; set; }
     }

@@ -11,7 +11,6 @@ namespace WorkStudy.Model
     {
         public Activity()
         {
-            Date = DateTime.Now;
             Colour = Color.Aquamarine;
             Activities  = new List<Activity>();
         }
@@ -22,7 +21,7 @@ namespace WorkStudy.Model
 
         public bool IsEnabled { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Date => DateTime.Now;
         [Ignore]
         public Color Colour { get; set; }
 

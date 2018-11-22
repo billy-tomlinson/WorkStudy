@@ -201,10 +201,6 @@ namespace WorkStudy.ViewModels
         {
             return new Command((item) =>
             {
-                //var value = (int)sender;
-                //ActivityId = value;
-                //Observation.ActivityId = ActivityId;
-
                 RatingsVisible = true;
                 ActivitiesVisible = false;
             });
