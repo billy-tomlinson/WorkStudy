@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using SQLiteNetExtensions.Extensions;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -76,8 +78,9 @@ namespace WorkStudy.ViewModels
 
             var operators = OperatorRepo.GetAllWithChildren().ToList();
 
+            var parentActivity = new Activity();
             var returnId = ActivityRepo.SaveItem(parentActivity);
-            var parentActivity = ActivityRepo.GetItem(returnId);
+            parentActivity = ActivityRepo.GetItem(returnId);
 
             for (var i = 0; i < MergedActivities.Count; i++)
             {
