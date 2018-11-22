@@ -64,10 +64,10 @@
                     <Button Text="Save Observations" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding SaveObservations}" />
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Pause Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Pause_Clicked" />
+                    <Button Text="Pause Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding PauseStudy}" />
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Finish Study" WidthRequest="200" FontSize="10" BackgroundColor="Red" TextColor="White" Clicked="End_Clicked" />
+                    <Button Text="Finish Study" WidthRequest="200" FontSize="10" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" />
                 </StackLayout>
             </StackLayout>
             <ContentView x:Name="ratingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="{Binding RatingsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">

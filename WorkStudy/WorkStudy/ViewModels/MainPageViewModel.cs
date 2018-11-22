@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -21,6 +22,7 @@ namespace WorkStudy.ViewModels
         public Command ActivitySelected { get; set; }
         public Command RatingSelected { get; set; }
         public Command EndStudy { get; set; }
+        public Command PauseStudy { get; set; }
 
         public MainPageViewModel(string conn) : base(conn)
         {
@@ -136,6 +138,11 @@ namespace WorkStudy.ViewModels
             Utilities.Navigate(new ReportsPage());
         }
 
+        void NavigateToStudyMenu()
+        {
+            Utilities.Navigate(new StudyMenu());
+        }
+
         void ActivitySelectedEvent(object sender)
         {
             ChangeButtonColour((int)sender);
@@ -215,6 +222,7 @@ namespace WorkStudy.ViewModels
             ActivitySelected = new Command(ActivitySelectedEvent);
             RatingSelected = new Command(RatingSelectedEvent);
             EndStudy = new Command(TerminateStudy);
+            PauseStudy = new Command(NavigateToStudyMenu);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
                                                            .Where(_ => _.StudyId == Utilities.StudyId));
