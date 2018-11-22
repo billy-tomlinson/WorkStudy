@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy"
+             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"  
              x:Class="WorkStudy.StudyDetails">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -27,27 +28,39 @@
         <local:StudyDetailsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Padding="10" Margin="10" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Study Details" Style="{StaticResource plainLabel}" HorizontalOptions="Center" />
+        <StackLayout  Padding="10" Margin="10" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
+            <StackLayout BindingContext="{Binding SampleStudy}">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Study Details" Style="{StaticResource plainLabel}" HorizontalOptions="Center" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Study Number" Style="{StaticResource plainLabel}" />
+                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudyNumber}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Study Name" Style="{StaticResource plainLabel}" />
+                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Name}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Department" Style="{StaticResource plainLabel}" />
+                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Department}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Date" Style="{StaticResource plainLabel}" />
+                    <DatePicker WidthRequest="150" Date="{Binding Date}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Studied By" Style="{StaticResource plainLabel}" />
+                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Rated" Style="{StaticResource plainLabel}" />
+                    <custom:CheckBox  Checked="{Binding IsRated}" IsVisible="true"/>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Study Name" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Name}"/>
+            <StackLayout>
+                <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Department" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Department}" />
-            </StackLayout>
-             <StackLayout Orientation="Horizontal">
-                <Label Text="Date" Style="{StaticResource plainLabel}" />
-                <DatePicker WidthRequest="150" Date="{Binding Date}"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Studied By" Style="{StaticResource plainLabel}" />
-                <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}"/>
-            </StackLayout>
-            <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
