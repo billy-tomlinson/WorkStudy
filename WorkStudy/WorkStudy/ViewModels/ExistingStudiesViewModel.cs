@@ -8,8 +8,10 @@ namespace WorkStudy.ViewModels
 {
     public class ExistingStudiesViewModel : BaseViewModel
     {
+        bool completed;
         public ExistingStudiesViewModel(bool completed)
         {
+            this.completed = completed;
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                   .Where(_ => _.Completed == completed));
         }
@@ -36,7 +38,11 @@ namespace WorkStudy.ViewModels
             {
                 var study = item as ActivitySampleStudy;
                 Utilities.StudyId = study.Id;
-                Utilities.Navigate(new MainPage());
+
+                if(!completed)
+                    Utilities.Navigate(new MainPage());
+                else
+                    Utilities.Navigate(new ReportsPage());
             });
         }
     }
