@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27825.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStudy.Android", "WorkStudy\WorkStudy.Android\WorkStudy.Android.csproj", "{0B472FA8-36F7-453E-8DBE-5858DA00BA13}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkStudy", "WorkStudy\WorkStudy\WorkStudy.csproj", "{DFC3F065-4531-4EAF-BE55-077116E15B75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStudy", "WorkStudy\WorkStudy\WorkStudy.csproj", "{DFC3F065-4531-4EAF-BE55-077116E15B75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStudy.iOS", "WorkStudy\WorkStudy.iOS\WorkStudy.iOS.csproj", "{18A874CE-4225-4341-9962-9EC94636D7AF}"
 EndProject
@@ -135,5 +135,12 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CDBB5F3E-71D5-4BA7-AA80-FCA6F90BAAC9}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.StandardHeader = $2
+		$0.VersionControlPolicy = $3
 	EndGlobalSection
 EndGlobal

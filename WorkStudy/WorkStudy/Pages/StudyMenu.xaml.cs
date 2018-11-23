@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Plugin.Messaging;
 using Syncfusion.XlsIO;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 
 namespace WorkStudy.Pages
 {
@@ -20,9 +18,10 @@ namespace WorkStudy.Pages
                     var filePath = CreateExcelWorkBook();
 
                     var email1 = new EmailMessageBuilder()
-                        .To("to.plugins@xamarin.com")
-                        .Cc("cc.plugins@xamarin.com")
-                        .Bcc(new[] { "bcc1.plugins@xamarin.com", "bcc2.plugins@xamarin.com" })
+                        //.To("to.plugins@xamarin.com")
+                        .To(email.Text)
+                        //.Cc("cc.plugins@xamarin.com")
+                        //.Bcc(new[] { "bcc1.plugins@xamarin.com", "bcc2.plugins@xamarin.com" })
                         .Subject("Xamarin Messaging Plugin")
                         .Body("Well hello there from Xam.Messaging.Plugin")
                         .WithAttachment(Path.Combine(filePath, "GettingStared.xlsx"),"application/msexcel")
