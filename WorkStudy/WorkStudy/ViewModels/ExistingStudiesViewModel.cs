@@ -8,10 +8,10 @@ namespace WorkStudy.ViewModels
 {
     public class ExistingStudiesViewModel : BaseViewModel
     {
-        public ExistingStudiesViewModel()
+        public ExistingStudiesViewModel(bool completed)
         {
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
-                                                                            .Where(_ => _.Completed == false));
+                                  .Where(_ => _.Completed == completed));
         }
 
         static ObservableCollection<ActivitySampleStudy> activitySamples;

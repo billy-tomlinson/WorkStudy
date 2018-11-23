@@ -1,5 +1,4 @@
-﻿using System;
-using WorkStudy.Pages;
+﻿using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -25,12 +24,12 @@ namespace WorkStudy.ViewModels
 
         void ExistingStudyPage()
         {
-            Utilities.Navigate(new ExistingStudies());
+            Utilities.Navigate(new PausedStudiesPage(false));
         }
 
         void CompletedStudiesPage()
         {
-            Utilities.Navigate(new ReportsPage());
+            Utilities.Navigate(new CompletedStudiesPage(true));
         }
     }
 }
