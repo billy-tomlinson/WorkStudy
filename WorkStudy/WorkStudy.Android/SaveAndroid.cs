@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Android.Content;
 using Java.IO;
 using Xamarin.Forms;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 class SaveAndroid: ISave
     {
         //Method to save document as a file in Android and view the saved document
-        public async Task SaveAndView(string fileName, String contentType, MemoryStream stream)
+        public async Task<string> SaveAndView(string fileName, String contentType, MemoryStream stream)
         {
             string root = null;
             //Get the root path in android device.
@@ -38,15 +37,17 @@ class SaveAndroid: ISave
             outs.Flush();
             outs.Close();
 
-            //Invoke the created file for viewing
-            if (file.Exists())
-            {
-                Android.Net.Uri path = Android.Net.Uri.FromFile(file);
-                string extension = Android.Webkit.MimeTypeMap.GetFileExtensionFromUrl(Android.Net.Uri.FromFile(file).ToString());
-                string mimeType = Android.Webkit.MimeTypeMap.Singleton.GetMimeTypeFromExtension(extension);
-                Intent intent = new Intent(Intent.ActionView);
-                intent.SetDataAndType(path, mimeType);
-                Forms.Context.StartActivity(Intent.CreateChooser(intent, "Choose App"));
-            }
+            return root + "/Syncfusion";
+
+            ////Invoke the created file for viewing
+            //if (file.Exists())
+            //{
+            //    Android.Net.Uri path = Android.Net.Uri.FromFile(file);
+            //    string extension = Android.Webkit.MimeTypeMap.GetFileExtensionFromUrl(Android.Net.Uri.FromFile(file).ToString());
+            //    string mimeType = Android.Webkit.MimeTypeMap.Singleton.GetMimeTypeFromExtension(extension);
+            //    Intent intent = new Intent(Intent.ActionView);
+            //    intent.SetDataAndType(path, mimeType);
+            //    Forms.Context.StartActivity(Intent.CreateChooser(intent, "Choose App"));
+            //}
         }
     }

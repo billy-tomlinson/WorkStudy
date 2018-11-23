@@ -8,10 +8,11 @@ using Xamarin.Forms;
 class SaveIOS: ISave
     {
         //Method to save document as a file and view the saved document
-        public async Task SaveAndView(string filename, string contentType, MemoryStream stream)
+        public async Task<string> SaveAndView(string filename, string contentType, MemoryStream stream)
         {
             //Get the root path in iOS device.
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //string filePath = Path.Combine("/Users/billytomlinson", filename);
             string filePath = Path.Combine(path, filename);
 
             //Create a file and write the stream into it.
@@ -20,6 +21,11 @@ class SaveIOS: ISave
             stream.CopyTo(fileStream);
             fileStream.Flush();
             fileStream.Close();
+
+            return path;
+            //Task<string> task1 = Task<string>.Factory.StartNew(() => path);
+            //string i = task1.Result;
+            //return i;
 
             ////Invoke the saved document for viewing
             //UIViewController currentController = UIApplication.SharedApplication.KeyWindow.RootViewController;
