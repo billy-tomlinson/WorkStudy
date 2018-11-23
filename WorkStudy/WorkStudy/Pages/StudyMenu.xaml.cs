@@ -61,7 +61,7 @@ namespace WorkStudy.Pages
                     workbook.Close();
 
                     //Save the stream as a file in the device and invoke it for viewing
-                    DependencyService.Get<ISave>().SaveAndView("GettingStared.xlsx", "application/msexcel", stream);
+                    await DependencyService.Get<ISave>().SaveAndView("GettingStared.xlsx", "application/msexcel", stream);
                 }
             };
         }
