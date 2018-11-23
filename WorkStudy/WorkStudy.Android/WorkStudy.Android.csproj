@@ -15,7 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
@@ -33,8 +33,6 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidKeyStore>
-    </AndroidKeyStore>
     <AndroidSupportedAbis>armeabi-v7a;armeabi;x86_64;arm64-v8a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
