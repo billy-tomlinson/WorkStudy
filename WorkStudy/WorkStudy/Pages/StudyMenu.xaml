@@ -20,7 +20,8 @@
                 <Entry Placeholder="E-mail Address" x:Name="email"/>
                     <Button x:Name="ButtonEmail" Text="Send E-mail"/>
                 <Label Text=""/>
-            </StackLayout>
+                <Button x:Name="GenerateExcel" Text="Generate Document" HorizontalOptions="Center"/>
+        </StackLayout>
 
     </ContentPage.Content>
 </ContentPage>

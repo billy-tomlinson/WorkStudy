@@ -1,4 +1,7 @@
-﻿using Plugin.Messaging;
+﻿using System;
+using System.IO;
+using Plugin.Messaging;
+using Syncfusion.XlsIO;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -31,6 +34,34 @@ namespace WorkStudy.Pages
                 catch
                 {
                     await DisplayAlert("Error", "Unable to perform action", "OK");
+                }
+            };
+
+            GenerateExcel.Clicked += async (sender, e) =>
+            {
+                //Create an instance of ExcelEngine.
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+                    //Set the default application version as Excel 2013.
+                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+
+                    //Create a workbook with a worksheet
+                    IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                    //Access first worksheet from the workbook instance.
+                    IWorksheet worksheet = workbook.Worksheets[0];
+
+                    //Adding text to a cell
+                    worksheet.Range["A1"].Text = "Hello World";
+
+                    //Save the workbook to stream in xlsx format. 
+                    MemoryStream stream = new MemoryStream();
+                    workbook.SaveAs(stream);
+
+                    workbook.Close();
+
+                    //Save the stream as a file in the device and invoke it for viewing
+                    DependencyService.Get<ISave>().SaveAndView("GettingStared.xlsx", "application/msexcel", stream);
                 }
             };
         }
