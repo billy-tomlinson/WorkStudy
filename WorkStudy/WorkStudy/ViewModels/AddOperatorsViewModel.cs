@@ -14,8 +14,7 @@ namespace WorkStudy.ViewModels
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
-        public Operator Operator;
-        public string ValidationText => "Please Enter a valid Name";
+        public Operator Operator = new Operator();
 
         public AddOperatorsViewModel()
         {
@@ -48,6 +47,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        private string validationText;
+        public string ValidationText
+        {
+            get => validationText;
+            set
+            {
+                validationText = value;
+                OnPropertyChanged();
+            }
+        }
+
         static bool activitiesVisible;
         public bool ActivitiesVisible
         {
@@ -61,15 +72,21 @@ namespace WorkStudy.ViewModels
 
         void SaveOperatorDetails()
         {
-
             ValidateValues();
 
-            List<Operator> duplicatesCheck = new List<Operator>(Operators);
-            if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                OperatorRepo.SaveItem(new Operator { Name = Name.ToUpper().Trim() });
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
-                                                           .Where(_ => _.StudyId == Utilities.StudyId));
-            Name = string.Empty;
+            if (!IsInvalid)
+            {
+                Operator.Name = Name = Name.ToUpper().Trim();
+
+                List<Operator> duplicatesCheck = new List<Operator>(Operators);
+
+                if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
+                    Operator.Id = OperatorRepo.SaveItem(Operator);
+
+                Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
+                                                               .Where(_ => _.StudyId == Utilities.StudyId));
+                Name = string.Empty;
+            }
         }
 
         void ActivitySelectedEvent(object sender)
@@ -104,7 +121,12 @@ namespace WorkStudy.ViewModels
 
         public override void SubmitDetailsAndNavigate()
         {
-            Utilities.Navigate(new StudyStartPage());
+            ValidateOperatorActivities();
+
+            if (!IsInvalid)
+            {
+                Utilities.Navigate(new StudyStartPage());
+            }
         }
 
         public ICommand ItemClickedCommand
@@ -179,11 +201,23 @@ namespace WorkStudy.ViewModels
             Name = string.Empty;
         }
 
-        public void ValidateValues()
+        private void ValidateValues()
         {
+            ValidationText = "Please Enter a valid Name";
             IsInvalid = true;
 
             if ((Name != null && Name?.Trim().Length > 0))
+                IsInvalid = false;
+        }
+
+        private void ValidateOperatorActivities()
+        {
+            IsInvalid = true;
+            ValidationText = "Some operators have no activities";
+            var invalidOperators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                                           .Where(_ => _.StudyId == Utilities.StudyId 
+                                                                  && _.Activities.Count() == 0));
+            if ((invalidOperators.Count() == 0))
                 IsInvalid = false;
         }
     }
