@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" x:Class="WorkStudy.StudyDetails">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
+             x:Class="WorkStudy.StudyDetails">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -24,58 +29,6 @@
         <local:StudyDetailsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <!-- <AbsoluteLayout>
-        <StackLayout Padding="10" Margin="10" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
-            <StackLayout BindingContext="{Binding SampleStudy}">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Study Details" Style="{StaticResource plainLabel}" HorizontalOptions="Center" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Study Number" Style="{StaticResource plainLabel}" />
-                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudyNumber}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Study Name" Style="{StaticResource plainLabel}" />
-                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Name}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Department" Style="{StaticResource plainLabel}" />
-                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Department}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Date" Style="{StaticResource plainLabel}" />
-                    <DatePicker WidthRequest="150" Date="{Binding Date}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Time" Style="{StaticResource plainLabel}" />
-                    <TimePicker WidthRequest="150" Time="{Binding Time}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Studied By" Style="{StaticResource plainLabel}" />
-                    <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Rated" Style="{StaticResource plainLabel}" />
-                    <custom:CheckBox Checked="{Binding IsRated}" IsVisible="true" />
-                </StackLayout>
-            </StackLayout>
-            <StackLayout>
-                <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
-            </StackLayout>
-            <ContentView x:Name="chartView" BackgroundColor="White" Padding="10, 0" IsVisible = "{Binding IsInvalid}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
-                    <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="400" BackgroundColor="White">
-                        <Image x:Name="chart" HeightRequest="400" WidthRequest="400">
-                        </Image>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent">
-                        <Button Text="OK" Style="{StaticResource plainButton}" WidthRequest="120" />
-                    </StackLayout>
-                </StackLayout>
-            </ContentView>
-        </StackLayout>
-            </AbsoluteLayout>-->
-
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" 
                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" 
@@ -117,18 +70,9 @@
                     <Button Text="Submit Details" Style="{StaticResource plainButton}" WidthRequest="200" Command="{Binding SubmitDetails}" />
                 </StackLayout>
             </StackLayout>
-            <ContentView BackgroundColor="Transparent" Padding="10, 0" IsVisible="{Binding IsInvalid}" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
-                             Margin="10" WidthRequest="250" HeightRequest="100" BackgroundColor="#d0e6e4">
-                    <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
-                        <Label Text="Please input all values."  HorizontalTextAlignment="Center"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150">
-                        <Button Text="OK" Style="{StaticResource plainButton}" Command="{Binding CloseView}" Margin="60,10,60,10"  />
-                    </StackLayout>
-                </StackLayout>
-            </ContentView>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

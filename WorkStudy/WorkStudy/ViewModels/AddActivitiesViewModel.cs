@@ -11,7 +11,9 @@ namespace WorkStudy.ViewModels
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
+        public Command CloseView { get; set; }
         public Activity Activity;
+        public string ValidationText => "Please Enter a valid Name";
 
         public AddActivitiesViewModel()
         {
@@ -29,6 +31,8 @@ namespace WorkStudy.ViewModels
             SaveActivity = new Command(SaveActivityDetails);
             SaveComment = new Command(SaveCommentDetails);
             CancelComment = new Command(CancelCommentDetails);
+            CloseView = new Command(CloseValidationView);
+
             Name = string.Empty;
             Activities = GetEnabledActivities();
             Activity = new Activity();
@@ -67,14 +71,30 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        bool isInvalid = false;
+        public bool IsInvalid
+        {
+            get { return isInvalid; }
+            set
+            {
+                isInvalid = value;
+                OnPropertyChanged();
+            }
+        }
+
         void SaveActivityDetails()
         {
-            List<Activity> duplicatesCheck = new List<Activity>(Activities);
-            if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true });
-            Activities = GetEnabledActivities();
+            ValidateValues();
 
-            Name = string.Empty;
+            if (!IsInvalid)
+            {
+                List<Activity> duplicatesCheck = new List<Activity>(Activities);
+                if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
+                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true });
+                Activities = GetEnabledActivities();
+
+                Name = string.Empty;
+            }           
         }
 
         void SaveCommentDetails()
@@ -113,6 +133,19 @@ namespace WorkStudy.ViewModels
                 Comment = Activity.Comment;
                 CommentsVisible = true;
             });
+        }
+
+        private void ValidateValues()
+        {
+            IsInvalid = true;
+
+            if((Name != null && Name?.Trim().Length > 0)) 
+                IsInvalid = false;
+        }
+
+        public void CloseValidationView()
+        {
+            IsInvalid = false;
         }
     }
 }

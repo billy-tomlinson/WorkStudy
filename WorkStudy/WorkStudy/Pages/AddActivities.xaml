@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
              x:Class="WorkStudy.AddActivities">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -27,7 +28,7 @@
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="15*" />
@@ -40,9 +41,9 @@
                 </Grid.ColumnDefinitions>
                 <StackLayout BackgroundColor="Transparent">
                     <local:CustomListView ItemsSource="{Binding Activities}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
-                     <x:Arguments>
-                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                    </x:Arguments>
+                        <x:Arguments>
+                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                        </x:Arguments>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -58,8 +59,7 @@
                     <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
                 </StackLayout>
             </Grid>
-            <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
+            <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label Text="Comments" FontSize="15" TextColor="Blue" />
@@ -69,6 +69,9 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -8,6 +8,7 @@ namespace WorkStudy.ViewModels
     public class StudyDetailsViewModel : BaseViewModel
     {
         public Command CloseView { get; set; }
+        public string ValidationText => "Please enter all study details";
 
         public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 

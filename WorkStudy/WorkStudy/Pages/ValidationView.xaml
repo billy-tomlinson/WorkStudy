@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="WorkStudy.Pages.ValidationView">
+ <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="plainButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
+            <Style x:Key="activityLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="#E8AD00" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+            <Style x:Key="activityButton" TargetType="Button">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="WidthRequest" Value="112" />
+            </Style>
+            <Style x:Key="plainLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+            <Style x:Key="boxView" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="#E8AD00" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+         <ContentView BackgroundColor="Transparent" Padding="10, 0">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
+                             Margin="10" WidthRequest="250" HeightRequest="100" BackgroundColor="#d0e6e4">
+                    <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
+                        <Label Text="{Binding ValidationText}"  HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150">
+                        <Button Text="OK" Style="{StaticResource plainButton}" Command="{Binding CloseView}" Margin="60,10,60,10"  />
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+    </ContentView.Content>
+</ContentView>

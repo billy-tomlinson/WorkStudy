@@ -11,6 +11,8 @@ namespace WorkStudy
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            //validationView.BindingContext = new AddActivitiesViewModel();
+
         }
         protected override bool OnBackButtonPressed()
         {
