@@ -43,11 +43,11 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Study Name" Style="{StaticResource plainLabel}" />
-                        <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Name}" />
+                        <Entry Placeholder="Name" WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Name}" MaxLength="20"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Department" Style="{StaticResource plainLabel}" />
-                        <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Department}" />
+                        <Entry Placeholder="Department" WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding Department}" MaxLength="20"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Date" Style="{StaticResource plainLabel}" />
@@ -59,7 +59,7 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Studied By" Style="{StaticResource plainLabel}" />
-                        <Entry WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}" />
+                        <Entry Placeholder="Studied By" WidthRequest="150" Style="{StaticResource plainEntry}" Text="{Binding StudiedBy}" MaxLength="20"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Rated" Style="{StaticResource plainLabel}" />

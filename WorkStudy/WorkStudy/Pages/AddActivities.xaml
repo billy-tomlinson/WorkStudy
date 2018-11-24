@@ -54,7 +54,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </local:CustomListView>
-                    <Editor Grid.Row="1" Text="{Binding Name}" HeightRequest="100" />
+                    <Entry Grid.Row="1" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20"/>
                     <Button Text="Add Activity" Command="{Binding SaveActivity}" Grid.Row="2" Style="{StaticResource plainButton}" />
                     <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
                 </StackLayout>
