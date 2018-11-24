@@ -15,6 +15,7 @@ namespace WorkStudy.ViewModels
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
         public Operator Operator;
+        public string ValidationText => "Please Enter a valid Name";
 
         public AddOperatorsViewModel()
         {
@@ -60,6 +61,9 @@ namespace WorkStudy.ViewModels
 
         void SaveOperatorDetails()
         {
+
+            ValidateValues();
+
             List<Operator> duplicatesCheck = new List<Operator>(Operators);
             if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
                 OperatorRepo.SaveItem(new Operator { Name = Name.ToUpper().Trim() });
@@ -173,6 +177,14 @@ namespace WorkStudy.ViewModels
             Activities = GetActivitiesWithChildren();
             Operator = new Operator();
             Name = string.Empty;
+        }
+
+        public void ValidateValues()
+        {
+            IsInvalid = true;
+
+            if ((Name != null && Name?.Trim().Length > 0))
+                IsInvalid = false;
         }
     }
 }

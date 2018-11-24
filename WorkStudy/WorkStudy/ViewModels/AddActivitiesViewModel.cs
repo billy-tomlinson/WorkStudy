@@ -11,7 +11,6 @@ namespace WorkStudy.ViewModels
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
-        public Command CloseView { get; set; }
         public Activity Activity;
         public string ValidationText => "Please Enter a valid Name";
 
@@ -24,18 +23,6 @@ namespace WorkStudy.ViewModels
         public AddActivitiesViewModel(string conn) : base(conn)
         {
             ConstructorSetUp();
-        }
-
-        private void ConstructorSetUp()
-        {
-            SaveActivity = new Command(SaveActivityDetails);
-            SaveComment = new Command(SaveCommentDetails);
-            CancelComment = new Command(CancelCommentDetails);
-            CloseView = new Command(CloseValidationView);
-
-            Name = string.Empty;
-            Activities = GetEnabledActivities();
-            Activity = new Activity();
         }
 
         private string comment;
@@ -67,17 +54,6 @@ namespace WorkStudy.ViewModels
             set
             {
                 commentsVisible = value;
-                OnPropertyChanged();
-            }
-        }
-
-        bool isInvalid = false;
-        public bool IsInvalid
-        {
-            get { return isInvalid; }
-            set
-            {
-                isInvalid = value;
                 OnPropertyChanged();
             }
         }
@@ -135,17 +111,23 @@ namespace WorkStudy.ViewModels
             });
         }
 
-        private void ValidateValues()
+        public void ValidateValues()
         {
             IsInvalid = true;
 
-            if((Name != null && Name?.Trim().Length > 0)) 
+            if ((Name != null && Name?.Trim().Length > 0))
                 IsInvalid = false;
         }
 
-        public void CloseValidationView()
+        private void ConstructorSetUp()
         {
-            IsInvalid = false;
+            SaveActivity = new Command(SaveActivityDetails);
+            SaveComment = new Command(SaveCommentDetails);
+            CancelComment = new Command(CancelCommentDetails);
+
+            Name = string.Empty;
+            Activities = GetEnabledActivities();
+            Activity = new Activity();
         }
     }
 }

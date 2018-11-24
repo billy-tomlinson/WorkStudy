@@ -12,12 +12,14 @@ namespace WorkStudy.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {      
         public event PropertyChangedEventHandler PropertyChanged;
+        public Command CloseView { get; set; }
         private readonly string conn;
 
         public BaseViewModel(string conn = null)
         {
             this.conn = conn;
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
+            CloseView = new Command(CloseValidationView);
             EnsureTableCreation();
         }
         public Command SubmitDetails { get; set; }
@@ -55,6 +57,18 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        bool isInvalid = false;
+        public bool IsInvalid
+        {
+            get { return isInvalid; }
+            set
+            {
+                isInvalid = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -87,6 +101,11 @@ namespace WorkStudy.ViewModels
             MergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
             OperatorActivityRepo.DatabaseConnection.CreateTable<ActivitySampleStudy>();
             SampleRepo.DatabaseConnection.CreateTable<OperatorActivity>();
+        }
+
+        public void CloseValidationView()
+        {
+            IsInvalid = false;
         }
     }
 }
