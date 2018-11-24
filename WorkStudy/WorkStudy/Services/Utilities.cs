@@ -1,5 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Plugin.Messaging;
+using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using Xamarin.Forms;
 
@@ -54,6 +59,61 @@ namespace WorkStudy.Services
             if (!added) groupedActivities.Add(multipleActivities);
 
             return groupedActivities;
+        }
+
+        public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
+        {
+            string path;
+            string fileName = $"Workstudy_Study_{StudyId}.xlsx";
+
+            var dataItems = items.ToList();
+
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                worksheet.ImportData(dataItems, 1, 1, true);
+
+                MemoryStream stream = new MemoryStream();
+
+                workbook.SaveAs(stream);
+
+                workbook.Close();
+
+                path = DependencyService.Get<ISave>()
+                                        .SaveSpreadSheet(fileName, "application/msexcel", stream)
+                                        .Result;
+            }
+
+            return new SpreadSheet() { FileName = fileName, FilePath = path };
+        }
+
+        public static bool SendEmail(SpreadSheet spreadSheet)
+        {
+            try
+            {
+                var email = new EmailMessageBuilder()
+                    .Subject("Activity Sample Results")
+                    .Body($"Attached are the results for Study {StudyId}")
+                    .WithAttachment(Path.Combine(spreadSheet.FilePath, spreadSheet.FileName), "application/msexcel")
+                    .Build();
+
+                var emailTask = CrossMessaging.Current.EmailMessenger;
+                if (emailTask.CanSendEmail)
+                {
+                   emailTask.SendEmail(email);
+                   return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

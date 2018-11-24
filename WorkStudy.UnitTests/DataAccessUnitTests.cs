@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQLiteNetExtensions.Extensions;
+using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using WorkStudy.ViewModels;
@@ -291,6 +293,93 @@ namespace WorkStudy.UnitTests
                     var v = mergeModel.OperatorRepo.GetWithChildren(item.Id);
                 }
 
+            }
+
+            [TestMethod]
+            public void Create_Excel_Spreadsheet_From_SQL()
+            {
+                var activity1 = new Activity()
+                {
+                    Name = "Activity One",
+                    Comment = "Some comment or other",
+                    IsEnabled = true
+                };
+
+                var activity2 = new Activity()
+                {
+                    Name = "Activity Two",
+                    Comment = "Some comment or other",
+                    IsEnabled = true
+                };
+                var activity3 = new Activity()
+                {
+                    Name = "Activity Three",
+                    Comment = "Some comment or other",
+                    IsEnabled = true
+                };
+
+
+                var activity4 = new Activity()
+                {
+                    Name = "Activity Four",
+                    Comment = "Some comment or other",
+                    IsEnabled = true
+                };
+                var activity5 = new Activity()
+                {
+                    Name = "Activity Five",
+                    Comment = "Some comment or other",
+                    IsEnabled = true
+                };
+
+
+                var activity6 = new Activity()
+                {
+                    Name = "Activity Six",
+                    Comment = "Some comment or other",
+                    IsEnabled = true
+                };
+
+                var activities = new List<Activity>()
+                {
+                    activity1, activity2 , activity3 , activity4 , activity5 , activity6
+                };
+
+                foreach (var item in activities)
+                {
+                    activityRepo.SaveItem(item);
+                }
+
+                var x = activityRepo.GetItems();
+
+                using (ExcelEngine excelEngine = new ExcelEngine())
+                {
+
+                    //Set the default application version as Excel 2013.
+                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+
+                    //Create a workbook with a worksheet
+                    IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                    //Access first worksheet from the workbook instance.
+                    IWorksheet worksheet = workbook.Worksheets[0];
+
+                    worksheet.ImportData(x, 1, 1, true);
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        workbook.SaveAs(ms);
+                        workbook.Close();
+
+                        ms.Seek(0, SeekOrigin.Begin);
+
+                        using (FileStream fs = new FileStream("output.xlsx", FileMode.OpenOrCreate))
+                        {
+                            ms.CopyTo(fs);
+                            fs.Flush();
+                        }
+                    }
+                }
             }
 
             private Activity TestActivityMerges()

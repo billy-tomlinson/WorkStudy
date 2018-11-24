@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 class SaveAndroid: ISave
     {
         //Method to save document as a file in Android and view the saved document
-        public async Task<string> SaveAndView(string fileName, String contentType, MemoryStream stream)
+        public async Task<string> SaveSpreadSheet(string fileName, String contentType, MemoryStream stream)
         {
             string root = null;
             //Get the root path in android device.

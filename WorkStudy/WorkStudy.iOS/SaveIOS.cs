@@ -8,7 +8,7 @@ using Xamarin.Forms;
 class SaveIOS: ISave
     {
         //Method to save document as a file and view the saved document
-        public async Task<string> SaveAndView(string filename, string contentType, MemoryStream stream)
+        public async Task<string> SaveSpreadSheet(string filename, string contentType, MemoryStream stream)
         {
             //Get the root path in iOS device.
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -23,11 +23,8 @@ class SaveIOS: ISave
             fileStream.Close();
 
             return path;
-            //Task<string> task1 = Task<string>.Factory.StartNew(() => path);
-            //string i = task1.Result;
-            //return i;
 
-            ////Invoke the saved document for viewing
+            //Invoke the saved document for viewing
             //UIViewController currentController = UIApplication.SharedApplication.KeyWindow.RootViewController;
             //while (currentController.PresentedViewController != null)
             //    currentController = currentController.PresentedViewController;
@@ -38,5 +35,6 @@ class SaveIOS: ISave
             //qlPreview.DataSource = new PreviewControllerDS(item);
 
             //currentController.PresentViewController(qlPreview, true, null);
+
         }
     }
