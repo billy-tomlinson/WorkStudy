@@ -23,6 +23,7 @@ namespace WorkStudy.ViewModels
         {
             ConstructorSetUp();
         }
+
         private void ConstructorSetUp()
         {
             SaveActivity = new Command(SaveActivityDetails);

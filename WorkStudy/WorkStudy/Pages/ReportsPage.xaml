@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.ReportsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             x:Class="WorkStudy.ReportsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="plainButton" TargetType="Button">
@@ -9,6 +12,9 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+        <ContentPage.BindingContext>
+        <workStudy:ReportsPageViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Padding="30">
             <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10">
@@ -20,6 +26,7 @@
                     <Button Text="Individual Stats" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
                     <Button Text="BreakDown Report" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
                     <Button Text="Tailored Report" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
+                    <Button Text="Email Report" Style="{StaticResource plainButton}" Command="{Binding SendEmail}" />
                 </StackLayout>
             </StackLayout>
             <ContentView x:Name="chartView" BackgroundColor="White" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
