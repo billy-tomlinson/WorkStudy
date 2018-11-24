@@ -17,11 +17,6 @@
                     FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding ExistingStudy}"/>
                 <Button Text="View Completed Studies" WidthRequest="200" 
                     FontSize="15" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding CompletedStudies}"/>
-                <Entry Placeholder="E-mail Address" x:Name="email"/>
-                    <Button x:Name="ButtonEmail" Text="Send E-mail"/>
-                <Label Text=""/>
-                <Button x:Name="GenerateExcel" Text="Generate Document" HorizontalOptions="Center"/>
         </StackLayout>
-
     </ContentPage.Content>
 </ContentPage>
