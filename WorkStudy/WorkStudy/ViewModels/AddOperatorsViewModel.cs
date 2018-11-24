@@ -47,18 +47,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-
-        private string validationText;
-        public string ValidationText
-        {
-            get => validationText;
-            set
-            {
-                validationText = value;
-                OnPropertyChanged();
-            }
-        }
-
         static bool activitiesVisible;
         public bool ActivitiesVisible
         {
@@ -214,9 +202,9 @@ namespace WorkStudy.ViewModels
         {
             IsInvalid = true;
             ValidationText = "Some operators have no activities";
-            var invalidOperators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                                           .Where(_ => _.StudyId == Utilities.StudyId 
-                                                                  && _.Activities.Count() == 0));
+            var invalidOperators = OperatorRepo.GetAllWithChildren()
+                                                .Where(_ => _.StudyId == Utilities.StudyId 
+                                                 && _.Activities.Count() == 0).ToList();
             if ((invalidOperators.Count() == 0))
                 IsInvalid = false;
         }

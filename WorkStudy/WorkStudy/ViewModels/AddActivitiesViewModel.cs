@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -12,7 +13,6 @@ namespace WorkStudy.ViewModels
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
         public Activity Activity;
-        public string ValidationText => "Please Enter a valid Name";
 
         public AddActivitiesViewModel()
         {
@@ -93,7 +93,12 @@ namespace WorkStudy.ViewModels
 
         public override void SubmitDetailsAndNavigate()
         {
-            Utilities.Navigate(new AddOperators());
+            ValidateActivitiesAdded();
+
+            if (!IsInvalid)
+            {
+                Utilities.Navigate(new AddOperators());
+            }
         }
 
         public ICommand ItemClickedCommand
@@ -113,9 +118,24 @@ namespace WorkStudy.ViewModels
 
         public void ValidateValues()
         {
+            ValidationText = "Please Enter a valid Name";
+
             IsInvalid = true;
 
             if ((Name != null && Name?.Trim().Length > 0))
+                IsInvalid = false;
+        }
+
+        private void ValidateActivitiesAdded()
+        {
+            
+            ValidationText = "Please add at least one Activity";
+
+            IsInvalid = true;
+
+            var activities = GetEnabledActivities();
+
+            if ((activities.Count > 0))
                 IsInvalid = false;
         }
 

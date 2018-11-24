@@ -69,6 +69,17 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        private string validationText;
+        public string ValidationText
+        {
+            get => validationText;
+            set
+            {
+                validationText = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
