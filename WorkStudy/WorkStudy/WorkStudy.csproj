@@ -31,6 +31,7 @@
     <Compile Remove="MasterPage.xaml.cs" />
     <Compile Remove="Pages\TestDatabasePage.xaml.cs" />
     <Compile Remove="Model\ValidationBase.cs" />
+    <Compile Remove="Model\Product.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">
