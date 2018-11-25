@@ -1,47 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.AddOperators" 
-             x:Name="MainPage2">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.AddOperators" x:Name="MainPage2">
     <ContentPage.BindingContext>
         <viewModels1:AddOperatorsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
-            <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" Margin="0,50,100,100" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+            <Grid Padding="5,5,0,0" VerticalOptions="Start" HorizontalOptions="Start">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="15*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto">
+                    </RowDefinition>
+                    <RowDefinition Height="500">
+                    </RowDefinition>
+                    <RowDefinition Height="Auto">
+                    </RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="330">
+                    </ColumnDefinition>
+                    <ColumnDefinition Width="30">
+                    </ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackLayout BackgroundColor="Transparent">
-                    <local:CustomListView ItemsSource="{Binding Operators}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
-                        <x:Arguments>
-                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                        </x:Arguments>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.View>
-                                        <Label Text="{Binding Name}"/>
-                                    </ViewCell.View>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </local:CustomListView>
-                    <Entry Grid.Row="1" Placeholder="Operator Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20"/>
-                    <Button Text="Add Operator" Command="{Binding SaveOperator}" Grid.Row="2"/>
-                    <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3"/>
-                </StackLayout>
+                <Grid.Children>
+                    <StackLayout Grid.Row="0" Grid.Column="0">
+                        <Entry Grid.Row="1" Placeholder="Operator Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="1">
+                        <Button Text="+" Command="{Binding SaveOperator}" Grid.Row="2" FontSize="35" HeightRequest="40" BackgroundColor="Transparent"/>
+                    </StackLayout>
+                    <StackLayout BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <local:CustomListView ItemsSource="{Binding Operators}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
+                            <x:Arguments>
+                                <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                            </x:Arguments>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <Label Text="{Binding Name}" />
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </local:CustomListView>
+                    </StackLayout>
+                    <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="Save Operators" Command="{Binding SubmitDetails}" />
+                </Grid.Children>
             </Grid>
-            <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ContentView x:Name="activityView" BackgroundColor="#C0808080" 
+                         IsVisible="{Binding ActivitiesVisible}" 
+                         HeightRequest="500" WidthRequest="500"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <StackLayout Orientation="Vertical" HeightRequest="350" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
@@ -59,7 +67,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <BoxView Grid.Row="0" Grid.Column="0" IsVisible="{Binding ActivityOne.IsEnabled}"/>
+                                                <BoxView Grid.Row="0" Grid.Column="0" IsVisible="{Binding ActivityOne.IsEnabled}" />
                                                 <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityOne.IsEnabled}" Text="{Binding ActivityOne.Name}" BackgroundColor="{Binding ActivityOne.Colour}" FontSize="15" Grid.Row="0" Grid.Column="0">
                                                     <local:CustomLabel.GestureRecognizers>
                                                         <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage2}}" CommandParameter="{Binding ActivityOne.Id}" />
@@ -84,13 +92,13 @@
                             </local:RepeaterView>
                         </StackLayout>
                         <StackLayout>
-                            <Button Text="Save" Command="{Binding SaveActivities}"/>
+                            <Button Text="Save" Command="{Binding SaveActivities}" />
                             <Button Text="Cancel" Command="{Binding CancelActivities}" />
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
         </AbsoluteLayout>
