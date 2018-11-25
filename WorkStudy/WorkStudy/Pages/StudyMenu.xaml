@@ -7,7 +7,10 @@
         <workStudy:StudyMenuViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center"  BackgroundColor="Transparent">
+            <StackLayout Padding="10" Margin="10" 
+                         VerticalOptions="Center" 
+                         HorizontalOptions="Center"  
+                         BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Study Options" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>

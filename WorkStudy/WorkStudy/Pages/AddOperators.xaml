@@ -6,43 +6,6 @@
              xmlns:views="clr-namespace:WorkStudy.Pages" 
              x:Class="WorkStudy.AddOperators" 
              x:Name="MainPage2">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="plainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-            <Style x:Key="activityButton" TargetType="Button">
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="BorderRadius" Value="0" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="WidthRequest" Value="112" />
-            </Style>
-            <Style x:Key="plainLabel" TargetType="Label">
-                <Setter Property="BackgroundColor" Value="#eee" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-            <Style x:Key="plainEntry" TargetType="Entry">
-                <Setter Property="BackgroundColor" Value="#eee" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-            <Style x:Key="activityLabel" TargetType="Label">
-                <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="HorizontalTextAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="15" />
-            </Style>
-            <Style x:Key="boxView" TargetType="BoxView">
-                <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="WidthRequest" Value="160" />
-                <Setter Property="HeightRequest" Value="50" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <viewModels1:AddOperatorsViewModel />
     </ContentPage.BindingContext>
@@ -67,15 +30,15 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.View>
-                                        <Label Text="{Binding Name}" Style="{StaticResource plainLabel}" />
+                                        <Label Text="{Binding Name}"/>
                                     </ViewCell.View>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </local:CustomListView>
                     <Entry Grid.Row="1" Placeholder="Operator Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20"/>
-                    <Button Text="Add Operator" Command="{Binding SaveOperator}" Grid.Row="2" Style="{StaticResource plainButton}" />
-                    <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
+                    <Button Text="Add Operator" Command="{Binding SaveOperator}" Grid.Row="2"/>
+                    <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3"/>
                 </StackLayout>
             </Grid>
             <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
@@ -83,8 +46,6 @@
                     <StackLayout Orientation="Vertical" HeightRequest="350" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
                         <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
-                            <!--<Grid x:Name="gridLayout">
-                            </Grid>-->
                             <local:RepeaterView ItemsSource="{Binding GroupActivities}">
                                 <local:RepeaterView.ItemTemplate>
                                     <DataTemplate>
@@ -98,20 +59,20 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <BoxView Grid.Row="0" Grid.Column="0" Style="{StaticResource boxView}" IsVisible="{Binding ActivityOne.IsEnabled}" />
-                                                <local:CustomLabel IsVisible="{Binding ActivityOne.IsEnabled}" Text="{Binding ActivityOne.Name}" Style="{StaticResource activityLabel}" BackgroundColor="{Binding ActivityOne.Colour}" FontSize="15" Grid.Row="0" Grid.Column="0">
+                                                <BoxView Grid.Row="0" Grid.Column="0" IsVisible="{Binding ActivityOne.IsEnabled}"/>
+                                                <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityOne.IsEnabled}" Text="{Binding ActivityOne.Name}" BackgroundColor="{Binding ActivityOne.Colour}" FontSize="15" Grid.Row="0" Grid.Column="0">
                                                     <local:CustomLabel.GestureRecognizers>
                                                         <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage2}}" CommandParameter="{Binding ActivityOne.Id}" />
                                                     </local:CustomLabel.GestureRecognizers>
                                                 </local:CustomLabel>
-                                                <BoxView Grid.Row="0" Grid.Column="1" Style="{StaticResource boxView}" IsVisible="{Binding ActivityTwo.IsEnabled}" />
-                                                <local:CustomLabel IsVisible="{Binding ActivityTwo.IsEnabled}" Text="{Binding ActivityTwo.Name}" Style="{StaticResource activityLabel}" FontSize="15" Grid.Row="0" Grid.Column="1" BackgroundColor="{Binding ActivityTwo.Colour}">
+                                                <BoxView Grid.Row="0" Grid.Column="1" IsVisible="{Binding ActivityTwo.IsEnabled}" />
+                                                <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityTwo.IsEnabled}" Text="{Binding ActivityTwo.Name}" FontSize="15" Grid.Row="0" Grid.Column="1" BackgroundColor="{Binding ActivityTwo.Colour}">
                                                     <local:CustomLabel.GestureRecognizers>
                                                         <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage2}}" CommandParameter="{Binding ActivityTwo.Id}" />
                                                     </local:CustomLabel.GestureRecognizers>
                                                 </local:CustomLabel>
-                                                <BoxView Grid.Row="0" Grid.Column="2" Style="{StaticResource boxView}" IsVisible="{Binding ActivityThree.IsEnabled}" />
-                                                <local:CustomLabel IsVisible="{Binding ActivityThree.IsEnabled}" Text="{Binding ActivityThree.Name}" Style="{StaticResource activityLabel}" FontSize="15" Grid.Row="0" Grid.Column="2" BackgroundColor="{Binding ActivityThree.Colour}">
+                                                <BoxView Grid.Row="0" Grid.Column="2" IsVisible="{Binding ActivityThree.IsEnabled}" />
+                                                <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityThree.IsEnabled}" Text="{Binding ActivityThree.Name}" FontSize="15" Grid.Row="0" Grid.Column="2" BackgroundColor="{Binding ActivityThree.Colour}">
                                                     <local:CustomLabel.GestureRecognizers>
                                                         <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage2}}" CommandParameter="{Binding ActivityThree.Id}" />
                                                     </local:CustomLabel.GestureRecognizers>
@@ -123,8 +84,8 @@
                             </local:RepeaterView>
                         </StackLayout>
                         <StackLayout>
-                            <Button Text="Save" Command="{Binding SaveActivities}" Style="{StaticResource plainButton}" />
-                            <Button Text="Cancel" Command="{Binding CancelActivities}" Style="{StaticResource plainButton}" />
+                            <Button Text="Save" Command="{Binding SaveActivities}"/>
+                            <Button Text="Cancel" Command="{Binding CancelActivities}" />
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
