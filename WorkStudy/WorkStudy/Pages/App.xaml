@@ -1,8 +1,55 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WorkStudy.App">
+<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
+                <On Platform="iOS" Value="MarkerFelt-Thin" />
+                <On Platform="Android" Value="Roboto-Light" />
+                <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+            </OnPlatform>
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="#B7D79C" />
+            </Style>
+            <Style TargetType="Button" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="#F1F944" />
+                <Setter Property="TextColor" Value="#09160A" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="BackgroundColor" Value="#FCFCCB" />
+                <Setter Property="TextColor" Value="#585802" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Font" Value="{StaticResource StandardFont}" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#E9D802" />
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="#E8AD00" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="activityLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="#E8AD00" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+            <Style x:Key="plainButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
+            <Label.FontFamily>
+            </Label.FontFamily>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
