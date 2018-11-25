@@ -3,15 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              x:Class="WorkStudy.ReportsPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="plainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
         <ContentPage.BindingContext>
         <workStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>
