@@ -201,16 +201,23 @@ namespace WorkStudy.ViewModels
         private void ValidateOperatorActivities()
         {
             IsInvalid = true;
-            ValidationText = "Some operators have no activities";
+
 
             var studyOperators = OperatorRepo.GetAllWithChildren()
                                           .Where(_ => _.StudyId == Utilities.StudyId).ToList();
-            
-            if (!studyOperators.Any() || studyOperators.Any(_ => _.Activities.Count() == 0))
+            if (!studyOperators.Any())
+            {
+                ValidationText = "Add at least one operator.";
                 return;
-
+            }
+                
+            if (studyOperators.Any(_ => _.Activities.Count() == 0))
+            {
+                ValidationText = "Some operators have no activities";
+                return;
+            }
+                
             IsInvalid = false;
-
         }
     }
 }
