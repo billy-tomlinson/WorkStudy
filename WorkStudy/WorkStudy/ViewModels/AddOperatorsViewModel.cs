@@ -14,7 +14,7 @@ namespace WorkStudy.ViewModels
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
-        public Operator Operator = new Operator();
+        public Operator Operator;
 
         public AddOperatorsViewModel()
         {
@@ -64,12 +64,12 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                Operator.Name = Name = Name.ToUpper().Trim();
+                Name = Name.ToUpper().Trim();
 
                 List<Operator> duplicatesCheck = new List<Operator>(Operators);
 
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    Operator.Id = OperatorRepo.SaveItem(Operator);
+                    Operator.Id = OperatorRepo.SaveItem(new Operator(){Name = Name});
 
                 Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
                                                                .Where(_ => _.StudyId == Utilities.StudyId));
@@ -84,7 +84,7 @@ namespace WorkStudy.ViewModels
 
             var exisitingActivity = Operator.Activities.Find(_ => _.Id == value);
 
-            if(exisitingActivity == null)
+            if (exisitingActivity == null)
             {
                 var activity = ActivityRepo.GetItem(value);
                 Operator.Activities.Add(activity);
@@ -127,7 +127,7 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) 
+            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
                 ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
@@ -163,7 +163,7 @@ namespace WorkStudy.ViewModels
             foreach (var specific in operatorSpecific)
             {
                 var activity = list1.Find(_ => _.Id == specific.Id);
-                if (activity != null) 
+                if (activity != null)
                 {
                     activity.Colour = System.Drawing.Color.BlueViolet;
                     list1.RemoveAll(_ => _.Id == (int)specific.Id);
@@ -202,11 +202,15 @@ namespace WorkStudy.ViewModels
         {
             IsInvalid = true;
             ValidationText = "Some operators have no activities";
-            var invalidOperators = OperatorRepo.GetAllWithChildren()
-                                                .Where(_ => _.StudyId == Utilities.StudyId 
-                                                 && _.Activities.Count() == 0).ToList();
-            if ((invalidOperators.Count() == 0))
-                IsInvalid = false;
+
+            var studyOperators = OperatorRepo.GetAllWithChildren()
+                                          .Where(_ => _.StudyId == Utilities.StudyId).ToList();
+            
+            if (!studyOperators.Any() || studyOperators.Any(_ => _.Activities.Count() == 0))
+                return;
+
+            IsInvalid = false;
+
         }
     }
 }
