@@ -22,6 +22,7 @@
   <ItemGroup>
     <EmbeddedResource Remove="MasterPage.xaml" />
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
+    <EmbeddedResource Remove="Pages\ExistingStudies.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -72,5 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pages\ExistingStudies.xaml" />
   </ItemGroup>
 </Project>
