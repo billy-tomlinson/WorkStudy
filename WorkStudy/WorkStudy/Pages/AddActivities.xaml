@@ -6,8 +6,8 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="7,5,5,5">
-                    <Entry WidthRequest="310" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20" />
+                <StackLayout Orientation="Horizontal" Margin="7,5,5,5" HeightRequest="50" VerticalOptions="Center">
+                    <Entry WidthRequest="300" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20" />
                     <Button WidthRequest="30" Text="+" HeightRequest="40" Padding="0" Margin="0" FontSize="35" FontAttributes="Bold"  BackgroundColor="Transparent" 
                             Command="{Binding SaveActivity}" />
                 </StackLayout>
