@@ -107,7 +107,7 @@ namespace WorkStudy.ViewModels
 
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
         {
-            return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled &&));
+            return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));
         }
 
         private void EnsureTableCreation()
