@@ -13,6 +13,7 @@ namespace WorkStudy.Services
     public class Utilities
     {      
         public static int StudyId { get; set; }
+        public static bool RatedStudy { get; set; }
         public static int OperatorId { get; set; }
 
         public static async void Navigate(ContentPage page)

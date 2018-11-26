@@ -24,6 +24,8 @@ namespace WorkStudy.ViewModels
 
                 CreateUnratedActivities();
 
+                Utilities.RatedStudy = SampleStudy.IsRated;
+
                 Utilities.Navigate(new AddActivities());
             }
                 

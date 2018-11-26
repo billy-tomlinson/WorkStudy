@@ -150,8 +150,17 @@ namespace WorkStudy.ViewModels
             ActivityId = value;
 
             Observation.ActivityId = ActivityId;
+            var currentActivity = ActivityRepo.GetItem(ActivityId);
 
-            RatingsVisible = true;
+            if(Utilities.RatedStudy && currentActivity.Rated)
+                RatingsVisible = true;
+            else
+            {
+                ActivitiesVisible = false;
+                Observations.Add(Observation);
+                ShowOrHideOperators(operator1);
+            }
+
             ActivitiesVisible = false;
         }
 
