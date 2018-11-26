@@ -177,12 +177,28 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void Add_And_Retrieve_Operator_With_No_Rated_And_Unrated_Activities()
             {
-                var operator1 = Link_UnRated_And_Rated_Activities_To_Operator();
                 Utilities.StudyId = 1000;
-                var model = new AddOperatorsViewModel(connString);
-                model.ValidateOperatorActivities();
-                Assert.IsFalse(model.IsInvalid);
+                Link_UnRated_And_Rated_Activities_To_Operator();
 
+                var studyOperators = operatorRepo.GetAllWithChildren()
+                                         .Where(_ => _.StudyId == Utilities.StudyId).ToList();
+
+                if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
+                {
+                    Assert.IsTrue(studyOperators.Count()> 0);
+                }
+
+                CleanDatabase();
+
+                Link_UnRated_Activities_To_Operators();
+
+                studyOperators = operatorRepo.GetAllWithChildren()
+                                         .Where(_ => _.StudyId == Utilities.StudyId).ToList();
+
+                if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
+                {
+                    Assert.IsTrue(studyOperators.Count() > 0);
+                }
             }
 
             [TestMethod]
@@ -565,17 +581,26 @@ namespace WorkStudy.UnitTests
                 return operator1;
             }
 
-            private Operator Link_UnRated_And_Rated_Activities_To_Operator()
+            private void Link_UnRated_And_Rated_Activities_To_Operator()
             {
                 var operator1 = new Operator()
                 {
                     Name = "Operator One",
-                    StudyId = 1000
+                    StudyId = Utilities.StudyId
                 };
 
-                var operatorId = operatorRepo.SaveItem(operator1);
 
-                var returnedOperator = operatorRepo.GetItem(operatorId);
+                var operator2 = new Operator()
+                {
+                    Name = "Operator Two",
+                    StudyId = Utilities.StudyId
+                };
+
+                var operatorId1 = operatorRepo.SaveItem(operator1);
+                var operatorId2 = operatorRepo.SaveItem(operator2);
+
+                var returnedOperator1 = operatorRepo.GetItem(operatorId1);
+                var returnedOperator2 = operatorRepo.GetItem(operatorId2);
 
                 var activity1 = new Activity()
                 {
@@ -601,12 +626,63 @@ namespace WorkStudy.UnitTests
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
 
                 operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+                operator2.Activities = new List<Activity> { returnedActivity1 };
 
                 operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
-
-                return operator1;
+                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator2);
             }
 
+
+            private void Link_UnRated_Activities_To_Operators()
+            {
+                var operator1 = new Operator()
+                {
+                    Name = "Operator One",
+                    StudyId = Utilities.StudyId
+                };
+
+
+                var operator2 = new Operator()
+                {
+                    Name = "Operator Two",
+                    StudyId = Utilities.StudyId
+                };
+
+                var operatorId1 = operatorRepo.SaveItem(operator1);
+                var operatorId2 = operatorRepo.SaveItem(operator2);
+
+                var returnedOperator1 = operatorRepo.GetItem(operatorId1);
+                var returnedOperator2 = operatorRepo.GetItem(operatorId2);
+
+                var activity1 = new Activity()
+                {
+                    Name = "Inactive One",
+                    Comment = "Some comment or other",
+                    IsEnabled = true,
+                    Rated = false
+                };
+
+
+                var activity2 = new Activity()
+                {
+                    Name = "Rated Two",
+                    Comment = "Some comment or other",
+                    IsEnabled = true,
+                    Rated = false
+                };
+
+                var activityId1 = activityRepo.SaveItem(activity1);
+                var activityId2 = activityRepo.SaveItem(activity2);
+
+                var returnedActivity1 = activityRepo.GetItem(activityId1);
+                var returnedActivity2 = activityRepo.GetItem(activityId2);
+
+                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+                operator2.Activities = new List<Activity> { returnedActivity1 };
+
+                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
+                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator2);
+            }
             private void CleanDatabase()
             {
                 activityRepo.DatabaseConnection.DropTable<Activity>();

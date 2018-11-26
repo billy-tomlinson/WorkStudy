@@ -211,7 +211,7 @@ namespace WorkStudy.ViewModels
                 return;
             }
                 
-            if (!studyOperators.Any(_ => _.Activities.Any(x => x.Rated)))
+            if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
             {
                 ValidationText = "Some operators have no activities";
                 return;
