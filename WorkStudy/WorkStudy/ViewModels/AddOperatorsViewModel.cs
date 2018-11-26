@@ -198,7 +198,7 @@ namespace WorkStudy.ViewModels
                 IsInvalid = false;
         }
 
-        private void ValidateOperatorActivities()
+        public void ValidateOperatorActivities()
         {
             IsInvalid = true;
 
@@ -211,13 +211,31 @@ namespace WorkStudy.ViewModels
                 return;
             }
                 
-            if (studyOperators.Any(_ => _.Activities.Count() == 0))
+            if (!studyOperators.Any(_ => _.Activities.Any(x => x.Rated)))
             {
                 ValidationText = "Some operators have no activities";
                 return;
             }
                 
             IsInvalid = false;
+        }
+
+        public void LinkAllOperatorsToUnratedActivities()
+        {
+
+            var ops = OperatorRepo.GetAllWithChildren()
+                .Where(_ => _.StudyId == Utilities.StudyId);
+
+            var activities = ActivityRepo.GetItems()
+                .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId);
+
+            foreach (var op in ops)
+            {
+                foreach (var item in activities)
+                {
+                    op.Activities.Add(item);
+                }
+            }
         }
     }
 }

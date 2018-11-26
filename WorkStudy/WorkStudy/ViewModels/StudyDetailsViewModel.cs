@@ -22,6 +22,8 @@ namespace WorkStudy.ViewModels
             {
                 SampleRepo.SaveItem(SampleStudy);
 
+                CreateUnratedActivities();
+
                 Utilities.Navigate(new AddActivities());
             }
                 
@@ -37,19 +39,6 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
-        bool isInvalid;
-        public bool IsInvalid
-        {
-            get { return isInvalid; }
-            set
-            {
-                isInvalid = value;
-                OnPropertyChanged();
-            }
-        }
-
         private void ConstructorSetUp()
         {
             SampleStudy = new ActivitySampleStudy() 
@@ -76,9 +65,35 @@ namespace WorkStudy.ViewModels
                 IsInvalid = false;
         }
 
-        private void CloseValidationView()
+        public void CreateUnratedActivities()
         {
-            IsInvalid = false;
+            var unrated1 = new Activity()
+            {
+                Name = "Idle",
+                IsEnabled = true,
+                Rated = false,
+                StudyId = Utilities.StudyId
+            };
+
+            var unrated2 = new Activity()
+            {
+                Name = "Inactive",
+                IsEnabled = true,
+                Rated = false,
+                StudyId = Utilities.StudyId
+            };
+
+            var unrated3 = new Activity()
+            {
+                Name = "Other",
+                IsEnabled = true,
+                Rated = false,
+                StudyId = Utilities.StudyId
+            };
+
+            ActivityRepo.SaveItem(unrated1);
+            ActivityRepo.SaveItem(unrated2);
+            ActivityRepo.SaveItem(unrated3);
         }
     }
 }
