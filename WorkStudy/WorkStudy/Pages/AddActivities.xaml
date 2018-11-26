@@ -5,25 +5,6 @@
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              xmlns:views="clr-namespace:WorkStudy.Pages" 
              x:Class="WorkStudy.AddActivities">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="plainButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-            <Style x:Key="plainLabel" TargetType="Label">
-                <Setter Property="BackgroundColor" Value="#eee" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-            <Style x:Key="plainEntry" TargetType="Entry">
-                <Setter Property="BackgroundColor" Value="#eee" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="20" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
@@ -48,15 +29,15 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <ViewCell.View>
-                                        <Label Text="{Binding Name}" Style="{StaticResource plainLabel}" />
+                                        <Label Text="{Binding Name}"/>
                                     </ViewCell.View>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </local:CustomListView>
                     <Entry Grid.Row="1" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20"/>
-                    <Button Text="Add Activity" Command="{Binding SaveActivity}" Grid.Row="2" Style="{StaticResource plainButton}" />
-                    <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
+                    <Button Text="Add Activity" Command="{Binding SaveActivity}" Grid.Row="2" />
+                    <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" />
                 </StackLayout>
             </Grid>
             <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
@@ -64,8 +45,8 @@
                     <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label Text="Comments" FontSize="15" TextColor="Blue" />
                         <Editor Text="{Binding Comment}" HeightRequest="100" />
-                        <Button Text="Save" Command="{Binding SaveComment}" Style="{StaticResource plainButton}" />
-                        <Button Text="Cancel" Command="{Binding CancelComment}" Style="{StaticResource plainButton}" />
+                        <Button Text="Save" Command="{Binding SaveComment}" />
+                        <Button Text="Cancel" Command="{Binding CancelComment}" />
                     </StackLayout>
                 </StackLayout>
             </ContentView>
