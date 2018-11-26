@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.AddActivities">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.AddActivities">
     <ContentPage.BindingContext>
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
-            <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="15*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackLayout BackgroundColor="Transparent">
-                    <local:CustomListView ItemsSource="{Binding Activities}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
-                        <x:Arguments>
-                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                        </x:Arguments>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.View>
-                                        <Label Text="{Binding Name}"/>
-                                    </ViewCell.View>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </local:CustomListView>
-                    <Entry Grid.Row="1" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20"/>
-                    <Button Text="Add Activity" Command="{Binding SaveActivity}" Grid.Row="2" />
-                    <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" />
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="7,5,5,5">
+                    <Entry WidthRequest="320" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20" />
+                    <Button WidthRequest="30" Text="+" HeightRequest="40" FontSize="35" BackgroundColor="Transparent" Command="{Binding SaveActivity}" />
                 </StackLayout>
-            </Grid>
+                <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout BackgroundColor="Transparent">
+                        <local:CustomListView ItemsSource="{Binding Activities}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
+                            <x:Arguments>
+                                <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                            </x:Arguments>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+                                            <Label Text="{Binding Name}" />
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </local:CustomListView>
+                        <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" />
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
             <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                     <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
@@ -50,7 +49,7 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
         </AbsoluteLayout>
