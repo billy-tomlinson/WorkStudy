@@ -46,8 +46,9 @@
                 <StackLayout Orientation="Horizontal" Margin="7,5,5,5">
                     <Entry WidthRequest="320" Placeholder="Operator Name" Text="{Binding Name}" 
                            HeightRequest="40" MaxLength="20" />
-                    <Button WidthRequest="30" Text="+" HeightRequest="40" FontSize="35" 
-                            BackgroundColor="Transparent" Command="{Binding SaveOperator}" />
+                    <Button WidthRequest="30" Text="+" HeightRequest="40" Padding="0" 
+                            Margin="0" FontSize="35" FontAttributes="Bold"  BackgroundColor="Transparent" 
+                            Command="{Binding SaveOperator}" />
                 </StackLayout>
                 <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
