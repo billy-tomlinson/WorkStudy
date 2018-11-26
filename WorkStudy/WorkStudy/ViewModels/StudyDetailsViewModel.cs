@@ -7,9 +7,6 @@ namespace WorkStudy.ViewModels
 {
     public class StudyDetailsViewModel : BaseViewModel
     {
-        public Command CloseView { get; set; }
-        public string ValidationText => "Please enter all study details";
-
         public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 
         public StudyDetailsViewModel(){ ConstructorSetUp(); }
@@ -58,6 +55,8 @@ namespace WorkStudy.ViewModels
 
         private void ValidateValues()
         {
+            ValidationText = "Please enter all study details";
+
             IsInvalid = true;
 
             if ((SampleStudy.Department != null &&  SampleStudy.Department?.Trim().Length > 0) &&

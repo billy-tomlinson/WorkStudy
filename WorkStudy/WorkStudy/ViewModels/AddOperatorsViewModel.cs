@@ -113,6 +113,7 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
+                LinkAllOperatorsToUnratedActivities();
                 Utilities.Navigate(new StudyStartPage());
             }
         }
@@ -231,10 +232,14 @@ namespace WorkStudy.ViewModels
 
             foreach (var op in ops)
             {
+                var updatedOp = OperatorRepo.GetWithChildren(op.Id);
+
                 foreach (var item in activities)
                 {
-                    op.Activities.Add(item);
+                    updatedOp.Activities.Add(item);
                 }
+
+                OperatorRepo.UpdateWithChildren(updatedOp);
             }
         }
     }

@@ -28,10 +28,12 @@ namespace WorkStudy.ViewModels
         {
             ConstructorSetUp();
         }
+
         public MainPageViewModel()
         {
             ConstructorSetUp();
         }
+
         private Observation Observation { get;set;}
         private int ActivityId { get; set; }
         private int Rating { get; set; }
@@ -205,7 +207,7 @@ namespace WorkStudy.ViewModels
         {          
             return new Command((item) =>
             {
-                StudyNumber = 100;
+                StudyNumber = Utilities.StudyId;
                 operator1 = item as Operator;
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
