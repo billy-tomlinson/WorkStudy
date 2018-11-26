@@ -87,21 +87,27 @@ namespace WorkStudy.ViewModels
 
         public virtual void SubmitDetailsAndNavigate(){}
 
-        public ObservableCollection<Activity> GetEnabledActivities()
+        public ObservableCollection<Activity> Get_Rated_Enabled_Activities()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetItems()
-                                         .Where(x => x.IsEnabled == true && x.StudyId == Utilities.StudyId));;
+                                         .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> GetActivitiesWithChildren()
+        public ObservableCollection<Activity> Get_Enabled_Activities()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
+        }
+
+        public ObservableCollection<Activity> Get_Rated_Enabled_Activities_WithChildren()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                                        .Where(x => x.IsEnabled == true && x.StudyId == Utilities.StudyId));
+                                        .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
         {
-            return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled == true));
+            return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled &&));
         }
 
         private void EnsureTableCreation()

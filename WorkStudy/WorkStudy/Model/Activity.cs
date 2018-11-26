@@ -26,7 +26,10 @@ namespace WorkStudy.Model
 
         public bool IsEnabled { get; set; }
 
+        public bool Rated { get; set; }
+
         public DateTime Date => DateTime.Now;
+
         [Ignore]
         public Color Colour { get; set; }
 

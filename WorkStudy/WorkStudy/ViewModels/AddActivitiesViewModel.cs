@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -64,10 +63,10 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                List<Activity> duplicatesCheck = new List<Activity>(Activities);
+                var duplicatesCheck = new List<Activity>(Activities);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true });
-                Activities = GetEnabledActivities();
+                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true});
+                Activities = Get_Rated_Enabled_Activities();
 
                 Name = string.Empty;
             }           
@@ -133,7 +132,7 @@ namespace WorkStudy.ViewModels
 
             IsInvalid = true;
 
-            var activities = GetEnabledActivities();
+            var activities = Get_Rated_Enabled_Activities();
 
             if ((activities.Count > 0))
                 IsInvalid = false;
@@ -146,7 +145,7 @@ namespace WorkStudy.ViewModels
             CancelComment = new Command(CancelCommentDetails);
 
             Name = string.Empty;
-            Activities = GetEnabledActivities();
+            Activities = Get_Rated_Enabled_Activities();
             Activity = new Activity();
         }
     }

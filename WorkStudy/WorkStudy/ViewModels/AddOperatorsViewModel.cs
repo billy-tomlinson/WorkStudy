@@ -184,7 +184,7 @@ namespace WorkStudy.ViewModels
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                            .Where(_ => _.StudyId == Utilities.StudyId));
-            Activities = GetActivitiesWithChildren();
+            Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();
             Name = string.Empty;
         }

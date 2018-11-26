@@ -110,7 +110,7 @@ namespace WorkStudy.ViewModels
             }
 
             MergedActivities = new List<Activity>();
-            Activities = GetActivitiesWithChildren();
+            Activities = Get_Rated_Enabled_Activities_WithChildren();
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
@@ -137,7 +137,7 @@ namespace WorkStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Activities = GetActivitiesWithChildren();
+            Activities = Get_Rated_Enabled_Activities_WithChildren();
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
         }

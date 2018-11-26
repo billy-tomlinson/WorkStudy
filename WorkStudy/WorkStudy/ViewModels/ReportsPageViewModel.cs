@@ -19,7 +19,7 @@ namespace WorkStudy.ViewModels
 
         private void SendEmailDetails()
         {
-            Activities = GetEnabledActivities();
+            Activities = Get_Rated_Enabled_Activities();
             var spreadsheet = Utilities.CreateExcelWorkBook(Activities);
             Utilities.SendEmail(spreadsheet);
         }

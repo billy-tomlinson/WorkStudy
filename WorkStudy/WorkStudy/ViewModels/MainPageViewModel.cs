@@ -226,7 +226,7 @@ namespace WorkStudy.ViewModels
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
                                                            .Where(_ => _.StudyId == Utilities.StudyId));
-            Activities = GetEnabledActivities();
+            Activities = Get_Enabled_Activities();
         }
     }
 }
