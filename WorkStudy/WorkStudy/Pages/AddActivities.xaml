@@ -1,66 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.AddActivities">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
+             x:Class="WorkStudy.AddActivities">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="plainButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#E8AD00" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="plainLabel" TargetType="Label">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="plainEntry" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" Margin="0,50,100,100" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
-            <StackLayout>
-                <Grid Padding="5,5,0,0" VerticalOptions="Start" HorizontalOptions="Start">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto">
-                        </RowDefinition>
-                        <RowDefinition Height="500">
-                        </RowDefinition>
-                        <RowDefinition Height="Auto">
-                        </RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="330">
-                        </ColumnDefinition>
-                        <ColumnDefinition Width="30">
-                        </ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.Children>
-                        <StackLayout Grid.Row="0" Grid.Column="0">
-                            <Entry Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20" />
-                        </StackLayout>
-                        <StackLayout Grid.Row="0" Grid.Column="1">
-                            <Button Text="+" Command="{Binding SaveActivity}" BackgroundColor="Transparent" FontSize="35" HeightRequest="40" />
-                        </StackLayout>
-                        <StackLayout BackgroundColor="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                            <local:CustomListView ItemsSource="{Binding Activities}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
-                                <x:Arguments>
-                                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                                </x:Arguments>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <ViewCell.View>
-                                                <Label Text="{Binding Name}" />
-                                            </ViewCell.View>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </local:CustomListView>
-                        </StackLayout>
-                        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="Save Activities" Command="{Binding SubmitDetails}" />
-                    </Grid.Children>
-                </Grid>
-            </StackLayout>
-            <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" Margin="30,150,0,0">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
+            <Grid Padding="5,5,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout BackgroundColor="Transparent">
+                    <local:CustomListView ItemsSource="{Binding Activities}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
+                        <x:Arguments>
+                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                        </x:Arguments>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Label Text="{Binding Name}" Style="{StaticResource plainLabel}" />
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </local:CustomListView>
+                    <Entry Grid.Row="1" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20"/>
+                    <Button Text="Add Activity" Command="{Binding SaveActivity}" Grid.Row="2" Style="{StaticResource plainButton}" />
+                    <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" Style="{StaticResource plainButton}" />
+                </StackLayout>
+            </Grid>
+            <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" HeightRequest="230" WidthRequest="300" BackgroundColor="Silver" Margin="2,2,2,2" Padding="2,2,2,2">
+                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label Text="Comments" FontSize="15" TextColor="Blue" />
-                        <Editor Text="{Binding Comment}" HeightRequest="120" />     
-                        <StackLayout Orientation="Horizontal">
-                            <Button Text="Save" WidthRequest="145" Command="{Binding SaveComment}" HorizontalOptions="Start"/>
-                            <Button Text="Cancel" WidthRequest="145" Command="{Binding CancelComment}" HorizontalOptions="End"/>
-                        </StackLayout>
-                    </StackLayout>     
+                        <Editor Text="{Binding Comment}" HeightRequest="100" />
+                        <Button Text="Save" Command="{Binding SaveComment}" Style="{StaticResource plainButton}" />
+                        <Button Text="Cancel" Command="{Binding CancelComment}" Style="{StaticResource plainButton}" />
+                    </StackLayout>
                 </StackLayout>
             </ContentView>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
         </AbsoluteLayout>
