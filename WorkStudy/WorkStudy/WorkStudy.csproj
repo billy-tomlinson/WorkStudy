@@ -22,7 +22,6 @@
   <ItemGroup>
     <EmbeddedResource Remove="MasterPage.xaml" />
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
-    <EmbeddedResource Remove="Pages\ExistingStudies.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -69,6 +68,9 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\ExistingStudies.xaml.cs">
+      <DependentUpon>ExistingStudies.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
