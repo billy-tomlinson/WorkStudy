@@ -55,6 +55,22 @@
                 <Setter Property="WidthRequest" Value="130" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
+             <Style x:Key="inputEntry" TargetType="Entry">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="WidthRequest" Value="300" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+             <Style x:Key="plusButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="35" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Text" Value="+" />
+            </Style>
             <Label.FontFamily>
             </Label.FontFamily>
         </ResourceDictionary>

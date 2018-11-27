@@ -23,6 +23,10 @@
                             <Label Style="{StaticResource studyLabel}" Text="Department" />
                             <Entry x:Name="studyDepartment" Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20" />
                         </StackLayout>
+                         <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Studied By" />
+                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
+                        </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Date" />
                             <DatePicker WidthRequest="150" Date="{Binding Date}" IsEnabled="false" />
@@ -30,10 +34,6 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Time" />
                             <TimePicker WidthRequest="150" Time="{Binding Time}" IsEnabled="false" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Studied By" />
-                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HeightRequest="60">
                             <Label Style="{StaticResource studyLabel}" Text="Rated" />

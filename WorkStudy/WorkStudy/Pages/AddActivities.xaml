@@ -6,9 +6,14 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="7,5,5,5" HeightRequest="50" VerticalOptions="Center">
-                    <Entry WidthRequest="300" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="40" MaxLength="20" />
-                    <Button WidthRequest="30" Text="+" HeightRequest="40" Padding="0" Margin="0" FontSize="35" FontAttributes="Bold"  BackgroundColor="Transparent" 
+                <StackLayout Orientation="Horizontal" 
+                             Margin="7,5,5,5" 
+                             HeightRequest="50" 
+                             VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}"
+                           Placeholder="Activity Name" 
+                           Text="{Binding Name}" />
+                    <Button Style="{StaticResource plusButton}"
                             Command="{Binding SaveActivity}" />
                 </StackLayout>
                 <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
