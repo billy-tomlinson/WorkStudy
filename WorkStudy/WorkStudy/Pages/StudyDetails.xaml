@@ -1,58 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" 
-             xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.StudyDetails">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.StudyDetails">
     <ContentPage.BindingContext>
         <local:StudyDetailsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" 
-                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" 
-                AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
-                <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
-                    <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
-                        <Label Text="Study Details"  HeightRequest="50" FontSize="40"/>
+        <ScrollView>
+            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
+                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
+                        <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
+                            <Label Text="Study Details" HeightRequest="50" FontSize="40" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Study Number" />
+                            <Entry WidthRequest="150" IsEnabled="false" Text="{Binding StudyNumber}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Study Name" />
+                            <Entry x:Name="studyName" Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Department" />
+                            <Entry x:Name="studyDepartment" Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Date" />
+                            <DatePicker WidthRequest="150" Date="{Binding Date}" IsEnabled="false" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Time" />
+                            <TimePicker WidthRequest="150" Time="{Binding Time}" IsEnabled="false" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Studied By" />
+                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HeightRequest="60">
+                            <Label Style="{StaticResource studyLabel}" Text="Rated" />
+                            <custom:CheckBox x:Name="studyRated" Checked="{Binding IsRated}" IsVisible="true" />
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource studyLabel}" Text="Study Number" />
-                        <Entry WidthRequest="150" IsEnabled="false" Text="{Binding StudyNumber}" />
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource studyLabel}" Text="Study Name" />
-                        <Entry Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource studyLabel}" Text="Department"/>
-                        <Entry Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource studyLabel}" Text="Date" />
-                        <DatePicker WidthRequest="150" Date="{Binding Date}" IsEnabled="false"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource studyLabel}" Text="Time" />
-                        <TimePicker WidthRequest="150" Time="{Binding Time}" IsEnabled="false" />
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Style="{StaticResource studyLabel}" Text="Studied By" />
-                        <Entry Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" HeightRequest="60">
-                        <Label Style="{StaticResource studyLabel}" Text="Rated" />
-                        <custom:CheckBox Checked="{Binding IsRated}" IsVisible="true" />
+                    <StackLayout>
+                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitDetails}" />
                     </StackLayout>
                 </StackLayout>
-                <StackLayout>
-                    <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitDetails}" />
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
                 </StackLayout>
-            </StackLayout>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
-            </StackLayout>
-        </AbsoluteLayout>
+            </AbsoluteLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
