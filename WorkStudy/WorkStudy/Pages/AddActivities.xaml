@@ -17,7 +17,7 @@
                              VerticalOptions="Center">
                     <Entry Style="{StaticResource inputEntry}"
                            Placeholder="Activity Name" 
-                           Text="{Binding Name}" />
+                           Text="{Binding Name}" HeightRequest="50"/>
                     <Button Style="{StaticResource plusButton}"
                             Command="{Binding SaveActivity}" />
                 </StackLayout>
