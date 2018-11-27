@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.AddActivities">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.AddActivities">
     <ContentPage.BindingContext>
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <StackLayout>
-                <StackLayout Orientation="Horizontal" 
-                             Margin="7,5,5,5" 
-                             HeightRequest="60" 
-                             VerticalOptions="Center">
-                    <Entry Style="{StaticResource inputEntry}"
-                           Placeholder="Activity Name" 
-                           Text="{Binding Name}" HeightRequest="50"/>
-                    <Button Style="{StaticResource plusButton}"
-                            Command="{Binding SaveActivity}" />
+                <StackLayout Orientation="Horizontal" Margin="7,5,5,5" HeightRequest="60" VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="50" />
+                    <Button Style="{StaticResource plusButton}" Command="{Binding SaveActivity}" />
                 </StackLayout>
-                <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <!--<Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="15*" />
                         <RowDefinition Height="*" />
@@ -50,7 +39,8 @@
                         </local:CustomListView>
                         <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" />
                     </StackLayout>
-                </Grid>
+                </Grid>-->
+                <views:RepeaterControlView />
             </StackLayout>
             <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">

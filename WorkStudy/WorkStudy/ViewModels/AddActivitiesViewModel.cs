@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -11,6 +12,9 @@ namespace WorkStudy.ViewModels
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
         public Command CancelComment { get; set; }
+        public Command ItemSelected { get; set; }
+        public Command SettingsSelected { get; set; }
+        public Command DeleteSelected { get; set; }
         public Activity Activity;
 
         public AddActivitiesViewModel()
@@ -22,6 +26,17 @@ namespace WorkStudy.ViewModels
         public AddActivitiesViewModel(string conn) : base(conn)
         {
             ConstructorSetUp();
+        }
+
+        static ObservableCollection<Activity> itemsCollection;
+        public ObservableCollection<Activity> ItemsCollection
+        {
+            get => itemsCollection;
+            set
+            {
+                itemsCollection = value;
+                OnPropertyChanged();
+            }
         }
 
         private string comment;
@@ -63,10 +78,10 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                var duplicatesCheck = new List<Activity>(Activities);
+                var duplicatesCheck = new List<Activity>(ItemsCollection);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
                     ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true});
-                Activities = Get_Rated_Enabled_Activities();
+                ItemsCollection = Get_Rated_Enabled_Activities();
 
                 Name = string.Empty;
             }           
@@ -138,14 +153,35 @@ namespace WorkStudy.ViewModels
                 IsInvalid = false;
         }
 
+        void AddSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+            Activity = ActivityRepo.GetItem(value);
+            Comment = Activity.Comment;
+            CommentsVisible = true;
+        }
+
+        void DeleteSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+        }
+
+        void ActivitySelectedEvent(object sender)
+        {
+            var value = (int)sender;
+        }
+
         private void ConstructorSetUp()
         {
             SaveActivity = new Command(SaveActivityDetails);
             SaveComment = new Command(SaveCommentDetails);
             CancelComment = new Command(CancelCommentDetails);
+            ItemSelected = new Command(ActivitySelectedEvent);
+            SettingsSelected = new Command(AddSelectedEvent);
+            DeleteSelected = new Command(DeleteSelectedEvent);
 
             Name = string.Empty;
-            Activities = Get_Rated_Enabled_Activities();
+            ItemsCollection = Get_Rated_Enabled_Activities();
             Activity = new Activity();
         }
     }
