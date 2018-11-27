@@ -15,7 +15,7 @@
                     <Entry Style="{StaticResource inputEntry}" Placeholder="Operator Name" Text="{Binding Name}" HeightRequest="50" />
                     <Button Style="{StaticResource plusButton}" Command="{Binding SaveOperator}" />
                 </StackLayout>
-                <views:OperatorsView />
+                <views:RepeaterControlView />
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" />
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
