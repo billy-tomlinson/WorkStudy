@@ -14,6 +14,10 @@ namespace WorkStudy.ViewModels
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
+        public Command OperatorSelected { get; set; }
+        public Command AddActivitiesSelected { get; set; }
+        public Command DeleteSelected { get; set; }
+
         public Operator Operator;
 
         public AddOperatorsViewModel()
@@ -176,12 +180,33 @@ namespace WorkStudy.ViewModels
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
+        void AddActivitiesSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+            Operator = Operators.First(_ => _.Id == value);
+            ChangeButtonColoursOnLoad();
+            ActivitiesVisible = true;
+        }
+
+        void DeleteSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+        }
+
+        void OperatorSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+        }
+
         private void ConstructorSetUp()
         {
             SaveOperator = new Command(SaveOperatorDetails);
             SaveActivities = new Command(SaveActivityDetails);
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
+            OperatorSelected = new Command(OperatorSelectedEvent);
+            AddActivitiesSelected = new Command(AddActivitiesSelectedEvent);
+            DeleteSelected = new Command(DeleteSelectedEvent);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                            .Where(_ => _.StudyId == Utilities.StudyId));

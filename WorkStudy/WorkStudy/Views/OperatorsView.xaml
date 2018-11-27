@@ -2,14 +2,56 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
-             x:Class="WorkStudy.Pages.OperatorsView">
+             x:Class="WorkStudy.Pages.OperatorsView"
+             x:Name="OperatorsPage">
     <ContentView.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" Margin="7,5,5,5">
                 <Entry Style="{StaticResource inputEntry}" Placeholder="Operator Name" Text="{Binding Name}" />
                 <Button Style="{StaticResource plusButton}" Command="{Binding SaveOperator}" />
             </StackLayout>
-            <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout HeightRequest="300" Margin="7,5,5,5">
+                 <ScrollView>
+                    <local:RepeaterView ItemsSource="{Binding Operators}">
+                        <local:RepeaterView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <local:CustomLabel Text="{Binding Name}"
+                                                           FontSize="15" Grid.Row="0" Grid.Column="0">
+                                           <local:CustomLabel.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path = BindingContext.OperatorSelected, Source={x:Reference OperatorsPage}}" CommandParameter="{Binding Id}" />
+                                            </local:CustomLabel.GestureRecognizers>
+                                        </local:CustomLabel>
+                                        <local:CustomLabel Text="Add" FontSize="15" Grid.Row="0" Grid.Column="1">
+                                            <local:CustomLabel.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path = BindingContext.AddActivitiesSelected, Source={x:Reference OperatorsPage}}" CommandParameter="{Binding Id}" />
+                                            </local:CustomLabel.GestureRecognizers>
+                                        </local:CustomLabel>
+                                        <local:CustomLabel Text="Delete" FontSize="15" Grid.Row="0" Grid.Column="2" >
+                                            <local:CustomLabel.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference OperatorsPage}}" CommandParameter="{Binding Id}" />
+                                            </local:CustomLabel.GestureRecognizers>
+                                        </local:CustomLabel>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:RepeaterView.ItemTemplate>
+                    </local:RepeaterView>
+                        </ScrollView>
+            </StackLayout>
+            <StackLayout>
+                <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3" />
+            </StackLayout>
+           <!-- <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="15*" />
                     <RowDefinition Height="*" />
@@ -36,7 +78,7 @@
                     </local:CustomListView>
                     <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3" />
                 </StackLayout>
-            </Grid>
+            </Grid>-->
         </StackLayout>
     </ContentView.Content>
 </ContentView>
