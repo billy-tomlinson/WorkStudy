@@ -14,8 +14,8 @@ namespace WorkStudy.ViewModels
         public Command SaveActivities { get; set; }
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
-        public Command OperatorSelected { get; set; }
-        public Command AddActivitiesSelected { get; set; }
+        public Command ItemSelected { get; set; }
+        public Command SettingsSelected { get; set; }
         public Command DeleteSelected { get; set; }
 
         public Operator Operator;
@@ -29,13 +29,13 @@ namespace WorkStudy.ViewModels
             ConstructorSetUp();
         }
 
-        private ObservableCollection<Operator> operators;
-        public ObservableCollection<Operator> Operators
+        private ObservableCollection<Operator> itemsCollection;
+        public ObservableCollection<Operator> ItemsCollection
         {
-            get => operators;
+            get => itemsCollection;
             set
             {
-                operators = value;
+                itemsCollection = value;
                 OnPropertyChanged();
             }
         }
@@ -70,12 +70,12 @@ namespace WorkStudy.ViewModels
             {
                 Name = Name.ToUpper().Trim();
 
-                List<Operator> duplicatesCheck = new List<Operator>(Operators);
+                List<Operator> duplicatesCheck = new List<Operator>(ItemsCollection);
 
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
                     Operator.Id = OperatorRepo.SaveItem(new Operator(){Name = Name});
 
-                Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
+                ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetItems()
                                                                .Where(_ => _.StudyId == Utilities.StudyId));
                 Name = string.Empty;
             }
@@ -183,7 +183,7 @@ namespace WorkStudy.ViewModels
         void AddActivitiesSelectedEvent(object sender)
         {
             var value = (int)sender;
-            Operator = Operators.First(_ => _.Id == value);
+            Operator = ItemsCollection.First(_ => _.Id == value);
             ChangeButtonColoursOnLoad();
             ActivitiesVisible = true;
         }
@@ -204,11 +204,11 @@ namespace WorkStudy.ViewModels
             SaveActivities = new Command(SaveActivityDetails);
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
-            OperatorSelected = new Command(OperatorSelectedEvent);
-            AddActivitiesSelected = new Command(AddActivitiesSelectedEvent);
+            ItemSelected = new Command(OperatorSelectedEvent);
+            SettingsSelected = new Command(AddActivitiesSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+            ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                            .Where(_ => _.StudyId == Utilities.StudyId));
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();
