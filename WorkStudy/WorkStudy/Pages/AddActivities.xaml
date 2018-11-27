@@ -10,36 +10,6 @@
                     <Entry Style="{StaticResource inputEntry}" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="50" />
                     <Button Style="{StaticResource plusButton}" Command="{Binding SaveActivity}" />
                 </StackLayout>
-                <!--<Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="15*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackLayout BackgroundColor="Transparent">
-                        <local:CustomListView ItemsSource="{Binding Activities}" 
-                                              ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                              Grid.Row="0" HeightRequest="400">
-                            <x:Arguments>
-                                <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                            </x:Arguments>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <ViewCell.View>
-                                            <Label Text="{Binding Name}" />
-                                        </ViewCell.View>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </local:CustomListView>
-                        <Button Text="Save Activities" Command="{Binding SubmitDetails}" Grid.Row="3" />
-                    </StackLayout>
-                </Grid>-->
                 <views:RepeaterControlView />
             </StackLayout>
             <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
