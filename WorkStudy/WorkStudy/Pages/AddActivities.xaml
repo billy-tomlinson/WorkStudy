@@ -13,7 +13,7 @@
             <StackLayout>
                 <StackLayout Orientation="Horizontal" 
                              Margin="7,5,5,5" 
-                             HeightRequest="50" 
+                             HeightRequest="60" 
                              VerticalOptions="Center">
                     <Entry Style="{StaticResource inputEntry}"
                            Placeholder="Activity Name" 

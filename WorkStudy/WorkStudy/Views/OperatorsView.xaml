@@ -6,9 +6,13 @@
              x:Name="OperatorsPage">
     <ContentView.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal" Margin="7,5,5,5">
-                <Entry Style="{StaticResource inputEntry}" Placeholder="Operator Name" Text="{Binding Name}" />
-                <Button Style="{StaticResource plusButton}" Command="{Binding SaveOperator}" />
+            <StackLayout Orientation="Horizontal" Margin="7,5,5,5" HeightRequest="60" 
+                             VerticalOptions="Center">
+                <Entry Style="{StaticResource inputEntry}" 
+                       Placeholder="Operator Name" 
+                       Text="{Binding Name}" HeightRequest="50" />
+                <Button Style="{StaticResource plusButton}" 
+                        Command="{Binding SaveOperator}" />
             </StackLayout>
             <StackLayout HeightRequest="300" Margin="7,5,5,5">
                  <ScrollView>
@@ -26,21 +30,26 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <local:CustomLabel Text="{Binding Name}"
-                                                           FontSize="15" Grid.Row="0" Grid.Column="0">
+                                                           FontSize="20" Grid.Row="0" Grid.Column="0" 
+                                                           BackgroundColor="#d5f0f1" 
+                                                           FontAttributes="Bold"
+                                                           VerticalTextAlignment="Center"
+                                                           HorizontalTextAlignment="Start"
+                                                           >
                                            <local:CustomLabel.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path = BindingContext.OperatorSelected, Source={x:Reference OperatorsPage}}" CommandParameter="{Binding Id}" />
                                             </local:CustomLabel.GestureRecognizers>
                                         </local:CustomLabel>
-                                        <local:CustomLabel Text="Add" FontSize="15" Grid.Row="0" Grid.Column="1">
-                                            <local:CustomLabel.GestureRecognizers>
+                                        <local:CustomImage Source="settings.png" Grid.Row="0" Grid.Column="1">
+                                            <local:CustomImage.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path = BindingContext.AddActivitiesSelected, Source={x:Reference OperatorsPage}}" CommandParameter="{Binding Id}" />
-                                            </local:CustomLabel.GestureRecognizers>
-                                        </local:CustomLabel>
-                                        <local:CustomLabel Text="Delete" FontSize="15" Grid.Row="0" Grid.Column="2" >
-                                            <local:CustomLabel.GestureRecognizers>
+                                            </local:CustomImage.GestureRecognizers>
+                                        </local:CustomImage>
+                                        <local:CustomImage Source="delete.png" Grid.Row="0" Grid.Column="2" >
+                                           <local:CustomImage.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference OperatorsPage}}" CommandParameter="{Binding Id}" />
-                                            </local:CustomLabel.GestureRecognizers>
-                                        </local:CustomLabel>
+                                            </local:CustomImage.GestureRecognizers>
+                                        </local:CustomImage>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

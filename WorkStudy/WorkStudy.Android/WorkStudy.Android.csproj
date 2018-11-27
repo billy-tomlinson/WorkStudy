@@ -110,6 +110,8 @@
     <AndroidResource Include="Resources\drawable\thumbsUp.png" />
     <AndroidResource Include="Resources\drawable\stopwatch.jpg" />
     <AndroidResource Include="Resources\drawable\chart.png" />
+    <AndroidResource Include="Resources\drawable\delete.png" />
+    <AndroidResource Include="Resources\drawable\settings.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-hdpi\" />
