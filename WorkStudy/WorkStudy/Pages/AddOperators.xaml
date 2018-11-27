@@ -1,50 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.AddOperators" x:Name="MainPage2">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
+             x:Class="WorkStudy.AddOperators" 
+             x:Name="MainPage2">
     <ContentPage.BindingContext>
         <viewModels1:AddOperatorsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
-            <StackLayout>
-                <StackLayout Orientation="Horizontal" 
-                             Margin="7,5,5,5">
-                    <Entry Style="{StaticResource inputEntry}"
-                           Placeholder="Operator Name" 
-                           Text="{Binding Name}" />
-                    <Button Style="{StaticResource plusButton}"
-                            Command="{Binding SaveOperator}" />
-                </StackLayout>
-                <Grid Padding="5,5,0,0" Margin="5,5,10,5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="15*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackLayout BackgroundColor="Transparent">
-                        <local:CustomListView ItemsSource="{Binding Operators}" 
-                                              ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" 
-                                              HeightRequest="400">
-                            <x:Arguments>
-                                <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-                            </x:Arguments>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <ViewCell.View>
-                                            <Label Text="{Binding Name}"/>
-                                        </ViewCell.View>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </local:CustomListView>
-                        <Button Text="Save Operators" Command="{Binding SubmitDetails}" Grid.Row="3" />
-                    </StackLayout>
-                </Grid>
-            </StackLayout>
+            <views:OperatorsView/>
             <ContentView x:Name="activityView" BackgroundColor="#C0808080" 
                          IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
