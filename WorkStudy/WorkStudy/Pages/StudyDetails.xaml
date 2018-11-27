@@ -13,9 +13,9 @@
                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" 
                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
-                <StackLayout BindingContext="{Binding SampleStudy}">
-                    <StackLayout Orientation="Horizontal" HeightRequest="60" HorizontalOptions="Center">
-                        <Label Text="Study Details" />
+                <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
+                    <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
+                        <Label Text="Study Details"  HeightRequest="50" FontSize="40"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Style="{StaticResource studyLabel}" Text="Study Number" />
@@ -47,7 +47,7 @@
                     </StackLayout>
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Submit Details" WidthRequest="200" Command="{Binding SubmitDetails}" />
+                    <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitDetails}" />
                 </StackLayout>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center"  AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
