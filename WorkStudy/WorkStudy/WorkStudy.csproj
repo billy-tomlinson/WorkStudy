@@ -22,6 +22,7 @@
   <ItemGroup>
     <EmbeddedResource Remove="MasterPage.xaml" />
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
+    <EmbeddedResource Remove="Views\ActivitiesView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -32,14 +33,13 @@
     <Compile Remove="Pages\TestDatabasePage.xaml.cs" />
     <Compile Remove="Model\ValidationBase.cs" />
     <Compile Remove="Model\Product.cs" />
+    <Compile Remove="Views\ActivitiesView.xaml.cs" />
+    <Compile Remove="Views\ExistingStudiesView.xaml.cs" />
+    <Compile Remove="Views\ActivitiesView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\AddActivities.xaml.cs">
-      <DependentUpon>AddActivities.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -69,14 +69,11 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\ExistingStudies.xaml.cs">
-      <DependentUpon>ExistingStudies.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pages\ExistingStudies.xaml" />
+    <None Remove="Views\.DS_Store" />
   </ItemGroup>
 </Project>
