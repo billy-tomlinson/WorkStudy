@@ -22,7 +22,6 @@
   <ItemGroup>
     <EmbeddedResource Remove="MasterPage.xaml" />
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
-    <EmbeddedResource Remove="Views\ActivitiesView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -33,9 +32,7 @@
     <Compile Remove="Pages\TestDatabasePage.xaml.cs" />
     <Compile Remove="Model\ValidationBase.cs" />
     <Compile Remove="Model\Product.cs" />
-    <Compile Remove="Views\ActivitiesView.xaml.cs" />
     <Compile Remove="Views\ExistingStudiesView.xaml.cs" />
-    <Compile Remove="Views\ActivitiesView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">
@@ -72,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Custom\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\.DS_Store" />
