@@ -18,31 +18,31 @@
                         <Label Text="Study Details" HorizontalOptions="Center" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Study Number" />
+                        <Label Style="{StaticResource studyLabel}" Text="Study Number" />
                         <Entry WidthRequest="150" IsEnabled="false" Text="{Binding StudyNumber}" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Study Name" />
+                        <Label Style="{StaticResource studyLabel}" Text="Study Name" />
                         <Entry Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Department"/>
+                        <Label Style="{StaticResource studyLabel}" Text="Department"/>
                         <Entry Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Date" />
+                        <Label Style="{StaticResource studyLabel}" Text="Date" />
                         <DatePicker WidthRequest="150" Date="{Binding Date}" IsEnabled="false"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Time" />
+                        <Label Style="{StaticResource studyLabel}" Text="Time" />
                         <TimePicker WidthRequest="150" Time="{Binding Time}" IsEnabled="false" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Studied By" />
+                        <Label Style="{StaticResource studyLabel}" Text="Studied By" />
                         <Entry Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Rated" />
+                        <Label Style="{StaticResource studyLabel}" Text="Rated" />
                         <custom:CheckBox Checked="{Binding IsRated}" IsVisible="true" />
                     </StackLayout>
                 </StackLayout>

@@ -48,6 +48,13 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
+             <Style x:Key="studyLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="WidthRequest" Value="130" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
             <Label.FontFamily>
             </Label.FontFamily>
         </ResourceDictionary>

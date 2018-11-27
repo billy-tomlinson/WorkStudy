@@ -22,7 +22,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackLayout BackgroundColor="Transparent">
-                        <local:CustomListView ItemsSource="{Binding Activities}" ItemClickedCommand="{Binding ItemClickedCommand}" Grid.Row="0" HeightRequest="400">
+                        <local:CustomListView ItemsSource="{Binding Activities}" 
+                                              ItemClickedCommand="{Binding ItemClickedCommand}" 
+                                              Grid.Row="0" HeightRequest="400">
                             <x:Arguments>
                                 <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                             </x:Arguments>
