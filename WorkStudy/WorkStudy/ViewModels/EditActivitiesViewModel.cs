@@ -75,7 +75,7 @@ namespace WorkStudy.ViewModels
 
         public void SaveActivityDetails()
         {
-            if (mergedActivities.Count == 0) return;
+            if (mergedActivities.Count < 2) return;
 
             var operators = OperatorRepo.GetAllWithChildren().ToList();
 
