@@ -13,21 +13,22 @@
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Top Level Stats" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
-                    <Button Text="Individual Stats" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
-                    <Button Text="BreakDown Report" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
-                    <Button Text="Tailored Report" Style="{StaticResource plainButton}" Clicked="Submit_Clicked" />
-                    <Button Text="Email Report" Style="{StaticResource plainButton}" Command="{Binding SendEmail}" />
+                    <Button Text="Top Level Stats"  Clicked="Submit_Clicked" />
+                    <Button Text="Individual Stats"  Clicked="Submit_Clicked" />
+                    <Button Text="BreakDown Report"  Clicked="Submit_Clicked" />
+                    <Button Text="Tailored Report"  Clicked="Submit_Clicked" />
+                    <Button Text="Email Report"  Command="{Binding SendEmail}" />
                 </StackLayout>
             </StackLayout>
-            <ContentView x:Name="chartView" BackgroundColor="White" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ContentView x:Name="chartView" BackgroundColor="White" Padding="10, 0" IsVisible="false" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
                     <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="400" BackgroundColor="White">
                         <Image x:Name="chart" HeightRequest="400" WidthRequest="400">
                         </Image>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" BackgroundColor="Transparent">
-                        <Button Text="OK" Style="{StaticResource plainButton}" WidthRequest="120" Clicked="Ok_Clicked" />
+                        <Button Text="OK"  WidthRequest="120" Clicked="Ok_Clicked" />
                     </StackLayout>
                 </StackLayout>
             </ContentView>
