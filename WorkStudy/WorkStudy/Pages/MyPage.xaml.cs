@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class MyPage : ContentPage
+    public partial class MyPage : TabbedPage
     {
         public MyPage()
         {

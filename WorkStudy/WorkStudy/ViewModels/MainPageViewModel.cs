@@ -23,6 +23,7 @@ namespace WorkStudy.ViewModels
         public Command RatingSelected { get; set; }
         public Command EndStudy { get; set; }
         public Command PauseStudy { get; set; }
+        public Command EditStudy { get; set; }
 
         public MainPageViewModel(string conn) : base(conn)
         {
@@ -140,6 +141,11 @@ namespace WorkStudy.ViewModels
             Utilities.Navigate(new ReportsPage());
         }
 
+        void EditStudyDetails()
+        {
+            Utilities.Navigate(new EditActivities());
+        }
+
         void NavigateToStudyMenu()
         {
             Utilities.Navigate(new StudyMenu());
@@ -233,6 +239,7 @@ namespace WorkStudy.ViewModels
             ActivitySelected = new Command(ActivitySelectedEvent);
             RatingSelected = new Command(RatingSelectedEvent);
             EndStudy = new Command(TerminateStudy);
+            EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()

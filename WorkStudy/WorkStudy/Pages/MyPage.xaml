@@ -1,45 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="WorkStudy.Pages.MyPage">
- <ContentPage.Content>
-        <Grid Padding="5" HeightRequest="200" VerticalOptions="Start" BackgroundColor="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto">
-                </RowDefinition>
-                <RowDefinition Height="Auto">
-                </RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60">
-                </ColumnDefinition>
-                <ColumnDefinition Width="100">
-                </ColumnDefinition>
-                <ColumnDefinition Width="*">
-                </ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.Children>
-                <Label Text="farty"  Grid.Column="0" Font="Bold, 14" VerticalOptions="Center" TextColor="#5D5D5D"/>
-                <Label Text="@xamarinhq"  Grid.Column="1" Font="Bold, 14" VerticalOptions="Center" TextColor="#5D5D5D"/>
-
-                <StackLayout Spacing="2" Grid.Column="2" VerticalOptions="Center">
-                    <Label Text="26.6k Followers" Font="14" TextColor="#50AB78">
-                    </Label>
-                    <Label Text="3,029 tweets" Font="12" TextColor="#5D5D5D">
-                    </Label>
-                </StackLayout>
-                <Label Text="farty"  Grid.Column="0" Grid.Row = "1" Font="Bold, 14" VerticalOptions="Center" TextColor="#5D5D5D"/>
-                <Label Text="@xamarinhq" Grid.Row = "1"  Grid.Column="1" Font="Bold, 14" VerticalOptions="Center" TextColor="#5D5D5D"/>
-
-                <StackLayout Spacing="2" Grid.Row = "1" Grid.Column="2" VerticalOptions="Center">
-                    <Label Text="26.6k Followers" Font="14" TextColor="#50AB78">
-                    </Label>
-                    <Label Text="3,029 tweets" Font="12" TextColor="#5D5D5D">
-                    </Label>
-                </StackLayout>
-                <Label Text="26.6k Followersccccccccccccccccccccccccccccccccc" Font="14" TextColor="#50AB78" Grid.Row = "2" Grid.ColumnSpan="3">
-                    </Label>
-            </Grid.Children>
-        </Grid>
-    </ContentPage.Content>
-</ContentPage>
+<?xml version="1.0" encoding="utf-8" ?>  
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             x:Class="WorkStudy.Pages.MyPage"  
+             xmlns:pages="clr-namespace:WorkStudy"  
+             Title="TabbedPage">  
+  <!--Pages can be added as references or inline-->
+  <pages:MainPage Title="Tab 5" />
+  <ContentPage Title="Tab 2">  
+    <StackLayout>  
+      <Label Text="Green"  HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5" />  
+      <BoxView Color="Green" VerticalOptions="FillAndExpand" />  
+    </StackLayout>  
+  </ContentPage>  
+  <ContentPage Title="Tab 3">  
+    <StackLayout>  
+      <Label Text="Blue" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5"  />  
+      <BoxView Color="Blue" VerticalOptions="FillAndExpand" />  
+    </StackLayout>  
+  </ContentPage>  
+</TabbedPage> 
