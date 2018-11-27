@@ -14,8 +14,8 @@
             <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" 
                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
                 <StackLayout BindingContext="{Binding SampleStudy}">
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="Study Details" HorizontalOptions="Center" />
+                    <StackLayout Orientation="Horizontal" HeightRequest="60" HorizontalOptions="Center">
+                        <Label Text="Study Details" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Style="{StaticResource studyLabel}" Text="Study Number" />
@@ -41,7 +41,7 @@
                         <Label Style="{StaticResource studyLabel}" Text="Studied By" />
                         <Entry Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20"/>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal" HeightRequest="60">
                         <Label Style="{StaticResource studyLabel}" Text="Rated" />
                         <custom:CheckBox Checked="{Binding IsRated}" IsVisible="true" />
                     </StackLayout>
