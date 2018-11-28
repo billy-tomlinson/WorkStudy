@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.Pages.RatingView">
+    <ContentView.Content BackgroundColor="#C0808080" Padding="10, 0" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
+            <StackLayout Orientation="Vertical" HeightRequest="170" WidthRequest="300" BackgroundColor="White">
+                <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <local:CustomButton x:Name="myButton1" Text="80" Rating="80" Grid.Row="0" Grid.Column="0" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton1}" />
+                    <local:CustomButton x:Name="myButton2" Text="90" Rating="90" Grid.Row="0" Grid.Column="1" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton2}" />
+                    <local:CustomButton x:Name="myButton3" Text="100" Rating="100" Grid.Row="0" Grid.Column="2" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton3}" />
+                    <local:CustomButton x:Name="myButton4" Text="110" Rating="110" Grid.Row="0" Grid.Column="3" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton4}" />
+                    <local:CustomButton x:Name="myButton5" Text="40" Rating="40" Grid.Row="1" Grid.Column="0" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton5}" />
+                    <local:CustomButton x:Name="myButton6" Text="50" Rating="50" Grid.Row="1" Grid.Column="1" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton6}" />
+                    <local:CustomButton x:Name="myButton7" Text="60" Rating="60" Grid.Row="1" Grid.Column="2" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton7}" />
+                    <local:CustomButton x:Name="myButton8" Text="70" Rating="70" Grid.Row="1" Grid.Column="3" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton8}" />
+                    <local:CustomButton x:Name="myButton9" Text="0" Rating="0" Grid.Row="2" Grid.Column="0" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton9}" />
+                    <local:CustomButton x:Name="myButton10" Text="10" Rating="10" Grid.Row="2" Grid.Column="1" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton10}" />
+                    <local:CustomButton x:Name="myButton11" Text="20" Rating="20" Grid.Row="2" Grid.Column="2" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton11}" />
+                    <local:CustomButton x:Name="myButton12" Text="30" Rating="30" Grid.Row="2" Grid.Column="3" Style="{StaticResource plainButton}" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton12}" />
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
