@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.MainPage" BackgroundColor="Transparent" x:Name="MainPage1">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
+             x:Class="WorkStudy.MainPage" 
+             BackgroundColor="Transparent" 
+             x:Name="MainPage1">
     <ContentPage.BindingContext>
         <workStudy:MainPageViewModel />
     </ContentPage.BindingContext>
@@ -71,52 +78,7 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <ContentView x:Name="activityView" BackgroundColor="#C0808080" IsVisible="{Binding ActivitiesVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" WidthRequest="360" BackgroundColor="#eee" Margin="7" Padding="7">
-                        <Label Text="{Binding OperatorName}" IsVisible="{Binding Isvisible}" />
-                        <Label Text="Activities" IsVisible="{Binding Isvisible}" />
-                        <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Transparent">
-                            <local:RepeaterView ItemsSource="{Binding GroupActivities}">
-                                <local:RepeaterView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <BoxView Grid.Row="0" Grid.Column="0" IsVisible="{Binding ActivityOne.IsEnabled}" />
-                                                <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityOne.IsEnabled}" Text="{Binding ActivityOne.Name}" BackgroundColor="{Binding ActivityOne.Colour}" FontSize="15" Grid.Row="0" Grid.Column="0">
-                                                    <local:CustomLabel.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding ActivityOne.Id}" />
-                                                    </local:CustomLabel.GestureRecognizers>
-                                                </local:CustomLabel>
-                                                <BoxView Grid.Row="0" Grid.Column="1" IsVisible="{Binding ActivityTwo.IsEnabled}" />
-                                                <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityTwo.IsEnabled}" Text="{Binding ActivityTwo.Name}" FontSize="15" Grid.Row="0" Grid.Column="1" BackgroundColor="{Binding ActivityTwo.Colour}">
-                                                    <local:CustomLabel.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding ActivityTwo.Id}" />
-                                                    </local:CustomLabel.GestureRecognizers>
-                                                </local:CustomLabel>
-                                                <BoxView Grid.Row="0" Grid.Column="2" IsVisible="{Binding ActivityThree.IsEnabled}" />
-                                                <local:CustomLabel Style="{StaticResource activityLabel}" IsVisible="{Binding ActivityThree.IsEnabled}" Text="{Binding ActivityThree.Name}" FontSize="15" Grid.Row="0" Grid.Column="2" BackgroundColor="{Binding ActivityThree.Colour}">
-                                                    <local:CustomLabel.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path = BindingContext.ActivitySelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding ActivityThree.Id}" />
-                                                    </local:CustomLabel.GestureRecognizers>
-                                                </local:CustomLabel>
-                                            </Grid>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </local:RepeaterView.ItemTemplate>
-                            </local:RepeaterView>
-                        </StackLayout>
-                    </StackLayout>
-                </StackLayout>
-            </ContentView>
+             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
