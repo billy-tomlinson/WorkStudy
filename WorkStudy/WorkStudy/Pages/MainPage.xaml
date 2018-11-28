@@ -40,7 +40,7 @@
                     <Button Text="Edit Activities" WidthRequest="200" FontSize="10" BackgroundColor="Red" TextColor="White" Command="{Binding EditStudy}" />
                 </StackLayout>
             </StackLayout>
-            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" />
+            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" HeightRequest="150"/>
             <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="15, 150, 20 ,0" />
         </AbsoluteLayout>
     </ContentPage.Content>

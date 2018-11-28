@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             x:Class="WorkStudy.Pages.EditActivities"
-             xmlns:views="clr-namespace:WorkStudy.Pages">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.Pages.EditActivities" xmlns:views="clr-namespace:WorkStudy.Pages">
     <ContentPage.BindingContext>
         <viewModels1:EditActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
-            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}"/>
+            <StackLayout BackgroundColor="White">
+                <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Save" Command="{Binding SaveActivities}" />
+                    <Button Text="Cancel" Command="{Binding CancelActivities}" />
+                </StackLayout>
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

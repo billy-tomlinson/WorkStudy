@@ -4,11 +4,20 @@
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent">
             <StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="7,5,5,5" HeightRequest="60" VerticalOptions="Center">
-                    <Entry Style="{StaticResource inputEntry}" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="50" />
-                    <Button  Command="{Binding SaveActivity}" />
+                <StackLayout Orientation="Horizontal" 
+                             Margin="7,5,5,5" 
+                             HeightRequest="60" 
+                             VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}" 
+                           Placeholder="Activity Name" 
+                           Text="{Binding Name}" 
+                           HeightRequest="50" />
+                    <Button Style="{StaticResource plusButton}"   
+                            Command="{Binding SaveActivity}" />
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
