@@ -41,7 +41,7 @@
                 </StackLayout>
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" HeightRequest="150"/>
-            <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="15, 150, 20 ,0" />
+            <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 150, 20 ,0" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

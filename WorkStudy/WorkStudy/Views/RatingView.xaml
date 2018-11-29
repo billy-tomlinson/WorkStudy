@@ -3,7 +3,7 @@
     <ContentView.Content BackgroundColor="#C0808080" Padding="10, 0" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
-            <StackLayout Orientation="Vertical" HeightRequest="170" WidthRequest="300" BackgroundColor="White">
+            <StackLayout Orientation="Vertical" HeightRequest="270" WidthRequest="300" BackgroundColor="White">
                 <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
