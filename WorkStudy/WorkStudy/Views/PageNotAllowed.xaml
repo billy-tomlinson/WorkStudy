@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="WorkStudy.Pages.PageNotAllowed">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical">
+            <Label Text="Please create a new study or select an existing one." FontSize="20" />
+            <Image Source="alert.png" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

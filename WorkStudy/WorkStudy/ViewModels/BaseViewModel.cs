@@ -79,10 +79,21 @@ namespace WorkStudy.ViewModels
             set
             {
                 isPageVisible = value;
+                IsPageUnavailableVisible = !value;
                 OnPropertyChanged();
             }
         }
 
+        bool isPageUnavailableVisible = false;
+        public bool IsPageUnavailableVisible
+        {
+            get { return isPageUnavailableVisible; }
+            set
+            {
+                isPageUnavailableVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string validationText;
         public string ValidationText

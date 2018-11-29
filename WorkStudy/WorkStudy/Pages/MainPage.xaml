@@ -5,8 +5,9 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
-                        BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}">
-            <StackLayout BackgroundColor="Transparent">
+                        BackgroundColor="Transparent">
+            <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}"/>
+            <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}">
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
                     <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
                     <Label Text="{Binding StudyNumber}" FontSize="20" TextColor="Black" />

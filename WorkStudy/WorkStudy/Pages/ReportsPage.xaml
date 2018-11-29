@@ -2,14 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
              x:Class="WorkStudy.ReportsPage">
         <ContentPage.BindingContext>
         <workStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" 
-                        BackgroundColor="Transparent" Padding="30" IsVisible="{Binding IsPageVisible}">
-            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10">
+                        BackgroundColor="Transparent" Padding="30">
+            <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}"/>
+            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" 
+                         Padding="10" Margin="10" IsVisible="{Binding IsPageVisible}">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>
