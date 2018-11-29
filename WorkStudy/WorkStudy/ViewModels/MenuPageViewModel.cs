@@ -6,32 +6,56 @@ namespace WorkStudy.ViewModels
 {
     public class MenuPageViewModel
     {
-        public ICommand GoHomeCommand { get; set; }
-        public ICommand GoSecondCommand { get; set; }
-        public ICommand GoThirdCommand { get; set; }
+        public ICommand StudyMenu { get; set; }
+        public ICommand AddActivities { get; set; }
+        public ICommand AddOperators { get; set; }
+        public ICommand CompletedStudies { get; set; }
+        public ICommand PausedStudies { get; set; }
+        public ICommand Reports { get; set; }
+
         public MenuPageViewModel()
         {
-            GoHomeCommand = new Command(GoHome);
-            GoSecondCommand = new Command(GoSecond);
-            GoThirdCommand = new Command(GoThird);
+            StudyMenu = new Command(GoStudyMenu);
+            AddActivities = new Command(GoActivities);
+            AddOperators = new Command(GoOperators);
+            CompletedStudies = new Command(GoCompletedStudies);
+            PausedStudies = new Command(GoPausedStudies);
+            Reports = new Command(GoReports);
         }
 
-        void GoHome(object obj)
+        void GoStudyMenu(object obj)
         {
             App.NavigationPage.Navigation.PushAsync(new StudyMenu());
-            //App.NavigationPage.Navigation.PopToRootAsync();
             App.MenuIsPresented = false;
         }
 
-        void GoSecond(object obj)
+        void GoActivities(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new AddActivities()); //the content page you wanna load on this click event 
+            App.NavigationPage.Navigation.PushAsync(new AddActivities()); 
             App.MenuIsPresented = false;
         }
 
-        void GoThird(object obj)
+        void GoOperators(object obj)
         {
             App.NavigationPage.Navigation.PushAsync(new AddOperators());
+            App.MenuIsPresented = false;
+        }
+
+        void GoCompletedStudies(object obj)
+        {
+            App.NavigationPage.Navigation.PushAsync(new CompletedStudiesPage(true));
+            App.MenuIsPresented = false;
+        }
+
+        void GoPausedStudies(object obj)
+        {
+            App.NavigationPage.Navigation.PushAsync(new PausedStudiesPage(false));
+            App.MenuIsPresented = false;
+        }
+
+        void GoReports(object obj)
+        {
+            App.NavigationPage.Navigation.PushAsync(new ReportsPage());
             App.MenuIsPresented = false;
         }
 

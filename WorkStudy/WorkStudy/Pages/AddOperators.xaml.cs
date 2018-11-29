@@ -6,8 +6,6 @@ namespace WorkStudy
     public partial class AddOperators : ContentPage
     {
 
-        AddOperatorsViewModel viewModel;
-
         public AddOperators()
         {
             InitializeComponent();

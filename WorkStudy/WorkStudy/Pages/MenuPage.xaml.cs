@@ -10,6 +10,7 @@ namespace WorkStudy.Pages
         public MenuPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }
