@@ -16,11 +16,31 @@ namespace WorkStudy
 
             DatabasePath = databasePath;
 
-            MainPage = new MasterDetailPage()
+            CallMain();
+        }
+
+        public static NavigationPage NavigationPage { get; private set; }
+        public static RootPage RootPage;
+        public static bool MenuIsPresented
+        {
+            get
             {
-                Master = new MasterPage1() { Title = "Main Page" },
-                Detail = new NavigationPage(new WelcomePage())
-            };
+                return RootPage.IsPresented;
+            }
+            set
+            {
+                RootPage.IsPresented = value;
+            }
+        }
+
+        private void CallMain()
+        {
+            var menuPage = new MenuPage(){ Title = "Main Page" };
+            NavigationPage = new NavigationPage(new  WelcomePage());
+            RootPage = new RootPage();
+            RootPage.Master = menuPage;
+            RootPage.Detail = NavigationPage;
+            MainPage = RootPage;
         }
 
         protected override void OnStart()

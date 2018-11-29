@@ -6157,11 +6157,20 @@ namespace WorkStudy.Droid
 			// aapt resource value: 0x7f0b0012
 			public const int CardView_Light = 2131427346;
 			
+			// aapt resource value: 0x7f0b0197
+			public const int DrawerArrowStyle = 2131427735;
+			
 			// aapt resource value: 0x7f0b0193
 			public const int MainTheme = 2131427731;
 			
 			// aapt resource value: 0x7f0b0194
 			public const int MainTheme_Base = 2131427732;
+			
+			// aapt resource value: 0x7f0b0196
+			public const int MyTheme = 2131427734;
+			
+			// aapt resource value: 0x7f0b0198
+			public const int MyTheme_Base = 2131427736;
 			
 			// aapt resource value: 0x7f0b0031
 			public const int Platform_AppCompat = 2131427377;

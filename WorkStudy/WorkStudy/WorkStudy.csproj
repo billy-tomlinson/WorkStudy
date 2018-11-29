@@ -46,10 +46,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\NavigationItem.xaml.cs">
-      <DependentUpon>NavigationItem.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\ReportsPage.xaml.cs">
       <DependentUpon>ReportsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
