@@ -22,7 +22,7 @@ namespace WorkStudy.ViewModels
                 CreateUnratedActivities();
 
                 Utilities.RatedStudy = SampleStudy.IsRated;
-
+                Utilities.StudySetUpComplete = true;
                 Utilities.Navigate(new AddActivities());
             }
                 
@@ -47,6 +47,7 @@ namespace WorkStudy.ViewModels
                 Time = DateTime.Now.TimeOfDay
             };
 
+            IsPageVisible = true;
             Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
             SampleStudy.StudyNumber = Utilities.StudyId;
             CloseView = new Command(CloseValidationView);
