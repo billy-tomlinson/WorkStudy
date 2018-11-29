@@ -21,7 +21,9 @@ namespace WorkStudy.ViewModels
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
             CloseView = new Command(CloseValidationView);
             EnsureTableCreation();
+            IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
         }
+
         public Command SubmitDetails { get; set; }
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
@@ -68,6 +70,19 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
+
+        bool isPageVisible = false;
+        public bool IsPageVisible
+        {
+            get { return isPageVisible; }
+            set
+            {
+                isPageVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private string validationText;
         public string ValidationText

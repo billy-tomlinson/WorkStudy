@@ -8,7 +8,7 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="Transparent">
+                        BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" >
             <StackLayout>
                 <StackLayout Orientation="Horizontal" 
                              Margin="7,5,5,5" 

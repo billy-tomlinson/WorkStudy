@@ -7,7 +7,8 @@
         <workStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Padding="30">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" 
+                        BackgroundColor="Transparent" Padding="30" IsVisible="{Binding IsPageVisible}">
             <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />

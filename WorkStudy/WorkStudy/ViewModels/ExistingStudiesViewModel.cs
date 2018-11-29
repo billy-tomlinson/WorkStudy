@@ -39,6 +39,7 @@ namespace WorkStudy.ViewModels
                 var study = item as ActivitySampleStudy;
                 Utilities.StudyId = study.Id;
                 Utilities.RatedStudy = study.IsRated;
+                Utilities.IsCompleted = completed;
 
                 if(!completed)
                     Utilities.Navigate(new MainPage());

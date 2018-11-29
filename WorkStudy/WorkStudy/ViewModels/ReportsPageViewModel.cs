@@ -15,10 +15,12 @@ namespace WorkStudy.ViewModels
         private void ConstructorSetUp()
         {
             SendEmail = new Command(SendEmailDetails);
+            IsPageVisible = (Utilities.StudyId > 0);
         }
 
         private void SendEmailDetails()
         {
+            
             Activities = Get_Rated_Enabled_Activities();
             var spreadsheet = Utilities.CreateExcelWorkBook(Activities);
             Utilities.SendEmail(spreadsheet);

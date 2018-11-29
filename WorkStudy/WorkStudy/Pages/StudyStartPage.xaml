@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="WorkStudy.StudyStartPage">
     <ContentPage.Content>
-        <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center"  BackgroundColor="Transparent">
+        <StackLayout Padding="10" Margin="10" VerticalOptions="Center" 
+                     HorizontalOptions="Center"  BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Study Will Now Begin" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
             </StackLayout>

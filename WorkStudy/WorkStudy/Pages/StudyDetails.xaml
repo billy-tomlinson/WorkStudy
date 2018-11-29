@@ -5,7 +5,9 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" 
+                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" 
+                            IsVisible="{Binding IsPageVisible}">
                 <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
                     <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">

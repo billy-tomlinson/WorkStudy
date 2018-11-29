@@ -4,7 +4,8 @@
         <workStudy:MainPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                        BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}">
             <StackLayout BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
                     <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
