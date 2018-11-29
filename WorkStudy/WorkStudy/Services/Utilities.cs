@@ -19,7 +19,7 @@ namespace WorkStudy.Services
         public static async void Navigate(ContentPage page)
         {
             await Task.Delay(1000);
-            await Application.Current.MainPage.Navigation.PushModalAsync(page);
+            await App.NavigationPage.Navigation.PushAsync(page);
         }
 
         public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)

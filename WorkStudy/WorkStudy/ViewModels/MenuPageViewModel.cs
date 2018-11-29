@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using WorkStudy.Pages;
+using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
@@ -25,37 +26,37 @@ namespace WorkStudy.ViewModels
 
         void GoStudyMenu(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new StudyMenu());
+            Utilities.Navigate(new StudyMenu());
             App.MenuIsPresented = false;
         }
 
         void GoActivities(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new AddActivities()); 
+            Utilities.Navigate(new AddActivities()); 
             App.MenuIsPresented = false;
         }
 
         void GoOperators(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new AddOperators());
+            Utilities.Navigate(new AddOperators());
             App.MenuIsPresented = false;
         }
 
         void GoCompletedStudies(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new CompletedStudiesPage(true));
+            Utilities.Navigate(new CompletedStudiesPage(true));
             App.MenuIsPresented = false;
         }
 
         void GoPausedStudies(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new PausedStudiesPage(false));
+            Utilities.Navigate(new PausedStudiesPage(false));
             App.MenuIsPresented = false;
         }
 
         void GoReports(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new ReportsPage());
+            Utilities.Navigate(new ReportsPage());
             App.MenuIsPresented = false;
         }
 
