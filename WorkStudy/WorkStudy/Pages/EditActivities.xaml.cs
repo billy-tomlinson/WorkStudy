@@ -10,6 +10,12 @@ namespace WorkStudy.Pages
         public EditActivities()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

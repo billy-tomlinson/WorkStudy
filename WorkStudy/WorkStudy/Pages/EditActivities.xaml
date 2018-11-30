@@ -5,7 +5,8 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
-            <StackLayout BackgroundColor="White">
+            <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}"/>
+            <StackLayout BackgroundColor="White" IsVisible="{Binding IsPageVisible}">
                 <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Button Text="Save" Command="{Binding SaveActivities}" />

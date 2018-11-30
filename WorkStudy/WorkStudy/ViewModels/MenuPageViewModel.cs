@@ -9,6 +9,7 @@ namespace WorkStudy.ViewModels
     {
         public ICommand StudyMenu { get; set; }
         public ICommand AddActivities { get; set; }
+        public ICommand MergeActivities { get; set; }
         public ICommand AddOperators { get; set; }
         public ICommand CompletedStudies { get; set; }
         public ICommand PausedStudies { get; set; }
@@ -18,6 +19,7 @@ namespace WorkStudy.ViewModels
         {
             StudyMenu = new Command(GoStudyMenu);
             AddActivities = new Command(GoActivities);
+            MergeActivities = new Command(GoMergeActivities);
             AddOperators = new Command(GoOperators);
             CompletedStudies = new Command(GoCompletedStudies);
             PausedStudies = new Command(GoPausedStudies);
@@ -34,6 +36,12 @@ namespace WorkStudy.ViewModels
         void GoActivities(object obj)
         {
             Utilities.Navigate(new AddActivities()); 
+            App.MenuIsPresented = false;
+        }
+
+        void GoMergeActivities(object obj)
+        {
+            Utilities.Navigate(new EditActivities());
             App.MenuIsPresented = false;
         }
 

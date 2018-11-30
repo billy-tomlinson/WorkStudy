@@ -18,6 +18,9 @@
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>            
         <Button Text="Activities" BackgroundColor="White" TextColor="DarkGray" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AddActivities}" />
+        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>            
+        <Button Text="Merge Activities" BackgroundColor="White" TextColor="DarkGray" 
+                HorizontalOptions="StartAndExpand" Command="{Binding MergeActivities}" />
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
         <Button Text="Operators" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AddOperators}"/>
