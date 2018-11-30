@@ -35,7 +35,7 @@ namespace WorkStudy.ViewModels
             ConstructorSetUp();
         }
 
-        private Observation Observation { get;set;}
+        private Observation Observation { get; set; }
         private int ActivityId { get; set; }
         private int Rating { get; set; }
 
@@ -49,7 +49,7 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
-       
+
         static bool activitiesVisible;
         public bool ActivitiesVisible
         {
@@ -160,7 +160,7 @@ namespace WorkStudy.ViewModels
             Observation.ActivityId = ActivityId;
             var currentActivity = ActivityRepo.GetItem(ActivityId);
 
-            if(Utilities.RatedStudy && currentActivity.Rated)
+            if (Utilities.RatedStudy && currentActivity.Rated)
                 RatingsVisible = true;
             else
             {
@@ -177,7 +177,7 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) 
+            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
                 ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
@@ -199,7 +199,7 @@ namespace WorkStudy.ViewModels
 
         public ICommand ItemClickedCommand
         {
-            
+
             get { return ShowActivities(); }
         }
 
@@ -210,7 +210,7 @@ namespace WorkStudy.ViewModels
         }
 
         Command ShowActivities()
-        {          
+        {
             return new Command((item) =>
             {
                 StudyNumber = Utilities.StudyId;
@@ -243,7 +243,7 @@ namespace WorkStudy.ViewModels
             PauseStudy = new Command(NavigateToStudyMenu);
 
             //Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
-                                                           //.Where(_ => _.StudyId == Utilities.StudyId));
+            //.Where(_ => _.StudyId == Utilities.StudyId));
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId));
@@ -255,11 +255,17 @@ namespace WorkStudy.ViewModels
 
         private bool IsStudyValid()
         {
-            if ((Utilities.StudyId == 0 || Utilities.IsCompleted) ||
-                                (Activities.Count == 0) || 
-                                (!Operators.Any()) ||
-                                (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
+
+            if (Utilities.StudyId == 0 || Utilities.IsCompleted)
                 return false;
+            
+            if ((Activities.Count == 0) ||
+                    (!Operators.Any()) ||
+                    (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
+            {
+                InvalidText = "Please add Activities and/or Operators to study.";
+                return false;
+            }
 
             return true;
         }

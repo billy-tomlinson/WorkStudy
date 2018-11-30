@@ -21,6 +21,7 @@ namespace WorkStudy.ViewModels
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
             CloseView = new Command(CloseValidationView);
             EnsureTableCreation();
+            InvalidText = "Please create a new study or select an existing one.";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
         }
 
@@ -71,6 +72,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        string invalidText;
+        public string InvalidText
+        {
+            get { return invalidText; }
+            set
+            {
+                invalidText = value;
+                OnPropertyChanged();
+            }
+        }
 
         bool isPageVisible = false;
         public bool IsPageVisible
