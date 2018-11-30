@@ -242,9 +242,26 @@ namespace WorkStudy.ViewModels
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
-                                                           .Where(_ => _.StudyId == Utilities.StudyId));
+            //Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
+                                                           //.Where(_ => _.StudyId == Utilities.StudyId));
+
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                                          .Where(_ => _.StudyId == Utilities.StudyId));
             Activities = Get_Enabled_Activities();
+            Activities = Get_Enabled_Activities();
+
+            IsPageVisible = IsStudyValid();
+        }
+
+        private bool IsStudyValid()
+        {
+            if ((Utilities.StudyId == 0 || Utilities.IsCompleted) ||
+                                (Activities.Count == 0) || 
+                                (!Operators.Any()) ||
+                                (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
+                return false;
+
+            return true;
         }
     }
 }
