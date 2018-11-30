@@ -73,10 +73,13 @@ namespace WorkStudy.ViewModels
                 List<Operator> duplicatesCheck = new List<Operator>(ItemsCollection);
 
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    Operator.Id = OperatorRepo.SaveItem(new Operator(){Name = Name});
+                    Operator.Id = OperatorRepo.SaveItem(new Operator() { Name = Name });
 
                 ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetItems()
                                                                .Where(_ => _.StudyId == Utilities.StudyId));
+
+                LinkOperatorToUnratedActivities();
+
                 Name = string.Empty;
             }
         }
@@ -236,13 +239,13 @@ namespace WorkStudy.ViewModels
                 ValidationText = "Add at least one operator.";
                 return;
             }
-                
+
             if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
             {
                 ValidationText = "Some operators have no activities";
                 return;
             }
-                
+
             IsInvalid = false;
         }
 
@@ -251,6 +254,9 @@ namespace WorkStudy.ViewModels
 
             var ops = OperatorRepo.GetAllWithChildren()
                 .Where(_ => _.StudyId == Utilities.StudyId);
+
+            if (ops.Any(_ => _.Activities.Any(x => !x.Rated)))
+                return;
 
             var activities = ActivityRepo.GetItems()
                 .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId);
@@ -266,6 +272,25 @@ namespace WorkStudy.ViewModels
 
                 OperatorRepo.UpdateWithChildren(updatedOp);
             }
+        }
+
+        public void LinkOperatorToUnratedActivities()
+        {
+
+            var op = OperatorRepo.GetWithChildren(Operator.Id);
+
+            if (op.Activities.Any(x => !x.Rated))
+                return;
+
+            var activities = ActivityRepo.GetItems()
+                .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId);
+
+            foreach (var item in activities)
+            {
+                op.Activities.Add(item);
+            }
+
+            OperatorRepo.UpdateWithChildren(op);
         }
     }
 }

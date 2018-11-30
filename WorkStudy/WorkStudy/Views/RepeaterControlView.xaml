@@ -44,7 +44,7 @@
                 </ScrollView>
             </StackLayout>
             <StackLayout>
-                <Button Text="Continue" Command="{Binding SubmitDetails}" Grid.Row="3" />
+                <Button Text="Continue" Command="{Binding SubmitDetails}" Grid.Row="3" IsVisible="false"/>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>
