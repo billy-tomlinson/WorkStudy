@@ -8,9 +8,10 @@
                         BackgroundColor="Transparent">
             <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}">
-                <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
-                    <Label Text="Study Number : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
-                    <Label Text="{Binding StudyNumber}" FontSize="20" TextColor="Black" />
+                <views:StudyDetails />
+                <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
+                    <Label Text="Observation Round : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
+                    <Label Text="{Binding ObservationRound}" FontSize="20" TextColor="Black" />
                 </StackLayout>
                 <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding Operators}" BackgroundColor="Gray" HasUnevenRows="True" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" HeightRequest="450">
                     <x:Arguments>

@@ -83,6 +83,8 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        public int StudyNumber => Utilities.StudyId;
+
         bool isPageVisible = false;
         public bool IsPageVisible
         {

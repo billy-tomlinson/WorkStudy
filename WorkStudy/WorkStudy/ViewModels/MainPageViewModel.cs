@@ -39,13 +39,13 @@ namespace WorkStudy.ViewModels
         private int ActivityId { get; set; }
         private int Rating { get; set; }
 
-        static int _studyNumber = 1;
-        public int StudyNumber
+        static int _observationRound = 1;
+        public int ObservationRound
         {
-            get => _studyNumber;
+            get => _observationRound;
             set
             {
-                _studyNumber = value;
+                _observationRound = value;
                 OnPropertyChanged();
             }
         }
@@ -109,9 +109,9 @@ namespace WorkStudy.ViewModels
             oldOperator.Observed = "OBSERVED";
         }
 
-        public void UpdateStudyNumber()
+        public void UpdateObservationRound()
         {
-            StudyNumber = StudyNumber + 1;
+            ObservationRound = ObservationRound + 1;
         }
 
         private void UpdateOperators(Operator value)
@@ -129,7 +129,7 @@ namespace WorkStudy.ViewModels
             }
 
             Utilities.Navigate(new MainPage());
-            UpdateStudyNumber();
+            UpdateObservationRound();
         }
 
 
@@ -213,7 +213,6 @@ namespace WorkStudy.ViewModels
         {
             return new Command((item) =>
             {
-                StudyNumber = Utilities.StudyId;
                 operator1 = item as Operator;
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
@@ -242,12 +241,8 @@ namespace WorkStudy.ViewModels
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
 
-            //Operators = new ObservableCollection<Operator>(OperatorRepo.GetItems()
-            //.Where(_ => _.StudyId == Utilities.StudyId));
-
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId));
-            Activities = Get_Enabled_Activities();
             Activities = Get_Enabled_Activities();
 
             IsPageVisible = IsStudyValid();
