@@ -125,10 +125,12 @@ namespace WorkStudy.ViewModels
         {
             foreach (var item in Observations)
             {
+                item.StudyId = Utilities.StudyId;
+                item.ObservationNumber = ObservationRound;
                 ObservationRepo.SaveItem(item);
             }
 
-            Utilities.Navigate(new MainPage());
+            Observations = new List<Observation>();
             UpdateObservationRound();
         }
 
@@ -165,7 +167,7 @@ namespace WorkStudy.ViewModels
             else
             {
                 ActivitiesVisible = false;
-                Observations.Add(Observation);
+                AddObservation();
                 ShowOrHideOperators(operator1);
             }
 
@@ -191,10 +193,18 @@ namespace WorkStudy.ViewModels
             Rating = button.Rating;
 
             Observation.Rating = Rating;
-            Observations.Add(Observation);
+
+            AddObservation();
 
             RatingsVisible = false;
             ShowOrHideOperators(operator1);
+        }
+
+        private void AddObservation()
+        {
+            var observation = Observations.Find(_ => _.OperatorId == operator1.Id);
+            if (observation == null)
+                Observations.Add(Observation);
         }
 
         public ICommand ItemClickedCommand
@@ -243,6 +253,12 @@ namespace WorkStudy.ViewModels
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId));
+            
+            var lastObservation = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
+                                              .OrderByDescending(y => y.ObservationNumber)
+                                              .Select(c => c.ObservationNumber).FirstOrDefault();
+            
+            ObservationRound = lastObservation + 1;
             Activities = Get_Enabled_Activities();
 
             IsPageVisible = IsStudyValid();

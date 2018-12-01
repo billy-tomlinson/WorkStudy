@@ -14,5 +14,10 @@ namespace WorkStudy.Model
         public DateTime Date => DateTime.Now;
 
         public int Rating { get; set; }
+
+        public int ObservationNumber { get; set; }
+
+        [ForeignKey(typeof(ActivitySampleStudy))]
+        public int StudyId { get; set; }
     }
 }
