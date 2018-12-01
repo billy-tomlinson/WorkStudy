@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -17,7 +18,7 @@ namespace WorkStudy.ViewModels
 
             if(!IsInvalid)
             {
-                SampleRepo.SaveItem(SampleStudy);
+                Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
 
                 CreateUnratedActivities();
 
@@ -39,16 +40,22 @@ namespace WorkStudy.ViewModels
         }
         private void ConstructorSetUp()
         {
-            SampleStudy = new ActivitySampleStudy() 
-            { 
-                IsRated = true, 
+            Utilities.StudyId = 0;
+
+            SampleStudy = new ActivitySampleStudy()
+            {
+                IsRated = true,
                 Date = DateTime.Now,
                 Time = DateTime.Now.TimeOfDay
             };
 
             IsPageVisible = true;
-            Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
-            SampleStudy.StudyNumber = Utilities.StudyId;
+
+            var lastStudyId = SampleRepo.GetItems().OrderByDescending(x => x.Id)
+                                        .FirstOrDefault().Id;
+            lastStudyId = lastStudyId + 1;
+
+            SampleStudy.StudyNumber = lastStudyId;
             CloseView = new Command(CloseValidationView);
 
         }
