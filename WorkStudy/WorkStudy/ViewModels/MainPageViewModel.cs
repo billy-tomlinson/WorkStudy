@@ -124,7 +124,7 @@ namespace WorkStudy.ViewModels
 
         public void SaveObservationDetails()
         {
-            if (Utilities.ObservationRoundComplete)
+            if (!OperatorObservations.Any(cw => cw.ActivityName == null))
             {
                 Observations = new List<Observation>();
                 UpdateObservationRound();
@@ -346,7 +346,6 @@ namespace WorkStudy.ViewModels
 
                         ops.Add(opObservation);
                         added = true;
-                        Utilities.ObservationRoundComplete = true;
                     }
                     else added = false;
                 }
@@ -359,7 +358,6 @@ namespace WorkStudy.ViewModels
                         Id = item.Id
                     };
                     ops.Add(opObs);
-                    Utilities.ObservationRoundComplete = false;
                 } 
             }
 

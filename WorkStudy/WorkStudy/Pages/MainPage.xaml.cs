@@ -20,8 +20,8 @@ namespace WorkStudy
 
         protected override void OnDisappearing()
         {
-            if(!Utilities.ObservationRoundComplete)
-                Navigation.PushAsync(new MainPage(true));
+            //if(!Utilities.ObservationRoundComplete)
+                //Navigation.PushAsync(new MainPage(true));
             base.OnDisappearing();
         }
     }
