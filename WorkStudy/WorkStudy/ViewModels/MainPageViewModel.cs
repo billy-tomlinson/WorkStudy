@@ -83,32 +83,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        public void ShowOrHideOperators(Operator value)
-        {
-            value.Observed = "OBSERVED";
-
-            if (oldOperator == value)
-            {
-                value.Isvisible = !value.Isvisible;
-                UpdateOperators(value);
-            }
-            else
-            {
-                if (oldOperator != null)
-                {
-                    oldOperator.Isvisible = false;
-                    UpdateOperators(oldOperator);
-
-                }
-
-                value.Isvisible = true;
-                UpdateOperators(value);
-            }
-
-            oldOperator = value;
-            oldOperator.Observed = "OBSERVED";
-        }
-
         public void UpdateObservationRound()
         {
             ObservationRound = ObservationRound + 1;
@@ -123,13 +97,6 @@ namespace WorkStudy.ViewModels
 
         void SaveObservationDetails()
         {
-            //foreach (var item in Observations)
-            //{
-            //    item.StudyId = Utilities.StudyId;
-            //    item.ObservationNumber = ObservationRound;
-            //    ObservationRepo.SaveItem(item);
-            //}
-
             Observations = new List<Observation>();
             UpdateObservationRound();
         }
@@ -168,7 +135,6 @@ namespace WorkStudy.ViewModels
             {
                 ActivitiesVisible = false;
                 AddObservation();
-                ShowOrHideOperators(operator1);
             }
 
             ActivitiesVisible = false;
@@ -197,7 +163,6 @@ namespace WorkStudy.ViewModels
             AddObservation();
 
             RatingsVisible = false;
-            ShowOrHideOperators(operator1);
         }
 
         private void AddObservation()
@@ -248,7 +213,6 @@ namespace WorkStudy.ViewModels
                 Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id).Activities.ToList().Where(x => x.IsEnabled == true));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 ActivitiesVisible = true;
-                ShowOrHideOperators(operator1);
             });
         }
 
