@@ -8,6 +8,6 @@
 
         public string ActivityName { get; set; }
 
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
     }
 }

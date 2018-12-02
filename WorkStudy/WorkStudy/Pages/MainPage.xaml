@@ -27,8 +27,8 @@
                                 <StackLayout Padding="20">
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding Name}" FontSize="25" TextColor="Azure" />
-                                        <Label Text="{Binding ActivityName}" FontSize="10" TextColor="Azure" />
-                                        <Label Text="{Binding Rating}" FontSize="10" TextColor="Azure" />
+                                        <Label Text="{Binding ActivityName}" FontSize="15" TextColor="Azure" />
+                                        <Label Text="{Binding Rating}" FontSize="15" TextColor="Azure" />
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>

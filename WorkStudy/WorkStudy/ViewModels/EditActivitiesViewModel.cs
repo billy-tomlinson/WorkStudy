@@ -89,7 +89,7 @@ namespace WorkStudy.ViewModels
                 MergedActivityRepo.SaveItem(new Model.MergedActivities() { ActivityId = parentActivity.Id, MergedActivityId = MergedActivities[i].Id });
                 merged.IsEnabled = false;
 
-                parentActivity.Name = parentActivity.Name + "/" + merged.Name;
+                parentActivity.Name = parentActivity.Name + " " + merged.Name;
                 parentActivity.IsEnabled = true;
                 parentActivity.Rated = true;
 
