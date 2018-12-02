@@ -12,7 +12,7 @@ namespace WorkStudy.ViewModels
 
     public class MainPageViewModel : BaseViewModel
     {
-        private Operator operator1;
+        private OperatorObservation operator1;
         List<Observation> Observations = new List<Observation>();
 
 
@@ -45,6 +45,17 @@ namespace WorkStudy.ViewModels
             set
             {
                 operators = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static ObservableCollection<OperatorObservation> operatorObservations;
+        public ObservableCollection<OperatorObservation> OperatorObservations
+        {
+            get => operatorObservations;
+            set
+            {
+                operatorObservations = value;
                 OnPropertyChanged();
             }
         }
@@ -204,6 +215,8 @@ namespace WorkStudy.ViewModels
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                               .Where(_ => _.StudyId == Utilities.StudyId));
+
+            CreateOperatorObservations();    
         }
 
         public ICommand ItemClickedCommand
@@ -222,11 +235,12 @@ namespace WorkStudy.ViewModels
         {
             return new Command((item) =>
             {
-                operator1 = item as Operator;
+                operator1 = item as OperatorObservation;
                 Observation = new Observation();
                 Observation.OperatorId = operator1.Id;
                 OperatorName = operator1.Name;
-                Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id).Activities.ToList().Where(x => x.IsEnabled == true));
+                Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
+                                                                .Activities.ToList().Where(x => x.IsEnabled == true));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 ActivitiesVisible = true;
             });
@@ -261,6 +275,8 @@ namespace WorkStudy.ViewModels
             Activities = Get_Enabled_Activities();
 
             IsPageVisible = IsStudyValid();
+
+            CreateOperatorObservationsForConstructor();
         }
 
         private bool IsStudyValid()
@@ -278,6 +294,66 @@ namespace WorkStudy.ViewModels
             }
 
             return true;
+        }
+
+        private void CreateOperatorObservations()
+        {
+            
+            var ops = new ObservableCollection<OperatorObservation>();
+            bool added = false;
+
+            foreach (var item in Operators)
+            {
+                if (item.Observations.Count == 0) added = false;
+
+                foreach (var obs in item.Observations)
+                {
+                    if(obs.ObservationNumber == ObservationRound)
+                    {
+                        var opObservation = new OperatorObservation
+                        {
+                            ActivityName = obs.ActivityName,
+                            Rating = obs.Rating,
+                            Name = item.Name,
+                            Id = item.Id
+                        };
+
+                        ops.Add(opObservation);
+                        added = true;
+                    }
+                    else added = false;
+                }
+
+                if(added == false)
+                {
+                    var opObs = new OperatorObservation
+                    {
+                        Name = item.Name,
+                        Id = item.Id
+                    };
+                    ops.Add(opObs);
+                } 
+            }
+
+            OperatorObservations = ops;
+        }
+
+        private void CreateOperatorObservationsForConstructor()
+        {
+            var ops = new ObservableCollection<OperatorObservation>();
+
+            foreach (var item in Operators)
+            {
+                var opObservation = new OperatorObservation()
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                };
+
+                ops.Add(opObservation);
+            }
+
+            OperatorObservations = ops;
         }
     }
 }
