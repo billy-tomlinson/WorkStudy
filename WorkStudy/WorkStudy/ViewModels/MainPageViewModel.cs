@@ -123,12 +123,12 @@ namespace WorkStudy.ViewModels
 
         void SaveObservationDetails()
         {
-            foreach (var item in Observations)
-            {
-                item.StudyId = Utilities.StudyId;
-                item.ObservationNumber = ObservationRound;
-                ObservationRepo.SaveItem(item);
-            }
+            //foreach (var item in Observations)
+            //{
+            //    item.StudyId = Utilities.StudyId;
+            //    item.ObservationNumber = ObservationRound;
+            //    ObservationRepo.SaveItem(item);
+            //}
 
             Observations = new List<Observation>();
             UpdateObservationRound();
@@ -203,8 +203,26 @@ namespace WorkStudy.ViewModels
         private void AddObservation()
         {
             var observation = Observations.Find(_ => _.OperatorId == operator1.Id);
-            if (observation == null)
-                Observations.Add(Observation);
+            var exisitingObservation = ObservationRepo.GetItems()
+                                      .SingleOrDefault(x => x.OperatorId == operator1.Id 
+                                      && x.ObservationNumber == ObservationRound);
+            
+            if (exisitingObservation != null)
+            {
+                exisitingObservation.ActivityId = ActivityId;
+                exisitingObservation.Rating = Rating;
+
+                Observation = exisitingObservation;
+            }
+
+            Observations.Add(Observation);
+
+            foreach (var item in Observations)
+            {
+                item.StudyId = Utilities.StudyId;
+                item.ObservationNumber = ObservationRound;
+                ObservationRepo.SaveItem(item);
+            }
         }
 
         public ICommand ItemClickedCommand
@@ -253,11 +271,11 @@ namespace WorkStudy.ViewModels
 
             Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId));
-            
+
             var lastObservation = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
                                               .OrderByDescending(y => y.ObservationNumber)
                                               .Select(c => c.ObservationNumber).FirstOrDefault();
-            
+
             ObservationRound = lastObservation + 1;
             Activities = Get_Enabled_Activities();
 
@@ -269,7 +287,7 @@ namespace WorkStudy.ViewModels
 
             if (Utilities.StudyId == 0 || Utilities.IsCompleted)
                 return false;
-            
+
             if ((Activities.Count == 0) ||
                     (!Operators.Any()) ||
                     (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))

@@ -62,8 +62,11 @@ namespace WorkStudy.Services
             lock (locker)
             {
                 if (item.Id != 0)
-                    return DatabaseConnection.Update(item);
-
+                {
+                    DatabaseConnection.Update(item);
+                    return 0;
+                }
+                   
                 DatabaseConnection.Insert(item);
                 return GetId();
             }
