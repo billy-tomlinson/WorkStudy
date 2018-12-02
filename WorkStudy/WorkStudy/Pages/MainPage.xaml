@@ -50,6 +50,9 @@
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" HeightRequest="150"/>
             <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 150, 20 ,0" />
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

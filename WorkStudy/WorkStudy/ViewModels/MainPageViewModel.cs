@@ -139,6 +139,11 @@ namespace WorkStudy.ViewModels
                 UpdateObservationRound();
                 CreateOperatorObservations();
             }
+            else 
+            {
+                ValidationText = "Not All Operators have been observed.";
+                IsInvalid = true;
+            }
         }
 
         void TerminateStudy()
@@ -291,6 +296,8 @@ namespace WorkStudy.ViewModels
             IsPageVisible = IsStudyValid();
 
             CreateOperatorObservations();
+
+            IsInvalid = false;
         }
 
         private bool IsStudyValid()
