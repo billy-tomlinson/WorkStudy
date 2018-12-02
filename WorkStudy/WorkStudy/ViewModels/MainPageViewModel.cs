@@ -12,9 +12,7 @@ namespace WorkStudy.ViewModels
 
     public class MainPageViewModel : BaseViewModel
     {
-        private Operator oldOperator;
         private Operator operator1;
-        public ObservableCollection<Operator> Operators { get; set; }
         List<Observation> Observations = new List<Observation>();
 
 
@@ -38,6 +36,18 @@ namespace WorkStudy.ViewModels
         private Observation Observation { get; set; }
         private int ActivityId { get; set; }
         private int Rating { get; set; }
+
+
+        static ObservableCollection<Operator> operators;
+        public ObservableCollection<Operator> Operators
+        {
+            get => operators;
+            set
+            {
+                operators = value;
+                OnPropertyChanged();
+            }
+        }
 
         static int _observationRound = 1;
         public int ObservationRound
@@ -83,16 +93,21 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static Activity currentActivity;
+        public Activity CurrentActivity
+        {
+            get => currentActivity;
+            set
+            {
+                currentActivity = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void UpdateObservationRound()
         {
             ObservationRound = ObservationRound + 1;
-        }
-
-        private void UpdateOperators(Operator value)
-        {
-            var index = Operators.IndexOf(value);
-            Operators.Remove(value);
-            Operators.Insert(index, value);
         }
 
         void SaveObservationDetails()
@@ -100,7 +115,6 @@ namespace WorkStudy.ViewModels
             Observations = new List<Observation>();
             UpdateObservationRound();
         }
-
 
         void TerminateStudy()
         {
@@ -127,9 +141,9 @@ namespace WorkStudy.ViewModels
             ActivityId = value;
 
             Observation.ActivityId = ActivityId;
-            var currentActivity = ActivityRepo.GetItem(ActivityId);
+            CurrentActivity = ActivityRepo.GetItem(ActivityId);
 
-            if (Utilities.RatedStudy && currentActivity.Rated)
+            if (Utilities.RatedStudy && CurrentActivity.Rated)
                 RatingsVisible = true;
             else
             {
@@ -173,12 +187,11 @@ namespace WorkStudy.ViewModels
                                       && x.ObservationNumber == ObservationRound);
             
             if (exisitingObservation != null)
-            {
-                exisitingObservation.ActivityId = ActivityId;
-                exisitingObservation.Rating = Rating;
-
                 Observation = exisitingObservation;
-            }
+
+            Observation.ActivityName = CurrentActivity.Name;
+            Observation.ActivityId = ActivityId;
+            Observation.Rating = Rating;
 
             Observations.Add(Observation);
 
@@ -188,6 +201,9 @@ namespace WorkStudy.ViewModels
                 item.ObservationNumber = ObservationRound;
                 ObservationRepo.SaveItem(item);
             }
+
+            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                              .Where(_ => _.StudyId == Utilities.StudyId));
         }
 
         public ICommand ItemClickedCommand
@@ -224,6 +240,7 @@ namespace WorkStudy.ViewModels
                 ActivitiesVisible = false;
             });
         }
+
         private void ConstructorSetUp()
         {
             SaveObservations = new Command(SaveObservationDetails);

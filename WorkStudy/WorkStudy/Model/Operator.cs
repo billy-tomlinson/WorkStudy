@@ -30,5 +30,8 @@ namespace WorkStudy.Model
 
         [ManyToMany(typeof(OperatorActivity))]
         public List<Activity> Activities { get; set; }
+
+        [OneToMany]
+        public List<Observation> Observations { get; set; }
     }
 }

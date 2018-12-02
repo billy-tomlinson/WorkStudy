@@ -15,6 +15,8 @@ namespace WorkStudy.Model
 
         public int Rating { get; set; }
 
+        public string ActivityName { get; set; }
+
         public int ObservationNumber { get; set; }
 
         [ForeignKey(typeof(ActivitySampleStudy))]
