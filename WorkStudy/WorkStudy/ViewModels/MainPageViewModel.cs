@@ -82,6 +82,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool obseravationRoundComplete;
+        public bool ObseravationRoundComplete
+        {
+            get => obseravationRoundComplete;
+            set
+            {
+                obseravationRoundComplete = value;
+                OnPropertyChanged();
+            }
+        }
         static string operatorName;
         public string OperatorName
         {
@@ -123,9 +133,12 @@ namespace WorkStudy.ViewModels
 
         void SaveObservationDetails()
         {
-            Observations = new List<Observation>();
-            UpdateObservationRound();
-            CreateOperatorObservations();        
+            if (ObseravationRoundComplete)
+            {
+                Observations = new List<Observation>();
+                UpdateObservationRound();
+                CreateOperatorObservations();
+            }
         }
 
         void TerminateStudy()
@@ -321,6 +334,7 @@ namespace WorkStudy.ViewModels
 
                         ops.Add(opObservation);
                         added = true;
+                        ObseravationRoundComplete = true;
                     }
                     else added = false;
                 }
@@ -333,6 +347,7 @@ namespace WorkStudy.ViewModels
                         Id = item.Id
                     };
                     ops.Add(opObs);
+                    ObseravationRoundComplete = false;
                 } 
             }
 
