@@ -131,12 +131,14 @@ namespace WorkStudy.ViewModels
         {
             if (AllObservationsTaken)
             {
+                Utilities.AllObservationsTaken = true;
                 Observations = new List<Observation>();
                 UpdateObservationRound();
                 CreateOperatorObservations();
             }
             else 
             {
+                Utilities.AllObservationsTaken = false;
                 ValidationText = "Not All Operators have been observed.";
                 IsInvalid = true;
             }
@@ -367,6 +369,7 @@ namespace WorkStudy.ViewModels
             }
 
             OperatorObservations = ops;
+            Utilities.AllObservationsTaken = AllObservationsTaken;
         }
     }
 }
