@@ -125,6 +125,7 @@ namespace WorkStudy.ViewModels
         {
             Observations = new List<Observation>();
             UpdateObservationRound();
+            CreateOperatorObservations();        
         }
 
         void TerminateStudy()
@@ -276,7 +277,7 @@ namespace WorkStudy.ViewModels
 
             IsPageVisible = IsStudyValid();
 
-            CreateOperatorObservationsForConstructor();
+            CreateOperatorObservations();
         }
 
         private bool IsStudyValid()
@@ -333,24 +334,6 @@ namespace WorkStudy.ViewModels
                     };
                     ops.Add(opObs);
                 } 
-            }
-
-            OperatorObservations = ops;
-        }
-
-        private void CreateOperatorObservationsForConstructor()
-        {
-            var ops = new ObservableCollection<OperatorObservation>();
-
-            foreach (var item in Operators)
-            {
-                var opObservation = new OperatorObservation()
-                {
-                    Id = item.Id,
-                    Name = item.Name
-                };
-
-                ops.Add(opObservation);
             }
 
             OperatorObservations = ops;
