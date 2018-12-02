@@ -105,6 +105,11 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        public bool AllObservationsTaken
+        {
+            get => !OperatorObservations.Any(cw => cw.ActivityName == null);
+
+        }
 
         static Activity currentActivity;
         public Activity CurrentActivity
@@ -124,7 +129,7 @@ namespace WorkStudy.ViewModels
 
         public void SaveObservationDetails()
         {
-            if (!OperatorObservations.Any(cw => cw.ActivityName == null))
+            if (AllObservationsTaken)
             {
                 Observations = new List<Observation>();
                 UpdateObservationRound();
