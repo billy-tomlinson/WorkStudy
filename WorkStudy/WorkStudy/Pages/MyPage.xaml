@@ -5,7 +5,7 @@
              xmlns:pages="clr-namespace:WorkStudy"  
              Title="TabbedPage">  
   <!--Pages can be added as references or inline-->
-  <pages:MainPage Title="Tab 5" />
+<!--  <pages:MainPage Title="Tab 5" />-->
   <ContentPage Title="Tab 2">  
     <StackLayout>  
       <Label Text="Green"  HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5" />  

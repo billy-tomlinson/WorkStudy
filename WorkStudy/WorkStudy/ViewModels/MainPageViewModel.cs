@@ -14,7 +14,7 @@ namespace WorkStudy.ViewModels
     {
         private OperatorObservation operator1;
         List<Observation> Observations = new List<Observation>();
-
+        bool isInvalid;
 
         public Command SaveObservations { get; set; }
         public Command ActivitySelected { get; set; }
@@ -28,8 +28,9 @@ namespace WorkStudy.ViewModels
             ConstructorSetUp();
         }
 
-        public MainPageViewModel()
+        public MainPageViewModel(bool isInvalid = false)
         {
+            this.isInvalid = isInvalid;
             ConstructorSetUp();
         }
 
@@ -82,16 +83,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        static bool obseravationRoundComplete;
-        public bool ObseravationRoundComplete
-        {
-            get => obseravationRoundComplete;
-            set
-            {
-                obseravationRoundComplete = value;
-                OnPropertyChanged();
-            }
-        }
         static string operatorName;
         public string OperatorName
         {
@@ -131,9 +122,9 @@ namespace WorkStudy.ViewModels
             ObservationRound = ObservationRound + 1;
         }
 
-        void SaveObservationDetails()
+        public void SaveObservationDetails()
         {
-            if (ObseravationRoundComplete)
+            if (Utilities.ObservationRoundComplete)
             {
                 Observations = new List<Observation>();
                 UpdateObservationRound();
@@ -290,7 +281,14 @@ namespace WorkStudy.ViewModels
                                               .OrderByDescending(y => y.ObservationNumber)
                                               .Select(c => c.ObservationNumber).FirstOrDefault();
 
-            ObservationRound = lastObservation + 1;
+            if (!isInvalid)
+                ObservationRound = lastObservation + 1;
+            else
+            {
+                ObservationRound = lastObservation;
+                ValidationText = "Not All Operators have been observed.";
+            }
+                
             Activities = Get_Enabled_Activities();
 
             IsPageVisible = IsStudyValid();
@@ -298,6 +296,13 @@ namespace WorkStudy.ViewModels
             CreateOperatorObservations();
 
             IsInvalid = false;
+
+            if (isInvalid)
+            {
+                IsInvalid = true;
+                SaveObservationDetails();
+            }
+                
         }
 
         private bool IsStudyValid()
@@ -341,7 +346,7 @@ namespace WorkStudy.ViewModels
 
                         ops.Add(opObservation);
                         added = true;
-                        ObseravationRoundComplete = true;
+                        Utilities.ObservationRoundComplete = true;
                     }
                     else added = false;
                 }
@@ -354,7 +359,7 @@ namespace WorkStudy.ViewModels
                         Id = item.Id
                     };
                     ops.Add(opObs);
-                    ObseravationRoundComplete = false;
+                    Utilities.ObservationRoundComplete = false;
                 } 
             }
 
