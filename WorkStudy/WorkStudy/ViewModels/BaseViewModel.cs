@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -38,6 +39,9 @@ namespace WorkStudy.ViewModels
         public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>(conn);
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
+
+        public TimeSpan CurrentTime => DateTime.Now.TimeOfDay;
+
 
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities

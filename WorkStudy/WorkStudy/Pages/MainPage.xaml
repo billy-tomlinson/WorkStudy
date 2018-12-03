@@ -7,8 +7,10 @@
             <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}">
                 <views:StudyDetails />
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
-                    <Label Text="Observation Round : " FontSize="20" TextColor="Black" HorizontalOptions="Start" />
-                    <Label Text="{Binding ObservationRound}" FontSize="20" TextColor="Black" />
+                    <Label Text="Observation Round : " FontSize="15" TextColor="Black" HorizontalOptions="Start" />
+                    <Label Text="{Binding ObservationRound}" FontSize="15" TextColor="Black" />
+                    <Label Text="  Time : " FontSize="15" TextColor="Black" />
+                    <TimePicker Time="{Binding CurrentTime}" FontSize="15" TextColor="Black" IsEnabled="false" />
                 </StackLayout>
                 <local:CustomListView x:Name="List" Margin="0,10" 
                                       ItemsSource="{Binding OperatorObservations}" 
