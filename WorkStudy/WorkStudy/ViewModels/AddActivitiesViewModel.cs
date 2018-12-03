@@ -163,6 +163,9 @@ namespace WorkStudy.ViewModels
         void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
+            Activity = ActivityRepo.GetItem(value);
+            ActivityRepo.DeleteItem(Activity);
+            ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
         }
 
         void ActivitySelectedEvent(object sender)

@@ -75,8 +75,7 @@ namespace WorkStudy.ViewModels
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
                     Operator.Id = OperatorRepo.SaveItem(new Operator() { Name = Name });
 
-                ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetItems()
-                                                               .Where(_ => _.StudyId == Utilities.StudyId));
+                ItemsCollection = GetAllOperators();
 
                 LinkOperatorToUnratedActivities();
 
@@ -194,6 +193,10 @@ namespace WorkStudy.ViewModels
         void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
+            Operator = OperatorRepo.GetItem(value);
+            OperatorRepo.DeleteItem(Operator);
+            ItemsCollection = GetAllOperators();
+            Activities = Get_Rated_Enabled_Activities_WithChildren();
         }
 
         void OperatorSelectedEvent(object sender)
@@ -211,8 +214,7 @@ namespace WorkStudy.ViewModels
             SettingsSelected = new Command(AddActivitiesSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
 
-            ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                                           .Where(_ => _.StudyId == Utilities.StudyId));
+            ItemsCollection = GetAllOperators();
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();
             Name = string.Empty;
@@ -291,6 +293,12 @@ namespace WorkStudy.ViewModels
             }
 
             OperatorRepo.UpdateWithChildren(op);
+        }
+
+        private ObservableCollection<Operator> GetAllOperators()
+        {
+            return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                       .Where(_ => _.StudyId == Utilities.StudyId));
         }
     }
 }

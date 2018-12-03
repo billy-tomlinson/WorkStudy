@@ -66,9 +66,17 @@ namespace WorkStudy.Services
                     DatabaseConnection.Update(item);
                     return 0;
                 }
-                   
                 DatabaseConnection.Insert(item);
                 return GetId();
+            }
+        }
+
+
+        public int DeleteItem(T item)
+        {
+            lock (locker)
+            {
+                return DatabaseConnection.Delete(item);
             }
         }
 

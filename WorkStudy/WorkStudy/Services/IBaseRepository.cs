@@ -20,6 +20,8 @@ namespace WorkStudy.Services
 
         int SaveItem(T item);
 
+        int DeleteItem(T item);
+
         void UpdateWithChildren(T item);
 
         void InsertOrReplaceWithChildren(T item);
