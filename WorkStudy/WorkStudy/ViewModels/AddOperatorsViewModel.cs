@@ -193,6 +193,13 @@ namespace WorkStudy.ViewModels
         void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
+
+            var activities = OperatorActivityRepo.GetItems().Where(x => x.OperatorId == value);
+            foreach (var item in activities)
+            {
+                OperatorActivityRepo.DeleteItem(item);
+            }
+
             Operator = OperatorRepo.GetItem(value);
             OperatorRepo.DeleteItem(Operator);
             ItemsCollection = GetAllOperators();
