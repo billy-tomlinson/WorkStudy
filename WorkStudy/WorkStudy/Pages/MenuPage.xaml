@@ -15,7 +15,10 @@
     <StackLayout BackgroundColor="White" Padding ="10 , 30 , 10, 10">
         <Button Text="Home" BackgroundColor="White" TextColor="DarkGray" 
                 HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
-        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>            
+        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/> 
+        <Button Text="Current Study" BackgroundColor="White" TextColor="DarkGray" 
+                HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
+        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
         <Button Text="Activities" BackgroundColor="White" TextColor="DarkGray" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AddActivities}" />
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>            

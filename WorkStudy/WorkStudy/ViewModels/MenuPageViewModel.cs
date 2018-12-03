@@ -14,6 +14,7 @@ namespace WorkStudy.ViewModels
         public ICommand CompletedStudies { get; set; }
         public ICommand PausedStudies { get; set; }
         public ICommand Reports { get; set; }
+        public ICommand CurrentStudy { get; set; }
 
         public MenuPageViewModel()
         {
@@ -24,12 +25,19 @@ namespace WorkStudy.ViewModels
             CompletedStudies = new Command(GoCompletedStudies);
             PausedStudies = new Command(GoPausedStudies);
             Reports = new Command(GoReports);
+            CurrentStudy = new Command(GoCurrentStudy);
         }
 
         void GoStudyMenu(object obj)
         {
             Utilities.StudyId = 0;
             Utilities.Navigate(new StudyMenu());
+            App.MenuIsPresented = false;
+        }
+
+        void GoCurrentStudy(object obj)
+        {
+            Utilities.Navigate(new MainPage());
             App.MenuIsPresented = false;
         }
 
