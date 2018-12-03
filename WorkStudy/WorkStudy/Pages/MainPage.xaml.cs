@@ -18,11 +18,11 @@ namespace WorkStudy
             return true;
         }
 
-        protected override void OnDisappearing()
-        {
-            if(!Utilities.AllObservationsTaken)
-                Navigation.PushAsync(new MainPage(true));
-            base.OnDisappearing();
-        }
+        //protected override void OnDisappearing()
+        //{
+        //    if(!Utilities.AllObservationsTaken)
+        //        Navigation.PushAsync(new MainPage(true));
+        //    base.OnDisappearing();
+        //}
     }
 }
