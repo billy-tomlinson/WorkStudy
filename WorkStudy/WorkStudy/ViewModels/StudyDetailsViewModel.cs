@@ -51,8 +51,13 @@ namespace WorkStudy.ViewModels
 
             IsPageVisible = true;
 
-            var lastStudyId = SampleRepo.GetItems().OrderByDescending(x => x.Id)
+            int lastStudyId = 0;
+            var studies = SampleRepo.GetItems()?.ToList();
+
+            if(studies.Count > 0)
+                lastStudyId = studies.OrderByDescending(x => x.Id)
                                         .FirstOrDefault().Id;
+            
             lastStudyId = lastStudyId + 1;
 
             SampleStudy.StudyNumber = lastStudyId;
