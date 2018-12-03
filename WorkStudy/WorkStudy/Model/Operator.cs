@@ -22,11 +22,13 @@ namespace WorkStudy.Model
 
         public DateTime Date => DateTime.Now;
 
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
 
         public string Observed { get; set; }
 
         public bool Isvisible { get; set; }
+
+        public double Opacity { get; set; } = 1;
 
         [ManyToMany(typeof(OperatorActivity))]
         public List<Activity> Activities { get; set; }

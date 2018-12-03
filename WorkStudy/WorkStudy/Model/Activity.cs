@@ -30,6 +30,8 @@ namespace WorkStudy.Model
 
         public DateTime Date => DateTime.Now;
 
+        public double Opacity { get; set; } = 1;
+
         [Ignore]
         public Color Colour { get; set; }
 

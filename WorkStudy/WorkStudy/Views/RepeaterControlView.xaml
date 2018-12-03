@@ -21,7 +21,11 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" Grid.Column="0" BackgroundColor="#d5f0f1" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Start">
+                                        <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" 
+                                                           Grid.Column="0" BackgroundColor="#d5f0f1" 
+                                                           Opacity="{Binding Opacity}"
+                                                           FontAttributes="Bold" VerticalTextAlignment="Center" 
+                                                           HorizontalTextAlignment="Start">
                                             <local:CustomLabel.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path = BindingContext.ItemSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                             </local:CustomLabel.GestureRecognizers>

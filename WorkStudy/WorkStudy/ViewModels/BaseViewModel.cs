@@ -97,6 +97,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        int isItemEnabled;
+        public int IsItemEnabled
+        {
+            get { return isItemEnabled; }
+            set
+            {
+                isItemEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         bool isPageUnavailableVisible = false;
         public bool IsPageUnavailableVisible
         {
@@ -119,6 +131,11 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        public bool StudyInProcess
+        {
+            get => Get_Observations_By_StudyId().Count > 0;
+        }
+              
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -130,6 +147,12 @@ namespace WorkStudy.ViewModels
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetItems()
                                          .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
+        }
+
+        public List<Observation> Get_Observations_By_StudyId()
+        {
+            return ObservationRepo.GetItems()
+                               .Where(x => x.StudyId == Utilities.StudyId).ToList();
         }
 
         public ObservableCollection<Activity> Get_Enabled_Activities()

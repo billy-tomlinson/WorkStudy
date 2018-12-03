@@ -73,7 +73,11 @@ namespace WorkStudy.ViewModels
                 List<Operator> duplicatesCheck = new List<Operator>(ItemsCollection);
 
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    Operator.Id = OperatorRepo.SaveItem(new Operator() { Name = Name });
+                    Operator.Id = OperatorRepo.SaveItem(new Operator() 
+                    { 
+                        Name = Name, 
+                        IsEnabled = true 
+                    });
 
                 ItemsCollection = GetAllOperators();
 
@@ -194,14 +198,25 @@ namespace WorkStudy.ViewModels
         {
             var value = (int)sender;
 
-            var activities = OperatorActivityRepo.GetItems().Where(x => x.OperatorId == value);
-            foreach (var item in activities)
-            {
-                OperatorActivityRepo.DeleteItem(item);
-            }
-
             Operator = OperatorRepo.GetItem(value);
-            OperatorRepo.DeleteItem(Operator);
+
+            if(!StudyInProcess)
+            {
+                var activities = OperatorActivityRepo.GetItems().Where(x => x.OperatorId == value);
+                foreach (var item in activities)
+                {
+                    OperatorActivityRepo.DeleteItem(item);
+                }
+
+                OperatorRepo.DeleteItem(Operator); 
+            }
+            else
+            {
+                Operator.IsEnabled = false;
+                Operator.Opacity = 0.2;
+                OperatorRepo.SaveItem(Operator);
+            }
+           
             ItemsCollection = GetAllOperators();
             Activities = Get_Rated_Enabled_Activities_WithChildren();
         }

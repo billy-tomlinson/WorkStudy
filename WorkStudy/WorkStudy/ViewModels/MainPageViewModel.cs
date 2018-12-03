@@ -229,8 +229,7 @@ namespace WorkStudy.ViewModels
                 ObservationRepo.SaveItem(item);
             }
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                              .Where(_ => _.StudyId == Utilities.StudyId));
+            Operators = GetAllEnabledOperators();
 
             CreateOperatorObservations();    
         }
@@ -282,8 +281,7 @@ namespace WorkStudy.ViewModels
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                                          .Where(_ => _.StudyId == Utilities.StudyId));
+            Operators = GetAllEnabledOperators();
 
             var lastObservation = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
                                               .OrderByDescending(y => y.ObservationNumber)
@@ -371,6 +369,13 @@ namespace WorkStudy.ViewModels
 
             OperatorObservations = ops;
             Utilities.AllObservationsTaken = AllObservationsTaken;
+        }
+
+        private ObservableCollection<Operator> GetAllEnabledOperators()
+        {
+            return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                                          .Where(_ => _.StudyId == Utilities.StudyId
+                                                           && _.IsEnabled == true));
         }
     }
 }
