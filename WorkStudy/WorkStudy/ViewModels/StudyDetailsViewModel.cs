@@ -23,9 +23,21 @@ namespace WorkStudy.ViewModels
                 CreateUnratedActivities();
 
                 Utilities.RatedStudy = SampleStudy.IsRated;
-                //Utilities.Navigate(new AddActivities());
+
+                IsActive = false;
+                Utilities.StudyDetailsActive = IsActive;
             }
-                
+        }
+
+        bool isActive;
+        public bool IsActive
+        {
+            get { return isActive; }
+            set
+            {
+                isActive = value;
+                OnPropertyChanged();
+            }
         }
 
         ActivitySampleStudy sampleStudy;
@@ -38,8 +50,12 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         private void ConstructorSetUp()
         {
+            IsActive = true;
+            Utilities.StudyDetailsActive = IsActive;
+
             Utilities.StudyId = 0;
 
             SampleStudy = new ActivitySampleStudy()

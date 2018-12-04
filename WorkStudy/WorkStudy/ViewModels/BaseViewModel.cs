@@ -87,9 +87,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        //public int StudyNumber => Utilities.StudyId;
-
-
         int studyNumber;
         public int StudyNumber
         {

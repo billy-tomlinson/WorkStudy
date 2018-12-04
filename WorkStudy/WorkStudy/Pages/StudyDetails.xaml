@@ -8,7 +8,9 @@
             <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" 
                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" 
                             IsVisible="{Binding IsPageVisible}">
-                <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
+                <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" 
+                             Padding="10" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All" WidthRequest="400" IsEnabled="{Binding IsActive}">
                     <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
                             <Label Text="Study Details" HeightRequest="50" FontSize="40" />
@@ -19,15 +21,19 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Name" />
-                            <Entry x:Name="studyName" Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20" />
+                            <Entry x:Name="studyName" Placeholder="Name" WidthRequest="150" 
+                                   Text="{Binding Name}" MaxLength="20" IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Department" />
-                            <Entry x:Name="studyDepartment" Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20" />
+                            <Entry x:Name="studyDepartment" Placeholder="Department" 
+                                   WidthRequest="150" Text="{Binding Department}" MaxLength="20" 
+                                   IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                          <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Studied By" />
-                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
+                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" 
+                                   Text="{Binding StudiedBy}" MaxLength="20" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Date" />
@@ -39,11 +45,13 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HeightRequest="60">
                             <Label Style="{StaticResource studyLabel}" Text="Rated" />
-                            <custom:CheckBox x:Name="studyRated" Checked="{Binding IsRated}" IsVisible="true" />
+                            <custom:CheckBox x:Name="studyRated" Checked="{Binding IsRated}" IsVisible="true" 
+                                             IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                     </StackLayout>
                     <StackLayout>
-                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitDetails}" />
+                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitDetails}" 
+                                IsEnabled="{Binding IsActive}" />
                     </StackLayout>
                 </StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">

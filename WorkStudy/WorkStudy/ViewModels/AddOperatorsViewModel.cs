@@ -140,7 +140,7 @@ namespace WorkStudy.ViewModels
             var activity = list.Find(_ => _.Id == sender);
             activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
                 ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
-            list.RemoveAll(_ => _.Id == (int)sender);
+            list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);

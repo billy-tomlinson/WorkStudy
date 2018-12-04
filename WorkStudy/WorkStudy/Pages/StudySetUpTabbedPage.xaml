@@ -5,6 +5,6 @@
             NavigationPage.HasNavigationBar="false"
             x:Class="WorkStudy.Pages.StudySetUpTabbedPage">
     <views:StudyDetails Title="Study Details" />
-    <views:AddOperators Title="Operators" />
     <views:AddActivities Title="Activities" />
+    <views:AddOperators Title="Operators" />
 </TabbedPage>

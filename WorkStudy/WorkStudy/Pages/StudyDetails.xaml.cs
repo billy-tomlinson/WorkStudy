@@ -1,5 +1,6 @@
 ﻿
 using System;
+using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy
@@ -19,7 +20,8 @@ namespace WorkStudy
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            studyName.Focus();
+            if(Utilities.StudyDetailsActive)
+                studyName.Focus();
         }
 
         public void studyName_Completed(object sender, EventArgs e)
