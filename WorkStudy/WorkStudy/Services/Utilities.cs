@@ -19,7 +19,7 @@ namespace WorkStudy.Services
         public static int StudySetUpComplete { get; set; }
         public static bool AllObservationsTaken { get; set; }
 
-        public static async void Navigate(ContentPage page)
+        public static async void Navigate(Page page)
         {
             await Task.Delay(1000);
             await App.NavigationPage.Navigation.PushAsync(page);

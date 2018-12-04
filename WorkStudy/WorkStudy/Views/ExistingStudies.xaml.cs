@@ -7,6 +7,7 @@ namespace WorkStudy.Pages
         public ExistingStudies()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

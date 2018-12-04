@@ -45,7 +45,7 @@ namespace WorkStudy.ViewModels
 
         void GoStudySetUp(object obj)
         {
-            App.NavigationPage.Navigation.PushAsync(new NavigationPage(new StudySetUpTabbedPage()));
+            Utilities.Navigate(new StudySetUpTabbedPage());
             App.MenuIsPresented = false;
         }
 

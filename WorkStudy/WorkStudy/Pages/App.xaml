@@ -48,19 +48,19 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
-             <Style x:Key="studyLabel" TargetType="Label">
+            <Style x:Key="studyLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="WidthRequest" Value="130" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
-             <Style x:Key="inputEntry" TargetType="Entry">
+            <Style x:Key="inputEntry" TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="WidthRequest" Value="300" />
                 <Setter Property="HeightRequest" Value="40" />
             </Style>
-             <Style x:Key="plusButton" TargetType="Button">
+            <Style x:Key="plusButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="WidthRequest" Value="30" />
