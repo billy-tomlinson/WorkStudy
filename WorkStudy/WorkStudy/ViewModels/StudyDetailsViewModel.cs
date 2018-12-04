@@ -19,11 +19,11 @@ namespace WorkStudy.ViewModels
             if(!IsInvalid)
             {
                 Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
-
+                StudyNumber = Utilities.StudyId;
                 CreateUnratedActivities();
 
                 Utilities.RatedStudy = SampleStudy.IsRated;
-                Utilities.Navigate(new AddActivities());
+                //Utilities.Navigate(new AddActivities());
             }
                 
         }

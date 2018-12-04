@@ -87,7 +87,19 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        public int StudyNumber => Utilities.StudyId;
+        //public int StudyNumber => Utilities.StudyId;
+
+
+        int studyNumber;
+        public int StudyNumber
+        {
+            get { return Utilities.StudyId; }
+            set
+            {
+                studyNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         bool isPageVisible = false;
         public bool IsPageVisible

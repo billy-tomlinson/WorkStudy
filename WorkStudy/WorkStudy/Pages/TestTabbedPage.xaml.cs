@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
-    public partial class MyPage : TabbedPage
+    public partial class TestTabbedPage : TabbedPage
     {
-        public MyPage()
+        public TestTabbedPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

@@ -17,7 +17,12 @@ namespace WorkStudy
             return true;
         }
 
-       
+        protected override void OnAppearing()
+        {
+            BindingContext = new AddOperatorsViewModel();
+            base.OnAppearing();
+        }
+
     }
 }
 

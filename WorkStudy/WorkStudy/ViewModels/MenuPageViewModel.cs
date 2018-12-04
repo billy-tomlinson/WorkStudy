@@ -15,6 +15,7 @@ namespace WorkStudy.ViewModels
         public ICommand PausedStudies { get; set; }
         public ICommand Reports { get; set; }
         public ICommand CurrentStudy { get; set; }
+        public ICommand TabbedTest { get; set; }
 
         public MenuPageViewModel()
         {
@@ -26,6 +27,7 @@ namespace WorkStudy.ViewModels
             PausedStudies = new Command(GoPausedStudies);
             Reports = new Command(GoReports);
             CurrentStudy = new Command(GoCurrentStudy);
+            TabbedTest = new Command(GoTabbedTest);
         }
 
         void GoStudyMenu(object obj)
@@ -40,6 +42,15 @@ namespace WorkStudy.ViewModels
             Utilities.Navigate(new MainPage());
             App.MenuIsPresented = false;
         }
+
+        void GoTabbedTest(object obj)
+        {
+            var billy = new NavigationPage(new TestTabbedPage());
+            //Utilities.Navigate(billy);
+            App.NavigationPage.Navigation.PushAsync(new NavigationPage(new TestTabbedPage()));
+            App.MenuIsPresented = false;
+        }
+
 
         void GoActivities(object obj)
         {

@@ -18,5 +18,11 @@ namespace WorkStudy
         {
             return true;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            BindingContext = new AddActivitiesViewModel();
+        }
     }
 }

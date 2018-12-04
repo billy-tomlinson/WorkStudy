@@ -37,6 +37,9 @@
         <Button Text="Reports" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding Reports}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
+                 <Button Text="Tabbed Test" TextColor="DarkGray" BackgroundColor="White" 
+                HorizontalOptions="StartAndExpand" Command="{Binding TabbedTest}"/>
+        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
     </StackLayout>
 </ContentPage.Content>
 </ContentPage>

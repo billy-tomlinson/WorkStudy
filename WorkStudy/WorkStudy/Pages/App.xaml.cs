@@ -35,8 +35,9 @@ namespace WorkStudy
 
         private void CallMain()
         {
+            var tabbedPage = new TestTabbedPage() { Title = "Tabbed Page" };
             var menuPage = new MenuPage(){ Title = "Main Page" };
-            NavigationPage = new NavigationPage(new  WelcomePage());
+            NavigationPage = new NavigationPage(new  TestTabbedPage());
             RootPage = new RootPage();
             RootPage.Master = menuPage;
             RootPage.Detail = NavigationPage;
