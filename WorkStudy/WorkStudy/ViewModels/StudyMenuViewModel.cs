@@ -19,7 +19,8 @@ namespace WorkStudy.ViewModels
 
         void NewStudyPage()
         {
-            Utilities.Navigate(new StudyDetails());
+            App.NavigationPage.Navigation.PushAsync(new NavigationPage(new StudySetUpTabbedPage()));
+            //Utilities.Navigate(new StudyDetails());
         }
 
         void ExistingStudyPage()

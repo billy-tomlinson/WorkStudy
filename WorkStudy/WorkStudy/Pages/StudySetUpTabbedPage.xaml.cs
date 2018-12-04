@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class TestTabbedPage : TabbedPage
+    public partial class StudySetUpTabbedPage : TabbedPage
     {
-        public TestTabbedPage()
+        public StudySetUpTabbedPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
         }
+
         protected override bool OnBackButtonPressed()
         {
             return true;

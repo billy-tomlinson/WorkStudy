@@ -2,7 +2,8 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:views="clr-namespace:WorkStudy" 
-            x:Class="WorkStudy.Pages.TestTabbedPage">
+            NavigationPage.HasNavigationBar="false"
+            x:Class="WorkStudy.Pages.StudySetUpTabbedPage">
     <views:StudyDetails Title="Study Details" />
     <views:AddOperators Title="Operators" />
     <views:AddActivities Title="Activities" />

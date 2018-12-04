@@ -16,5 +16,10 @@ namespace WorkStudy.Pages
             listOfStudies.BindingContext = new ExistingStudiesViewModel(completed);
 
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
