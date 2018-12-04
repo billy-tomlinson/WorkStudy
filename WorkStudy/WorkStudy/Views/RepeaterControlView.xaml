@@ -2,7 +2,10 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.Pages.RepeaterControlView" x:Name="RepeaterPage">
     <ContentView.Content>
         <StackLayout>
-            <StackLayout HeightRequest="300" Margin="7,5,10,10">
+            <Frame HasShadow="true" BackgroundColor="Transparent" 
+                   BorderColor="White" OutlineColor="White" 
+                   Padding="0" Margin="0">
+            <StackLayout HeightRequest="350" Margin="7,5,10,10">
                 <ScrollView>
                     <local:RepeaterView ItemsSource="{Binding ItemsCollection}">
                         <local:RepeaterView.ItemTemplate>
@@ -41,6 +44,7 @@
                     </local:RepeaterView>
                 </ScrollView>
             </StackLayout>
+                </Frame>
             <StackLayout>
                 <Button Text="Continue" Command="{Binding SubmitDetails}" Grid.Row="3" IsVisible="false" />
             </StackLayout>
