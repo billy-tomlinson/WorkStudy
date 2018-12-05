@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Pages" x:Class="WorkStudy.AddActivities">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Pages" 
+             x:Class="WorkStudy.AddActivities">
     <ContentPage.BindingContext>
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent">
             <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout IsVisible="{Binding IsPageVisible}" Padding="5" Margin="5">
-                <StackLayout Orientation="Horizontal" HeightRequest="60" BackgroundColor="#FCFAFA" VerticalOptions="Center">
-                    <views:StudyDetails />
-                    <Entry Style="{StaticResource inputEntry}" Placeholder="Activity Name" Text="{Binding Name}" HeightRequest="50" />
-                    <Button Style="{StaticResource plusButton}" Command="{Binding SaveActivity}" BackgroundColor="Transparent" />
+                <views:StudyDetails />
+                <StackLayout Orientation="Horizontal" 
+                             HeightRequest="60" 
+                             BackgroundColor="#FCFAFA" 
+                             VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}" 
+                           Placeholder="Activity Name" 
+                           Text="{Binding Name}" 
+                           HeightRequest="50" />
+                    <Button Style="{StaticResource plusButton}" 
+                            Command="{Binding SaveActivity}" 
+                            BackgroundColor="Transparent" />
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
