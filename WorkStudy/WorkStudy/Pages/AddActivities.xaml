@@ -30,16 +30,22 @@
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-            <ContentView x:Name="commentView" BackgroundColor="#C0808080" 
+            <ContentView x:Name="commentView" BackgroundColor="Transparent" 
                          IsVisible="{Binding CommentsVisible}" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" 
-                                 BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
-                        <Label Text="Comments" FontSize="15" TextColor="Blue" />
+                    <StackLayout Orientation="Vertical" 
+                                 Padding="10" 
+                                 Margin="10" 
+                                 WidthRequest="300" 
+                                 HeightRequest="230"
+                                 BackgroundColor="White">
+                        <Label Text="Comments"/>
                         <Editor Text="{Binding Comment}" HeightRequest="100" />
-                        <Button Text="Save" Command="{Binding SaveComment}" />
-                        <Button Text="Cancel" Command="{Binding CancelComment}" />
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Button Text="Save" Command="{Binding SaveComment}" />
+                            <Button Text="Cancel" Command="{Binding CancelComment}" />
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </ContentView>
