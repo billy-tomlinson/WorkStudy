@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:WorkStudy.Custom" x:Class="WorkStudy.Pages.RepeaterControlView" x:Name="RepeaterPage">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             x:Class="WorkStudy.Pages.RepeaterControlView" 
+             x:Name="RepeaterPage">
     <ContentView.Content>
         <StackLayout>
             <Frame HasShadow="true" BackgroundColor="Transparent" 
                    BorderColor="White" OutlineColor="White" 
                    Padding="0" Margin="0">
             <StackLayout HeightRequest="350" Margin="7,5,10,10">
-                <ScrollView>
+                <ScrollView MinimumHeightRequest="350">
                     <local:RepeaterView ItemsSource="{Binding ItemsCollection}">
                         <local:RepeaterView.ItemTemplate>
                             <DataTemplate>
@@ -20,8 +24,13 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <StackLayout BackgroundColor="#d5f0f1" Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="40">
-                                            <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" Grid.Column="0" BackgroundColor="#d5f0f1" Opacity="{Binding Opacity}" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" WidthRequest="300">
+                                        <StackLayout BackgroundColor="#d5f0f1" Orientation="Horizontal" Grid.Row="0" 
+                                                     Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="40">
+                                            <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" 
+                                                               Grid.Column="0" BackgroundColor="#d5f0f1" 
+                                                               Opacity="{Binding Opacity}" 
+                                                               FontAttributes="Bold" VerticalTextAlignment="Center" 
+                                                               HorizontalTextAlignment="Start" WidthRequest="300">
                                                 <local:CustomLabel.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.ItemSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                                 </local:CustomLabel.GestureRecognizers>
