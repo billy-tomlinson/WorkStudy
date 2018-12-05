@@ -22,7 +22,7 @@
                                       ItemsSource="{Binding OperatorObservations}" 
                                       BackgroundColor="Gray" HasUnevenRows="True" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" HeightRequest="550">
+                                      HorizontalOptions="Center" HeightRequest="450">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
