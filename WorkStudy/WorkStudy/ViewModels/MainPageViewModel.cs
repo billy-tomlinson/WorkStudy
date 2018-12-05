@@ -321,7 +321,7 @@ namespace WorkStudy.ViewModels
                     (!Operators.Any()) ||
                     (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
             {
-                InvalidText = "Please add Activities and/or Operators to study.";
+                InvalidText = $"Please add Activities and/or Operators to study {Utilities.StudyId.ToString()}";
                 return false;
             }
 

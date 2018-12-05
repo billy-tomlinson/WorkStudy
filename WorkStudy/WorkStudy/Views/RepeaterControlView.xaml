@@ -31,7 +31,8 @@
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.SettingsSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                                 </local:CustomImage.GestureRecognizers>
                                             </local:CustomImage>
-                                            <local:CustomImage Source="delete.png" Grid.Row="0" Grid.Column="2" Margin="3">
+                                            <local:CustomImage Source="delete.png" Grid.Row="0" Grid.Column="2"
+                                                               Margin="3">
                                                 <local:CustomImage.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                                 </local:CustomImage.GestureRecognizers>

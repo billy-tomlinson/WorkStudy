@@ -162,10 +162,18 @@ namespace WorkStudy.ViewModels
 
         void DeleteSelectedEvent(object sender)
         {
-            var value = (int)sender;
-            Activity = ActivityRepo.GetItem(value);
-            ActivityRepo.DeleteItem(Activity);
-            ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
+            if (!StudyInProcess)
+            {
+                var value = (int)sender;
+                Activity = ActivityRepo.GetItem(value);
+                ActivityRepo.DeleteItem(Activity);
+                ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
+            }
+            else
+            {
+                ValidationText = "Cannot delete an activity once Study has started.";
+                IsInvalid = true;
+            }
         }
 
         void ActivitySelectedEvent(object sender)
