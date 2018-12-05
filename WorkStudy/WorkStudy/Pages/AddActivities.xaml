@@ -30,9 +30,12 @@
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-            <ContentView x:Name="commentView" BackgroundColor="#C0808080" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <ContentView x:Name="commentView" BackgroundColor="#C0808080" 
+                         IsVisible="{Binding CommentsVisible}" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
+                    <StackLayout Orientation="Vertical" HeightRequest="250" WidthRequest="360" 
+                                 BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
                         <Label Text="Comments" FontSize="15" TextColor="Blue" />
                         <Editor Text="{Binding Comment}" HeightRequest="100" />
                         <Button Text="Save" Command="{Binding SaveComment}" />
@@ -40,7 +43,9 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" 
+                         AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
         </AbsoluteLayout>
