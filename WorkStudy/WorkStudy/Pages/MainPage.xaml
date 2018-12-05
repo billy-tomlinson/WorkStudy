@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              xmlns:views="clr-namespace:WorkStudy.Pages" 
              x:Class="WorkStudy.MainPage" 
-             BackgroundColor="Transparent" x:Name="MainPage1">
+             x:Name="MainPage1">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
                         BackgroundColor="Transparent">
@@ -22,7 +22,7 @@
                                       ItemsSource="{Binding OperatorObservations}" 
                                       BackgroundColor="Gray" HasUnevenRows="True" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" HeightRequest="450">
+                                      HorizontalOptions="Center" HeightRequest="550">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -40,17 +40,13 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </local:CustomListView>
-                <StackLayout>
-                    <Button Text="Save Observations" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding SaveObservations}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Save Observations" WidthRequest="205" MinimumWidthRequest="205" Command="{Binding SaveObservations}" />
                 </StackLayout>
-                <StackLayout>
-                    <Button Text="Pause Study" WidthRequest="200" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Command="{Binding PauseStudy}" />
-                </StackLayout>
-                <StackLayout>
-                    <Button Text="Finish Study" WidthRequest="200" FontSize="10" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" />
-                </StackLayout>
-                <StackLayout>
-                    <Button Text="Edit Activities" WidthRequest="200" FontSize="10" BackgroundColor="Red" TextColor="White" Command="{Binding EditStudy}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Pause Study" WidthRequest="100" Command="{Binding PauseStudy}" />
+                    <Button Text="Finish Study" WidthRequest="100" BackgroundColor="Red" 
+                            TextColor="White" Command="{Binding EndStudy}" />
                 </StackLayout>
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" HeightRequest="150"/>

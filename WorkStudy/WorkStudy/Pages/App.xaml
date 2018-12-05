@@ -8,21 +8,23 @@
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="#B7D79C" />
+                <Setter Property="BackgroundColor" Value="#4174f4" />
             </Style>
             <Style TargetType="Button" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="#F1F944" />
-                <Setter Property="TextColor" Value="#09160A" />
+                <Setter Property="BackgroundColor" Value="#FCFAFA" />
+                <Setter Property="TextColor" Value="#605F5F" />
+                <Setter Property="FontSize" Value="15" />
             </Style>
             <Style TargetType="Entry">
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="BackgroundColor" Value="#FCFCCB" />
-                <Setter Property="TextColor" Value="#585802" />
+                <Setter Property="BackgroundColor" Value="#FCFAFA" />
+                <Setter Property="TextColor" Value="#605F5F" />
             </Style>
             <Style TargetType="Label">
                 <Setter Property="Font" Value="{StaticResource StandardFont}" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="White" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
             <Style TargetType="NavigationPage">
@@ -37,19 +39,19 @@
             </Style>
             <Style x:Key="activityLabel" TargetType="Label">
                 <Setter Property="BackgroundColor" Value="#E8AD00" />
-                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="TextColor" Value="White" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
             <Style x:Key="plainButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#eee" />
-                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
             <Style x:Key="studyLabel" TargetType="Label">
-                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="TextColor" Value="White" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="WidthRequest" Value="130" />

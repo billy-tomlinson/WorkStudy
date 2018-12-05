@@ -17,13 +17,6 @@ namespace WorkStudy
                
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            if(Utilities.StudyDetailsActive)
-                studyName.Focus();
-        }
-
         public void studyName_Completed(object sender, EventArgs e)
         {
             studyDepartment.Focus();

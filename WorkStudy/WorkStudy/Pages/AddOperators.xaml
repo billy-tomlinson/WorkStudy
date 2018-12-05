@@ -17,13 +17,12 @@
                 <views:StudyDetails />
                 <StackLayout Orientation="Horizontal" 
                              HeightRequest="60"
-                             BackgroundColor="#FCFCCB"
+                             BackgroundColor="#FCFAFA"
                              VerticalOptions="Center">
                     <Entry Style="{StaticResource inputEntry}" 
                            Placeholder="Operator Name"
                            Text="{Binding Name}" 
-                           HeightRequest="50" 
-                           BackgroundColor="Transparent"/>
+                           HeightRequest="50"/>
                     <Button Style="{StaticResource plusButton}" 
                             Command="{Binding SaveOperator}"
                             BackgroundColor="Transparent"/>
