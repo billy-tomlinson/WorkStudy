@@ -76,6 +76,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        double opacity = 1;
+        public double Opacity
+        {
+            get { return opacity; }
+            set
+            {
+                opacity = value;
+                OnPropertyChanged();
+            }
+        }
+
         string invalidText;
         public string InvalidText
         {
@@ -197,6 +209,7 @@ namespace WorkStudy.ViewModels
 
         public void CloseValidationView()
         {
+            Opacity = 1;
             IsInvalid = false;
         }
     }
