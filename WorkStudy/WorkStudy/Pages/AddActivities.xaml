@@ -35,8 +35,8 @@
                         <Label Text="Comments" />
                         <Editor Text="{Binding Comment}" HeightRequest="100" />
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                            <Button Text="Save" Command="{Binding SaveComment}" />
-                            <Button Text="Cancel" Command="{Binding CancelComment}" />
+                            <Button Text="Save" Command="{Binding SaveComment}" Style="{StaticResource popUpButton}" />
+                            <Button Text="Cancel" Command="{Binding CancelComment}" Style="{StaticResource popUpButton}" />
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

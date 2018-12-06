@@ -50,6 +50,11 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
+             <Style x:Key="popUpButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#4174f4" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="25" />
+            </Style>
             <Style x:Key="studyLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />

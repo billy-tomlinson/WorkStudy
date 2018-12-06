@@ -7,10 +7,10 @@
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
                              Margin="10" WidthRequest="250" HeightRequest="130" BackgroundColor="#d0e6e4">
                     <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
-                        <Label Text="{Binding ValidationText}"  HorizontalTextAlignment="Center"/>
+                        <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150">
-                        <Button Text="OK" Style="{StaticResource plainButton}" Command="{Binding CloseView}" 
+                        <Button Text="OK" Style="{StaticResource popUpButton}" Command="{Binding CloseView}" 
                                 Margin="60,10,60,10"  />
                     </StackLayout>
                 </StackLayout>
