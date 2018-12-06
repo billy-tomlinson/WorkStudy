@@ -46,7 +46,7 @@
             </Style>
             <Style x:Key="plainButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#eee" />
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="#605F5F" />
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
