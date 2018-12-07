@@ -7,6 +7,6 @@
              x:Class="WorkStudy.Pages.PausedStudiesPage"
              BackgroundColor="Transparent" >
     <ContentPage.Content>
-        <views:ExistingStudies x:Name="listOfStudies"/>
+        <views:ExistingStudiesView x:Name="listOfStudies"/>
     </ContentPage.Content>
 </ContentPage>

@@ -10,7 +10,7 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" 
                         BackgroundColor="Transparent" Padding="30">
-            <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}"/>
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" 
                          Padding="10" Margin="10" IsVisible="{Binding IsPageVisible}">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">

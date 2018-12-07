@@ -2,9 +2,9 @@
 
 namespace WorkStudy.Pages
 {
-    public partial class StudyDetails : ContentView
+    public partial class ExistingStudiesView : ContentView
     {
-        public StudyDetails()
+        public ExistingStudiesView()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

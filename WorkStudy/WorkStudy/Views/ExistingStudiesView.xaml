@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.Pages.ExistingStudies" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" BackgroundColor="Transparent">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="WorkStudy.Pages.ExistingStudiesView" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             BackgroundColor="Transparent">
     <ContentView.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
             <StackLayout BackgroundColor="Transparent">

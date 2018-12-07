@@ -2,9 +2,9 @@
 
 namespace WorkStudy.Pages
 {
-    public partial class PageNotAllowed : ContentView
+    public partial class PageNotAllowedView : ContentView
     {
-        public PageNotAllowed()
+        public PageNotAllowedView()
         {
             InitializeComponent();
         }

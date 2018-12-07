@@ -12,10 +12,10 @@
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
                         BackgroundColor="Transparent">
-            <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}" />
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
            
             <StackLayout IsVisible="{Binding IsPageVisible}" Padding="5" Margin="5" Opacity="{Binding Opacity}">
-                <views:StudyDetails />
+                <views:StudyDetailsView />
                 <StackLayout Orientation="Horizontal" 
                              HeightRequest="60" 
                              BackgroundColor="#FCFAFA" 
