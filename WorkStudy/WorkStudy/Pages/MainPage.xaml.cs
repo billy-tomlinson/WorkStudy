@@ -8,9 +8,19 @@ namespace WorkStudy
     {
         public MainPage(bool isInvalid = false)
         {
+            ConstructorSetUp(isInvalid);
+        }
+
+        public MainPage()
+        {
+            ConstructorSetUp(false);
+        }
+
+        private void ConstructorSetUp(bool isInvalid)
+        {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = new MainPageViewModel(isInvalid);
+            BindingContext = new MainPageViewModel(false);
         }
 
         protected override bool OnBackButtonPressed()

@@ -4,7 +4,7 @@
             xmlns:views="clr-namespace:WorkStudy" 
             NavigationPage.HasNavigationBar="false"
             x:Class="WorkStudy.Pages.MainPageTabbedPage">
-    <views:StudyStartPage Title="Current Study" />
+    <views:MainPage Title="Current Study" />
     <views:AddActivities Title="Activities" />
     <views:AddOperators Title="Operators" />
 </TabbedPage>
