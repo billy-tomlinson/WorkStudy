@@ -39,7 +39,7 @@ namespace WorkStudy.ViewModels
 
         void GoCurrentStudy(object obj)
         {
-            Utilities.Navigate(new MainPage());
+            Utilities.Navigate(new MainPageTabbedPage());
             App.MenuIsPresented = false;
         }
 

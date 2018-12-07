@@ -34,7 +34,7 @@
                          IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#FCFAFA">
-                    <StackLayout Orientation="Vertical" Padding="10" Margin="10" WidthRequest="260" HeightRequest="230" 
+                    <StackLayout Orientation="Vertical" Padding="5" Margin="5" WidthRequest="260" HeightRequest="210" 
                                  BackgroundColor="#FCFAFA">
                         <Label Text="Comments" TextColor="Black" />
                         <Editor Text="{Binding Comment}" HeightRequest="100" />
