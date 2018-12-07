@@ -86,12 +86,16 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please enter all study details";
 
             IsInvalid = true;
+            Opacity = 0.2;
 
             if ((SampleStudy.Department != null &&  SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
                 (SampleStudy.StudiedBy != null && SampleStudy.StudiedBy?.Trim().Length > 0))
-
+            {
+                Opacity = 1;
                 IsInvalid = false;
+            }
+                
         }
 
         public void CreateUnratedActivities()

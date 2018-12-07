@@ -245,16 +245,20 @@ namespace WorkStudy.ViewModels
         private void ValidateValues()
         {
             ValidationText = "Please Enter a valid Name";
+            Opacity = 0.2;
             IsInvalid = true;
 
             if ((Name != null && Name?.Trim().Length > 0))
+            {
+                Opacity = 1;
                 IsInvalid = false;
+            }    
         }
 
         public void ValidateOperatorActivities()
         {
             IsInvalid = true;
-
+            Opacity = 0.2;
 
             var studyOperators = OperatorRepo.GetAllWithChildren()
                                           .Where(_ => _.StudyId == Utilities.StudyId).ToList();
@@ -271,6 +275,7 @@ namespace WorkStudy.ViewModels
             }
 
             IsInvalid = false;
+            Opacity = 1;
         }
 
         public void LinkAllOperatorsToUnratedActivities()

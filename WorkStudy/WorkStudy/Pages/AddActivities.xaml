@@ -13,6 +13,7 @@
                         VerticalOptions="Center" 
                         BackgroundColor="Transparent">
             <views:PageNotAllowed IsVisible="{Binding IsPageUnavailableVisible}" />
+           
             <StackLayout IsVisible="{Binding IsPageVisible}" Padding="5" Margin="5" Opacity="{Binding Opacity}">
                 <views:StudyDetails />
                 <StackLayout Orientation="Horizontal" 
@@ -29,10 +30,13 @@
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-            <ContentView x:Name="commentView" BackgroundColor="Transparent" IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <StackLayout Orientation="Vertical" Padding="10" Margin="10" WidthRequest="300" HeightRequest="230" BackgroundColor="White">
-                        <Label Text="Comments" />
+            <ContentView x:Name="commentView" BackgroundColor="Transparent" 
+                         IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#FCFAFA">
+                    <StackLayout Orientation="Vertical" Padding="10" Margin="10" WidthRequest="260" HeightRequest="230" 
+                                 BackgroundColor="#FCFAFA">
+                        <Label Text="Comments" TextColor="Black" />
                         <Editor Text="{Binding Comment}" HeightRequest="100" />
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                             <Button Text="Save" Command="{Binding SaveComment}" Style="{StaticResource popUpButton}" />

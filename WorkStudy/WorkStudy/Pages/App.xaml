@@ -21,6 +21,12 @@
                 <Setter Property="BackgroundColor" Value="#FCFAFA" />
                 <Setter Property="TextColor" Value="#605F5F" />
             </Style>
+            <Style TargetType="Editor">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="BackgroundColor" Value="#FCFAFA" />
+                <Setter Property="TextColor" Value="#605F5F" />
+            </Style>
             <Style TargetType="Label">
                 <Setter Property="Font" Value="{StaticResource StandardFont}" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
