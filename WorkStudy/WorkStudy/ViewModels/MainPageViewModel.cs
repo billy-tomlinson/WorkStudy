@@ -140,6 +140,7 @@ namespace WorkStudy.ViewModels
             {
                 Utilities.AllObservationsTaken = false;
                 ValidationText = "Not All Operators have been observed.";
+                Opacity = 0.2;
                 IsInvalid = true;
             }
         }
@@ -172,9 +173,13 @@ namespace WorkStudy.ViewModels
             CurrentActivity = ActivityRepo.GetItem(ActivityId);
 
             if (Utilities.RatedStudy && CurrentActivity.Rated)
+            {
+                Opacity = 0.2;
                 RatingsVisible = true;
+            }
             else
             {
+                Opacity = 1;
                 ActivitiesVisible = false;
                 AddObservation();
             }
@@ -204,6 +209,7 @@ namespace WorkStudy.ViewModels
 
             AddObservation();
 
+            Opacity = 1;
             RatingsVisible = false;
         }
 
@@ -259,6 +265,7 @@ namespace WorkStudy.ViewModels
                 Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
                                                                 .Activities.ToList().Where(x => x.IsEnabled));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                Opacity = 0.2;
                 ActivitiesVisible = true;
             });
         }
@@ -267,6 +274,7 @@ namespace WorkStudy.ViewModels
         {
             return new Command((item) =>
             {
+                Opacity = 0.2;
                 RatingsVisible = true;
                 ActivitiesVisible = false;
             });
@@ -292,6 +300,7 @@ namespace WorkStudy.ViewModels
             else
             {
                 ObservationRound = lastObservation;
+                Opacity = 0.2;
                 ValidationText = "Not All Operators have been observed.";
             }
                 
@@ -306,6 +315,7 @@ namespace WorkStudy.ViewModels
             if (isInvalid)
             {
                 IsInvalid = true;
+                Opacity = 0.2;
                 SaveObservationDetails();
             }
                 
