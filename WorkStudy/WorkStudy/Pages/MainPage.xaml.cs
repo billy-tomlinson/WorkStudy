@@ -28,6 +28,12 @@ namespace WorkStudy
             return true;
         }
 
+        protected override void OnAppearing()
+        {
+            BindingContext = new MainPageViewModel();
+            base.OnAppearing();
+        }
+
         //protected override void OnDisappearing()
         //{
         //    if(!Utilities.AllObservationsTaken)
