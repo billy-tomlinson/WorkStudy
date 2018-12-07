@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 

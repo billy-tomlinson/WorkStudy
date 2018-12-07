@@ -2,9 +2,9 @@
 
 namespace WorkStudy.Pages
 {
-    public partial class StudyMenu : ContentPage
+    public partial class StudyMenuPage : ContentPage
     {
-        public StudyMenu()
+        public StudyMenuPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

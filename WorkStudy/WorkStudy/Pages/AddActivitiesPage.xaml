@@ -4,7 +4,7 @@
              xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.AddActivities">
+             x:Class="WorkStudy.Pages.AddActivitiesPage">
     <ContentPage.BindingContext>
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>

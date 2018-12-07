@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -111,7 +112,7 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                Utilities.Navigate(new AddOperators());
+                Utilities.Navigate(new AddOperatorsPage());
             }
         }
 

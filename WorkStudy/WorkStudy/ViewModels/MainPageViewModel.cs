@@ -155,12 +155,12 @@ namespace WorkStudy.ViewModels
 
         void EditStudyDetails()
         {
-            Utilities.Navigate(new EditActivities());
+            Utilities.Navigate(new EditActivitiesPage());
         }
 
         void NavigateToStudyMenu()
         {
-            Utilities.Navigate(new StudyMenu());
+            Utilities.Navigate(new StudyMenuPage());
         }
 
         void ActivitySelectedEvent(object sender)

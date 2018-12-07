@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class WelcomePage : ContentPage
@@ -20,7 +20,7 @@ namespace WorkStudy
 	    async void Navigate()
 	    {
 	        await System.Threading.Tasks.Task.Delay(3000);
-	        await Navigation.PushAsync(new StudyMenu());
+	        await Navigation.PushAsync(new StudyMenuPage());
 	    }
 
         protected override bool OnBackButtonPressed()

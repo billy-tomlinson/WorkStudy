@@ -4,7 +4,7 @@
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.MainPage" 
+             x:Class="WorkStudy.Pages.MainPage" 
              x:Name="MainPage1">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 

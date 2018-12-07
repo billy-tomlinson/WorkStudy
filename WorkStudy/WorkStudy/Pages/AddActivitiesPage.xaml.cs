@@ -3,11 +3,11 @@ using WorkStudy.Services;
 using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
-    public partial class AddActivities : ContentPage
+    public partial class AddActivitiesPage : ContentPage
     {
-        public AddActivities()
+        public AddActivitiesPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

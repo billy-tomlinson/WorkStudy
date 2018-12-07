@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              xmlns:views="clr-namespace:WorkStudy.Pages" 
-             x:Class="WorkStudy.ReportsPage">
+             x:Class="WorkStudy.Pages.ReportsPage">
         <ContentPage.BindingContext>
         <workStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>

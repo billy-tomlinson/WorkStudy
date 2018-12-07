@@ -33,7 +33,7 @@ namespace WorkStudy.ViewModels
         void GoStudyMenu(object obj)
         {
             Utilities.StudyId = 0;
-            Utilities.Navigate(new StudyMenu());
+            Utilities.Navigate(new StudyMenuPage());
             App.MenuIsPresented = false;
         }
 
@@ -52,19 +52,19 @@ namespace WorkStudy.ViewModels
 
         void GoActivities(object obj)
         {
-            Utilities.Navigate(new AddActivities()); 
+            Utilities.Navigate(new AddActivitiesPage()); 
             App.MenuIsPresented = false;
         }
 
         void GoMergeActivities(object obj)
         {
-            Utilities.Navigate(new EditActivities());
+            Utilities.Navigate(new EditActivitiesPage());
             App.MenuIsPresented = false;
         }
 
         void GoOperators(object obj)
         {
-            Utilities.Navigate(new AddOperators());
+            Utilities.Navigate(new AddOperatorsPage());
             App.MenuIsPresented = false;
         }
 

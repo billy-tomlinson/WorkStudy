@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
-             x:Class="WorkStudy.Pages.StudyMenu">
+             x:Class="WorkStudy.Pages.StudyMenuPage">
   <ContentPage.BindingContext>
         <workStudy:StudyMenuViewModel />
     </ContentPage.BindingContext>

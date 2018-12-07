@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class EditActivities : ContentPage
+    public partial class EditActivitiesPage : ContentPage
     {
-        public EditActivities()
+        public EditActivitiesPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

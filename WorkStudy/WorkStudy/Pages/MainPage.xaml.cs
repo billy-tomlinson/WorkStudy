@@ -2,7 +2,7 @@
 using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
     public partial class MainPage : ContentPage
     {
