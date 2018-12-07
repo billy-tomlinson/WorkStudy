@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="WorkStudy.Pages.ExistingStudies"
-             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             BackgroundColor="Transparent">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.Pages.ExistingStudies" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" BackgroundColor="Transparent">
     <ContentView.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
             <StackLayout BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2">
                     <Label Text="Existing Studies" FontSize="20" TextColor="Black" HorizontalOptions="Start" />
                 </StackLayout>
-                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding ActivitySamples}" 
-                                      BackgroundColor="Gray" HasUnevenRows="True" 
+                <local:CustomListView x:Name="List" Margin="0,10" 
+                                      ItemsSource="{Binding ActivitySamples}" 
+                                      BackgroundColor="#FCFAFA" 
+                                      HasUnevenRows="True" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" HeightRequest="450">
+                                      HorizontalOptions="Center" 
+                                      SeparatorVisibility="Default"
+                                      SeparatorColor="#605F5F"
+                                      HeightRequest="500">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Padding="20">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" FontSize="15" TextColor="Azure" />
-                                        <Label Text="{Binding StudyNumber}" FontSize="15" TextColor="Azure" />
-                                        <Label Text="{Binding Date}" FontSize="15" TextColor="Azure" />
-                                        <Label Text="{Binding Time}" FontSize="15" TextColor="Azure" />
+                            <ViewCell >
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Padding="20" Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Name: " FontSize="15" TextColor="#605F5F" />
+                                            <Label Text="{Binding Name}" FontSize="15" TextColor="#605F5F" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Number: " FontSize="15" TextColor="#605F5F" />
+                                            <Label Text="{Binding StudyNumber}" FontSize="15" TextColor="#605F5F" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout Padding="20" Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Date: " FontSize="15" TextColor="#605F5F" />
+                                            <Label Text="{Binding Date}" FontSize="15" TextColor="#605F5F" />
+                                            <Label Text="{Binding Time}" FontSize="15" TextColor="#605F5F" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Studied By: " FontSize="15" TextColor="#605F5F" />
+                                            <Label Text="{Binding StudiedBy}" FontSize="15" TextColor="#605F5F" />
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
@@ -37,4 +52,3 @@
         </AbsoluteLayout>
     </ContentView.Content>
 </ContentView>
-

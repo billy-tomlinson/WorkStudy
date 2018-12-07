@@ -23,7 +23,7 @@
                                       ItemsSource="{Binding OperatorObservations}" 
                                       BackgroundColor="Gray" HasUnevenRows="True" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" HeightRequest="430">
+                                      HorizontalOptions="Center" HeightRequest="400">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -45,8 +45,8 @@
                     <Button Text="Save Observations" WidthRequest="205" MinimumWidthRequest="205" Command="{Binding SaveObservations}" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="Pause Study" WidthRequest="100" Command="{Binding PauseStudy}" />
-                    <Button Text="Finish Study" WidthRequest="100" BackgroundColor="Red" 
+                    <Button Text="Pause" WidthRequest="100" Command="{Binding PauseStudy}" />
+                    <Button Text="Finish" WidthRequest="100" BackgroundColor="Red" 
                             TextColor="White" Command="{Binding EndStudy}" />
                 </StackLayout>
             </StackLayout>
