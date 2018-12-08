@@ -5,6 +5,15 @@
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              BackgroundColor="Transparent">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" ApplyToDerivedTypes="True">
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="TextColor" Value="#605F5F" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
             <StackLayout BackgroundColor="Transparent">
@@ -29,23 +38,21 @@
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Padding="20" Orientation="Vertical">
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Name: " FontSize="15" TextColor="#605F5F" />
-                                            <Label Text="{Binding Name}" FontSize="15" TextColor="#605F5F" />
+                                            <Label WidthRequest="80" Text="Name: "/>
+                                            <Label Text="{Binding Name}"/>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Number: " FontSize="15" TextColor="#605F5F" />
-                                            <Label Text="{Binding StudyNumber}" FontSize="15" TextColor="#605F5F" />
+                                            <Label  WidthRequest="80" Text="Number: "/>
+                                            <Label Text="{Binding StudyNumber}"/>
                                         </StackLayout>
-                                    </StackLayout>
-                                    <StackLayout Padding="20" Orientation="Vertical">
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="Date: " FontSize="15" TextColor="#605F5F" />
-                                            <Label Text="{Binding Date}" FontSize="15" TextColor="#605F5F" />
-                                            <Label Text="{Binding Time}" FontSize="15" TextColor="#605F5F" />
+                                         <StackLayout Orientation="Horizontal">
+                                            <Label WidthRequest="80" Text="Date: "/>
+                                            <Label Text="{Binding Date}" />
+                                            <Label Text="{Binding Time}" />
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Studied By: " FontSize="15" TextColor="#605F5F" />
-                                            <Label Text="{Binding StudiedBy}" FontSize="15" TextColor="#605F5F" />
+                                            <Label WidthRequest="80" Text="Studied By: " />
+                                            <Label Text="{Binding StudiedBy}" />
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
