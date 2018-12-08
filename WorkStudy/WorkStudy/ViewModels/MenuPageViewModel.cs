@@ -11,8 +11,7 @@ namespace WorkStudy.ViewModels
         public ICommand AddActivities { get; set; }
         public ICommand MergeActivities { get; set; }
         public ICommand AddOperators { get; set; }
-        public ICommand CompletedStudies { get; set; }
-        public ICommand PausedStudies { get; set; }
+        public ICommand ExistingStudies { get; set; }
         public ICommand Reports { get; set; }
         public ICommand CurrentStudy { get; set; }
         public ICommand StudySetUp { get; set; }
@@ -23,8 +22,7 @@ namespace WorkStudy.ViewModels
             AddActivities = new Command(GoActivities);
             MergeActivities = new Command(GoMergeActivities);
             AddOperators = new Command(GoOperators);
-            CompletedStudies = new Command(GoCompletedStudies);
-            PausedStudies = new Command(GoPausedStudies);
+            ExistingStudies = new Command(GoExistingStudies);
             Reports = new Command(GoReports);
             CurrentStudy = new Command(GoCurrentStudy);
             StudySetUp = new Command(GoStudySetUp);
@@ -49,7 +47,6 @@ namespace WorkStudy.ViewModels
             App.MenuIsPresented = false;
         }
 
-
         void GoActivities(object obj)
         {
             Utilities.Navigate(new AddActivitiesPage()); 
@@ -68,15 +65,9 @@ namespace WorkStudy.ViewModels
             App.MenuIsPresented = false;
         }
 
-        void GoCompletedStudies(object obj)
+        void GoExistingStudies(object obj)
         {
-            Utilities.Navigate(new CompletedStudiesPage(true));
-            App.MenuIsPresented = false;
-        }
-
-        void GoPausedStudies(object obj)
-        {
-            Utilities.Navigate(new PausedStudiesPage(false));
+            Utilities.Navigate(new ExistingStudiesTabbedPage());
             App.MenuIsPresented = false;
         }
 

@@ -28,11 +28,8 @@
         <Button Text="Operators" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AddOperators}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
-        <Button Text="Completed Studies" TextColor="DarkGray" BackgroundColor="White" 
-                HorizontalOptions="StartAndExpand" Command="{Binding CompletedStudies}"/>
-        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
-        <Button Text="Paused Studies" TextColor="DarkGray" BackgroundColor="White" 
-                HorizontalOptions="StartAndExpand" Command="{Binding PausedStudies}"/>
+        <Button Text="Existing Studies" TextColor="DarkGray" BackgroundColor="White" 
+                HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
         <Button Text="Reports" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding Reports}"/>

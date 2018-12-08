@@ -16,10 +16,8 @@
                 </StackLayout>
                 <Button Text="Begin New Study" WidthRequest="200" 
                     Command="{Binding NewStudy}"/>
-                <Button Text="Continue Existing Study" WidthRequest="200" 
+                <Button Text="View Existing Studies" WidthRequest="200" 
                     Command="{Binding ExistingStudy}"/>
-                <Button Text="View Completed Studies" WidthRequest="200" 
-                    Command="{Binding CompletedStudies}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
