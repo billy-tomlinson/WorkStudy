@@ -4,9 +4,8 @@
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom"
              xmlns:views="clr-namespace:WorkStudy.Views"
-             x:Class="WorkStudy.Pages.PausedStudiesPage"
-             BackgroundColor="Transparent" >
+             x:Class="WorkStudy.Pages.PausedStudiesPage">
     <ContentPage.Content>
-        <views:ExistingStudiesView x:Name="listOfStudies"/>
+       <views:ExistingStudiesView1 x:Name="listOfStudies"/>
     </ContentPage.Content>
 </ContentPage>
