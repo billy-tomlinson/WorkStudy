@@ -11,19 +11,17 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="#FCFAFA" HeightRequest="300" WidthRequest="320">
+                        BackgroundColor="#FCFAFA" HeightRequest="800" WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
-            <StackLayout BackgroundColor="#FCFAFA" IsVisible="{Binding IsPageVisible}" 
+            <StackLayout BackgroundColor="#4174f4" IsVisible="{Binding IsPageVisible}" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                <views:StudyDetailsView BackgroundColor="Black"/>
+                <views:StudyDetailsView BackgroundColor="#4174f4" Padding="10" Margin="10"/>
                 <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" 
-                                      HeightRequest="200" />
+                                      HeightRequest="400" />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5" Margin="5">
-                    <Button WidthRequest="100" Text="Save" BackgroundColor="#4174f4" 
-                            TextColor="White" Command="{Binding SaveActivities}" />
-                    <Button WidthRequest="100" Text="Cancel" BackgroundColor="#4174f4" 
-                            TextColor="White" Command="{Binding CancelActivities}" />
+                    <Button WidthRequest="100" Text="Save" Command="{Binding SaveActivities}" />
+                    <Button WidthRequest="100" Text="Cancel"  Command="{Binding CancelActivities}" />
                 </StackLayout>
             </StackLayout>
         </AbsoluteLayout>
