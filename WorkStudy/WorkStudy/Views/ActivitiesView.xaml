@@ -8,8 +8,7 @@
              AbsoluteLayout.LayoutFlags="All" 
              x:Name="ActivitiesViewPage">
     <ContentView.Content>
-        <StackLayout VerticalOptions="Start" 
-                     HorizontalOptions="Center">
+        <StackLayout>
             <StackLayout Orientation="Vertical" 
                          WidthRequest="360" 
                          BackgroundColor="#FCFAFA" 
