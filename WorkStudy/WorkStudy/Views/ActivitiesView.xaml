@@ -8,7 +8,7 @@
              AbsoluteLayout.LayoutFlags="All" 
              x:Name="ActivitiesViewPage">
     <ContentView.Content>
-        <StackLayout VerticalOptions="Center" 
+        <StackLayout VerticalOptions="Start" 
                      HorizontalOptions="Center">
             <StackLayout Orientation="Vertical" 
                          WidthRequest="360" 
@@ -16,7 +16,7 @@
                          Margin="5" 
                          Padding="5">
                 <Label Text="Activities" IsVisible="{Binding Isvisible}" 
-                       TextColor="Blue" />
+                       TextColor="Black" />
                 <StackLayout IsVisible="{Binding Isvisible}" 
                              Orientation="Horizontal" 
                              Margin="5" >
