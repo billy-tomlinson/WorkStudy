@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace WorkStudy.Pages
+namespace WorkStudy.Views
 {
     public partial class StudyDetailsView : ContentView
     {

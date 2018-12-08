@@ -4,7 +4,7 @@
              xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              x:Class="WorkStudy.Pages.EditActivitiesPage" 
-             xmlns:views="clr-namespace:WorkStudy.Pages">
+             xmlns:views="clr-namespace:WorkStudy.Views">
     <ContentPage.BindingContext>
         <viewModels1:EditActivitiesViewModel />
     </ContentPage.BindingContext>

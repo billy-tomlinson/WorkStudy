@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
-             xmlns:views="clr-namespace:WorkStudy.Pages" 
+             xmlns:views="clr-namespace:WorkStudy.Views" 
              x:Class="WorkStudy.Pages.AddOperatorsPage">
     <ContentPage.BindingContext>
         <viewModels1:AddOperatorsViewModel />

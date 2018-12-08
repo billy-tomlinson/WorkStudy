@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
-             x:Class="WorkStudy.Pages.ActivitiesView" 
+             x:Class="WorkStudy.Views.ActivitiesView" 
              BackgroundColor="#C0808080" 
              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
              AbsoluteLayout.LayoutFlags="All" 
