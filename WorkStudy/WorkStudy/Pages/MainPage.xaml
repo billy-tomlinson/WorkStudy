@@ -7,12 +7,15 @@
              x:Class="WorkStudy.Pages.MainPage" 
              x:Name="MainPage1">
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
                         BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout BackgroundColor="Transparent" 
                          IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}">
-                <views:StudyDetailsView />
+                <StackLayout Padding="5" Margin="5">
+                    <views:StudyDetailsView />
+                </StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
                     <Label Text="Observation Round : " FontSize="15" TextColor="Black" HorizontalOptions="Start" />
                     <Label Text="{Binding ObservationRound}" FontSize="15" TextColor="Black" />

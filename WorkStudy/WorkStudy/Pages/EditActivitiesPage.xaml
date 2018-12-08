@@ -9,7 +9,9 @@
         <viewModels1:EditActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout BackgroundColor="White" IsVisible="{Binding IsPageVisible}" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 

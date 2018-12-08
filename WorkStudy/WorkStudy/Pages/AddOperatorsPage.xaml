@@ -13,7 +13,9 @@
                         VerticalOptions="Center" 
                         BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
-            <StackLayout IsVisible="{Binding IsPageVisible}" Padding="5" Margin="5" Opacity="{Binding Opacity}">
+            <StackLayout IsVisible="{Binding IsPageVisible}" 
+                         Padding="5" Margin="5" 
+                         Opacity="{Binding Opacity}">
                 <views:StudyDetailsView />
                 <StackLayout Orientation="Horizontal" 
                              HeightRequest="60"
