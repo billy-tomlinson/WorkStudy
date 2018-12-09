@@ -20,11 +20,21 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Padding="20">
+                                <StackLayout Padding="20" BackgroundColor="{Binding ObservedColour}">
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" FontSize="25" TextColor="Azure" />
-                                        <Label Text="{Binding ActivityName}" FontSize="15" TextColor="Azure" />
-                                        <Label Text="{Binding Rating}" IsVisible="{Binding IsRated}" FontSize="15" TextColor="Azure" />
+                                        <Label Text="{Binding Name}" 
+                                               HorizontalTextAlignment="Start"  
+                                               FontSize="25"
+                                               WidthRequest="150" />
+                                        <Label Text="{Binding ActivityName}" 
+                                               HorizontalTextAlignment="Start" 
+                                               FontSize="15"
+                                               WidthRequest="150" />
+                                        <Label Text="{Binding Rating}" 
+                                               WidthRequest="30" 
+                                               IsVisible="{Binding IsRated}"
+                                               HorizontalTextAlignment="Start"
+                                               FontSize="15" />
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>

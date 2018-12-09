@@ -359,7 +359,8 @@ namespace WorkStudy.ViewModels
                             Rating = obs.Rating,
                             Name = item.Name,
                             Id = item.Id,
-                            IsRated = obs.Rating > 0 
+                            IsRated = obs.Rating > 0,
+                            ObservedColour = System.Drawing.Color.Silver                    
                         };
 
                         ops.Add(opObservation);
@@ -374,7 +375,8 @@ namespace WorkStudy.ViewModels
                     {
                         Name = item.Name,
                         Id = item.Id,
-                        IsRated = false 
+                        IsRated = false,
+                        ObservedColour = System.Drawing.Color.Gray 
                     };
                     ops.Add(opObs);
                 } 

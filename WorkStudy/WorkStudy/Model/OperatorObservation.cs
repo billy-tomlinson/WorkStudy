@@ -11,5 +11,7 @@
         public int? Rating { get; set; }
 
         public bool IsRated { get; set; }
+
+        public System.Drawing.Color ObservedColour { get; set; }
     }
 }
