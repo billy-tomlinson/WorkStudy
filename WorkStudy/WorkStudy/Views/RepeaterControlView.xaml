@@ -24,10 +24,10 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <StackLayout BackgroundColor="#d5f0f1" Orientation="Horizontal" Grid.Row="0" 
+                                        <StackLayout BackgroundColor="{Binding ConvertedColour}" Orientation="Horizontal" Grid.Row="0" 
                                                      Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="40">
                                             <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" 
-                                                               Grid.Column="0" BackgroundColor="#d5f0f1" 
+                                                               Grid.Column="0"
                                                                Opacity="{Binding Opacity}" 
                                                                FontAttributes="Bold" VerticalTextAlignment="Center" 
                                                                HorizontalTextAlignment="Start" WidthRequest="300">

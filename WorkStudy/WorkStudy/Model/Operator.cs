@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using WorkStudy.Services;
+using Xamarin.Forms;
 
 namespace WorkStudy.Model
 {
@@ -35,5 +36,10 @@ namespace WorkStudy.Model
 
         [OneToMany]
         public List<Observation> Observations { get; set; }
+
+        public string ObservedColour { get; set; } = "#d5f0f1";
+
+        [Ignore]
+        public Color ConvertedColour => Color.FromHex(ObservedColour);
     }
 }

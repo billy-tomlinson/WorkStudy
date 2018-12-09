@@ -6,6 +6,7 @@ using WorkStudy.Model;
 using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
+using WorkStudy.Custom;
 
 namespace WorkStudy.ViewModels
 {
@@ -77,7 +78,8 @@ namespace WorkStudy.ViewModels
                     Operator.Id = OperatorRepo.SaveItem(new Operator() 
                     { 
                         Name = Name, 
-                        IsEnabled = true 
+                        IsEnabled = true,
+                        ObservedColour = "#f9c2b3"
                     });
 
                 ItemsCollection = GetAllOperators();
@@ -108,8 +110,13 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
+            if (Operator.Activities.Any(x => x.Rated))
+                Operator.ObservedColour = "#d5f0f1";
+            else
+                Operator.ObservedColour = "#f9c2b3";
+            
             OperatorRepo.UpdateWithChildren(Operator);
-
+            ItemsCollection = GetAllOperators();
             ActivitiesVisible = false;
         }
 
@@ -136,10 +143,11 @@ namespace WorkStudy.ViewModels
 
         private void ChangeButtonColour(int sender)
         {
+
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = Utilities.UnClicked.ToArgb().Equals(activity.Colour.ToArgb())
+            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
                 ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);

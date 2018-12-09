@@ -26,8 +26,8 @@ namespace WorkStudy.Services
             await App.NavigationPage.Navigation.PushAsync(page);
         }
 
-        public static System.Drawing.Color Clicked = System.Drawing.Color.Orange;
-        public static  System.Drawing.Color UnClicked = System.Drawing.Color.Navy;
+        public static Color Clicked = Color.Orange;
+        public static  Color UnClicked = Color.Navy;
 
         public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)
         {

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Pages;
 using WorkStudy.Services;
@@ -193,7 +194,7 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = Utilities.UnClicked.ToArgb().Equals(activity.Colour.ToArgb())
+            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
                 ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);

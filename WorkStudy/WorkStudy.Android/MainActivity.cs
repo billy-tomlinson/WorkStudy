@@ -36,7 +36,7 @@ namespace WorkStudy.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            string dbName = "WorkStudy3.db3";
+            string dbName = "WorkStudy4.db3";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbPath = Path.Combine(folderPath, dbName);
             LoadApplication(new App(dbPath));
