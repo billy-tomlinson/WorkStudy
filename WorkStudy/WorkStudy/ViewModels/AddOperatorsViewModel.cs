@@ -221,8 +221,19 @@ namespace WorkStudy.ViewModels
             }
             else
             {
-                Operator.IsEnabled = false;
-                Operator.Opacity = 0.2;
+                if(Operator.Icon == "undo.png")
+                {
+                    Operator.Opacity = 1;
+                    Operator.IsEnabled = true;
+                    Operator.Icon = "delete.png";
+                }
+                else
+                {
+                    Operator.Opacity = 0.2;
+                    Operator.IsEnabled = false;
+                    Operator.Icon = "undo.png";
+                }
+
                 OperatorRepo.SaveItem(Operator);
             }
            
