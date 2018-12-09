@@ -3,17 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              x:Class="WorkStudy.Views.ActivitiesView" 
-             BackgroundColor="#C0808080" 
-             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-             AbsoluteLayout.LayoutFlags="All" 
              x:Name="ActivitiesViewPage">
     <ContentView.Content>
         <StackLayout>
-            <StackLayout Orientation="Vertical" 
-                         WidthRequest="360" 
-                         BackgroundColor="#FCFAFA" 
-                         Margin="5" 
-                         Padding="5">
+            <StackLayout>
                 <Label Text="Activities" IsVisible="{Binding Isvisible}" 
                        TextColor="Black" />
                 <StackLayout IsVisible="{Binding Isvisible}" 

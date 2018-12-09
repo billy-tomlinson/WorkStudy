@@ -11,16 +11,20 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="#FCFAFA" HeightRequest="800" WidthRequest="420">
+                        BackgroundColor="#FCFAFA" 
+                        HeightRequest="800" 
+                        WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout BackgroundColor="#4174f4" IsVisible="{Binding IsPageVisible}" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                <views:StudyDetailsView BackgroundColor="#4174f4" Padding="10" Margin="10"/>
+                <views:StudyDetailsView BackgroundColor="#4174f4" 
+                                        Padding="10" 
+                                        Margin="10"/>
                 <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" 
                                       BackgroundColor="#FCFAFA" 
                                       HeightRequest="400" 
-                                      VerticalOptions="Start" 
+                                      VerticalOptions="Center" 
                                       HorizontalOptions="Center"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5" Margin="5">
                     <Button WidthRequest="100" Text="Save" Command="{Binding SaveActivities}" />

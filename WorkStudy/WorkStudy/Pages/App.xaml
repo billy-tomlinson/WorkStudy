@@ -9,6 +9,11 @@
             </OnPlatform>
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
+                <Setter Property="Padding" Value="5" />
+            </Style>
+            <Style TargetType="StackLayout" ApplyToDerivedTypes="True">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
             </Style>
             <Style TargetType="Button" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="#FCFAFA" />
@@ -56,7 +61,7 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
-             <Style x:Key="popUpButton" TargetType="Button">
+            <Style x:Key="popUpButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="25" />

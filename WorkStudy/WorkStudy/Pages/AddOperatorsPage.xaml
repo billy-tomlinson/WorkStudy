@@ -31,8 +31,11 @@
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-            <StackLayout IsVisible="{Binding ActivitiesVisible}" BackgroundColor="White">
-                <views:ActivitiesView />
+            <StackLayout IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA">
+                <views:ActivitiesView BackgroundColor="#FCFAFA"
+                                  HeightRequest="350" 
+                                  VerticalOptions="Center" 
+                                  HorizontalOptions="Center"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Button Text="Save" Command="{Binding SaveActivities}" />
                     <Button Text="Cancel" Command="{Binding CancelActivities}" />
