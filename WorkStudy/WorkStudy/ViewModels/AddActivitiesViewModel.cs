@@ -176,13 +176,17 @@ namespace WorkStudy.ViewModels
         void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
-            var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
-                                      && x.StudyId == Utilities.StudyId);
+
             if (!StudyInProcess)
                 DeleteActivity(value);
             else
             {
-                if (obs.Any())
+                var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
+                          && x.StudyId == Utilities.StudyId);
+
+                var merged = MergedActivityRepo.GetItems().Where(x => x.ActivityId == value);
+
+                if (obs.Any() || merged.Any())
                 {
                     ValidationText = "Cannot delete an activity once Study has started.";
                     Opacity = 0.2;
