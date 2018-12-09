@@ -11,7 +11,7 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="#FCFAFA" 
+                        BackgroundColor="Transparent" 
                         HeightRequest="800" 
                         WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
