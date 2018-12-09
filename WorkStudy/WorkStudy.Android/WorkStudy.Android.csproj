@@ -114,6 +114,7 @@
     <AndroidResource Include="Resources\drawable\settings.png" />
     <AndroidResource Include="Resources\values-v21\styles.xml" />
     <AndroidResource Include="Resources\drawable\alert.png" />
+    <AndroidResource Include="Resources\drawable\undo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-hdpi\" />
