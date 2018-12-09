@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -16,6 +14,12 @@ namespace WorkStudy.Pages
         protected override bool OnBackButtonPressed()
         {
             return true;
+        }
+
+        protected override void OnAppearing()
+        {
+            BindingContext = new EditActivitiesViewModel();
+            base.OnAppearing();
         }
     }
 }

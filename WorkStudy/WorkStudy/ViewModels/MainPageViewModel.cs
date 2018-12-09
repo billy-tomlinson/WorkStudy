@@ -192,8 +192,8 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
-                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            activity.Colour = Utilities.UnClicked.ToArgb().Equals(activity.Colour.ToArgb())
+                ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);

@@ -12,7 +12,7 @@ namespace WorkStudy.Model
     {
         public Activity()
         {
-            Colour = Color.Aquamarine;
+            Colour = Utilities.UnClicked;
             Activities  = new List<Activity>();
             StudyId = Utilities.StudyId;
         }

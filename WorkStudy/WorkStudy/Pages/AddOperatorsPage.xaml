@@ -31,14 +31,17 @@
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-            <StackLayout IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA">
-                <views:ActivitiesView BackgroundColor="#FCFAFA"
-                                  HeightRequest="350" 
-                                  VerticalOptions="Center" 
-                                  HorizontalOptions="Center"/>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="Save" Command="{Binding SaveActivities}" />
-                    <Button Text="Cancel" Command="{Binding CancelActivities}" />
+            <StackLayout IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" 
+                                      BackgroundColor="#FCFAFA" 
+                                      HeightRequest="400" 
+                                      VerticalOptions="Center" 
+                                      HorizontalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5" Margin="5">
+                    <Button WidthRequest="100" BackgroundColor="#4174f4" TextColor="White" Text="Save" Command="{Binding SaveActivities}" />
+                    <Button WidthRequest="100" BackgroundColor="#4174f4" TextColor="White" Text="Cancel"  Command="{Binding CancelActivities}" />
                 </StackLayout>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">

@@ -139,8 +139,8 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
-                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            activity.Colour = Utilities.UnClicked.ToArgb().Equals(activity.Colour.ToArgb())
+                ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
@@ -168,7 +168,7 @@ namespace WorkStudy.ViewModels
             foreach (var item in list)
             {
                 list1.RemoveAll(_ => _.Id == (int)item.Id);
-                item.Colour = System.Drawing.Color.Aquamarine;
+                item.Colour = Utilities.UnClicked;
                 list1.Add(item);
             }
 
@@ -177,7 +177,7 @@ namespace WorkStudy.ViewModels
                 var activity = list1.Find(_ => _.Id == specific.Id);
                 if (activity != null)
                 {
-                    activity.Colour = System.Drawing.Color.BlueViolet;
+                    activity.Colour = Utilities.Clicked;
                     list1.RemoveAll(_ => _.Id == (int)specific.Id);
                     list1.Add(activity);
                 }
