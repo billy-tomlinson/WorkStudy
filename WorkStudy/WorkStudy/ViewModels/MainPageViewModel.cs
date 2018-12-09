@@ -165,6 +165,7 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
+            Rating = 0;
             ChangeButtonColour((int)sender);
             var value = (int)sender;
             ActivityId = value;
@@ -357,7 +358,8 @@ namespace WorkStudy.ViewModels
                             ActivityName = obs.ActivityName,
                             Rating = obs.Rating,
                             Name = item.Name,
-                            Id = item.Id
+                            Id = item.Id,
+                            IsRated = obs.Rating > 0 
                         };
 
                         ops.Add(opObservation);
@@ -371,7 +373,8 @@ namespace WorkStudy.ViewModels
                     var opObs = new OperatorObservation
                     {
                         Name = item.Name,
-                        Id = item.Id
+                        Id = item.Id,
+                        IsRated = false 
                     };
                     ops.Add(opObs);
                 } 

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Views" x:Class="WorkStudy.Pages.MainPage" x:Name="MainPage1">
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
-                        BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}">
                 <StackLayout Padding="5" Margin="5">
@@ -26,7 +24,7 @@
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding Name}" FontSize="25" TextColor="Azure" />
                                         <Label Text="{Binding ActivityName}" FontSize="15" TextColor="Azure" />
-                                        <Label Text="{Binding Rating}" FontSize="15" TextColor="Azure" />
+                                        <Label Text="{Binding Rating}" IsVisible="{Binding IsRated}" FontSize="15" TextColor="Azure" />
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
@@ -41,12 +39,7 @@
                     <Button Text="Finish" WidthRequest="100" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" />
                 </StackLayout>
             </StackLayout>
-            <views:ActivitiesView 
-            IsVisible="{Binding ActivitiesVisible}" 
-            BackgroundColor="#FCFAFA" 
-            HeightRequest="350" 
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="350" VerticalOptions="Center" HorizontalOptions="Center" />
             <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 20 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
