@@ -24,17 +24,17 @@
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding Name}" 
                                                HorizontalTextAlignment="Start"  
-                                               FontSize="25"
-                                               WidthRequest="150" />
+                                               FontSize="20"
+                                               WidthRequest="160" />
                                         <Label Text="{Binding ActivityName}" 
                                                HorizontalTextAlignment="Start" 
-                                               FontSize="15"
-                                               WidthRequest="150" />
+                                               FontSize="12"
+                                               WidthRequest="140" />
                                         <Label Text="{Binding Rating}" 
-                                               WidthRequest="30" 
+                                               WidthRequest="40" 
                                                IsVisible="{Binding IsRated}"
                                                HorizontalTextAlignment="Start"
-                                               FontSize="15" />
+                                               FontSize="12" />
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
