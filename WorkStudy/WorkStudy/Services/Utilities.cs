@@ -29,6 +29,9 @@ namespace WorkStudy.Services
         public static Color Clicked = Color.Orange;
         public static  Color UnClicked = Color.Navy;
 
+        public static string ValidColour = "#d5f0f1";
+        public static string InValidColour = "#fff0f0";
+
         public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)
         {
             int counter = 0;

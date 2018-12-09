@@ -79,7 +79,7 @@ namespace WorkStudy.ViewModels
                     { 
                         Name = Name, 
                         IsEnabled = true,
-                        ObservedColour = "#f9c2b3"
+                        ObservedColour = Utilities.InValidColour
                     });
 
                 ItemsCollection = GetAllOperators();
@@ -111,9 +111,9 @@ namespace WorkStudy.ViewModels
         void SaveActivityDetails()
         {
             if (Operator.Activities.Any(x => x.Rated))
-                Operator.ObservedColour = "#d5f0f1";
+                Operator.ObservedColour = Utilities.ValidColour;
             else
-                Operator.ObservedColour = "#f9c2b3";
+                Operator.ObservedColour = Utilities.InValidColour;
             
             OperatorRepo.UpdateWithChildren(Operator);
             ItemsCollection = GetAllOperators();
