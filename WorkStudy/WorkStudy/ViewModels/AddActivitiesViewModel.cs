@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Pages;
@@ -19,7 +20,7 @@ namespace WorkStudy.ViewModels
         public Activity Activity;
 
         public AddActivitiesViewModel()
-        {           
+        {
             ConstructorSetUp();
         }
 
@@ -80,11 +81,11 @@ namespace WorkStudy.ViewModels
             {
                 var duplicatesCheck = new List<Activity>(ItemsCollection);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true});
+                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true });
                 ItemsCollection = Get_Rated_Enabled_Activities();
 
                 Name = string.Empty;
-            }           
+            }
         }
 
         void SaveCommentDetails()
@@ -148,7 +149,7 @@ namespace WorkStudy.ViewModels
 
         private void ValidateActivitiesAdded()
         {
-            
+
             ValidationText = "Please add at least one Activity";
 
             IsInvalid = true;
@@ -174,19 +175,29 @@ namespace WorkStudy.ViewModels
 
         void DeleteSelectedEvent(object sender)
         {
+            var value = (int)sender;
+            var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
+                                      && x.StudyId == Utilities.StudyId);
             if (!StudyInProcess)
-            {
-                var value = (int)sender;
-                Activity = ActivityRepo.GetItem(value);
-                ActivityRepo.DeleteItem(Activity);
-                ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
-            }
+                DeleteActivity(value);
             else
             {
-                ValidationText = "Cannot delete an activity once Study has started.";
-                Opacity = 0.2;
-                IsInvalid = true;
+                if (obs.Any())
+                {
+                    ValidationText = "Cannot delete an activity once Study has started.";
+                    Opacity = 0.2;
+                    IsInvalid = true;
+                }
+                else
+                    DeleteActivity(value);
             }
+        }
+
+        private void DeleteActivity(int value)
+        {
+            Activity = ActivityRepo.GetItem(value);
+            ActivityRepo.DeleteItem(Activity);
+            ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
         }
 
         void ActivitySelectedEvent(object sender)
