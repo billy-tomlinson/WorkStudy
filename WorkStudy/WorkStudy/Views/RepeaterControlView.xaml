@@ -35,7 +35,9 @@
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.ItemSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                                 </local:CustomLabel.GestureRecognizers>
                                             </local:CustomLabel>
-                                            <local:CustomImage Source="settings.png" Grid.Row="0" Grid.Column="1" Margin="3">
+                                            <local:CustomImage Source="settings.png" Grid.Row="0" 
+                                                               Grid.Column="1" Margin="3"
+                                                               IsEnabled="{Binding IsEnabled}">
                                                 <local:CustomImage.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.SettingsSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                                 </local:CustomImage.GestureRecognizers>
