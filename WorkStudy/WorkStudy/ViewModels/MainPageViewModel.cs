@@ -237,24 +237,20 @@ namespace WorkStudy.ViewModels
                 ObservationRepo.SaveItem(item);
             }
 
-            var limitsReached = LimitsOfAccuracyReached();
-
             Operators = GetAllEnabledOperators();
 
             CreateOperatorObservations();    
         }
 
-        private bool LimitsOfAccuracyReached()
+        private bool LimitsOfAccuracyReached(Operator currentOperator)
         {
-            var currentOperator = OperatorRepo.GetWithChildren(operator1.Id);
             var activeActivities = currentOperator.Activities.Where(v => v.IsEnabled).ToList();
-            var operatorObservations = currentOperator.Observations;
             var totalRequired = Utilities.CalculateObservationsRequired(activeActivities);
             var limitsOfAccuracy = true;
 
             foreach (var activity in activeActivities)
             {
-                var count = operatorObservations.Count(v => v.ActivityId == activity.Id);
+                var count = currentOperator.Observations.Count(v => v.ActivityId == activity.Id);
                 if (count <= totalRequired)
                 {
                     limitsOfAccuracy = false;
@@ -365,12 +361,15 @@ namespace WorkStudy.ViewModels
 
         private void CreateOperatorObservations()
         {
+
             
             var ops = new ObservableCollection<OperatorObservation>();
             bool added = false;
 
             foreach (var item in Operators)
             {
+                var limitsReached = LimitsOfAccuracyReached(item);
+
                 if (item.Observations.Count == 0) added = false;
 
                 foreach (var obs in item.Observations)
@@ -384,7 +383,8 @@ namespace WorkStudy.ViewModels
                             Name = item.Name,
                             Id = item.Id,
                             IsRated = obs.Rating > 0,
-                            ObservedColour = System.Drawing.Color.Silver                    
+                            ObservedColour = System.Drawing.Color.Silver,
+                            LimitsOfAccuracy = limitsReached
                         };
 
                         ops.Add(opObservation);
@@ -400,7 +400,8 @@ namespace WorkStudy.ViewModels
                         Name = item.Name,
                         Id = item.Id,
                         IsRated = false,
-                        ObservedColour = System.Drawing.Color.Gray 
+                        ObservedColour = System.Drawing.Color.Gray,
+                        LimitsOfAccuracy = limitsReached
                     };
                     ops.Add(opObs);
                 } 
@@ -414,7 +415,7 @@ namespace WorkStudy.ViewModels
         {
             return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId
-                                                           && _.IsEnabled == true));
+                                                           && _.IsEnabled));
         }
     }
 }

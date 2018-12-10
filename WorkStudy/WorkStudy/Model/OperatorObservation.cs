@@ -13,5 +13,7 @@
         public bool IsRated { get; set; }
 
         public System.Drawing.Color ObservedColour { get; set; }
+
+        public bool LimitsOfAccuracy { get; set; }
     }
 }
