@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -125,6 +126,25 @@ namespace WorkStudy.Services
             {
                 return false;
             }
+        }
+
+        public static int CalculateObservationsRequired(List<Activity> activities)
+        {
+            var percentage = Math.Ceiling((double)1 / activities.Count * 100);
+
+            //n=4p - n = ( 4 x 17 ) = 68
+            var fourMultipliedByPercentage = 4 * percentage;
+
+            //(100-p) = (100 - 17 ) = 83
+            var oneHundredMinusPercentage = 100 - percentage;
+
+            //n=4p(100-p) = 68 x 83 = 5644
+            var calculationOfPercentage = fourMultipliedByPercentage * oneHundredMinusPercentage;
+
+            //n=4p(100-p)/L x L  = 5644/100
+            var numberOfObservations = (int)calculationOfPercentage / 100;
+
+            return numberOfObservations;
         }
     }
 }

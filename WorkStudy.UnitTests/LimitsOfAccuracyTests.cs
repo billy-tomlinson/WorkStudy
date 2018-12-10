@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WorkStudy.Model;
+using WorkStudy.Services;
 
 namespace WorkStudy.UnitTests
 {
@@ -37,7 +38,7 @@ namespace WorkStudy.UnitTests
             List<Observation> obsActivities = new List<Observation>();
 
             //p =  1 / 6 observations = 0.17
-            Calculate(activites);
+            var numberRequired = Utilities.CalculateObservationsRequired(activites);
 
             obsActivities.Add(obsActivity1);
             //n=4p(100-p)/L x L  = 56
@@ -81,23 +82,6 @@ namespace WorkStudy.UnitTests
                         break;
                 }
             }
-        }
-
-        private static void Calculate(List<Activity> activites)
-        {
-            var percentage = Math.Ceiling((double) 1 / activites.Count * 100);
-
-            //n=4p - n = ( 4 x 17 ) = 68
-            var fourMultipliedByPercentage = 4 * percentage;
-
-            //(100-p) = (100 - 17 ) = 83
-            var oneHundredMinusPercentage = 100 - percentage;
-
-            //n=4p(100-p) = 68 x 83 = 5644
-            var calculationOfPercentage = fourMultipliedByPercentage * oneHundredMinusPercentage;
-
-            //n=4p(100-p)/L x L  = 5644/100
-            var numberOfObservations = (int) calculationOfPercentage / 100;
         }
 
         // this is the observations required on this activity for this operator

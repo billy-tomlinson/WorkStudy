@@ -237,9 +237,32 @@ namespace WorkStudy.ViewModels
                 ObservationRepo.SaveItem(item);
             }
 
+            var limitsReached = LimitsOfAccuracyReached();
+
             Operators = GetAllEnabledOperators();
 
             CreateOperatorObservations();    
+        }
+
+        private bool LimitsOfAccuracyReached()
+        {
+            var currentOperator = OperatorRepo.GetWithChildren(operator1.Id);
+            var activeActivities = currentOperator.Activities.Where(v => v.IsEnabled).ToList();
+            var operatorObservations = currentOperator.Observations;
+            var totalRequired = Utilities.CalculateObservationsRequired(activeActivities);
+            var limitsOfAccuracy = true;
+
+            foreach (var activity in activeActivities)
+            {
+                var count = operatorObservations.Count(v => v.ActivityId == activity.Id);
+                if (count <= totalRequired)
+                {
+                    limitsOfAccuracy = false;
+                    break;
+                }
+            }
+
+            return limitsOfAccuracy;
         }
 
         public ICommand ItemClickedCommand
@@ -265,7 +288,7 @@ namespace WorkStudy.ViewModels
                 };
                 OperatorName = operator1.Name;
                 Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
-                                                                .Activities.ToList().Where(x => x.IsEnabled));
+                                                                .Activities.Where(x => x.IsEnabled));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;
