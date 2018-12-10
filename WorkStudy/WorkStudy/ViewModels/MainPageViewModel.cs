@@ -250,7 +250,17 @@ namespace WorkStudy.ViewModels
 
             foreach (var activity in activeActivities)
             {
-                var count = currentOperator.Observations.Count(v => v.ActivityId == activity.Id);
+                int count = 0;
+
+                count = count + currentOperator.Observations.Count(v => v.ActivityId == activity.Id);
+
+                var mergedActivities = MergedActivityRepo.GetItems().Where(y => y.ActivityId == activity.Id).ToList();
+
+                foreach (var item in mergedActivities)
+                {
+                    count = count + currentOperator.Observations.Count(v => v.ActivityId == item.MergedActivityId);
+                }
+
                 if (count <= totalRequired)
                 {
                     limitsOfAccuracy = false;
