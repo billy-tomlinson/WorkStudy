@@ -22,19 +22,10 @@
                             <ViewCell>
                                 <StackLayout Padding="20" BackgroundColor="{Binding ObservedColour}">
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" 
-                                               HorizontalTextAlignment="Start"  
-                                               FontSize="20"
-                                               WidthRequest="160" />
-                                        <Label Text="{Binding ActivityName}" 
-                                               HorizontalTextAlignment="Start" 
-                                               FontSize="12"
-                                               WidthRequest="140" />
-                                        <Label Text="{Binding Rating}" 
-                                               WidthRequest="40" 
-                                               IsVisible="{Binding IsRated}"
-                                               HorizontalTextAlignment="Start"
-                                               FontSize="12" />
+                                        <Label Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="20" WidthRequest="160" />
+                                        <Image Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}"  WidthRequest="40"/>
+                                        <Label Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
+                                        <Label Text="{Binding Rating}" WidthRequest="40" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
