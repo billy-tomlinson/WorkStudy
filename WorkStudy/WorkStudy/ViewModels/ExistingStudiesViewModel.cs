@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -42,7 +43,7 @@ namespace WorkStudy.ViewModels
                 Utilities.IsCompleted = completed;
 
                 if(!completed)
-                    Utilities.Navigate(new MainPage());
+                    Utilities.Navigate(new MainPageTabbedPage());
                 else
                     Utilities.Navigate(new ReportsPage());
             });

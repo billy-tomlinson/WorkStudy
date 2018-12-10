@@ -1,4 +1,6 @@
-﻿using SQLite;
+﻿using System.Drawing;
+using SQLite;
+using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {
@@ -6,5 +8,8 @@ namespace WorkStudy.Model
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
     }
 }
+
+

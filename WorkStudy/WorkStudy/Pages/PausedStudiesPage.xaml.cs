@@ -7,14 +7,22 @@ namespace WorkStudy.Pages
     {
         public PausedStudiesPage()
         {
-        }
-
-        public PausedStudiesPage(bool completed)
-        {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            listOfStudies.BindingContext = new ExistingStudiesViewModel(completed);
+            listOfStudies.BindingContext = new ExistingStudiesViewModel(false);
+        }
 
+        //public PausedStudiesPage(bool completed)
+        //{
+        //    InitializeComponent();
+        //    NavigationPage.SetHasNavigationBar(this, false);
+        //    listOfStudies.BindingContext = new ExistingStudiesViewModel(completed);
+
+        //}
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

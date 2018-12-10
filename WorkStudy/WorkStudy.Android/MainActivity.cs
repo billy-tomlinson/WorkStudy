@@ -4,6 +4,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using System.IO;
+using Android.Views;
 
 namespace WorkStudy.Droid
 {
@@ -17,11 +18,25 @@ namespace WorkStudy.Droid
 
             base.OnCreate(savedInstanceState);
 
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen); // hide the status bar
+
+            //SetContentView(Resource.Layout.Main);
+
+            int uiOptions = (int)Window.DecorView.SystemUiVisibility;
+
+            uiOptions |= (int)SystemUiFlags.LowProfile;
+            uiOptions |= (int)SystemUiFlags.Fullscreen;
+            uiOptions |= (int)SystemUiFlags.HideNavigation;
+            uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+
+            Window.DecorView.SystemUiVisibility =
+             (StatusBarVisibility)uiOptions;
+            
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            string dbName = "WorkStudy3.db3";
+            string dbName = "WorkStudy4.db3";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbPath = Path.Combine(folderPath, dbName);
             LoadApplication(new App(dbPath));

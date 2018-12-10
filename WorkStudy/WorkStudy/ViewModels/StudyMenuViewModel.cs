@@ -8,28 +8,21 @@ namespace WorkStudy.ViewModels
     {
         public Command NewStudy { get; set; }
         public Command ExistingStudy { get; set; }
-        public Command CompletedStudies { get; set; }
 
         public StudyMenuViewModel()
         {
             NewStudy = new Command(NewStudyPage);
             ExistingStudy = new Command(ExistingStudyPage);
-            CompletedStudies = new Command(CompletedStudiesPage);
         }
 
         void NewStudyPage()
         {
-            Utilities.Navigate(new StudyDetails());
+            Utilities.Navigate(new StudySetUpTabbedPage());
         }
 
         void ExistingStudyPage()
         {
-            Utilities.Navigate(new PausedStudiesPage(false));
-        }
-
-        void CompletedStudiesPage()
-        {
-            Utilities.Navigate(new CompletedStudiesPage(true));
+            Utilities.Navigate(new ExistingStudiesTabbedPage());
         }
     }
 }

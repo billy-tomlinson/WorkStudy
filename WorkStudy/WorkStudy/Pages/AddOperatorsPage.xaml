@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Views" 
+             x:Class="WorkStudy.Pages.AddOperatorsPage">
+    <ContentPage.BindingContext>
+        <viewModels1:AddOperatorsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
+            <StackLayout IsVisible="{Binding IsPageVisible}" 
+                         Padding="5" Margin="5" 
+                         Opacity="{Binding Opacity}">
+                <views:StudyDetailsView />
+                <StackLayout Orientation="Horizontal" 
+                             HeightRequest="60"
+                             BackgroundColor="#FCFAFA"
+                             VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}" 
+                           Placeholder="Operator Name"
+                           Text="{Binding Name}" 
+                           HeightRequest="50"/>
+                    <Button Style="{StaticResource plusButton}" 
+                            Command="{Binding SaveOperator}"
+                            BackgroundColor="Transparent"/>
+                </StackLayout>
+                <views:RepeaterControlView />
+            </StackLayout>
+            <StackLayout IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" 
+                                      BackgroundColor="#FCFAFA" 
+                                      HeightRequest="400" 
+                                      VerticalOptions="Center" 
+                                      HorizontalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5" Margin="5">
+                    <Button WidthRequest="100" BackgroundColor="#4174f4" TextColor="White" Text="Save" Command="{Binding SaveActivities}" />
+                    <Button WidthRequest="100" BackgroundColor="#4174f4" TextColor="White" Text="Cancel"  Command="{Binding CancelActivities}" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

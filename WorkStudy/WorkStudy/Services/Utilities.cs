@@ -18,12 +18,19 @@ namespace WorkStudy.Services
         public static int OperatorId { get; set; }
         public static int StudySetUpComplete { get; set; }
         public static bool AllObservationsTaken { get; set; }
+        public static bool StudyDetailsActive { get; set; }
 
-        public static async void Navigate(ContentPage page)
+        public static async void Navigate(Page page)
         {
             await Task.Delay(1000);
             await App.NavigationPage.Navigation.PushAsync(page);
         }
+
+        public static Color Clicked = Color.Orange;
+        public static  Color UnClicked = Color.Navy;
+
+        public static string ValidColour = "#d5f0f1";
+        public static string InValidColour = "#fff0f0";
 
         public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)
         {

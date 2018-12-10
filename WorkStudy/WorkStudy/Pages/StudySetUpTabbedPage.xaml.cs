@@ -1,10 +1,11 @@
-﻿using Xamarin.Forms;
+﻿
+using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class StudyMenu : ContentPage
+    public partial class StudySetUpTabbedPage : TabbedPage
     {
-        public StudyMenu()
+        public StudySetUpTabbedPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

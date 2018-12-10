@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -18,7 +20,7 @@ namespace WorkStudy.ViewModels
         public Activity Activity;
 
         public AddActivitiesViewModel()
-        {           
+        {
             ConstructorSetUp();
         }
 
@@ -79,11 +81,11 @@ namespace WorkStudy.ViewModels
             {
                 var duplicatesCheck = new List<Activity>(ItemsCollection);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true});
+                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true });
                 ItemsCollection = Get_Rated_Enabled_Activities();
 
                 Name = string.Empty;
-            }           
+            }
         }
 
         void SaveCommentDetails()
@@ -93,13 +95,14 @@ namespace WorkStudy.ViewModels
                 Activity.Comment = Comment.ToUpper();
                 ActivityRepo.SaveItem(Activity);
             }
-           
+            Opacity = 1;
             CommentsVisible = false;
             Comment = string.Empty;
         }
 
         void CancelCommentDetails()
         {
+            Opacity = 1;
             CommentsVisible = false;
             Comment = string.Empty;
         }
@@ -110,7 +113,7 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                Utilities.Navigate(new AddOperators());
+                Utilities.Navigate(new AddOperatorsPage());
             }
         }
 
@@ -125,6 +128,7 @@ namespace WorkStudy.ViewModels
             {
                 Activity = item as Activity;
                 Comment = Activity.Comment;
+                Opacity = 0.2;
                 CommentsVisible = true;
             });
         }
@@ -134,22 +138,30 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please Enter a valid Name";
 
             IsInvalid = true;
+            Opacity = 0.2;
 
             if ((Name != null && Name?.Trim().Length > 0))
+            {
+                Opacity = 1;
                 IsInvalid = false;
+            }
         }
 
         private void ValidateActivitiesAdded()
         {
-            
+
             ValidationText = "Please add at least one Activity";
 
             IsInvalid = true;
+            Opacity = 0.2;
 
             var activities = Get_Rated_Enabled_Activities();
 
             if ((activities.Count > 0))
+            {
+                Opacity = 1;
                 IsInvalid = false;
+            }
         }
 
         void AddSelectedEvent(object sender)
@@ -157,12 +169,39 @@ namespace WorkStudy.ViewModels
             var value = (int)sender;
             Activity = ActivityRepo.GetItem(value);
             Comment = Activity.Comment;
+            Opacity = 0.2;
             CommentsVisible = true;
         }
 
         void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
+
+            if (!StudyInProcess)
+                DeleteActivity(value);
+            else
+            {
+                var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
+                          && x.StudyId == Utilities.StudyId);
+
+                var merged = MergedActivityRepo.GetItems().Where(x => x.ActivityId == value);
+
+                if (obs.Any() || merged.Any())
+                {
+                    ValidationText = "Cannot delete an activity once Study has started.";
+                    Opacity = 0.2;
+                    IsInvalid = true;
+                }
+                else
+                    DeleteActivity(value);
+            }
+        }
+
+        private void DeleteActivity(int value)
+        {
+            Activity = ActivityRepo.GetItem(value);
+            ActivityRepo.DeleteItem(Activity);
+            ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
         }
 
         void ActivitySelectedEvent(object sender)

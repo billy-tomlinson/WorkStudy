@@ -1,7 +1,7 @@
 ﻿
 using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
     public partial class StudyStartPage : ContentPage
     {

@@ -7,13 +7,16 @@ namespace WorkStudy.Pages
     {
         public CompletedStudiesPage()
         {
-        }
-
-        public CompletedStudiesPage(bool completed)
-        {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            listOfStudies.BindingContext = new ExistingStudiesViewModel(completed);
+            listOfStudies.BindingContext = new ExistingStudiesViewModel(true);
         }
+
+        //public CompletedStudiesPage(bool completed)
+        //{
+        //    InitializeComponent();
+        //    NavigationPage.SetHasNavigationBar(this, false);
+        //    listOfStudies.BindingContext = new ExistingStudiesViewModel(completed);
+        //}
     }
 }

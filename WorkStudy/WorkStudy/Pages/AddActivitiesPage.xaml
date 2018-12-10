@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             xmlns:views="clr-namespace:WorkStudy.Views" 
+             x:Class="WorkStudy.Pages.AddActivitiesPage">
+    <ContentPage.BindingContext>
+        <viewModels:AddActivitiesViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout IsVisible="{Binding IsPageVisible}" Padding="5" Margin="5" Opacity="{Binding Opacity}">
+                <views:StudyDetailsView />
+                <StackLayout Orientation="Horizontal" 
+                             HeightRequest="60" 
+                             BackgroundColor="#FCFAFA" 
+                             VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}" 
+                           Placeholder="Activity Name" 
+                           Text="{Binding Name}" 
+                           HeightRequest="50" />
+                    <Button Style="{StaticResource plusButton}" 
+                            Command="{Binding SaveActivity}" 
+                            BackgroundColor="Transparent" />
+                </StackLayout>
+                <views:RepeaterControlView />
+            </StackLayout>
+            <ContentView x:Name="commentView" BackgroundColor="Transparent" 
+                         IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#FCFAFA">
+                    <StackLayout Orientation="Vertical" Padding="5" Margin="5" WidthRequest="260" HeightRequest="210" 
+                                 BackgroundColor="#FCFAFA">
+                        <Label Text="Comments" TextColor="Black" />
+                        <Editor Text="{Binding Comment}" HeightRequest="100" />
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Button Text="Save" Command="{Binding SaveComment}" Style="{StaticResource popUpButton}" />
+                            <Button Text="Cancel" Command="{Binding CancelComment}" Style="{StaticResource popUpButton}" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace WorkStudy.Pages
+namespace WorkStudy.Views
 {
-    public partial class PageNotAllowed : ContentView
+    public partial class ExistingStudiesView1 : ContentView
     {
-        public PageNotAllowed()
+        public ExistingStudiesView1()
         {
             InitializeComponent();
         }

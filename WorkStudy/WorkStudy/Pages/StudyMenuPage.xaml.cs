@@ -1,17 +1,13 @@
-﻿
-using WorkStudy.Services;
-using WorkStudy.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
-    public partial class AddActivities : ContentPage
+    public partial class StudyMenuPage : ContentPage
     {
-        public AddActivities()
+        public StudyMenuPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-
         }
 
         protected override bool OnBackButtonPressed()

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class EditActivities : ContentPage
+    public partial class MainPageTabbedPage : TabbedPage
     {
-        public EditActivities()
+        public MainPageTabbedPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

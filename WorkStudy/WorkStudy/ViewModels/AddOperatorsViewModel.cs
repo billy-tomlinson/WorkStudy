@@ -3,8 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
+using WorkStudy.Custom;
 
 namespace WorkStudy.ViewModels
 {
@@ -73,10 +75,14 @@ namespace WorkStudy.ViewModels
                 List<Operator> duplicatesCheck = new List<Operator>(ItemsCollection);
 
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    Operator.Id = OperatorRepo.SaveItem(new Operator() { Name = Name });
+                    Operator.Id = OperatorRepo.SaveItem(new Operator() 
+                    { 
+                        Name = Name, 
+                        IsEnabled = true,
+                        ObservedColour = Utilities.InValidColour
+                    });
 
-                ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetItems()
-                                                               .Where(_ => _.StudyId == Utilities.StudyId));
+                ItemsCollection = GetAllOperators();
 
                 LinkOperatorToUnratedActivities();
 
@@ -104,8 +110,13 @@ namespace WorkStudy.ViewModels
 
         void SaveActivityDetails()
         {
+            if (Operator.Activities.Any(x => x.Rated))
+                Operator.ObservedColour = Utilities.ValidColour;
+            else
+                Operator.ObservedColour = Utilities.InValidColour;
+            
             OperatorRepo.UpdateWithChildren(Operator);
-
+            ItemsCollection = GetAllOperators();
             ActivitiesVisible = false;
         }
 
@@ -132,12 +143,13 @@ namespace WorkStudy.ViewModels
 
         private void ChangeButtonColour(int sender)
         {
+
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
-                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
-            list.RemoveAll(_ => _.Id == (int)sender);
+            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
+                ? Utilities.Clicked : Utilities.UnClicked;
+            list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
@@ -164,7 +176,7 @@ namespace WorkStudy.ViewModels
             foreach (var item in list)
             {
                 list1.RemoveAll(_ => _.Id == (int)item.Id);
-                item.Colour = System.Drawing.Color.Aquamarine;
+                item.Colour = Utilities.UnClicked;
                 list1.Add(item);
             }
 
@@ -173,7 +185,7 @@ namespace WorkStudy.ViewModels
                 var activity = list1.Find(_ => _.Id == specific.Id);
                 if (activity != null)
                 {
-                    activity.Colour = System.Drawing.Color.BlueViolet;
+                    activity.Colour = Utilities.Clicked;
                     list1.RemoveAll(_ => _.Id == (int)specific.Id);
                     list1.Add(activity);
                 }
@@ -194,6 +206,39 @@ namespace WorkStudy.ViewModels
         void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
+
+            Operator = OperatorRepo.GetItem(value);
+
+            if(!StudyInProcess)
+            {
+                var activities = OperatorActivityRepo.GetItems().Where(x => x.OperatorId == value);
+                foreach (var item in activities)
+                {
+                    OperatorActivityRepo.DeleteItem(item);
+                }
+
+                OperatorRepo.DeleteItem(Operator); 
+            }
+            else
+            {
+                if(Operator.Icon == "undo.png")
+                {
+                    Operator.Opacity = 1;
+                    Operator.IsEnabled = true;
+                    Operator.Icon = "delete.png";
+                }
+                else
+                {
+                    Operator.Opacity = 0.2;
+                    Operator.IsEnabled = false;
+                    Operator.Icon = "undo.png";
+                }
+
+                OperatorRepo.SaveItem(Operator);
+            }
+           
+            ItemsCollection = GetAllOperators();
+            Activities = Get_Rated_Enabled_Activities_WithChildren();
         }
 
         void OperatorSelectedEvent(object sender)
@@ -211,8 +256,7 @@ namespace WorkStudy.ViewModels
             SettingsSelected = new Command(AddActivitiesSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
 
-            ItemsCollection = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                                           .Where(_ => _.StudyId == Utilities.StudyId));
+            ItemsCollection = GetAllOperators();
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();
             Name = string.Empty;
@@ -221,16 +265,20 @@ namespace WorkStudy.ViewModels
         private void ValidateValues()
         {
             ValidationText = "Please Enter a valid Name";
+            Opacity = 0.2;
             IsInvalid = true;
 
             if ((Name != null && Name?.Trim().Length > 0))
+            {
+                Opacity = 1;
                 IsInvalid = false;
+            }    
         }
 
         public void ValidateOperatorActivities()
         {
             IsInvalid = true;
-
+            Opacity = 0.2;
 
             var studyOperators = OperatorRepo.GetAllWithChildren()
                                           .Where(_ => _.StudyId == Utilities.StudyId).ToList();
@@ -247,6 +295,7 @@ namespace WorkStudy.ViewModels
             }
 
             IsInvalid = false;
+            Opacity = 1;
         }
 
         public void LinkAllOperatorsToUnratedActivities()
@@ -291,6 +340,12 @@ namespace WorkStudy.ViewModels
             }
 
             OperatorRepo.UpdateWithChildren(op);
+        }
+
+        private ObservableCollection<Operator> GetAllOperators()
+        {
+            return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                       .Where(_ => _.StudyId == Utilities.StudyId));
         }
     }
 }

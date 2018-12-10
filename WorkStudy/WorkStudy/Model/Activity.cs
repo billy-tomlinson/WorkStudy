@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using WorkStudy.Services;
+using Xamarin.Forms;
 
 namespace WorkStudy.Model
 {
@@ -12,7 +12,7 @@ namespace WorkStudy.Model
     {
         public Activity()
         {
-            Colour = Color.Aquamarine;
+            Colour = Utilities.UnClicked;
             Activities  = new List<Activity>();
             StudyId = Utilities.StudyId;
         }
@@ -30,6 +30,8 @@ namespace WorkStudy.Model
 
         public DateTime Date => DateTime.Now;
 
+        public double Opacity { get; set; } = 1;
+
         [Ignore]
         public Color Colour { get; set; }
 
@@ -43,6 +45,13 @@ namespace WorkStudy.Model
         [ManyToMany(typeof(MergedActivities), "MergedActivityId", "Activities",
         CascadeOperations = CascadeOperation.All, ReadOnly = true)]
         public List<Activity> MergedActivities { get; set; }
+
+        public string ObservedColour { get; set; } = "#d5f0f1";
+
+        [Ignore]
+        public Color ConvertedColour => Color.FromHex(ObservedColour);
+
+        public string Icon { get; set; } = "delete.png";
 
     }
 }

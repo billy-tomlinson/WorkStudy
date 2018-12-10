@@ -13,7 +13,7 @@ namespace WorkStudy
         public App(string databasePath)
         {
             InitializeComponent();
-
+            NavigationPage.SetHasNavigationBar(this, false);
             DatabasePath = databasePath;
 
             CallMain();
@@ -35,6 +35,7 @@ namespace WorkStudy
 
         private void CallMain()
         {
+            //var tabbedPage = new TestTabbedPage() { Title = "Tabbed Page" };
             var menuPage = new MenuPage(){ Title = "Main Page" };
             NavigationPage = new NavigationPage(new  WelcomePage());
             RootPage = new RootPage();

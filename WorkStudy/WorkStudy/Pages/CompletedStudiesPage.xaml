@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom"
-             xmlns:views="clr-namespace:WorkStudy.Pages"
-             x:Class="WorkStudy.Pages.CompletedStudiesPage"
-             BackgroundColor="Transparent" >
+             xmlns:views="clr-namespace:WorkStudy.Views"
+             x:Class="WorkStudy.Pages.CompletedStudiesPage">
     <ContentPage.Content>
-        <views:ExistingStudies x:Name="listOfStudies"/>
+        <views:ExistingStudiesView1 x:Name="listOfStudies"/>
     </ContentPage.Content>
 </ContentPage>

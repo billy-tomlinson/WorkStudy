@@ -22,6 +22,7 @@
   <ItemGroup>
     <EmbeddedResource Remove="MasterPage.xaml" />
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
+    <EmbeddedResource Remove="Views\ExistingStudiesView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -51,7 +52,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\StudyDetails.xaml.cs">
-      <DependentUpon>StudyDetails.xaml</DependentUpon>
+      <DependentUpon>StudyDetailsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\StudyStartPAge.xaml.cs">

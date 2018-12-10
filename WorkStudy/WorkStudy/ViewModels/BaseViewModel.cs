@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
 
+        public TimeSpan CurrentTime => DateTime.Now.TimeOfDay;
+
+
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities
         {
@@ -72,6 +76,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        double opacity = 1;
+        public double Opacity
+        {
+            get { return opacity; }
+            set
+            {
+                opacity = value;
+                OnPropertyChanged();
+            }
+        }
+
         string invalidText;
         public string InvalidText
         {
@@ -83,7 +99,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        public int StudyNumber => Utilities.StudyId;
+        int studyNumber;
+        public int StudyNumber
+        {
+            get { return Utilities.StudyId; }
+            set
+            {
+                studyNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         bool isPageVisible = false;
         public bool IsPageVisible
@@ -93,6 +118,18 @@ namespace WorkStudy.ViewModels
             {
                 isPageVisible = value;
                 IsPageUnavailableVisible = !value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        int isItemEnabled;
+        public int IsItemEnabled
+        {
+            get { return isItemEnabled; }
+            set
+            {
+                isItemEnabled = value;
                 OnPropertyChanged();
             }
         }
@@ -119,6 +156,11 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        public bool StudyInProcess
+        {
+            get => Get_Observations_By_StudyId().Count > 0;
+        }
+              
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -130,6 +172,12 @@ namespace WorkStudy.ViewModels
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetItems()
                                          .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
+        }
+
+        public List<Observation> Get_Observations_By_StudyId()
+        {
+            return ObservationRepo.GetItems()
+                               .Where(x => x.StudyId == Utilities.StudyId).ToList();
         }
 
         public ObservableCollection<Activity> Get_Enabled_Activities()
@@ -161,6 +209,7 @@ namespace WorkStudy.ViewModels
 
         public void CloseValidationView()
         {
+            Opacity = 1;
             IsInvalid = false;
         }
     }

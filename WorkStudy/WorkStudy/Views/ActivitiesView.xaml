@@ -2,16 +2,18 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
-             x:Class="WorkStudy.Pages.ActivitiesView" 
-             BackgroundColor="#C0808080" 
+             x:Class="WorkStudy.Views.ActivitiesView" 
              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-             AbsoluteLayout.LayoutFlags="All" 
+             AbsoluteLayout.LayoutFlags="All"
              x:Name="ActivitiesViewPage">
     <ContentView.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <StackLayout Orientation="Vertical" WidthRequest="360" BackgroundColor="White" Margin="2,2,2,2" Padding="2,2,2,2">
-                <Label Text="Activities" IsVisible="{Binding Isvisible}" FontSize="15" TextColor="Blue" />
-                <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="0,0,10,0" BackgroundColor="Gainsboro">
+        <StackLayout>
+            <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
+                <Label Text="Activities" IsVisible="{Binding Isvisible}" 
+                       TextColor="Black" />
+                <StackLayout IsVisible="{Binding Isvisible}" 
+                             Orientation="Horizontal" 
+                             Margin="5" >
                     <ScrollView>
                         <local:RepeaterView ItemsSource="{Binding GroupActivities}">
                             <local:RepeaterView.ItemTemplate>

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace WorkStudy.Pages
+namespace WorkStudy.Views
 {
     public partial class RatingView : ContentView
     {

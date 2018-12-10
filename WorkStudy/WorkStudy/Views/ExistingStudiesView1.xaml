@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="WorkStudy.Views.ExistingStudiesView1" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             BackgroundColor="Transparent">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" ApplyToDerivedTypes="True">
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="TextColor" Value="#605F5F" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent">
+            <StackLayout BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="2,2,2,2">
+                    <Label Text="Existing Studies" FontSize="20" TextColor="White"/>
+                </StackLayout>
+                <local:CustomListView x:Name="List" Margin="0,10" 
+                                      ItemsSource="{Binding ActivitySamples}" 
+                                      BackgroundColor="#FCFAFA" 
+                                      HasUnevenRows="True" 
+                                      ItemClickedCommand="{Binding ItemClickedCommand}" 
+                                      HorizontalOptions="Center" 
+                                      SeparatorVisibility="Default"
+                                      SeparatorColor="#605F5F"
+                                      HeightRequest="500">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Padding="20" Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label WidthRequest="80" Text="Name: "/>
+                                            <Label Text="{Binding Name}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label  WidthRequest="80" Text="Number: "/>
+                                            <Label Text="{Binding StudyNumber}"/>
+                                        </StackLayout>
+                                         <StackLayout Orientation="Horizontal">
+                                            <Label WidthRequest="80" Text="Date: "/>
+                                            <Label Text="{Binding Date}" />
+                                            <Label Text="{Binding Time}" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label WidthRequest="80" Text="Studied By: " />
+                                            <Label Text="{Binding StudiedBy}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </local:CustomListView>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

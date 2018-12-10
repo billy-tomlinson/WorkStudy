@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Pages;
 using WorkStudy.Services;
@@ -140,6 +141,7 @@ namespace WorkStudy.ViewModels
             {
                 Utilities.AllObservationsTaken = false;
                 ValidationText = "Not All Operators have been observed.";
+                Opacity = 0.2;
                 IsInvalid = true;
             }
         }
@@ -154,16 +156,17 @@ namespace WorkStudy.ViewModels
 
         void EditStudyDetails()
         {
-            Utilities.Navigate(new EditActivities());
+            Utilities.Navigate(new EditActivitiesPage());
         }
 
         void NavigateToStudyMenu()
         {
-            Utilities.Navigate(new StudyMenu());
+            Utilities.Navigate(new StudyMenuPage());
         }
 
         void ActivitySelectedEvent(object sender)
         {
+            Rating = 0;
             ChangeButtonColour((int)sender);
             var value = (int)sender;
             ActivityId = value;
@@ -172,9 +175,13 @@ namespace WorkStudy.ViewModels
             CurrentActivity = ActivityRepo.GetItem(ActivityId);
 
             if (Utilities.RatedStudy && CurrentActivity.Rated)
+            {
+                Opacity = 0.2;
                 RatingsVisible = true;
+            }
             else
             {
+                Opacity = 1;
                 ActivitiesVisible = false;
                 AddObservation();
             }
@@ -187,8 +194,8 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb())
-                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
+                ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == (int)sender);
             list.Add(activity);
             Activities = new ObservableCollection<Activity>(obsCollection);
@@ -204,6 +211,7 @@ namespace WorkStudy.ViewModels
 
             AddObservation();
 
+            Opacity = 1;
             RatingsVisible = false;
         }
 
@@ -229,8 +237,7 @@ namespace WorkStudy.ViewModels
                 ObservationRepo.SaveItem(item);
             }
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                              .Where(_ => _.StudyId == Utilities.StudyId));
+            Operators = GetAllEnabledOperators();
 
             CreateOperatorObservations();    
         }
@@ -260,6 +267,7 @@ namespace WorkStudy.ViewModels
                 Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
                                                                 .Activities.ToList().Where(x => x.IsEnabled));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                Opacity = 0.2;
                 ActivitiesVisible = true;
             });
         }
@@ -268,6 +276,7 @@ namespace WorkStudy.ViewModels
         {
             return new Command((item) =>
             {
+                Opacity = 0.2;
                 RatingsVisible = true;
                 ActivitiesVisible = false;
             });
@@ -282,8 +291,7 @@ namespace WorkStudy.ViewModels
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
 
-            Operators = new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                                                          .Where(_ => _.StudyId == Utilities.StudyId));
+            Operators = GetAllEnabledOperators();
 
             var lastObservation = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
                                               .OrderByDescending(y => y.ObservationNumber)
@@ -294,6 +302,7 @@ namespace WorkStudy.ViewModels
             else
             {
                 ObservationRound = lastObservation;
+                Opacity = 0.2;
                 ValidationText = "Not All Operators have been observed.";
             }
                 
@@ -308,6 +317,7 @@ namespace WorkStudy.ViewModels
             if (isInvalid)
             {
                 IsInvalid = true;
+                Opacity = 0.2;
                 SaveObservationDetails();
             }
                 
@@ -323,7 +333,7 @@ namespace WorkStudy.ViewModels
                     (!Operators.Any()) ||
                     (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
             {
-                InvalidText = "Please add Activities and/or Operators to study.";
+                InvalidText = $"Please add Activities and/or Operators to study {Utilities.StudyId.ToString()}";
                 return false;
             }
 
@@ -349,7 +359,9 @@ namespace WorkStudy.ViewModels
                             ActivityName = obs.ActivityName,
                             Rating = obs.Rating,
                             Name = item.Name,
-                            Id = item.Id
+                            Id = item.Id,
+                            IsRated = obs.Rating > 0,
+                            ObservedColour = System.Drawing.Color.Silver                    
                         };
 
                         ops.Add(opObservation);
@@ -363,7 +375,9 @@ namespace WorkStudy.ViewModels
                     var opObs = new OperatorObservation
                     {
                         Name = item.Name,
-                        Id = item.Id
+                        Id = item.Id,
+                        IsRated = false,
+                        ObservedColour = System.Drawing.Color.Gray 
                     };
                     ops.Add(opObs);
                 } 
@@ -371,6 +385,13 @@ namespace WorkStudy.ViewModels
 
             OperatorObservations = ops;
             Utilities.AllObservationsTaken = AllObservationsTaken;
+        }
+
+        private ObservableCollection<Operator> GetAllEnabledOperators()
+        {
+            return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                                          .Where(_ => _.StudyId == Utilities.StudyId
+                                                           && _.IsEnabled == true));
         }
     }
 }

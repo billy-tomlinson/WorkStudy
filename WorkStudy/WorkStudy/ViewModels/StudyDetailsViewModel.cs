@@ -19,13 +19,25 @@ namespace WorkStudy.ViewModels
             if(!IsInvalid)
             {
                 Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
-
+                StudyNumber = Utilities.StudyId;
                 CreateUnratedActivities();
 
                 Utilities.RatedStudy = SampleStudy.IsRated;
-                Utilities.Navigate(new AddActivities());
+
+                IsActive = false;
+                Utilities.StudyDetailsActive = IsActive;
             }
-                
+        }
+
+        bool isActive;
+        public bool IsActive
+        {
+            get { return isActive; }
+            set
+            {
+                isActive = value;
+                OnPropertyChanged();
+            }
         }
 
         ActivitySampleStudy sampleStudy;
@@ -38,8 +50,12 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         private void ConstructorSetUp()
         {
+            IsActive = true;
+            Utilities.StudyDetailsActive = IsActive;
+
             Utilities.StudyId = 0;
 
             SampleStudy = new ActivitySampleStudy()
@@ -70,12 +86,16 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please enter all study details";
 
             IsInvalid = true;
+            Opacity = 0.2;
 
             if ((SampleStudy.Department != null &&  SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
                 (SampleStudy.StudiedBy != null && SampleStudy.StudiedBy?.Trim().Length > 0))
-
+            {
+                Opacity = 1;
                 IsInvalid = false;
+            }
+                
         }
 
         public void CreateUnratedActivities()

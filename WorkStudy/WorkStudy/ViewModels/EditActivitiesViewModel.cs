@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SQLiteNetExtensions.Extensions;
+using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -49,8 +50,8 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = System.Drawing.Color.Aquamarine.ToArgb().Equals(activity.Colour.ToArgb()) 
-                ? System.Drawing.Color.BlueViolet : System.Drawing.Color.Aquamarine;
+            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString()) 
+                ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
             Activities = ConvertListToObservable(list);
@@ -124,7 +125,7 @@ namespace WorkStudy.ViewModels
             foreach (var item in list)
             {
                 list1.RemoveAll(_ => _.Id == (int)item.Id);
-                item.Colour = System.Drawing.Color.Aquamarine;
+                item.Colour = Utilities.UnClicked;
                 list1.Add(item);
             }
 

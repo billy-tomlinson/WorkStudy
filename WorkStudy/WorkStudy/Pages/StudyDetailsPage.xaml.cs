@@ -1,12 +1,13 @@
 ﻿
 using System;
+using WorkStudy.Services;
 using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
-    public partial class StudyDetails : ContentPage
+    public partial class StudyDetailsPage : ContentPage
     {
-        public StudyDetails()
+        public StudyDetailsPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
@@ -14,12 +15,6 @@ namespace WorkStudy
             studyDepartment.Completed += studyDepartment_Completed;
             studiedBy.Completed += studiedBy_Completed;
                
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            studyName.Focus();
         }
 
         public void studyName_Completed(object sender, EventArgs e)

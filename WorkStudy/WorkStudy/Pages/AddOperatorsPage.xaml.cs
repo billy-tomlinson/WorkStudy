@@ -1,12 +1,12 @@
 ﻿using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
-namespace WorkStudy
+namespace WorkStudy.Pages
 {
-    public partial class AddOperators : ContentPage
+    public partial class AddOperatorsPage : ContentPage
     {
 
-        public AddOperators()
+        public AddOperatorsPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
@@ -17,7 +17,12 @@ namespace WorkStudy
             return true;
         }
 
-       
+        protected override void OnAppearing()
+        {
+            BindingContext = new AddOperatorsViewModel();
+            base.OnAppearing();
+        }
+
     }
 }
 
