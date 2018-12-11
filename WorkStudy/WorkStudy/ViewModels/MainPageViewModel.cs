@@ -267,9 +267,11 @@ namespace WorkStudy.ViewModels
                 if (count >= totalRequired)
                     totalPercentage = totalPercentage + 1;
                 
-                if (count <= totalRequired)
+                if (count < totalRequired)
                 {
-                    totalPercentage = totalPercentage + (double)count / totalRequired;
+                    if(count > 0)
+                        totalPercentage = totalPercentage + (double)count / totalRequired;
+                    
                     limitsOfAccuracy = false;
                 }
             }

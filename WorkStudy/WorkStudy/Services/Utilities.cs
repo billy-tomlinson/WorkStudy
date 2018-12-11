@@ -157,6 +157,7 @@ namespace WorkStudy.Services
             var numberOfObservations = (int)calculationOfPercentage / 100;
 
             return numberOfObservations;
+
         }
     }
 }
