@@ -33,7 +33,7 @@
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5*">
+                                            <ColumnDefinition Width="6*">
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
@@ -41,10 +41,10 @@
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="4*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="1*">
+                                            <ColumnDefinition Width="*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="18" HorizontalTextAlignment="Start" WidthRequest="140" />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
                                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
                                         <Image Grid.Row="0" Grid.Column="2" Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}" WidthRequest="40" />
                                         <Label Grid.Row="0" Grid.Column="3" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />

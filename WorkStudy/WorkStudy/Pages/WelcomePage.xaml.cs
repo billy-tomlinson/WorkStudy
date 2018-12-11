@@ -1,4 +1,7 @@
-﻿using WorkStudy.Pages;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AppCenter.Crashes;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +16,6 @@ namespace WorkStudy.Pages
 			InitializeComponent ();
             timeStudy.Source = ImageSource.FromFile("stopwatch.png");
             NavigationPage.SetHasNavigationBar(this, false);
-
 		    Navigate();
 
         }

@@ -1,6 +1,9 @@
 ﻿using WorkStudy.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WorkStudy
@@ -12,6 +15,7 @@ namespace WorkStudy
 
         public App(string databasePath)
         {
+            
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             DatabasePath = databasePath;
@@ -35,7 +39,6 @@ namespace WorkStudy
 
         private void CallMain()
         {
-            //var tabbedPage = new TestTabbedPage() { Title = "Tabbed Page" };
             var menuPage = new MenuPage(){ Title = "Main Page" };
             NavigationPage = new NavigationPage(new  WelcomePage());
             RootPage = new RootPage();
@@ -47,6 +50,8 @@ namespace WorkStudy
         protected override void OnStart()
         {
             // Handle when your app starts
+            AppCenter.Start("android=4b7dad8c-e515-413d-9a8e-9e060c86a511;", 
+                            typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

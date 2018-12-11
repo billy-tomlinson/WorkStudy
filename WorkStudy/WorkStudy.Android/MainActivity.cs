@@ -5,14 +5,18 @@ using Android.Runtime;
 using Android.OS;
 using System.IO;
 using Android.Views;
+using System.Threading.Tasks;
+using System;
 
 namespace WorkStudy.Droid
 {
     [Activity(Label = "WorkStudy", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
