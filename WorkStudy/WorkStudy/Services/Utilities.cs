@@ -45,12 +45,8 @@ namespace WorkStudy.Services
                         App.NavigationPage.Navigation.RemovePage(existingPages[i]);
                 }
             }
-            catch
-            {
-
-            }
-
         }
+
         public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)
         {
             int counter = 0;
