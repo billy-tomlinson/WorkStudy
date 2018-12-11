@@ -15,5 +15,7 @@
         public System.Drawing.Color ObservedColour { get; set; }
 
         public bool LimitsOfAccuracy { get; set; }
+
+        public double TotalPercentage { get; set; }
     }
 }

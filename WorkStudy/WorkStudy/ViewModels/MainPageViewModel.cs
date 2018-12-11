@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -242,11 +243,13 @@ namespace WorkStudy.ViewModels
             CreateOperatorObservations();    
         }
 
-        private bool LimitsOfAccuracyReached(Operator currentOperator)
+        private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
         {
             var activeActivities = currentOperator.Activities.Where(v => v.IsEnabled).ToList();
             var totalRequired = Utilities.CalculateObservationsRequired(activeActivities);
             var limitsOfAccuracy = true;
+
+            double totalPercentage = 0;
 
             foreach (var activity in activeActivities)
             {
@@ -261,14 +264,24 @@ namespace WorkStudy.ViewModels
                     count = count + currentOperator.Observations.Count(v => v.ActivityId == item.MergedActivityId);
                 }
 
+                if (count >= totalRequired)
+                    totalPercentage = totalPercentage + 100;
+                
                 if (count <= totalRequired)
                 {
+                    totalPercentage = totalPercentage + (double)count / totalRequired;
                     limitsOfAccuracy = false;
-                    break;
                 }
             }
 
-            return limitsOfAccuracy;
+            if (totalPercentage > 0)
+                totalPercentage = (double)(totalPercentage / activeActivities.Count()) * 100;
+
+            return new LimitsOfAccuracy() 
+            { 
+                AccuracyReached = limitsOfAccuracy, 
+                TotalPercentage = Math.Round(totalPercentage, 1) 
+            };
         }
 
         public ICommand ItemClickedCommand
@@ -394,7 +407,8 @@ namespace WorkStudy.ViewModels
                             Id = item.Id,
                             IsRated = obs.Rating > 0,
                             ObservedColour = System.Drawing.Color.Silver,
-                            LimitsOfAccuracy = limitsReached
+                            LimitsOfAccuracy = limitsReached.AccuracyReached,
+                            TotalPercentage = limitsReached.TotalPercentage
                         };
 
                         ops.Add(opObservation);
@@ -411,7 +425,8 @@ namespace WorkStudy.ViewModels
                         Id = item.Id,
                         IsRated = false,
                         ObservedColour = System.Drawing.Color.Gray,
-                        LimitsOfAccuracy = limitsReached
+                        LimitsOfAccuracy = limitsReached.AccuracyReached,
+                        TotalPercentage = limitsReached.TotalPercentage
                     };
                     ops.Add(opObs);
                 } 
