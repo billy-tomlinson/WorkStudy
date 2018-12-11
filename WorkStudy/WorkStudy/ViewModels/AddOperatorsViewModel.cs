@@ -198,7 +198,7 @@ namespace WorkStudy.ViewModels
         void AddActivitiesSelectedEvent(object sender)
         {
             var value = (int)sender;
-            Operator = ItemsCollection.First(_ => _.Id == value);
+            Operator = OperatorRepo.GetWithChildren(value);
             ChangeButtonColoursOnLoad();
             ActivitiesVisible = true;
         }
