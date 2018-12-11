@@ -12,7 +12,7 @@ using Xamarin.Forms;
 namespace WorkStudy.Services
 {
     public class Utilities
-    {      
+    {
         public static int StudyId { get; set; }
         public static bool IsCompleted { get; set; }
         public static bool RatedStudy { get; set; }
@@ -28,22 +28,20 @@ namespace WorkStudy.Services
         }
 
         public static Color Clicked = Color.Orange;
-        public static  Color UnClicked = Color.Navy;
+        public static Color UnClicked = Color.Navy;
 
         public static string ValidColour = "#d5f0f1";
         public static string InValidColour = "#fff0f0";
 
         public static void ClearNavigation()
         {
-            try
-            {
-                var existingPages = App.NavigationPage.Navigation.NavigationStack.ToList();
 
-                for (int i = 0; i < existingPages.Count; i++)
-                {
-                    if (i != existingPages.Count - 1)
-                        App.NavigationPage.Navigation.RemovePage(existingPages[i]);
-                }
+            var existingPages = App.NavigationPage.Navigation.NavigationStack.ToList();
+
+            for (int i = 0; i < existingPages.Count; i++)
+            {
+                if (i != existingPages.Count - 1)
+                    App.NavigationPage.Navigation.RemovePage(existingPages[i]);
             }
         }
 
@@ -131,8 +129,8 @@ namespace WorkStudy.Services
                 var emailTask = CrossMessaging.Current.EmailMessenger;
                 if (emailTask.CanSendEmail)
                 {
-                   emailTask.SendEmail(email);
-                   return true;
+                    emailTask.SendEmail(email);
+                    return true;
                 }
                 return false;
             }

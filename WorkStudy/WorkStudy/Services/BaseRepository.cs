@@ -9,10 +9,20 @@ namespace WorkStudy.Services
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
     {
         private static readonly object locker = new object();
-
+        string dbPath;
         public BaseRepository(string dbPath = null)
         {
-            DatabaseConnection = dbPath == null ? new SQLiteConnection(App.DatabasePath) : new SQLiteConnection(dbPath);
+            try
+            {
+                this.dbPath = dbPath;
+                DatabaseConnection = dbPath == null ? new SQLiteConnection(App.DatabasePath) : new SQLiteConnection(dbPath);
+            }
+            catch (SQLiteException ex)
+            {
+                DatabaseConnection = null;
+                DatabaseConnection = dbPath == null ? new SQLiteConnection(App.DatabasePath) : new SQLiteConnection(dbPath);
+
+            }
         }
 
         public IEnumerable<T> GetItems()
@@ -93,7 +103,7 @@ namespace WorkStudy.Services
             throw new System.NotImplementedException();
         }
 
-        public SQLiteConnection DatabaseConnection { get; }
+        public SQLiteConnection DatabaseConnection { get; set; }
 
 
         private int GetId()
@@ -107,6 +117,22 @@ namespace WorkStudy.Services
             {
                 DatabaseConnection.InsertOrReplaceWithChildren(item);
             }
+        }
+
+        ~BaseRepository()
+        {
+            // Finalizer calls Dispose(false)
+            Dispose(true);
+        }
+
+        // The bulk of the clean-up code is implemented in Dispose(bool)
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                DatabaseConnection = null;
+               
+            }        
         }
     }
 }
