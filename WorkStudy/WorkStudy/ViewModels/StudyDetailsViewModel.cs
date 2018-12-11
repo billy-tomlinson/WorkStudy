@@ -102,7 +102,7 @@ namespace WorkStudy.ViewModels
         {
             var unrated1 = new Activity()
             {
-                Name = "Idle",
+                Name = "IDLE",
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId
@@ -110,7 +110,7 @@ namespace WorkStudy.ViewModels
 
             var unrated2 = new Activity()
             {
-                Name = "Inactive",
+                Name = "INACTIVE",
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId
@@ -118,7 +118,7 @@ namespace WorkStudy.ViewModels
 
             var unrated3 = new Activity()
             {
-                Name = "Other",
+                Name = "OTHER",
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId
