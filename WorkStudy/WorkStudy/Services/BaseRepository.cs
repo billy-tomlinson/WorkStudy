@@ -8,75 +8,67 @@ namespace WorkStudy.Services
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity, new()
     {
-        private static readonly object locker = new object();
         string dbPath;
+        string connectionString;
+
         public BaseRepository(string dbPath = null)
         {
-            try
-            {
-                this.dbPath = dbPath;
-                DatabaseConnection = dbPath == null ? new SQLiteConnection(App.DatabasePath) : new SQLiteConnection(dbPath);
-            }
-            catch (SQLiteException ex)
-            {
-                DatabaseConnection = null;
-                DatabaseConnection = dbPath == null ? new SQLiteConnection(App.DatabasePath) : new SQLiteConnection(dbPath);
-
-            }
+            this.dbPath = dbPath;
+            connectionString = dbPath == null ? App.DatabasePath : dbPath;
         }
 
         public IEnumerable<T> GetItems()
         {
-            lock (locker)
+            using(SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                return DatabaseConnection.Table<T>().ToList().OrderBy(x => x.Id);
+                return connection.Table<T>().ToList().OrderBy(x => x.Id); 
             }
         }
 
 
         public IEnumerable<T> GetAllWithChildren()
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                return DatabaseConnection.GetAllWithChildren<T>().OrderBy(x => x.Id);
+                return connection.GetAllWithChildren<T>().OrderBy(x => x.Id);
             }
         }
 
 
         public T GetWithChildren(int id)
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                return DatabaseConnection.GetWithChildren<T>(id);
+                return connection.GetWithChildren<T>(id);
             }
         }
 
         public int GetItemsCount()
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                return DatabaseConnection.Table<T>().Count();
+                return connection.Table<T>().Count();
             }
         }
 
         public T GetItem(int id)
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                return DatabaseConnection.Table<T>().FirstOrDefault(i => i.Id == id);
+                return connection.Table<T>().FirstOrDefault(i => i.Id == id);
             }
         }
 
         public int SaveItem(T item)
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 if (item.Id != 0)
                 {
-                    DatabaseConnection.Update(item);
+                    connection.Update(item);
                     return 0;
                 }
-                DatabaseConnection.Insert(item);
+                connection.Insert(item);
                 return GetId();
             }
         }
@@ -84,17 +76,17 @@ namespace WorkStudy.Services
 
         public int DeleteItem(T item)
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                return DatabaseConnection.Delete(item);
+                return connection.Delete(item);
             }
         }
 
         public void UpdateWithChildren(T item)
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                DatabaseConnection.UpdateWithChildren(item);
+                connection.UpdateWithChildren(item);
             }
         }
 
@@ -103,36 +95,28 @@ namespace WorkStudy.Services
             throw new System.NotImplementedException();
         }
 
-        public SQLiteConnection DatabaseConnection { get; set; }
-
-
         private int GetId()
         {
-            return DatabaseConnection.ExecuteScalar<int>("SELECT last_insert_rowid()");
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                return connection.ExecuteScalar<int>("SELECT last_insert_rowid()");
+            }
         }
 
         public void InsertOrReplaceWithChildren(T item)
         {
-            lock (locker)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                DatabaseConnection.InsertOrReplaceWithChildren(item);
+                connection.InsertOrReplaceWithChildren(item);
             }
         }
 
-        ~BaseRepository()
+        public void CreateTable()
         {
-            // Finalizer calls Dispose(false)
-            Dispose(true);
-        }
-
-        // The bulk of the clean-up code is implemented in Dispose(bool)
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                DatabaseConnection = null;
-               
-            }        
+                connection.CreateTable<T>();
+            }
         }
     }
 }

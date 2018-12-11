@@ -26,7 +26,6 @@ namespace WorkStudy.Services
 
         void InsertOrReplaceWithChildren(T item);
 
-        SQLiteConnection DatabaseConnection { get; }
-
+        void CreateTable();
     }
 }

@@ -199,13 +199,14 @@ namespace WorkStudy.ViewModels
 
         private void EnsureTableCreation()
         {
-            OperatorRepo.DatabaseConnection.CreateTable<Operator>();
-            ObservationRepo.DatabaseConnection.CreateTable<Observation>();
-            ActivityRepo.DatabaseConnection.CreateTable<Activity>();
-            MergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
-            OperatorActivityRepo.DatabaseConnection.CreateTable<ActivitySampleStudy>();
-            SampleRepo.DatabaseConnection.CreateTable<OperatorActivity>();
+            OperatorRepo.CreateTable();
+            ObservationRepo.CreateTable();
+            ActivityRepo.CreateTable();
+            MergedActivityRepo.CreateTable();
+            OperatorActivityRepo.CreateTable();
+            SampleRepo.CreateTable();
         }
+       
 
         public void CloseValidationView()
         {
