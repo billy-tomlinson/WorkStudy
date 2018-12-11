@@ -1,4 +1,5 @@
 ﻿using WorkStudy.Pages;
+using WorkStudy.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +16,12 @@ namespace WorkStudy.Pages
 
 		    Navigate();
 
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Utilities.ClearNavigation();
         }
 
 	    async void Navigate()

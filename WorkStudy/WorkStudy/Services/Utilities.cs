@@ -33,6 +33,24 @@ namespace WorkStudy.Services
         public static string ValidColour = "#d5f0f1";
         public static string InValidColour = "#fff0f0";
 
+        public static void ClearNavigation()
+        {
+            try
+            {
+                var existingPages = App.NavigationPage.Navigation.NavigationStack.ToList();
+
+                for (int i = 0; i < existingPages.Count; i++)
+                {
+                    if (i != existingPages.Count - 1)
+                        App.NavigationPage.Navigation.RemovePage(existingPages[i]);
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
         public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)
         {
             int counter = 0;

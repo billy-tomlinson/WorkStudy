@@ -179,18 +179,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\undo.png">
+    <BundleResource Include="Resources\alert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidResource>
-    <AndroidResource Include="Resources\settings.png">
+    </BundleResource>
+    <BundleResource Include="Resources\delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidResource>
-    <AndroidResource Include="Resources\stopwatch.jpg" />
-    <AndroidResource Include="Resources\alert.png">
+    </BundleResource>
+    <BundleResource Include="Resources\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidResource>
-    <AndroidResource Include="Resources\delete.png">
+    </BundleResource>
+    <BundleResource Include="Resources\stopwatch.jpg" />
+    <BundleResource Include="Resources\undo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidResource>
+    </BundleResource>
+    <BundleResource Include="Resources\thumb.png" />
   </ItemGroup>
 </Project>

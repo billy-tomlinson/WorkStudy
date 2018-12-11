@@ -1,4 +1,5 @@
-﻿using WorkStudy.ViewModels;
+﻿using WorkStudy.Services;
+using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -12,11 +13,10 @@ namespace WorkStudy.Pages
             listOfStudies.BindingContext = new ExistingStudiesViewModel(true);
         }
 
-        //public CompletedStudiesPage(bool completed)
-        //{
-        //    InitializeComponent();
-        //    NavigationPage.SetHasNavigationBar(this, false);
-        //    listOfStudies.BindingContext = new ExistingStudiesViewModel(completed);
-        //}
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Utilities.ClearNavigation();
+        }
     }
 }

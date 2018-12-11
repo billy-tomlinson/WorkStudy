@@ -1,4 +1,5 @@
-﻿using WorkStudy.ViewModels;
+﻿using WorkStudy.Services;
+using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -21,8 +22,8 @@ namespace WorkStudy.Pages
         {
             BindingContext = new AddOperatorsViewModel();
             base.OnAppearing();
+            Utilities.ClearNavigation();
         }
-
     }
 }
 

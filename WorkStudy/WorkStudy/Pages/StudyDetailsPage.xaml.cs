@@ -36,5 +36,11 @@ namespace WorkStudy.Pages
         {
             return true;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Utilities.ClearNavigation();
+        }
     }
 }

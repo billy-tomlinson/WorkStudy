@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -16,6 +16,12 @@ namespace WorkStudy.Pages
         protected override bool OnBackButtonPressed()
         {
             return true;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Utilities.ClearNavigation();
         }
     }
 }

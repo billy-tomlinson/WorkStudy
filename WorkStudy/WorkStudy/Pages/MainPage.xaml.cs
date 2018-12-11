@@ -32,6 +32,7 @@ namespace WorkStudy.Pages
         {
             BindingContext = new MainPageViewModel();
             base.OnAppearing();
+            Utilities.ClearNavigation();
         }
 
         //protected override void OnDisappearing()

@@ -1,5 +1,4 @@
-﻿
-using WorkStudy.Services;
+﻿using WorkStudy.Services;
 using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
@@ -11,7 +10,6 @@ namespace WorkStudy.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-
         }
 
         protected override bool OnBackButtonPressed()
@@ -23,6 +21,7 @@ namespace WorkStudy.Pages
         {
             base.OnAppearing();
             BindingContext = new AddActivitiesViewModel();
+            Utilities.ClearNavigation();
         }
     }
 }
