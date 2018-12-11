@@ -69,7 +69,7 @@ namespace WorkStudy.Services
                     return 0;
                 }
                 connection.Insert(item);
-                return GetId();
+                return connection.ExecuteScalar<int>("SELECT last_insert_rowid()");
             }
         }
 
@@ -93,14 +93,6 @@ namespace WorkStudy.Services
         public void Dispose()
         {
             throw new System.NotImplementedException();
-        }
-
-        private int GetId()
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                return connection.ExecuteScalar<int>("SELECT last_insert_rowid()");
-            }
         }
 
         public void InsertOrReplaceWithChildren(T item)
