@@ -85,6 +85,17 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static double totalPercent;
+        public double TotalPercent
+        {
+            get => totalPercent;
+            set
+            {
+                totalPercent = value;
+                OnPropertyChanged();
+            }
+        }
         static string operatorName;
         public string OperatorName
         {
@@ -137,6 +148,7 @@ namespace WorkStudy.ViewModels
                 observations = new List<Observation>();
                 UpdateObservationRound();
                 CreateOperatorObservations();
+                TotalPercent = GetStudyTotalPercent();
             }
             else 
             {
@@ -285,6 +297,7 @@ namespace WorkStudy.ViewModels
                 AccuracyReached = limitsOfAccuracy, 
                 TotalPercentage = Math.Round(totalPercentage, 1) 
             };
+
         }
 
         public ICommand ItemClickedCommand
@@ -357,6 +370,8 @@ namespace WorkStudy.ViewModels
 
             CreateOperatorObservations();
 
+            TotalPercent = GetStudyTotalPercent();
+
             IsInvalid = false;
 
             if (isInvalid)
@@ -387,8 +402,6 @@ namespace WorkStudy.ViewModels
 
         private void CreateOperatorObservations()
         {
-
-            
             var ops = new ObservableCollection<OperatorObservation>();
             bool added = false;
 
@@ -411,6 +424,7 @@ namespace WorkStudy.ViewModels
                             IsRated = obs.Rating > 0,
                             ObservedColour = System.Drawing.Color.Silver,
                             LimitsOfAccuracy = limitsReached.AccuracyReached,
+                            TotalPercentageDouble = limitsReached.TotalPercentage,
                             TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
                         };
 
@@ -429,6 +443,7 @@ namespace WorkStudy.ViewModels
                         IsRated = false,
                         ObservedColour = System.Drawing.Color.Gray,
                         LimitsOfAccuracy = limitsReached.AccuracyReached,
+                        TotalPercentageDouble = limitsReached.TotalPercentage,
                         TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
                     };
                     ops.Add(opObs);
@@ -444,6 +459,20 @@ namespace WorkStudy.ViewModels
             return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId
                                                            && _.IsEnabled));
+        }
+
+        private double GetStudyTotalPercent()
+        {
+            double totalPercent = 0;
+            foreach (var op in OperatorObservations)
+            {
+                totalPercent = totalPercent + op.TotalPercentageDouble;
+            }
+
+            if(totalPercent > 0)
+                totalPercent =  totalPercent / OperatorObservations.Count();
+
+            return Math.Round(totalPercent, 1);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace WorkStudy.Services
         }
 
         public static Color Clicked = Color.Orange;
-        public static Color UnClicked = Color.Navy;
+        public static Color UnClicked = Color.FromHex("#4174f4");
 
         public static string ValidColour = "#d5f0f1";
         public static string InValidColour = "#fff0f0";

@@ -4,8 +4,11 @@
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}">
-                <StackLayout Padding="5" Margin="5">
+                <StackLayout Padding="5" Margin="5" Orientation="Horizontal" HorizontalOptions="Center">
                     <views:StudyDetailsView />
+                    <Label Text="   Observed: "></Label>
+                    <Label Text="{Binding TotalPercent}"></Label>
+                    <Label Text="%"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
                     <Label Text="Observation Round : " FontSize="15" TextColor="Black" HorizontalOptions="Start" />
@@ -26,11 +29,16 @@
                             <ViewCell>
                                 <StackLayout Padding="20" BackgroundColor="{Binding ObservedColour}">
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="15" WidthRequest="140" />
-                                        <Label Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
-                                        <Image Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}"  WidthRequest="40"/>
-                                        <Label Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
-                                        <Label Text="{Binding Rating}" WidthRequest="40" IsVisible="{Binding IsRated}" 
+                                        <Label Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="15" 
+                                               WidthRequest="140" />
+                                        <Label Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" 
+                                               FontSize="12" WidthRequest="40" />
+                                        <Image Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}"  
+                                               WidthRequest="40"/>
+                                        <Label Text="{Binding ActivityName}" HorizontalTextAlignment="Start"
+                                               FontSize="12" WidthRequest="140" />
+                                        <Label Text="{Binding Rating}" WidthRequest="40" 
+                                               IsVisible="{Binding IsRated}" 
                                                HorizontalTextAlignment="Start" FontSize="12" />
                                     </StackLayout>
                                 </StackLayout>
