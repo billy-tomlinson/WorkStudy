@@ -16,6 +16,6 @@
 
         public bool LimitsOfAccuracy { get; set; }
 
-        public double TotalPercentage { get; set; }
+        public string TotalPercentage { get; set; }
     }
 }

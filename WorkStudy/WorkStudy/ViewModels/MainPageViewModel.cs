@@ -265,7 +265,7 @@ namespace WorkStudy.ViewModels
                 }
 
                 if (count >= totalRequired)
-                    totalPercentage = totalPercentage + 100;
+                    totalPercentage = totalPercentage + 1;
                 
                 if (count <= totalRequired)
                 {
@@ -408,7 +408,7 @@ namespace WorkStudy.ViewModels
                             IsRated = obs.Rating > 0,
                             ObservedColour = System.Drawing.Color.Silver,
                             LimitsOfAccuracy = limitsReached.AccuracyReached,
-                            TotalPercentage = limitsReached.TotalPercentage
+                            TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
                         };
 
                         ops.Add(opObservation);
@@ -426,7 +426,7 @@ namespace WorkStudy.ViewModels
                         IsRated = false,
                         ObservedColour = System.Drawing.Color.Gray,
                         LimitsOfAccuracy = limitsReached.AccuracyReached,
-                        TotalPercentage = limitsReached.TotalPercentage
+                        TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
                     };
                     ops.Add(opObs);
                 } 
