@@ -151,6 +151,7 @@ namespace WorkStudy.ViewModels
         {
             var study = SampleRepo.GetItem(Utilities.StudyId);
             study.Completed = true;
+            Utilities.IsCompleted = true;
             SampleRepo.SaveItem(study);
             Utilities.Navigate(new ReportsPage());
         }
