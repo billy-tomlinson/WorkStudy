@@ -1,62 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="WorkStudy.Views.ExistingStudiesView1" 
-             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             BackgroundColor="Transparent">
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Label" ApplyToDerivedTypes="True">
-                <Setter Property="HorizontalTextAlignment" Value="Start" />
-                <Setter Property="TextColor" Value="#605F5F" />
-                <Setter Property="FontSize" Value="15" />
-            </Style>
-        </ResourceDictionary>
-    </ContentView.Resources>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.Views.ExistingStudiesView1" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" BackgroundColor="Transparent">
     <ContentView.Content>
-        <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
-                        BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
             <StackLayout BackgroundColor="Transparent">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="2,2,2,2">
-                    <Label Text="Existing Studies" FontSize="20" TextColor="White"/>
+                    <Label Text="Existing Studies" FontSize="20" TextColor="White" />
                 </StackLayout>
                 <local:CustomListView x:Name="List" Margin="0,10" 
                                       ItemsSource="{Binding ActivitySamples}" 
-                                      BackgroundColor="#FCFAFA" 
-                                      HasUnevenRows="True" 
+                                      BackgroundColor="Gray" HasUnevenRows="True" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" 
-                                      SeparatorVisibility="Default"
-                                      SeparatorColor="#605F5F"
-                                      HeightRequest="500">
+                                      HorizontalOptions="Center" SeparatorVisibility="Default" 
+                                      SeparatorColor="#605F5F" HeightRequest="500">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell >
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout Padding="20" Orientation="Vertical">
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label WidthRequest="80" Text="Name: "/>
-                                            <Label Text="{Binding Name}"/>
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label  WidthRequest="80" Text="Number: "/>
-                                            <Label Text="{Binding StudyNumber}"/>
-                                        </StackLayout>
-                                         <StackLayout Orientation="Horizontal">
-                                            <Label WidthRequest="80" Text="Date: "/>
-                                            <Label Text="{Binding Date}" />
-                                            <Label Text="{Binding Time}" />
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label WidthRequest="80" Text="Studied By: " />
-                                            <Label Text="{Binding StudiedBy}" />
-                                        </StackLayout>
-                                    </StackLayout>
+                            <ViewCell>
+                                <StackLayout Padding="0" BackgroundColor="Gray">
+                                    <Grid Padding="5" Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="NAME: " FontSize="15" HorizontalTextAlignment="Start" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="STUDY NUMBER: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding StudyNumber}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="2" Grid.Column="0" Text="DATE: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Date}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="2" Grid.Column="2" Text="{Binding Time}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" FontSize="12" />
+                                    </Grid>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

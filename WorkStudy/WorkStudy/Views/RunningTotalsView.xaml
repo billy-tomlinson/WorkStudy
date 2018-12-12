@@ -1,22 +1,27 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:custom="clr-namespace:WorkStudy.Custom;assembly=WorkStudy"
              x:Name="RunningTotals"
              x:Class="WorkStudy.Views.RunningTotalsView">
   <ContentView.Content>
-      <StackLayout>
-            <custom:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding RunningTotals}" BackgroundColor="Gray" HasUnevenRows="True" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" HeightRequest="380">
+      <StackLayout BackgroundColor="Gray" HeightRequest="450">
+            <custom:CustomListView x:Name="List" Margin="3" 
+                                   ItemsSource="{Binding RunningTotals}" 
+                                   BackgroundColor="Gray" 
+                                   HasUnevenRows="True" 
+                                   HorizontalOptions="Center" 
+                                   HeightRequest="370">
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="20" BackgroundColor="Wheat">
-                                <Grid Padding="5">
+                            <StackLayout Padding="0" BackgroundColor="Gray">
+                                <Grid Padding="5" Margin="5">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="30">
+                                        <RowDefinition Height="*">
                                         </RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
@@ -24,20 +29,21 @@
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="*">
+                                        <ColumnDefinition Width="2*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Row="0" Grid.Column="0" Text="{Binding ActivityName}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
                                     <Label Grid.Row="0" Grid.Column="1" Text="{Binding NumberOfObservations}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
-                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding PercentageFormatted}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding PercentageFormatted}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </custom:CustomListView>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Close" WidthRequest="205" MinimumWidthRequest="205"  Command="{Binding Path = BindingContext.CloseRunningTotals, Source={x:Reference RunningTotals}}" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                <Button Text="Close" WidthRequest="150" MinimumWidthRequest="150"  
+                        Command="{Binding Path = BindingContext.CloseRunningTotals, Source={x:Reference RunningTotals}}" />
             </StackLayout>
         </StackLayout>
   </ContentView.Content>

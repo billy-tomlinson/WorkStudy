@@ -26,10 +26,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Padding="20" BackgroundColor="{Binding ObservedColour}">
-                                    <Grid Padding="5">
+                                <StackLayout Padding="5" BackgroundColor="{Binding ObservedColour}">
+                                    <Grid Padding="5" Margin="5">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="30">
+                                            <RowDefinition Height="*">
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
@@ -41,14 +41,14 @@
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="4*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="*">
+                                            <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
                                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
                                         <Image Grid.Row="0" Grid.Column="2" Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}" WidthRequest="40" />
                                         <Label Grid.Row="0" Grid.Column="3" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
-                                        <Label Grid.Row="0" Grid.Column="4" Text="{Binding Rating}" WidthRequest="40" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="0" Grid.Column="4" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
