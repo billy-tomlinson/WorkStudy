@@ -21,6 +21,7 @@ namespace WorkStudy.ViewModels
         public Command ItemSelected { get; set; }
         public Command SettingsSelected { get; set; }
         public Command DeleteSelected { get; set; }
+        public Command CloseRunningTotals { get; set; }
 
         public Operator Operator;
 
@@ -73,6 +74,18 @@ namespace WorkStudy.ViewModels
             set
             {
                 activitiesVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        static bool runningTotalsVisible;
+        public bool RunningTotalsVisible
+        {
+            get => runningTotalsVisible;
+            set
+            {
+                runningTotalsVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -259,6 +272,12 @@ namespace WorkStudy.ViewModels
             var value = (int)sender;
             Operator = OperatorRepo.GetWithChildren(value);
             RunningTotals = new ObservableCollection<OperatorRunningTotal>(GetRunningTotals());
+            RunningTotalsVisible = true;
+        }
+
+        void CloseRunningTotalsEvent(object sender)
+        {
+            RunningTotalsVisible = false;
         }
 
         private void ConstructorSetUp()
@@ -270,6 +289,7 @@ namespace WorkStudy.ViewModels
             ItemSelected = new Command(OperatorSelectedEvent);
             SettingsSelected = new Command(AddActivitiesSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
+            CloseRunningTotals = new Command(CloseRunningTotalsEvent);
 
             ItemsCollection = GetAllOperators();
             Activities = Get_Rated_Enabled_Activities_WithChildren();

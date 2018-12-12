@@ -47,6 +47,7 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
+            <views:RunningTotalsView IsVisible="{Binding RunningTotalsVisible}" Padding="10, 0, 20 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
