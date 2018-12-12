@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
@@ -38,6 +40,17 @@ namespace WorkStudy.ViewModels
             set
             {
                 itemsCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<OperatorRunningTotal> runningTotals;
+        public ObservableCollection<OperatorRunningTotal> RunningTotals
+        {
+            get => runningTotals;
+            set
+            {
+                runningTotals = value;
                 OnPropertyChanged();
             }
         }
@@ -244,6 +257,8 @@ namespace WorkStudy.ViewModels
         void OperatorSelectedEvent(object sender)
         {
             var value = (int)sender;
+            Operator = OperatorRepo.GetWithChildren(value);
+            RunningTotals = new ObservableCollection<OperatorRunningTotal>(GetRunningTotals());
         }
 
         private void ConstructorSetUp()
@@ -340,6 +355,36 @@ namespace WorkStudy.ViewModels
             }
 
             OperatorRepo.UpdateWithChildren(op);
+        }
+
+        private List<OperatorRunningTotal> GetRunningTotals()
+        {
+            var totals = new List<OperatorRunningTotal>();
+
+            var activities = Operator.Activities;
+            var observations = Operator.Observations;
+            var totalObs = observations.Count;
+
+            foreach (var item in activities)
+            {
+                var count = observations.Count(x => x.ActivityId == item.Id);
+                double percentage = count > 0 ? (double)count / totalObs : 0;
+                percentage = Math.Round(percentage * 100, 1);
+
+                var runningTotal = new OperatorRunningTotal()
+                {
+                    ActivityId = item.Id,
+                    OperatorId = Operator.Id,
+                    ActivityName = item.Name,
+                    NumberOfObservations = count,
+                    Percentage = percentage,
+                    PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
+                };
+
+                totals.Add(runningTotal);
+            }
+
+            return totals;
         }
 
         private ObservableCollection<Operator> GetAllOperators()
