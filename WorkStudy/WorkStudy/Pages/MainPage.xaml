@@ -14,12 +14,15 @@
                     </Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
-                    <Label Text="Observation Round : " FontSize="15" TextColor="Black" HorizontalOptions="Start" />
-                    <Label Text="{Binding ObservationRound}" FontSize="15" TextColor="Black" />
-                    <Label Text="  Time : " FontSize="15" TextColor="Black" />
-                    <TimePicker Time="{Binding CurrentTime}" FontSize="15" TextColor="Black" IsEnabled="false" />
+                    <Label Text="Observation Round : " FontSize="15" HorizontalOptions="Start" />
+                    <Label Text="{Binding ObservationRound}" FontSize="15" />
+                    <Label Text="  Time : " FontSize="15" />
+                    <TimePicker Time="{Binding CurrentTime}" FontSize="15" IsEnabled="false" />
                 </StackLayout>
-                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" BackgroundColor="Gray" HasUnevenRows="True" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" HeightRequest="380">
+                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" 
+                                      BackgroundColor="Gray" HasUnevenRows="True" 
+                                      ItemClickedCommand="{Binding ItemClickedCommand}" 
+                                      HorizontalOptions="Center" HeightRequest="380">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>

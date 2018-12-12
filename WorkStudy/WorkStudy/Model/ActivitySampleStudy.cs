@@ -21,6 +21,11 @@ namespace WorkStudy.Model
         public bool IsRated { get; set; }
 
         public bool Completed { get; set; }
+        [Ignore]
+        public string DateTimeFormatted 
+        { 
+            get { return $"{Date.ToString("dd/MM/yyyy")} : {Time.ToString((@"hh\:mm"))}"; } 
+        }
 
     }
 }

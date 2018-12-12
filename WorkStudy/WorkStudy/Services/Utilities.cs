@@ -23,7 +23,7 @@ namespace WorkStudy.Services
 
         public static async void Navigate(Page page)
         {
-            await Task.Delay(1000);
+            await Task.Delay(500);
             await App.NavigationPage.Navigation.PushAsync(page);
         }
 

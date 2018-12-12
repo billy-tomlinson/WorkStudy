@@ -35,18 +35,16 @@
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="*">
-                                            </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="NAME: " FontSize="15" HorizontalTextAlignment="Start" />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="NAME: " FontSize="12" HorizontalTextAlignment="Start" />
                                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="12" />
                                         <Label Grid.Row="1" Grid.Column="0" Text="STUDY NUMBER: " HorizontalTextAlignment="Start" FontSize="12" />
                                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding StudyNumber}" HorizontalTextAlignment="Start" FontSize="12" />
                                         <Label Grid.Row="2" Grid.Column="0" Text="DATE: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Date}" HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="2" Grid.Column="2" Text="{Binding Time}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
                                         <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" 
+                                               FontSize="12" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>

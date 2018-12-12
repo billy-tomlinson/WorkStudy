@@ -114,7 +114,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\drawable\thumbsUp.png" />
-    <AndroidResource Include="Resources\drawable\stopwatch.jpg" />
     <AndroidResource Include="Resources\drawable\chart.png" />
     <AndroidResource Include="Resources\drawable\delete.png" />
     <AndroidResource Include="Resources\drawable\settings.png" />
@@ -122,6 +121,7 @@
     <AndroidResource Include="Resources\drawable\alert.png" />
     <AndroidResource Include="Resources\drawable\undo.png" />
     <AndroidResource Include="Resources\drawable\thumb.png" />
+    <AndroidResource Include="Resources\drawable\stopwatch.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-hdpi\" />
