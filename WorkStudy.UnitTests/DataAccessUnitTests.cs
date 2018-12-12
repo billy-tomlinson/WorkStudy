@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SQLiteNetExtensions.Extensions;
 using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -61,7 +60,7 @@ namespace WorkStudy.UnitTests
                 Assert.AreEqual(id, sample.Id);
                 Assert.AreEqual(activityStudy.Department, sample.Department);
             }
-
+ 
 
             [TestMethod]
             public void AddAndUpdateAndRetrieveActivitySampleStudy()
@@ -453,7 +452,7 @@ namespace WorkStudy.UnitTests
             private Activity TestActivityMerges()
             {
 
-                mergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
+                mergedActivityRepo.CreateTable();
 
                 var activity1 = new Activity()
                 {
@@ -487,9 +486,9 @@ namespace WorkStudy.UnitTests
 
                 returnedActivity1.Activities = new List<Activity> {returnedActivity2, returnedActivity3};
 
-                activityRepo.DatabaseConnection.UpdateWithChildren(returnedActivity1);
+                activityRepo.UpdateWithChildren(returnedActivity1);
 
-                var activityStored = activityRepo.DatabaseConnection.GetWithChildren<Activity>(returnedActivity1.Id);
+                var activityStored = activityRepo.GetWithChildren(returnedActivity1.Id);
 
                 Assert.AreEqual(returnedActivity1.Id, activityStored.Id);
                 Assert.AreEqual(returnedActivity2.Id, activityStored.Activities[0].Id);
@@ -534,7 +533,7 @@ namespace WorkStudy.UnitTests
 
                 operator1.Activities = new List<Activity> {returnedActivity1, returnedActivity2};
 
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
+                //operatorActivityRepo.UpdateWithChildren(operator1);
 
                 return operator1;
             }
@@ -576,7 +575,7 @@ namespace WorkStudy.UnitTests
 
                 operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
 
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
+                //operatorActivityRepo.UpdateWithChildren(operator1);
 
                 return operator1;
             }
@@ -628,8 +627,8 @@ namespace WorkStudy.UnitTests
                 operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
                 operator2.Activities = new List<Activity> { returnedActivity1 };
 
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator2);
+                //operatorActivityRepo.UpdateWithChildren(operator1);
+                //operatorActivityRepo.UpdateWithChildren(operator2);
             }
 
 
@@ -680,31 +679,61 @@ namespace WorkStudy.UnitTests
                 operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
                 operator2.Activities = new List<Activity> { returnedActivity1 };
 
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator1);
-                operatorActivityRepo.DatabaseConnection.UpdateWithChildren(operator2);
+                //operatorActivityRepo.UpdateWithChildren(operator1);
+                //operatorActivityRepo.UpdateWithChildren(operator2);
             }
             private void CleanDatabase()
             {
-                activityRepo.DatabaseConnection.DropTable<Activity>();
-                activityRepo.DatabaseConnection.CreateTable<Activity>();
+                //activityRepo.DropTable();
+                //activityRepo.CreateTable();
 
-                operatorRepo.DatabaseConnection.DropTable<Operator>();
-                operatorRepo.DatabaseConnection.CreateTable<Operator>();
+                //operatorRepo.DropTable();
+                //operatorRepo.CreateTable();
 
-                sampleRepo.DatabaseConnection.DropTable<ActivitySampleStudy>();
-                sampleRepo.DatabaseConnection.CreateTable<ActivitySampleStudy>();
+                //sampleRepo.DropTable();
+                //sampleRepo.CreateTable();
 
-                observationRepo.DatabaseConnection.DropTable<Observation>();
-                observationRepo.DatabaseConnection.CreateTable<Observation>();
+                //observationRepo.DropTable();
+                //observationRepo.CreateTable();
 
-                operatorActivityRepo.DatabaseConnection.DropTable<OperatorActivity>();
-                operatorActivityRepo.DatabaseConnection.CreateTable<OperatorActivity>();
+                //operatorActivityRepo.DropTable();
+                //operatorActivityRepo.CreateTable();
 
-                mergedActivityRepo.DatabaseConnection.DropTable<MergedActivities>();
-                mergedActivityRepo.DatabaseConnection.CreateTable<MergedActivities>();
+                //mergedActivityRepo.DropTable();
+                //mergedActivityRepo.CreateTable();
             }
 
+            [TestMethod]
+            public void Test_Operator_Activities_SumUp()
+            {
+                List<OperatorRunningTotal> runningTotals = new List<OperatorRunningTotal>();
 
+                int opId = 1;
+
+                var operators = operatorRepo.GetWithChildren(opId);
+                var activities = operators.Activities;
+                var observations = operators.Observations;
+                var totalObs = observations.Count;
+
+                foreach (var item in activities)
+                {
+                    var count = observations.Count(x => x.ActivityId == item.Id);
+                    double percentage = count > 0 ? (double)count / totalObs : 0;
+                    percentage = Math.Round(percentage * 100, 1); 
+
+                    var runningTotal = new OperatorRunningTotal()
+                    {
+                        ActivityId = item.Id,
+                        OperatorId = opId,
+                        ActivityName = item.Name,
+                        NumberOfObservations = count,
+                        Percentage = percentage,
+                        PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
+                    };
+
+                    runningTotals.Add(runningTotal);
+                }
+            }
         }
     }
 }

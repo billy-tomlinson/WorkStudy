@@ -27,5 +27,7 @@ namespace WorkStudy.Services
         void InsertOrReplaceWithChildren(T item);
 
         void CreateTable();
+
+        void DropTable();
     }
 }

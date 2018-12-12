@@ -110,5 +110,13 @@ namespace WorkStudy.Services
                 connection.CreateTable<T>();
             }
         }
+
+        public void DropTable()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.DropTable<T>();
+            }
+        }
     }
 }
