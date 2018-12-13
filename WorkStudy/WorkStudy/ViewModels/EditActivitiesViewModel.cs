@@ -142,6 +142,8 @@ namespace WorkStudy.ViewModels
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
+            InvalidText = $"There are no activities to merge for study {Utilities.StudyId}";
+            IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted && Activities.Count > 0);
         }
 
     }
