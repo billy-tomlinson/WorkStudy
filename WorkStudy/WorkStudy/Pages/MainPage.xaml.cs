@@ -30,9 +30,14 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            BindingContext = new MainPageViewModel();
-            base.OnAppearing();
+            var viewModel = new MainPageViewModel
+            {
+                RatingsVisible = false,
+                ActivitiesVisible = false,
+            };
+            BindingContext = viewModel;
             Utilities.ClearNavigation();
+            base.OnAppearing();
         }
 
         //protected override void OnDisappearing()

@@ -19,9 +19,14 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-            BindingContext = new AddActivitiesViewModel();
+            var viewModel = new AddActivitiesViewModel
+            {
+                CommentsVisible = false
+            };
+            BindingContext = viewModel;
             Utilities.ClearNavigation();
+            base.OnAppearing();
+           
         }
     }
 }

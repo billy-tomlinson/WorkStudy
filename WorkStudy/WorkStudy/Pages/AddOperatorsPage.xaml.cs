@@ -20,9 +20,13 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            BindingContext = new AddOperatorsViewModel();
-            base.OnAppearing();
+            var viewModel = new AddOperatorsViewModel
+            {
+                RunningTotalsVisible = false
+            };
+            BindingContext = viewModel;
             Utilities.ClearNavigation();
+            base.OnAppearing();
         }
     }
 }
