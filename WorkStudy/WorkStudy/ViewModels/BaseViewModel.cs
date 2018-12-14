@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -24,6 +25,10 @@ namespace WorkStudy.ViewModels
             EnsureTableCreation();
             InvalidText = "Please create a new study or select an existing one.";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
+            if (!Utilities.OnStudyPage) 
+            {
+                IsOkToNavigateAway();
+            }
         }
 
         public Command SubmitDetails { get; set; }
@@ -42,6 +47,16 @@ namespace WorkStudy.ViewModels
 
         public TimeSpan CurrentTime => DateTime.Now.TimeOfDay;
 
+        static int _observationRound;
+        public int ObservationRound
+        {
+            get => _observationRound;
+            set
+            {
+                _observationRound = value;
+                OnPropertyChanged();
+            }
+        }
 
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities
@@ -213,5 +228,20 @@ namespace WorkStudy.ViewModels
             Opacity = 1;
             IsInvalid = false;
         }
+
+        public void IsOkToNavigateAway()         {             var obs = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId                                                  && x.ObservationNumber == ObservationRound)                                                 .ToList();              if (obs.Count() > 0)             {
+                if(Utilities.CurrentPageName != null && Utilities.CurrentPageName != "Current Study")
+                {
+                    Utilities.StudyPageInvalid = true;
+                    Utilities.OnStudyPage = true;
+                    Utilities.Navigate(new MainPageTabbedPage());
+                }
+            }
+            else
+            {
+                Utilities.StudyPageInvalid = false;
+            }
+
+        }  
     }
 }

@@ -20,6 +20,9 @@ namespace WorkStudy.Services
         public static int StudySetUpComplete { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static bool StudyDetailsActive { get; set; }
+        public static string CurrentPageName { get; set; }
+        public static bool OnStudyPage { get; set; }
+        public static bool StudyPageInvalid { get; set; }
 
         public static async void Navigate(Page page)
         {

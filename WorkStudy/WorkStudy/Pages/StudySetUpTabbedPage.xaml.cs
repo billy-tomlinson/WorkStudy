@@ -22,5 +22,12 @@ namespace WorkStudy.Pages
             base.OnAppearing();
             Utilities.ClearNavigation();
         }
+
+        protected override void OnCurrentPageChanged()
+        {
+            base.OnCurrentPageChanged();
+            Utilities.CurrentPageName = CurrentPage.Title;
+        }
+
     }
 }

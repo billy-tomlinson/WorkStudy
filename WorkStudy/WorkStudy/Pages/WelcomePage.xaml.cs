@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AppCenter.Crashes;
-using WorkStudy.Pages;
-using WorkStudy.Services;
+﻿using WorkStudy.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

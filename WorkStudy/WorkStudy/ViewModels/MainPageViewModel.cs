@@ -16,7 +16,6 @@ namespace WorkStudy.ViewModels
     {
         private OperatorObservation operator1;
         List<Observation> observations = new List<Observation>();
-        private readonly bool isInvalid;
 
         public Command SaveObservations { get; set; }
         public Command ActivitySelected { get; set; }
@@ -30,9 +29,8 @@ namespace WorkStudy.ViewModels
             ConstructorSetUp();
         }
 
-        public MainPageViewModel(bool isInvalid = false)
+        public MainPageViewModel()
         {
-            this.isInvalid = isInvalid;
             ConstructorSetUp();
         }
 
@@ -59,17 +57,6 @@ namespace WorkStudy.ViewModels
             set
             {
                 _operatorObservations = value;
-                OnPropertyChanged();
-            }
-        }
-
-        static int _observationRound = 1;
-        public int ObservationRound
-        {
-            get => _observationRound;
-            set
-            {
-                _observationRound = value;
                 OnPropertyChanged();
             }
         }
@@ -348,14 +335,14 @@ namespace WorkStudy.ViewModels
             EndStudy = new Command(TerminateStudy);
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
-
+            Opacity = 1.0;
             Operators = GetAllEnabledOperators();
 
             var lastObservation = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
                                               .OrderByDescending(y => y.ObservationNumber)
                                               .Select(c => c.ObservationNumber).FirstOrDefault();
 
-            if (!isInvalid)
+            if (!Utilities.StudyPageInvalid)
                 ObservationRound = lastObservation + 1;
             else
             {
@@ -372,11 +359,8 @@ namespace WorkStudy.ViewModels
 
             TotalPercent = GetStudyTotalPercent();
 
-            IsInvalid = false;
-
-            if (isInvalid)
+            if (Utilities.StudyPageInvalid)
             {
-                IsInvalid = true;
                 Opacity = 0.2;
                 SaveObservationDetails();
             }

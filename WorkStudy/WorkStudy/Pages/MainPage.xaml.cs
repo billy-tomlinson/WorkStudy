@@ -6,21 +6,16 @@ namespace WorkStudy.Pages
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage(bool isInvalid = false)
-        {
-            ConstructorSetUp(isInvalid);
-        }
-
         public MainPage()
         {
-            ConstructorSetUp(false);
+            ConstructorSetUp();
         }
 
-        private void ConstructorSetUp(bool isInvalid)
+        private void ConstructorSetUp()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = new MainPageViewModel(false);
+            BindingContext = new MainPageViewModel();
         }
 
         protected override bool OnBackButtonPressed()
@@ -39,12 +34,5 @@ namespace WorkStudy.Pages
             Utilities.ClearNavigation();
             base.OnAppearing();
         }
-
-        //protected override void OnDisappearing()
-        //{
-        //    if(!Utilities.AllObservationsTaken)
-        //        Navigation.PushAsync(new MainPage(true));
-        //    base.OnDisappearing();
-        //}
     }
 }
