@@ -234,7 +234,7 @@ namespace WorkStudy.ViewModels
                 {
                     Utilities.StudyPageInvalid = true;
                     Utilities.OnStudyPage = true;
-                    Utilities.Navigate(new MainPageTabbedPage());
+                    //Utilities.Navigate(new MainPageTabbedPage());
                 }
             }
             else
