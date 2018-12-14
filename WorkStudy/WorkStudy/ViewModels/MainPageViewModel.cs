@@ -359,11 +359,7 @@ namespace WorkStudy.ViewModels
 
             TotalPercent = GetStudyTotalPercent();
 
-            if (Utilities.StudyPageInvalid)
-            {
-                Opacity = 0.2;
-                SaveObservationDetails();
-            }
+            if (Utilities.StudyPageInvalid) Opacity = 1.0;
                 
         }
 
