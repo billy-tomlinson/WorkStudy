@@ -35,8 +35,8 @@ namespace WorkStudy.Model
         [Ignore]
         public Color Colour { get; set; }
 
-        [ManyToMany(typeof(OperatorActivity))]
-        public List<Operator> Operators { get; set; }
+        //[ManyToMany(typeof(OperatorActivity))]
+        //public List<Operator> Operators { get; set; }
 
         [ManyToMany(typeof(MergedActivities), "ActivityId", "MergedActivities",
         CascadeOperations = CascadeOperation.All)]

@@ -256,8 +256,10 @@ namespace WorkStudy.ViewModels
 
         private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
         {
-            var activeActivities = currentOperator.Activities.Where(v => v.IsEnabled).ToList();
-            var totalRequired = Utilities.CalculateObservationsRequired(activeActivities);
+            //var activeActivities = currentOperator.Activities.Where(v => v.IsEnabled).ToList();
+            var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == currentOperator.Id).ToList();
+            var activeActivities = new List<Activity>();
+            var totalRequired = Utilities.CalculateObservationsRequired(observationsTaken);
             var limitsOfAccuracy = true;
 
             double totalPercentage = 0;
@@ -320,8 +322,11 @@ namespace WorkStudy.ViewModels
                     OperatorId = operator1.Id
                 };
                 OperatorName = operator1.Name;
-                Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
-                                                                .Activities.Where(x => x.IsEnabled));
+                //Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
+                                                                //.Activities.Where(x => x.IsEnabled));
+                Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                                                .Where(x => x.StudyId == Utilities.StudyId 
+                                                                       && x.IsEnabled == true));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;
@@ -382,9 +387,9 @@ namespace WorkStudy.ViewModels
             if (Utilities.StudyId == 0 || Utilities.IsCompleted)
                 return false;
 
-            if ((Activities.Count == 0) ||
-                    (!Operators.Any()) ||
-                    (Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
+            if (Activities.Count == 0 || !Operators.Any())
+                //||
+                    //(Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
             {
                 InvalidText = $"Please add Activities and/or Operators to study {Utilities.StudyId.ToString()}";
                 return false;

@@ -99,16 +99,16 @@ namespace WorkStudy.ViewModels
 
                 ActivityRepo.SaveItem(merged);
 
-                foreach (var item in operators)
-                {
-                    for (int x = 0; x < item.Activities.Count; x++)
-                    {
-                        if (item.Activities[x].Id == MergedActivities[i].Id)
-                        {
-                            OperatorActivityRepo.SaveItem(new OperatorActivity { ActivityId = parentActivity.Id, OperatorId = item.Id });
-                        }
-                    }
-                }
+                //foreach (var item in operators)
+                //{
+                //    for (int x = 0; x < item.Activities.Count; x++)
+                //    {
+                //        if (item.Activities[x].Id == MergedActivities[i].Id)
+                //        {
+                //            OperatorActivityRepo.SaveItem(new OperatorActivity { ActivityId = parentActivity.Id, OperatorId = item.Id });
+                //        }
+                //    }
+                //}
             }
 
             MergedActivities = new List<Activity>();

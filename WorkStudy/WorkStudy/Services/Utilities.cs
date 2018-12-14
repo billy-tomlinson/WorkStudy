@@ -34,7 +34,7 @@ namespace WorkStudy.Services
         public static Color UnClicked = Color.FromHex("#4174f4");
 
         public static string ValidColour = "#d5f0f1";
-        public static string InValidColour = "#fff0f0";
+        //public static string InValidColour = "#fff0f0";
 
         public static void ClearNavigation()
         {
@@ -143,9 +143,9 @@ namespace WorkStudy.Services
             }
         }
 
-        public static int CalculateObservationsRequired(List<Activity> activities)
+        public static int CalculateObservationsRequired(List<Observation> observations)
         {
-            var percentage = Math.Ceiling((double)1 / activities.Count * 100);
+            var percentage = Math.Ceiling((double)1 / observations.Count * 100);
 
             //n=4p - n = ( 4 x 17 ) = 68
             var fourMultipliedByPercentage = 4 * percentage;

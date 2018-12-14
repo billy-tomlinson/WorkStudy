@@ -23,7 +23,7 @@ namespace WorkStudy.UnitTests
             private readonly IBaseRepository<Activity> activityRepo;
             private readonly IBaseRepository<Operator> operatorRepo;
             private readonly IBaseRepository<Observation> observationRepo;
-            private readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
+            //private readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
             private readonly IBaseRepository<MergedActivities> mergedActivityRepo;
 
 
@@ -33,7 +33,7 @@ namespace WorkStudy.UnitTests
                 activityRepo = new BaseRepository<Activity>(connString);
                 operatorRepo = new BaseRepository<Operator>(connString);
                 observationRepo = new BaseRepository<Observation>(connString);
-                operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
+                //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
 
                 CleanDatabase();
@@ -182,10 +182,10 @@ namespace WorkStudy.UnitTests
                 var studyOperators = operatorRepo.GetAllWithChildren()
                                          .Where(_ => _.StudyId == Utilities.StudyId).ToList();
 
-                if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
-                {
-                    Assert.IsTrue(studyOperators.Count()> 0);
-                }
+                //if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
+                //{
+                //    Assert.IsTrue(studyOperators.Count()> 0);
+                //}
 
                 CleanDatabase();
 
@@ -194,10 +194,10 @@ namespace WorkStudy.UnitTests
                 studyOperators = operatorRepo.GetAllWithChildren()
                                          .Where(_ => _.StudyId == Utilities.StudyId).ToList();
 
-                if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
-                {
-                    Assert.IsTrue(studyOperators.Count() > 0);
-                }
+                //if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
+                //{
+                //    Assert.IsTrue(studyOperators.Count() > 0);
+                //}
             }
 
             [TestMethod]
@@ -293,24 +293,24 @@ namespace WorkStudy.UnitTests
 
                 activities = activityRepo.GetAllWithChildren().ToList();
 
-                var operator1 = new Operator()
-                {
-                    Name = "Operator One",
-                    StudyId = 1000,
-                    Activities = new List<Activity>() { activities[0], activities[1] , activities[2] }
-                };
+                //var operator1 = new Operator()
+                //{
+                //    Name = "Operator One",
+                //    StudyId = 1000,
+                //    Activities = new List<Activity>() { activities[0], activities[1] , activities[2] }
+                //};
 
-                var operator2 = new Operator()
-                {
-                    Name = "Operator Two",
-                    StudyId = 1000,
-                    Activities = new List<Activity>() { activities[3], activities[4], activities[5] }
-                };
+                //var operator2 = new Operator()
+                //{
+                //    Name = "Operator Two",
+                //    StudyId = 1000,
+                //    Activities = new List<Activity>() { activities[3], activities[4], activities[5] }
+                //};
 
-                operatorRepo.SaveItem(operator1);
-                operatorRepo.SaveItem(operator2);
-                operatorRepo.UpdateWithChildren(operator1);
-                operatorRepo.UpdateWithChildren(operator2);
+                //operatorRepo.SaveItem(operator1);
+                //operatorRepo.SaveItem(operator2);
+                //operatorRepo.UpdateWithChildren(operator1);
+                //operatorRepo.UpdateWithChildren(operator2);
 
                 var operators = operatorRepo.GetAllWithChildren().ToList();
 
@@ -444,7 +444,7 @@ namespace WorkStudy.UnitTests
                 var id2 = operatorRepo.SaveItem(operator2);
 
                 var model = new AddOperatorsViewModel(connString);
-                model.LinkAllOperatorsToUnratedActivities();
+                //model.LinkAllOperatorsToUnratedActivities();
 
                 var ops = operatorRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
@@ -531,7 +531,7 @@ namespace WorkStudy.UnitTests
                 var returnedActivity1 = activityRepo.GetItem(activityId1);
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
 
-                operator1.Activities = new List<Activity> {returnedActivity1, returnedActivity2};
+                //operator1.Activities = new List<Activity> {returnedActivity1, returnedActivity2};
 
                 //operatorActivityRepo.UpdateWithChildren(operator1);
 
@@ -573,7 +573,7 @@ namespace WorkStudy.UnitTests
                 var returnedActivity1 = activityRepo.GetItem(activityId1);
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
 
-                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+                //operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
 
                 //operatorActivityRepo.UpdateWithChildren(operator1);
 
@@ -624,8 +624,8 @@ namespace WorkStudy.UnitTests
                 var returnedActivity1 = activityRepo.GetItem(activityId1);
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
 
-                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
-                operator2.Activities = new List<Activity> { returnedActivity1 };
+                //operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+                //operator2.Activities = new List<Activity> { returnedActivity1 };
 
                 //operatorActivityRepo.UpdateWithChildren(operator1);
                 //operatorActivityRepo.UpdateWithChildren(operator2);
@@ -676,8 +676,8 @@ namespace WorkStudy.UnitTests
                 var returnedActivity1 = activityRepo.GetItem(activityId1);
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
 
-                operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
-                operator2.Activities = new List<Activity> { returnedActivity1 };
+                //operator1.Activities = new List<Activity> { returnedActivity1, returnedActivity2 };
+                //operator2.Activities = new List<Activity> { returnedActivity1 };
 
                 //operatorActivityRepo.UpdateWithChildren(operator1);
                 //operatorActivityRepo.UpdateWithChildren(operator2);
@@ -711,28 +711,28 @@ namespace WorkStudy.UnitTests
                 int opId = 1;
 
                 var operators = operatorRepo.GetWithChildren(opId);
-                var activities = operators.Activities;
+                //var activities = operators.Activities;
                 var observations = operators.Observations;
                 var totalObs = observations.Count;
 
-                foreach (var item in activities)
-                {
-                    var count = observations.Count(x => x.ActivityId == item.Id);
-                    double percentage = count > 0 ? (double)count / totalObs : 0;
-                    percentage = Math.Round(percentage * 100, 1); 
+                //foreach (var item in activities)
+                //{
+                //    var count = observations.Count(x => x.ActivityId == item.Id);
+                //    double percentage = count > 0 ? (double)count / totalObs : 0;
+                //    percentage = Math.Round(percentage * 100, 1); 
 
-                    var runningTotal = new OperatorRunningTotal()
-                    {
-                        ActivityId = item.Id,
-                        OperatorId = opId,
-                        ActivityName = item.Name,
-                        NumberOfObservations = count,
-                        Percentage = percentage,
-                        PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
-                    };
+                //    var runningTotal = new OperatorRunningTotal()
+                //    {
+                //        ActivityId = item.Id,
+                //        OperatorId = opId,
+                //        ActivityName = item.Name,
+                //        NumberOfObservations = count,
+                //        Percentage = percentage,
+                //        PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
+                //    };
 
-                    runningTotals.Add(runningTotal);
-                }
+                //    runningTotals.Add(runningTotal);
+                //}
             }
         }
     }

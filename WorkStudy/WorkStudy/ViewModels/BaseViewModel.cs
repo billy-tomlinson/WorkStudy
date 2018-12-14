@@ -37,7 +37,7 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>(conn);
 
-        public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>(conn);
+        //public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>(conn);
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
 
@@ -204,7 +204,7 @@ namespace WorkStudy.ViewModels
             ObservationRepo.CreateTable();
             ActivityRepo.CreateTable();
             MergedActivityRepo.CreateTable();
-            OperatorActivityRepo.CreateTable();
+            //OperatorActivityRepo.CreateTable();
             SampleRepo.CreateTable();
         }
        

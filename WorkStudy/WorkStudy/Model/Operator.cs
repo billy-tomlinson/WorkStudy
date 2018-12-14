@@ -12,7 +12,7 @@ namespace WorkStudy.Model
     {
         public Operator()
         {
-            Activities = new List<Activity>();
+            //Activities = new List<Activity>();
             StudyId = Utilities.StudyId;
         }
 
@@ -31,8 +31,8 @@ namespace WorkStudy.Model
 
         public double Opacity { get; set; } = 1;
 
-        [ManyToMany(typeof(OperatorActivity))]
-        public List<Activity> Activities { get; set; }
+        //[ManyToMany(typeof(OperatorActivity))]
+        //public List<Activity> Activities { get; set; }
 
         [OneToMany]
         public List<Observation> Observations { get; set; }

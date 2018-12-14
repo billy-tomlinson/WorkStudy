@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Input;
 using WorkStudy.Model;
-using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
-using WorkStudy.Custom;
 
 namespace WorkStudy.ViewModels
 {
@@ -104,130 +101,130 @@ namespace WorkStudy.ViewModels
                     Operator.Id = OperatorRepo.SaveItem(new Operator() 
                     { 
                         Name = Name, 
-                        IsEnabled = true,
-                        ObservedColour = Utilities.InValidColour
+                        IsEnabled = true//,
+                        //ObservedColour = Utilities.InValidColour
                     });
 
                 ItemsCollection = GetAllOperators();
 
-                LinkOperatorToUnratedActivities();
+                //LinkOperatorToAllActivities();
 
                 Name = string.Empty;
             }
         }
 
-        void ActivitySelectedEvent(object sender)
-        {
-            var value = (int)sender;
-            ChangeButtonColour(value);
+        //void ActivitySelectedEvent(object sender)
+        //{
+        //    var value = (int)sender;
+        //    ChangeButtonColour(value);
 
-            var exisitingActivity = Operator.Activities.Find(_ => _.Id == value);
+        //    var exisitingActivity = Operator.Activities.Find(_ => _.Id == value);
 
-            if (exisitingActivity == null)
-            {
-                var activity = ActivityRepo.GetItem(value);
-                Operator.Activities.Add(activity);
-            }
-            else
-            {
-                Operator.Activities.Remove(exisitingActivity);
-            }
-        }
+        //    if (exisitingActivity == null)
+        //    {
+        //        var activity = ActivityRepo.GetItem(value);
+        //        Operator.Activities.Add(activity);
+        //    }
+        //    else
+        //    {
+        //        Operator.Activities.Remove(exisitingActivity);
+        //    }
+        //}
 
-        void SaveActivityDetails()
-        {
-            if (Operator.Activities.Any(x => x.Rated))
-                Operator.ObservedColour = Utilities.ValidColour;
-            else
-                Operator.ObservedColour = Utilities.InValidColour;
+        //void SaveActivityDetails()
+        //{
+        //    if (Operator.Activities.Any(x => x.Rated))
+        //        Operator.ObservedColour = Utilities.ValidColour;
+        //    else
+        //        Operator.ObservedColour = Utilities.InValidColour;
             
-            OperatorRepo.UpdateWithChildren(Operator);
-            ItemsCollection = GetAllOperators();
-            ActivitiesVisible = false;
-        }
+        //    OperatorRepo.UpdateWithChildren(Operator);
+        //    ItemsCollection = GetAllOperators();
+        //    ActivitiesVisible = false;
+        //}
 
-        void CancelActivityDetails()
-        {
-            ActivitiesVisible = false;
-        }
+        //void CancelActivityDetails()
+        //{
+        //    ActivitiesVisible = false;
+        //}
 
-        public override void SubmitDetailsAndNavigate()
-        {
-            ValidateOperatorActivities();
+        //public override void SubmitDetailsAndNavigate()
+        //{
+        //    ValidateOperatorActivities();
 
-            if (!IsInvalid)
-            {
-                LinkAllOperatorsToUnratedActivities();
-                Utilities.Navigate(new StudyStartPage());
-            }
-        }
+        //    if (!IsInvalid)
+        //    {
+        //        LinkAllOperatorsToUnratedActivities();
+        //        Utilities.Navigate(new StudyStartPage());
+        //    }
+        //}
 
-        public ICommand ItemClickedCommand
-        {
-            get { return ShowActivities(); }
-        }
+        //public ICommand ItemClickedCommand
+        //{
+        //    get { return ShowActivities(); }
+        //}
 
-        private void ChangeButtonColour(int sender)
-        {
+        //private void ChangeButtonColour(int sender)
+        //{
 
-            IEnumerable<Activity> obsCollection = Activities;
-            var list = new List<Activity>(obsCollection);
-            var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
-                ? Utilities.Clicked : Utilities.UnClicked;
-            list.RemoveAll(_ => _.Id == sender);
-            list.Add(activity);
-            Activities = new ObservableCollection<Activity>(obsCollection);
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
-        }
+        //    IEnumerable<Activity> obsCollection = Activities;
+        //    var list = new List<Activity>(obsCollection);
+        //    var activity = list.Find(_ => _.Id == sender);
+        //    activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
+        //        ? Utilities.Clicked : Utilities.UnClicked;
+        //    list.RemoveAll(_ => _.Id == sender);
+        //    list.Add(activity);
+        //    Activities = new ObservableCollection<Activity>(obsCollection);
+        //    GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+        //}
 
-        public Command ShowActivities()
-        {
-            return new Command((item) =>
-            {
-                Operator = item as Operator;
-                ChangeButtonColoursOnLoad();
-                ActivitiesVisible = true;
-            });
-        }
+        //public Command ShowActivities()
+        //{
+        //    return new Command((item) =>
+        //    {
+        //        Operator = item as Operator;
+        //        ChangeButtonColoursOnLoad();
+        //        ActivitiesVisible = true;
+        //    });
+        //}
 
-        public void ChangeButtonColoursOnLoad()
-        {
-            IEnumerable<Activity> obsCollection = Activities;
-            var list = new List<Activity>(obsCollection);
-            var list1 = new List<Activity>(obsCollection);
+        //public void ChangeButtonColoursOnLoad()
+        //{
+        //    IEnumerable<Activity> obsCollection = Activities;
+        //    var list = new List<Activity>(obsCollection);
+        //    var list1 = new List<Activity>(obsCollection);
 
-            var operatorSpecific = Operator.Activities;
+        //    var operatorSpecific = Operator.Activities;
 
-            foreach (var item in list)
-            {
-                list1.RemoveAll(_ => _.Id == (int)item.Id);
-                item.Colour = Utilities.UnClicked;
-                list1.Add(item);
-            }
+        //    foreach (var item in list)
+        //    {
+        //        list1.RemoveAll(_ => _.Id == (int)item.Id);
+        //        item.Colour = Utilities.UnClicked;
+        //        list1.Add(item);
+        //    }
 
-            foreach (var specific in operatorSpecific)
-            {
-                var activity = list1.Find(_ => _.Id == specific.Id);
-                if (activity != null)
-                {
-                    activity.Colour = Utilities.Clicked;
-                    list1.RemoveAll(_ => _.Id == (int)specific.Id);
-                    list1.Add(activity);
-                }
-            }
+        //    foreach (var specific in operatorSpecific)
+        //    {
+        //        var activity = list1.Find(_ => _.Id == specific.Id);
+        //        if (activity != null)
+        //        {
+        //            activity.Colour = Utilities.Clicked;
+        //            list1.RemoveAll(_ => _.Id == (int)specific.Id);
+        //            list1.Add(activity);
+        //        }
+        //    }
 
-            Activities = ConvertListToObservable(list1);
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
-        }
+        //    Activities = ConvertListToObservable(list1);
+        //    GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+        //}
 
-        void AddActivitiesSelectedEvent(object sender)
-        {
-            var value = (int)sender;
-            Operator = OperatorRepo.GetWithChildren(value);
-            ChangeButtonColoursOnLoad();
-            ActivitiesVisible = true;
-        }
+        //void AddActivitiesSelectedEvent(object sender)
+        //{
+        //    var value = (int)sender;
+        //    Operator = OperatorRepo.GetWithChildren(value);
+        //    ChangeButtonColoursOnLoad();
+        //    ActivitiesVisible = true;
+        //}
 
         void DeleteSelectedEvent(object sender)
         {
@@ -237,11 +234,11 @@ namespace WorkStudy.ViewModels
 
             if(!StudyInProcess)
             {
-                var activities = OperatorActivityRepo.GetItems().Where(x => x.OperatorId == value);
-                foreach (var item in activities)
-                {
-                    OperatorActivityRepo.DeleteItem(item);
-                }
+                //var activities = OperatorActivityRepo.GetItems().Where(x => x.OperatorId == value);
+                //foreach (var item in activities)
+                //{
+                //    OperatorActivityRepo.DeleteItem(item);
+                //}
 
                 OperatorRepo.DeleteItem(Operator); 
             }
@@ -283,11 +280,11 @@ namespace WorkStudy.ViewModels
         private void ConstructorSetUp()
         {
             SaveOperator = new Command(SaveOperatorDetails);
-            SaveActivities = new Command(SaveActivityDetails);
-            CancelActivities = new Command(CancelActivityDetails);
-            ActivitySelected = new Command(ActivitySelectedEvent);
+            //SaveActivities = new Command(SaveActivityDetails);
+            //CancelActivities = new Command(CancelActivityDetails);
+            //ActivitySelected = new Command(ActivitySelectedEvent);
             ItemSelected = new Command(OperatorSelectedEvent);
-            SettingsSelected = new Command(AddActivitiesSelectedEvent);
+            //SettingsSelected = new Command(AddActivitiesSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
             CloseRunningTotals = new Command(CloseRunningTotalsEvent);
 
@@ -323,65 +320,66 @@ namespace WorkStudy.ViewModels
                 return;
             }
 
-            if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
-            {
-                ValidationText = "Some operators have no activities";
-                return;
-            }
+            //if (studyOperators.Any(_ => !_.Activities.Any(x => x.Rated)))
+            //{
+            //    ValidationText = "Some operators have no activities";
+            //    return;
+            //}
 
             IsInvalid = false;
             Opacity = 1;
         }
 
-        public void LinkAllOperatorsToUnratedActivities()
-        {
+        //public void LinkAllOperatorsToUnratedActivities()
+        //{
 
-            var ops = OperatorRepo.GetAllWithChildren()
-                .Where(_ => _.StudyId == Utilities.StudyId);
+        //    var ops = OperatorRepo.GetAllWithChildren()
+        //        .Where(_ => _.StudyId == Utilities.StudyId);
 
-            if (ops.Any(_ => _.Activities.Any(x => !x.Rated)))
-                return;
+        //    if (ops.Any(_ => _.Activities.Any(x => !x.Rated)))
+        //        return;
 
-            var activities = ActivityRepo.GetItems()
-                .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId);
+        //    var activities = ActivityRepo.GetItems()
+        //        .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId);
 
-            foreach (var op in ops)
-            {
-                var updatedOp = OperatorRepo.GetWithChildren(op.Id);
+        //    foreach (var op in ops)
+        //    {
+        //        var updatedOp = OperatorRepo.GetWithChildren(op.Id);
 
-                foreach (var item in activities)
-                {
-                    updatedOp.Activities.Add(item);
-                }
+        //        foreach (var item in activities)
+        //        {
+        //            updatedOp.Activities.Add(item);
+        //        }
 
-                OperatorRepo.UpdateWithChildren(updatedOp);
-            }
-        }
+        //        OperatorRepo.UpdateWithChildren(updatedOp);
+        //    }
+        //}
 
-        public void LinkOperatorToUnratedActivities()
-        {
+        //public void LinkOperatorToAllActivities()
+        //{
 
-            var op = OperatorRepo.GetWithChildren(Operator.Id);
+        //    var op = OperatorRepo.GetWithChildren(Operator.Id);
 
-            if (op.Activities.Any(x => !x.Rated))
-                return;
+        //    //if (op.Activities.Any(x => !x.Rated))
+        //        //return;
 
-            var activities = ActivityRepo.GetItems()
-                .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId);
+        //    var activities = ActivityRepo.GetItems()
+        //        .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId);
 
-            foreach (var item in activities)
-            {
-                op.Activities.Add(item);
-            }
+        //    foreach (var item in activities)
+        //    {
+        //        op.Activities.Add(item);
+        //    }
 
-            OperatorRepo.UpdateWithChildren(op);
-        }
+        //    OperatorRepo.UpdateWithChildren(op);
+        //}
 
         private List<OperatorRunningTotal> GetRunningTotals()
         {
             var totals = new List<OperatorRunningTotal>();
 
-            var activities = Operator.Activities;
+            //var activities = Operator.Activities;
+            var activities = new List<Activity>();
             var observations = Operator.Observations;
             var totalObs = observations.Count;
 
