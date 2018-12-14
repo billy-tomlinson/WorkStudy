@@ -39,6 +39,17 @@ namespace WorkStudy.ViewModels
         private int Rating { get; set; }
 
 
+        static int _observationRound = 1;
+        public int ObservationRound
+        {
+            get => _observationRound;
+            set
+            {
+                _observationRound = value;
+                OnPropertyChanged();
+            }
+        }
+
         static ObservableCollection<Operator> _operators;
         public ObservableCollection<Operator> Operators
         {
@@ -137,7 +148,7 @@ namespace WorkStudy.ViewModels
                 CreateOperatorObservations();
                 TotalPercent = GetStudyTotalPercent();
             }
-            else 
+            else
             {
                 Utilities.AllObservationsTaken = false;
                 ValidationText = "Not All Operators have been observed.";
@@ -219,9 +230,9 @@ namespace WorkStudy.ViewModels
         private void AddObservation()
         {
             var existingObservation = ObservationRepo.GetItems()
-                                      .SingleOrDefault(x => x.OperatorId == operator1.Id 
+                                      .SingleOrDefault(x => x.OperatorId == operator1.Id
                                       && x.ObservationNumber == ObservationRound);
-            
+
             if (existingObservation != null)
                 Observation = existingObservation;
 
@@ -240,7 +251,7 @@ namespace WorkStudy.ViewModels
 
             Operators = GetAllEnabledOperators();
 
-            CreateOperatorObservations();    
+            CreateOperatorObservations();
         }
 
         private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
@@ -266,12 +277,12 @@ namespace WorkStudy.ViewModels
 
                 if (count >= totalRequired)
                     totalPercentage = totalPercentage + 1;
-                
+
                 if (count < totalRequired)
                 {
-                    if(count > 0)
+                    if (count > 0)
                         totalPercentage = totalPercentage + (double)count / totalRequired;
-                    
+
                     limitsOfAccuracy = false;
                 }
             }
@@ -279,10 +290,10 @@ namespace WorkStudy.ViewModels
             if (totalPercentage > 0)
                 totalPercentage = (double)(totalPercentage / activeActivities.Count()) * 100;
 
-            return new LimitsOfAccuracy() 
-            { 
-                AccuracyReached = limitsOfAccuracy, 
-                TotalPercentage = Math.Round(totalPercentage, 1) 
+            return new LimitsOfAccuracy()
+            {
+                AccuracyReached = limitsOfAccuracy,
+                TotalPercentage = Math.Round(totalPercentage, 1)
             };
 
         }
@@ -336,21 +347,11 @@ namespace WorkStudy.ViewModels
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
             Opacity = 1.0;
+
             Operators = GetAllEnabledOperators();
 
-            var lastObservation = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
-                                              .OrderByDescending(y => y.ObservationNumber)
-                                              .Select(c => c.ObservationNumber).FirstOrDefault();
+            GetObservationRound();
 
-            if (!Utilities.StudyPageInvalid)
-                ObservationRound = lastObservation + 1;
-            else
-            {
-                ObservationRound = lastObservation;
-                Opacity = 0.2;
-                ValidationText = "Not All Operators have been observed.";
-            }
-                
             Activities = Get_Enabled_Activities();
 
             IsPageVisible = IsStudyValid();
@@ -358,9 +359,21 @@ namespace WorkStudy.ViewModels
             CreateOperatorObservations();
 
             TotalPercent = GetStudyTotalPercent();
+        }
 
-            if (Utilities.StudyPageInvalid) Opacity = 1.0;
-                
+        private void GetObservationRound()
+        {
+            var lastObservationRound = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
+                                  .OrderByDescending(y => y.ObservationNumber)
+                                  .Select(c => c.ObservationNumber).FirstOrDefault();
+            
+            var obsCount = ObservationRepo.GetItems().Count(x => x.ObservationNumber == lastObservationRound);
+            var opsCount = GetAllEnabledAndDisabledOperators().Count();
+
+            if (opsCount > obsCount)
+                ObservationRound = lastObservationRound;
+            else
+                ObservationRound = lastObservationRound + 1;
         }
 
         private bool IsStudyValid()
@@ -393,7 +406,7 @@ namespace WorkStudy.ViewModels
 
                 foreach (var obs in item.Observations)
                 {
-                    if(obs.ObservationNumber == ObservationRound)
+                    if (obs.ObservationNumber == ObservationRound)
                     {
                         var opObservation = new OperatorObservation
                         {
@@ -414,7 +427,7 @@ namespace WorkStudy.ViewModels
                     else added = false;
                 }
 
-                if(added == false)
+                if (added == false)
                 {
                     var opObs = new OperatorObservation
                     {
@@ -427,7 +440,7 @@ namespace WorkStudy.ViewModels
                         TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
                     };
                     ops.Add(opObs);
-                } 
+                }
             }
 
             OperatorObservations = ops;
@@ -441,6 +454,13 @@ namespace WorkStudy.ViewModels
                                                            && _.IsEnabled));
         }
 
+
+        private ObservableCollection<Operator> GetAllEnabledAndDisabledOperators()
+        {
+            return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
+                                                          .Where(_ => _.StudyId == Utilities.StudyId
+                                                           ));
+        }
         private double GetStudyTotalPercent()
         {
             double totalPercent = 0;
@@ -449,8 +469,8 @@ namespace WorkStudy.ViewModels
                 totalPercent = totalPercent + op.TotalPercentageDouble;
             }
 
-            if(totalPercent > 0)
-                totalPercent =  totalPercent / OperatorObservations.Count();
+            if (totalPercent > 0)
+                totalPercent = totalPercent / OperatorObservations.Count();
 
             return Math.Round(totalPercent, 1);
         }
