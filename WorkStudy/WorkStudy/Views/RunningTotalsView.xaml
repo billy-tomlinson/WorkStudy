@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:custom="clr-namespace:WorkStudy.Custom;assembly=WorkStudy"
-             x:Name="RunningTotals"
-             x:Class="WorkStudy.Views.RunningTotalsView">
-  <ContentView.Content>
-      <StackLayout BackgroundColor="Gray" HeightRequest="450">
-            <custom:CustomListView x:Name="List" Margin="3" 
-                                   ItemsSource="{Binding RunningTotals}" 
-                                   BackgroundColor="Gray" 
-                                   HasUnevenRows="True" 
-                                   HorizontalOptions="Center" 
-                                   HeightRequest="370">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:custom="clr-namespace:WorkStudy.Custom;assembly=WorkStudy" x:Name="RunningTotals" x:Class="WorkStudy.Views.RunningTotalsView">
+    <ContentView.Content>
+        <StackLayout BackgroundColor="Gray" HeightRequest="450">
+            <custom:CustomListView x:Name="List" Margin="3" ItemsSource="{Binding RunningTotals}" BackgroundColor="Gray" HasUnevenRows="True" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="White" HeightRequest="370">
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Grid Padding="5" Margin="5" HorizontalOptions="Start">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*">
+                                </RowDefinition>
+                                <RowDefinition Height="*">
+                                </RowDefinition>
+                                <RowDefinition Height="*">
+                                </RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Start" FontSize="12" Text="Total Observations Required: " TextColor="White" BackgroundColor="Gray" />
+                            <Label Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Start" FontSize="12" Text="{Binding Path = BindingContext.TotalObservationsRequired, Source={x:Reference RunningTotals}}" TextColor="White" BackgroundColor="Gray" />
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="Start" FontSize="12" Text="Total Observations Taken: " TextColor="White" BackgroundColor="Gray" />
+                            <Label Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Start" FontSize="12" Text="{Binding Path = BindingContext.TotalObservationsTaken, Source={x:Reference RunningTotals}}" TextColor="White" BackgroundColor="Gray" />
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="Start" FontSize="12" Text="Total Percentage Completed: " TextColor="White" BackgroundColor="Gray" />
+                            <Label Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Start" FontSize="12" Text="{Binding Path = BindingContext.TotalOperatorPercentage, Source={x:Reference RunningTotals}}" TextColor="White" BackgroundColor="Gray" />
+                        </Grid>
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -23,18 +40,27 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*">
                                         </RowDefinition>
+                                        <RowDefinition Height="*">
+                                        </RowDefinition>
+                                        <RowDefinition Height="*">
+                                        </RowDefinition>
+                                        <RowDefinition Height="*">
+                                        </RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="6*">
+                                        <ColumnDefinition Width="*">
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="2*">
-                                        </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding ActivityName}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding NumberOfObservations}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
-                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding PercentageFormatted}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
+                                    <Label Grid.Row="0" Grid.Column="0" Text="ActivityName: " FontSize="14" HorizontalTextAlignment="Start" WidthRequest="140" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Observations Required: " HorizontalTextAlignment="Start" FontSize="14" WidthRequest="140" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding ObservationsRequired}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Observations Taken" FontSize="14" HorizontalTextAlignment="Start" WidthRequest="140" />
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding NumberOfObservations}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="3" Grid.Column="0" Text="Percentage of Total Obs" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="140" />
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding PercentageFormatted}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>
@@ -42,9 +68,8 @@
                 </ListView.ItemTemplate>
             </custom:CustomListView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                <Button Text="Close" WidthRequest="150" MinimumWidthRequest="150"  
-                        Command="{Binding Path = BindingContext.CloseRunningTotals, Source={x:Reference RunningTotals}}" />
+                <Button Text="Close" WidthRequest="150" MinimumWidthRequest="150" Command="{Binding Path = BindingContext.CloseRunningTotals, Source={x:Reference RunningTotals}}" />
             </StackLayout>
         </StackLayout>
-  </ContentView.Content>
+    </ContentView.Content>
 </ContentView>

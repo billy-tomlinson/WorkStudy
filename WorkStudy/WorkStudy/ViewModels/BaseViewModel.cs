@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using WorkStudy.Model;
@@ -16,6 +17,7 @@ namespace WorkStudy.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public Command CloseView { get; set; }
         private readonly string conn;
+        public Operator Operator;
 
         public BaseViewModel(string conn = null)
         {
@@ -107,6 +109,41 @@ namespace WorkStudy.ViewModels
             set
             {
                 studyNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        int totalObservationsRequired;
+        public int TotalObservationsRequired
+        {
+            get { return totalObservationsRequired; }
+            set
+            {
+                totalObservationsRequired = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        int totalObservationsTaken;
+        public int TotalObservationsTaken
+        {
+            get { return totalObservationsTaken; }
+            set
+            {
+                totalObservationsTaken = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string totalOperatorPercentage;
+        public string TotalOperatorPercentage
+        {
+            get { return totalOperatorPercentage; }
+            set
+            {
+                totalOperatorPercentage = value;
                 OnPropertyChanged();
             }
         }
@@ -214,5 +251,58 @@ namespace WorkStudy.ViewModels
             IsInvalid = false;
         }
 
+        public List<OperatorRunningTotal> GetRunningTotals(Operator op)
+        {
+            var totals = new List<OperatorRunningTotal>();
+
+            var observations = op.Observations;
+            var totalObs = observations.Count;
+
+            var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == op.Id).ToList();
+            TotalObservationsTaken = totalObs;
+
+            var activtyIds = observationsTaken.Select(x => new { Id = x.ActivityId, Name = x.ActivityName }).Distinct().ToList();
+
+            var distinctActivities = new List<dynamic>();
+
+            foreach (var item in activtyIds)
+            {
+                distinctActivities.Add(item);
+            }
+
+            var totalRequiredForOperator = 0;
+
+            foreach (var item in distinctActivities)
+            {
+                var count = observations.Count(x => x.ActivityId == item.Id);
+                double percentage = count > 0 ? (double)count / totalObs : 0;
+                percentage = Math.Round(percentage * 100, 1);
+
+                var totalRequired = Utilities.CalculateObservationsRequired(percentage);
+
+                totalRequiredForOperator = totalRequiredForOperator + totalRequired;
+
+                var runningTotal = new OperatorRunningTotal()
+                {
+                    ActivityId = item.Id,
+                    OperatorId = op.Id,
+                    ActivityName = item.Name,
+                    NumberOfObservations = count,
+                    ObservationsRequired = totalRequired,
+                    Percentage = percentage,
+                    PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
+                };
+
+                totals.Add(runningTotal);
+            }
+
+            TotalObservationsRequired = totalRequiredForOperator;
+
+            var totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
+
+            TotalOperatorPercentage = $"{totalPercentage.ToString(CultureInfo.InvariantCulture)}%";
+
+            return totals;
+        }
     }
 }

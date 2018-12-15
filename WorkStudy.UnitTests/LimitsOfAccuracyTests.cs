@@ -38,7 +38,7 @@ namespace WorkStudy.UnitTests
             List<Observation> obsActivities = new List<Observation>();
 
             //p =  1 / 6 observations = 0.17
-            var numberRequired = Utilities.CalculateObservationsRequired(activites);
+            //var numberRequired = Utilities.CalculateObservationsRequired(activites);
 
             obsActivities.Add(obsActivity1);
             //n=4p(100-p)/L x L  = 56
@@ -56,8 +56,8 @@ namespace WorkStudy.UnitTests
             int activityCount6 = 0;
 
 
-            double percentage;
-            
+            //double percentage;
+            //
             foreach (var x in obsActivities)
             {
                 switch (x.ActivityId)

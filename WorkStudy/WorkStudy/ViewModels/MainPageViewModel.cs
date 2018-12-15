@@ -256,21 +256,31 @@ namespace WorkStudy.ViewModels
 
         private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
         {
-            //var activeActivities = currentOperator.Activities.Where(v => v.IsEnabled).ToList();
             var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == currentOperator.Id).ToList();
-            var activeActivities = new List<Activity>();
-            var totalRequired = Utilities.CalculateObservationsRequired(observationsTaken);
+            //var activtyIds = observationsTaken.Select(x => new {Activity = x.ActivityId}).Distinct().ToList();
+
+            //var distinctActivities = new List<int>();
+            //foreach (var item in activtyIds)
+            //{
+            //    distinctActivities.Add(item.Activity);
+            //}
+
+            //var totalRequired = Utilities.CalculateObservationsRequired(distinctActivities);
             var limitsOfAccuracy = true;
+
+            //var x = GetRunningTotals();
 
             double totalPercentage = 0;
 
-            foreach (var activity in activeActivities)
+            foreach (var observation in GetRunningTotals(currentOperator))
             {
-                int count = 0;
+                var totalRequired = Utilities.CalculateObservationsRequired(observation.Percentage);
 
-                count = count + currentOperator.Observations.Count(v => v.ActivityId == activity.Id);
+                int count = observation.NumberOfObservations;
 
-                var mergedActivities = MergedActivityRepo.GetItems().Where(y => y.ActivityId == activity.Id).ToList();
+                //count = count + currentOperator.Observations.Count(v => v.ActivityId == observation.ActivityId);
+
+                var mergedActivities = MergedActivityRepo.GetItems().Where(y => y.ActivityId == observation.ActivityId).ToList();
 
                 foreach (var item in mergedActivities)
                 {
@@ -290,7 +300,7 @@ namespace WorkStudy.ViewModels
             }
 
             if (totalPercentage > 0)
-                totalPercentage = (double)(totalPercentage / activeActivities.Count()) * 100;
+                totalPercentage = (double)(totalPercentage / observationsTaken.Count()) * 100;
 
             return new LimitsOfAccuracy()
             {

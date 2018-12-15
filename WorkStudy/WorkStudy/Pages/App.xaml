@@ -3,7 +3,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
-                <On Platform="iOS" Value="MarkerFelt-Thin" />
+               <!-- <On Platform="iOS" Value="MarkerFelt-Thin" />-->
                 <On Platform="Android" Value="Roboto-Light" />
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>

@@ -20,8 +20,6 @@ namespace WorkStudy.ViewModels
         public Command DeleteSelected { get; set; }
         public Command CloseRunningTotals { get; set; }
 
-        public Operator Operator;
-
         public AddOperatorsViewModel()
         {
             ConstructorSetUp();
@@ -268,7 +266,7 @@ namespace WorkStudy.ViewModels
         {
             var value = (int)sender;
             Operator = OperatorRepo.GetWithChildren(value);
-            RunningTotals = new ObservableCollection<OperatorRunningTotal>(GetRunningTotals());
+            RunningTotals = new ObservableCollection<OperatorRunningTotal>(GetRunningTotals(Operator));
             RunningTotalsVisible = true;
         }
 
@@ -373,37 +371,6 @@ namespace WorkStudy.ViewModels
 
         //    OperatorRepo.UpdateWithChildren(op);
         //}
-
-        private List<OperatorRunningTotal> GetRunningTotals()
-        {
-            var totals = new List<OperatorRunningTotal>();
-
-            //var activities = Operator.Activities;
-            var activities = new List<Activity>();
-            var observations = Operator.Observations;
-            var totalObs = observations.Count;
-
-            foreach (var item in activities)
-            {
-                var count = observations.Count(x => x.ActivityId == item.Id);
-                double percentage = count > 0 ? (double)count / totalObs : 0;
-                percentage = Math.Round(percentage * 100, 1);
-
-                var runningTotal = new OperatorRunningTotal()
-                {
-                    ActivityId = item.Id,
-                    OperatorId = Operator.Id,
-                    ActivityName = item.Name,
-                    NumberOfObservations = count,
-                    Percentage = percentage,
-                    PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
-                };
-
-                totals.Add(runningTotal);
-            }
-
-            return totals;
-        }
 
         private ObservableCollection<Operator> GetAllOperators()
         {

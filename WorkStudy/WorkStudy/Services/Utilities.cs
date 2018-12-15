@@ -143,10 +143,12 @@ namespace WorkStudy.Services
             }
         }
 
-        public static int CalculateObservationsRequired(List<Observation> observations)
+        public static int CalculateObservationsRequired(double activityPercentage)
         {
-            var percentage = Math.Ceiling((double)1 / observations.Count * 100);
+            //var count = activities.Count == 0 ? 1 : activities.Count;
 
+            //var percentage = Math.Ceiling((double)1 / count * 100);
+            var percentage = activityPercentage == 100 ? 1 : activityPercentage;
             //n=4p - n = ( 4 x 17 ) = 68
             var fourMultipliedByPercentage = 4 * percentage;
 
