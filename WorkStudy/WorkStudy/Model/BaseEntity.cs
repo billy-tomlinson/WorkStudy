@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Drawing;
 using SQLite;
-using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {

@@ -258,18 +258,8 @@ namespace WorkStudy.ViewModels
         private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
         {
             var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == currentOperator.Id).ToList();
-            //var activtyIds = observationsTaken.Select(x => new {Activity = x.ActivityId}).Distinct().ToList();
-
-            //var distinctActivities = new List<int>();
-            //foreach (var item in activtyIds)
-            //{
-            //    distinctActivities.Add(item.Activity);
-            //}
-
-            //var totalRequired = Utilities.CalculateObservationsRequired(distinctActivities);
             var limitsOfAccuracy = true;
 
-            //var x = GetRunningTotals();
 
             double totalPercentage = 0;
 
@@ -278,8 +268,6 @@ namespace WorkStudy.ViewModels
                 var totalRequired = Utilities.CalculateObservationsRequired(observation.Percentage);
 
                 int count = observation.NumberOfObservations;
-
-                //count = count + currentOperator.Observations.Count(v => v.ActivityId == observation.ActivityId);
 
                 var mergedActivities = MergedActivityRepo.GetItems().Where(y => y.ActivityId == observation.ActivityId).ToList();
 
@@ -333,8 +321,7 @@ namespace WorkStudy.ViewModels
                     OperatorId = operator1.Id
                 };
                 OperatorName = operator1.Name;
-                //Activities = new ObservableCollection<Activity>(OperatorRepo.GetWithChildren(operator1.Id)
-                                                                //.Activities.Where(x => x.IsEnabled));
+
                 Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems()
                                                                 .Where(x => x.StudyId == Utilities.StudyId 
                                                                        && x.IsEnabled == true));
@@ -386,7 +373,7 @@ namespace WorkStudy.ViewModels
             var obsCount = ObservationRepo.GetItems().Count(x => x.ObservationNumber == lastObservationRound);
             var opsCount = GetAllEnabledAndDisabledOperators().Count();
 
-            if (opsCount > obsCount)
+            if (opsCount >= obsCount)
                 ObservationRound = lastObservationRound;
             else
                 ObservationRound = lastObservationRound + 1;
@@ -399,8 +386,6 @@ namespace WorkStudy.ViewModels
                 return false;
 
             if (Activities.Count == 0 || !Operators.Any())
-                //||
-                    //(Operators.Any(_ => !_.Activities.Any(x => x.Rated))))
             {
                 InvalidText = $"Please add Activities and/or Operators to study {Utilities.StudyId.ToString()}";
                 return false;

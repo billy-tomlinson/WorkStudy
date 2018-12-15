@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SQLiteNetExtensions.Extensions;
 using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -106,17 +104,6 @@ namespace WorkStudy.ViewModels
 
                 ActivityRepo.SaveItem(parentActivity);
                 parentActivity.Activities.Add(merged);
-
-                //foreach (var item in operators)
-                //{
-                //    for (int x = 0; x < item.Activities.Count; x++)
-                //    {
-                //        if (item.Activities[x].Id == MergedActivities[i].Id)
-                //        {
-                //            OperatorActivityRepo.SaveItem(new OperatorActivity { ActivityId = parentActivity.Id, OperatorId = item.Id });
-                //        }
-                //    }
-                //}
             }
 
             MergedActivities = new List<Activity>();

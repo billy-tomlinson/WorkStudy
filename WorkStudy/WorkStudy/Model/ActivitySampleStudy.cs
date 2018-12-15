@@ -21,6 +21,7 @@ namespace WorkStudy.Model
         public bool IsRated { get; set; }
 
         public bool Completed { get; set; }
+
         [Ignore]
         public string DateTimeFormatted 
         { 

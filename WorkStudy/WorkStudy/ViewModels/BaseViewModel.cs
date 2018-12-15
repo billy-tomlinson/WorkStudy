@@ -39,8 +39,6 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>(conn);
 
-        //public IBaseRepository<OperatorActivity> OperatorActivityRepo => new BaseRepository<OperatorActivity>(conn);
-
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
 
         public TimeSpan CurrentTime => DateTime.Now.TimeOfDay;
