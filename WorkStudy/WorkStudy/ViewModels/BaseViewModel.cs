@@ -295,11 +295,15 @@ namespace WorkStudy.ViewModels
                 totals.Add(runningTotal);
             }
 
+            TotalOperatorPercentage = string.Empty;
             TotalObservationsRequired = totalRequiredForOperator;
+            double totalPercentage = 0;
 
-            var totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-
-            TotalOperatorPercentage = $"{totalPercentage.ToString(CultureInfo.InvariantCulture)}%";
+            if(TotalObservationsRequired > 0)
+            {
+                totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
+                TotalOperatorPercentage = $"{totalPercentage.ToString(CultureInfo.InvariantCulture)}%";
+            }
 
             return totals;
         }

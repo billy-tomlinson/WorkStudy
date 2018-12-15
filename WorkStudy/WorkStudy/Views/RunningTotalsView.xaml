@@ -2,7 +2,10 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:custom="clr-namespace:WorkStudy.Custom;assembly=WorkStudy" x:Name="RunningTotals" x:Class="WorkStudy.Views.RunningTotalsView">
     <ContentView.Content>
         <StackLayout BackgroundColor="Gray" HeightRequest="450">
-            <custom:CustomListView x:Name="List" Margin="3" ItemsSource="{Binding RunningTotals}" BackgroundColor="Gray" HasUnevenRows="True" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="White" HeightRequest="370">
+            <custom:CustomListView x:Name="List" Margin="3" 
+                                   ItemsSource="{Binding RunningTotals}" BackgroundColor="Gray" 
+                                   HasUnevenRows="true" HorizontalOptions="Center" 
+                                   SeparatorVisibility="Default" SeparatorColor="White" HeightRequest="370">
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Custom;
@@ -257,44 +258,26 @@ namespace WorkStudy.ViewModels
 
         private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
         {
-            var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == currentOperator.Id).ToList();
-            var limitsOfAccuracy = true;
+            var runningTotals = GetRunningTotals(currentOperator);
 
-
-            double totalPercentage = 0;
-
-            foreach (var observation in GetRunningTotals(currentOperator))
+            foreach (var item in runningTotals)
             {
-                var totalRequired = Utilities.CalculateObservationsRequired(observation.Percentage);
-
-                int count = observation.NumberOfObservations;
-
-                var mergedActivities = MergedActivityRepo.GetItems().Where(y => y.ActivityId == observation.ActivityId).ToList();
-
-                foreach (var item in mergedActivities)
-                {
-                    count = count + currentOperator.Observations.Count(v => v.ActivityId == item.MergedActivityId);
-                }
-
-                if (count >= totalRequired)
-                    totalPercentage = totalPercentage + 1;
-
-                if (count < totalRequired)
-                {
-                    if (count > 0)
-                        totalPercentage = totalPercentage + (double)count / totalRequired;
-
-                    limitsOfAccuracy = false;
-                }
+                TotalObservationsRequired = TotalObservationsRequired + item.ObservationsRequired;
+                TotalObservationsTaken = TotalObservationsTaken + item.NumberOfObservations;
             }
 
-            if (totalPercentage > 0)
-                totalPercentage = (double)(totalPercentage / observationsTaken.Count()) * 100;
+            double totalPercentage = 0;
+            if(TotalObservationsTaken > 0)
+            {
+                totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
+                TotalOperatorPercentage = $"{totalPercentage.ToString(CultureInfo.InvariantCulture)}%";
+            }
+
 
             return new LimitsOfAccuracy()
             {
-                AccuracyReached = limitsOfAccuracy,
-                TotalPercentage = Math.Round(totalPercentage, 1)
+                AccuracyReached = totalPercentage == 100,
+                TotalPercentage = totalPercentage
             };
 
         }
