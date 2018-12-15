@@ -25,7 +25,6 @@ namespace WorkStudy.ViewModels
                 Utilities.RatedStudy = SampleStudy.IsRated;
 
                 IsActive = false;
-                Utilities.StudyDetailsActive = IsActive;
             }
         }
 
@@ -54,7 +53,6 @@ namespace WorkStudy.ViewModels
         private void ConstructorSetUp()
         {
             IsActive = true;
-            Utilities.StudyDetailsActive = IsActive;
 
             Utilities.StudyId = 0;
 

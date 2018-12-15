@@ -25,7 +25,6 @@ namespace WorkStudy.Pages
         protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
-            Utilities.CurrentPageName = CurrentPage.Title;
         }
     }
 }

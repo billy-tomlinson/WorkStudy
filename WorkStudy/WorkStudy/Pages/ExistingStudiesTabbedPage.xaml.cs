@@ -16,7 +16,6 @@ namespace WorkStudy.Pages
         {
             base.OnAppearing();
             Utilities.ClearNavigation();
-            Utilities.OnStudyPage = false;
         }
     }
 }
