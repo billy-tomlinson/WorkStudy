@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -17,7 +16,6 @@ namespace WorkStudy.Services
         public static bool IsCompleted { get; set; }
         public static bool RatedStudy { get; set; }
         public static int OperatorId { get; set; }
-        public static int StudySetUpComplete { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static bool StudyPageInvalid { get; set; }
 
@@ -31,7 +29,6 @@ namespace WorkStudy.Services
         public static Color UnClicked = Color.FromHex("#4174f4");
 
         public static string ValidColour = "#d5f0f1";
-        //public static string InValidColour = "#fff0f0";
 
         public static void ClearNavigation()
         {
@@ -142,9 +139,7 @@ namespace WorkStudy.Services
 
         public static int CalculateObservationsRequired(double activityPercentage)
         {
-            //var count = activities.Count == 0 ? 1 : activities.Count;
 
-            //var percentage = Math.Ceiling((double)1 / count * 100);
             var percentage = activityPercentage == 100 ? 1 : activityPercentage;
             //n=4p - n = ( 4 x 17 ) = 68
             var fourMultipliedByPercentage = 4 * percentage;
