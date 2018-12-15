@@ -261,7 +261,8 @@ namespace WorkStudy.ViewModels
             var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == op.Id).ToList();
             TotalObservationsTaken = totalObs;
 
-            var activtyIds = observationsTaken.Select(x => new { Id = x.ActivityId, Name = x.ActivityName }).Distinct().ToList();
+            var activtyIds = observationsTaken.Select(x => new { Id = x.AliasActivityId })
+                                              .Distinct().ToList();
 
             var distinctActivities = new List<dynamic>();
 
@@ -274,7 +275,7 @@ namespace WorkStudy.ViewModels
 
             foreach (var item in distinctActivities)
             {
-                var count = observations.Count(x => x.ActivityId == item.Id);
+                var count = observations.Count(x => x.AliasActivityId == item.Id);
                 double percentage = count > 0 ? (double)count / totalObs : 0;
                 percentage = Math.Round(percentage * 100, 1);
 
@@ -286,7 +287,7 @@ namespace WorkStudy.ViewModels
                 {
                     ActivityId = item.Id,
                     OperatorId = op.Id,
-                    ActivityName = item.Name,
+                    ActivityName = ActivityRepo.GetItem(item.Id).Name,
                     NumberOfObservations = count,
                     ObservationsRequired = totalRequired,
                     Percentage = percentage,

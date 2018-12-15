@@ -239,6 +239,7 @@ namespace WorkStudy.ViewModels
             Observation.ActivityName = CurrentActivity.Name;
             Observation.ActivityId = ActivityId;
             Observation.Rating = Rating;
+            Observation.AliasActivityId = ActivityId;
 
             observations.Add(Observation);
 

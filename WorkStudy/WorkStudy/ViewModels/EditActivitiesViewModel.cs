@@ -84,11 +84,21 @@ namespace WorkStudy.ViewModels
             var returnId = ActivityRepo.SaveItem(parentActivity);
             parentActivity = ActivityRepo.GetItem(returnId);
 
+
             for (var i = 0; i < MergedActivities.Count; i++)
             {
+                var existingObs = ObservationRepo.GetItems().Where(cw => cw.AliasActivityId == MergedActivities[i].Id);
+                foreach (var item in existingObs)
+                {
+                    item.AliasActivityId = returnId;
+                    ObservationRepo.SaveItem(item);
+                }
+
                 var merged = MergedActivities[i];
                 MergedActivityRepo.SaveItem(new Model.MergedActivities() { ActivityId = parentActivity.Id, MergedActivityId = MergedActivities[i].Id });
                 merged.IsEnabled = false;
+
+                ActivityRepo.SaveItem(merged);
 
                 parentActivity.Name = parentActivity.Name + " " + merged.Name;
                 parentActivity.IsEnabled = true;
@@ -96,8 +106,6 @@ namespace WorkStudy.ViewModels
 
                 ActivityRepo.SaveItem(parentActivity);
                 parentActivity.Activities.Add(merged);
-
-                ActivityRepo.SaveItem(merged);
 
                 //foreach (var item in operators)
                 //{
