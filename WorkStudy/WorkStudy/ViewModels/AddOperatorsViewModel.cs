@@ -116,17 +116,17 @@ namespace WorkStudy.ViewModels
                 OperatorRepo.DeleteItem(Operator); 
             else
             {
-                if(Operator.Icon == "undo.png")
+                if(Operator.DeleteIcon == "undo.png")
                 {
                     Operator.Opacity = 1;
                     Operator.IsEnabled = true;
-                    Operator.Icon = "delete.png";
+                    Operator.DeleteIcon = "delete.png";
                 }
                 else
                 {
                     Operator.Opacity = 0.2;
                     Operator.IsEnabled = false;
-                    Operator.Icon = "undo.png";
+                    Operator.DeleteIcon = "undo.png";
                 }
 
                 OperatorRepo.SaveItem(Operator);

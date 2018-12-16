@@ -352,6 +352,12 @@ namespace WorkStudy.ViewModels
             var lastObservationRound = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).Distinct()
                                   .OrderByDescending(y => y.ObservationNumber)
                                   .Select(c => c.ObservationNumber).FirstOrDefault();
+
+            if(lastObservationRound == 0)
+            {
+                ObservationRound = 1;
+                return;
+            }
             
             var obsCount = ObservationRepo.GetItems().Count(x => x.ObservationNumber == lastObservationRound);
             var opsCount = GetAllEnabledAndDisabledOperators().Count();
