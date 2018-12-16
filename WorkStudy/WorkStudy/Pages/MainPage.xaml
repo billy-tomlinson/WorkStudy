@@ -59,7 +59,7 @@
                     </ListView.ItemTemplate>
                 </local:CustomListView>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="Save Observations" WidthRequest="205" MinimumWidthRequest="205" Command="{Binding SaveObservations}" />
+                    <Button Text="Next Observation" WidthRequest="205" MinimumWidthRequest="205" Command="{Binding SaveObservations}" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Button Text="Pause" WidthRequest="100" Command="{Binding PauseStudy}" />
