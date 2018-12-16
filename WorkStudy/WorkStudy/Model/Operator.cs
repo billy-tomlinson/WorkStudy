@@ -39,5 +39,7 @@ namespace WorkStudy.Model
         public Color ConvertedColour => Color.FromHex(ObservedColour);
 
         public string DeleteIcon { get; set; } = "delete.png";
+
+        public string SettingsIcon { get; set; } = String.Empty;
     }
 }

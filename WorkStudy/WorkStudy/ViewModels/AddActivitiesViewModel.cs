@@ -221,6 +221,8 @@ namespace WorkStudy.ViewModels
             Name = string.Empty;
             ItemsCollection = Get_Rated_Enabled_Activities();
             Activity = new Activity();
+            Activity.SettingsIcon = "comments.png";
+
         }
     }
 }

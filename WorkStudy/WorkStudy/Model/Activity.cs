@@ -50,5 +50,7 @@ namespace WorkStudy.Model
 
         public string DeleteIcon { get; set; } = "delete.png";
 
+        public string SettingsIcon { get; set; } = "comments.png";
+
     }
 }

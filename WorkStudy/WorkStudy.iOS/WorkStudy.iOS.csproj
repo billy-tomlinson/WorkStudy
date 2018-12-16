@@ -182,9 +182,6 @@
     <BundleResource Include="Resources\alert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
-    <BundleResource Include="Resources\delete.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </BundleResource>
     <BundleResource Include="Resources\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
@@ -193,5 +190,7 @@
     </BundleResource>
     <BundleResource Include="Resources\thumb.png" />
     <BundleResource Include="Resources\stopwatch.png" />
+    <BundleResource Include="Resources\comments.png" />
+    <BundleResource Include="Resources\delete.png" />
   </ItemGroup>
 </Project>

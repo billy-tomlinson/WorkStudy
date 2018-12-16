@@ -159,6 +159,7 @@ namespace WorkStudy.ViewModels
             ItemsCollection = GetAllOperators();
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();
+            Operator.SettingsIcon = string.Empty;
             Name = string.Empty;
         }
 
