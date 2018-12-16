@@ -82,7 +82,7 @@ namespace WorkStudy.ViewModels
                 var duplicatesCheck = new List<Activity>(ItemsCollection);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
                     ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true });
-                ItemsCollection = Get_Rated_Enabled_Activities();
+                ItemsCollection = Get_All_Enabled_Activities();;
 
                 Name = string.Empty;
             }
@@ -201,7 +201,7 @@ namespace WorkStudy.ViewModels
         {
             Activity = ActivityRepo.GetItem(value);
             ActivityRepo.DeleteItem(Activity);
-            ItemsCollection = Get_Rated_Enabled_Activities_WithChildren();
+            ItemsCollection = Get_All_Enabled_Activities();
         }
 
         void ActivitySelectedEvent(object sender)
@@ -219,11 +219,34 @@ namespace WorkStudy.ViewModels
             DeleteSelected = new Command(DeleteSelectedEvent);
 
             Name = string.Empty;
-            ItemsCollection = Get_Rated_Enabled_Activities();
+            CheckActivitiesInUse();
+            ItemsCollection = Get_All_Enabled_Activities();
             Activity = new Activity();
             Activity.SettingsIcon = "comments.png";
-
         }
+
+        private void CheckActivitiesInUse()
+        {
+            var activities = Get_Rated_Enabled_Activities();
+
+            foreach (var item in activities)
+            {
+                var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == item.Id
+                          && x.StudyId == Utilities.StudyId);
+
+                var merged = MergedActivityRepo.GetItems().Where(x => x.ActivityId == item.Id);
+
+                var deleteIcon = "delete.png";
+                if (obs.Any() || merged.Any())
+                {
+                    deleteIcon = string.Empty;
+                } 
+
+                var activity = ActivityRepo.GetItem(item.Id);
+                activity.DeleteIcon = deleteIcon;
+                ActivityRepo.SaveItem(activity);
+            }
+        } 
     }
 }
 

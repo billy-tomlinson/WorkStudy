@@ -103,7 +103,8 @@ namespace WorkStudy.ViewModels
                 Name = "IDLE",
                 IsEnabled = true,
                 Rated = false,
-                StudyId = Utilities.StudyId
+                StudyId = Utilities.StudyId,
+                DeleteIcon = string.Empty
             };
 
             var unrated2 = new Activity()
@@ -111,7 +112,8 @@ namespace WorkStudy.ViewModels
                 Name = "INACTIVE",
                 IsEnabled = true,
                 Rated = false,
-                StudyId = Utilities.StudyId
+                StudyId = Utilities.StudyId,
+                DeleteIcon = string.Empty
             };
 
             var unrated3 = new Activity()
@@ -119,7 +121,8 @@ namespace WorkStudy.ViewModels
                 Name = "OTHER",
                 IsEnabled = true,
                 Rated = false,
-                StudyId = Utilities.StudyId
+                StudyId = Utilities.StudyId,
+                DeleteIcon = string.Empty
             };
 
             ActivityRepo.SaveItem(unrated1);
