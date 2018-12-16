@@ -356,10 +356,15 @@ namespace WorkStudy.ViewModels
             var obsCount = ObservationRepo.GetItems().Count(x => x.ObservationNumber == lastObservationRound);
             var opsCount = GetAllEnabledAndDisabledOperators().Count();
 
-            if (opsCount > obsCount)
+            if (ObservationRound == lastObservationRound)
+            {
+                if(opsCount == obsCount)
+                    ObservationRound = lastObservationRound;
+            }
+            else if (opsCount > obsCount)
                 ObservationRound = lastObservationRound;
-            else
-                ObservationRound = lastObservationRound + 1;
+            else 
+                ObservationRound = lastObservationRound + 1; 
         }
 
         private bool IsStudyValid()
