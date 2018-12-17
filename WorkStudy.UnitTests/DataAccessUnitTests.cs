@@ -36,7 +36,7 @@ namespace WorkStudy.UnitTests
                 //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
 
-               // CleanDatabase();
+               CleanDatabase();
             }
 
             [TestMethod]
@@ -336,6 +336,7 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void Create_Excel_Spreadsheet_From_SQL()
             {
+                
                 var activity1 = new Activity()
                 {
                     Name = "Activity One",
@@ -390,6 +391,11 @@ namespace WorkStudy.UnitTests
 
                 var x = activityRepo.GetItems();
 
+
+                //var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId);
+
+                var operators = activityRepo.GetItems().ToList();
+
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
 
@@ -402,6 +408,14 @@ namespace WorkStudy.UnitTests
                     //Access first worksheet from the workbook instance.
                     IWorksheet worksheet = workbook.Worksheets[0];
 
+                    foreach (var op in operators)
+                    {
+                        //var obs = observationRepo.GetItems().Where( cw => cw.OperatorId == op.Id);
+                        IWorksheet destSheet = workbook.Worksheets.Create(op.Name);
+                        destSheet.ImportData(operators, 1, 1, true);
+
+                    }
+
                     worksheet.ImportData(x, 1, 1, true);
 
                     using (MemoryStream ms = new MemoryStream())
@@ -411,7 +425,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("output.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutput.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
@@ -732,14 +746,6 @@ namespace WorkStudy.UnitTests
             //    //}
             //}
 
-            [TestMethod]
-            public void Create_Excel_Spreadsheet()
-            {
-
-                Utilities.Connection = "WorkStudy1.db1";
-                Utilities.StudyId = 1;
-                Utilities.CreateExcelWorkBook(new List<Operator>());
-            }
         }
     }
 }
