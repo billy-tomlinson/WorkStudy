@@ -27,7 +27,8 @@
                                       VerticalOptions="Center" 
                                       HorizontalOptions="Center"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5" Margin="5">
-                    <Button WidthRequest="100" Text="Save" Command="{Binding SaveActivities}" />
+                    <Button WidthRequest="100" Text="Merge" Command="{Binding SaveActivities}" />
+                    <Button WidthRequest="100" Text="Un-Merge" Command="{Binding UnMergeActivities}" />
                     <Button WidthRequest="100" Text="Cancel"  Command="{Binding CancelActivities}" />
                 </StackLayout>
             </StackLayout>

@@ -235,6 +235,12 @@ namespace WorkStudy.ViewModels
                                         .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
+        public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
+        }
+
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
         {
             return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));

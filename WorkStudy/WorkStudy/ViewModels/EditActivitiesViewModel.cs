@@ -5,12 +5,14 @@ using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
+using XLabs.Platform.Services.IO;
 
 namespace WorkStudy.ViewModels
 {
     public class EditActivitiesViewModel : BaseViewModel
     {
         public Command SaveActivities { get; set; }
+        public Command UnMergeActivities { get; set; }
         public Command CancelActivities { get; set; }
         public Command ActivitySelected { get; set; }
 
@@ -34,13 +36,10 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
-
         void ActivitySelectedEvent(object sender)
         {
-
             var value = (int)sender;
             ChangeButtonColour(value);
-
         }
 
         private void ChangeButtonColour(int sender)
@@ -65,7 +64,7 @@ namespace WorkStudy.ViewModels
         private ObservableCollection<MultipleActivities> ChangeButtonColourOnLoad()
         {
             IEnumerable<Activity> obsCollection = Activities;
-            var list = new List<Activity>(obsCollection);
+
             var list1 = new List<Activity>(obsCollection);
 
             Activities = ConvertListToObservable(list1);
@@ -76,12 +75,20 @@ namespace WorkStudy.ViewModels
         {
             if (mergedActivities.Count < 2) return;
 
-            var operators = OperatorRepo.GetAllWithChildren().ToList();
+            var countRated = mergedActivities.Any(x => x.Rated);
+            var countUnrated = mergedActivities.Any(x => !x.Rated);
+
+            if(countRated && countUnrated)
+            {
+                ValidationText = "Cannot merge rated and unrated activities together.";
+                Opacity = 0.2;
+                IsInvalid = true;
+                return;
+            }
 
             var parentActivity = new Activity();
             var returnId = ActivityRepo.SaveItem(parentActivity);
             parentActivity = ActivityRepo.GetItem(returnId);
-
 
             for (var i = 0; i < MergedActivities.Count; i++)
             {
@@ -107,7 +114,49 @@ namespace WorkStudy.ViewModels
             }
 
             MergedActivities = new List<Activity>();
-            Activities = Get_Rated_Enabled_Activities_WithChildren();
+            Activities = Get_All_Enabled_Activities_WithChildren();
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+        }
+
+        public void UnMergeActivitiesEvent()
+        {
+            if (mergedActivities.Count != 1)
+            {
+                ValidationText = "Please select one activity only to un-merge";
+                Opacity = 0.2;
+                IsInvalid = true;
+                return;
+            }
+
+            var mergedActivity = mergedActivities[0];
+
+            var inUse = ObservationRepo.GetItems().Any(cw => cw.AliasActivityId == mergedActivity.Id);
+
+            if (inUse)
+            {
+                ValidationText = "Activity cannot be un-merged. It has been used in the study";
+                Opacity = 0.2;
+                IsInvalid = true;
+                return;
+            }
+
+            var mergedItems = MergedActivityRepo.GetItems().Where(x => x.ActivityId == mergedActivity.Id);
+
+            foreach (var item in mergedItems)
+            {
+                var activity = ActivityRepo.GetItem(item.MergedActivityId);
+                activity.IsEnabled = true;
+                ActivityRepo.SaveItem(activity);
+
+                activity = ActivityRepo.GetItem(item.ActivityId);
+                activity.IsEnabled = false;
+                ActivityRepo.SaveItem(activity);
+
+                MergedActivityRepo.DeleteItem(item);
+            }
+
+            MergedActivities = new List<Activity>();
+            Activities = Get_All_Enabled_Activities_WithChildren();
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
@@ -131,10 +180,11 @@ namespace WorkStudy.ViewModels
         private void ConstructorSetUp()
         {
             SaveActivities = new Command(SaveActivityDetails);
+            UnMergeActivities = new Command(UnMergeActivitiesEvent);
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Activities = Get_Rated_Enabled_Activities_WithChildren();
+            Activities = Get_All_Enabled_Activities_WithChildren();
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
             InvalidText = $"There are no activities to merge for study {Utilities.StudyId}";
