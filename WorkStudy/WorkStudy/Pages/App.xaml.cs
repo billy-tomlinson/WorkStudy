@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using WorkStudy.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WorkStudy
@@ -19,7 +20,7 @@ namespace WorkStudy
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             DatabasePath = databasePath;
-
+            Utilities.Connection = DatabasePath;
             CallMain();
         }
 

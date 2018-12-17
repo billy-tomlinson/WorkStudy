@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using Plugin.Messaging;
 using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace WorkStudy.Services
 {
@@ -15,9 +17,8 @@ namespace WorkStudy.Services
         public static int StudyId { get; set; }
         public static bool IsCompleted { get; set; }
         public static bool RatedStudy { get; set; }
-        public static int OperatorId { get; set; }
         public static bool AllObservationsTaken { get; set; }
-        public static bool StudyPageInvalid { get; set; }
+        public static string Connection { get; set; }
 
         public static async void Navigate(Page page)
         {
@@ -87,7 +88,12 @@ namespace WorkStudy.Services
             string path;
             string fileName = $"Workstudy_Study_{StudyId}.xlsx";
 
-            var dataItems = items.ToList();
+
+            var obsRepo = new BaseRepository<Observation>(Connection);
+            var opsRepo = new BaseRepository<Operator>(Connection);
+
+            var dataItems = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId)
+                                                        .GroupBy(p => p.Id, p => p.Observations).ToList();
 
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
@@ -99,11 +105,22 @@ namespace WorkStudy.Services
 
                 worksheet.ImportData(dataItems, 1, 1, true);
 
+                //for (var i = 0; i < dataItems.Count; i++)
+                //{
+                //    workbook.Worksheets.Create(i.ToString());
+                //    IWorksheet worksheet = workbook.Worksheets[i.ToString()];
+
+                //    worksheet.ImportData(dataItems[i], 1, 1, true);
+                //}
+
+
                 MemoryStream stream = new MemoryStream();
 
                 workbook.SaveAs(stream);
-
+                
                 workbook.Close();
+
+                SaveSpreadSheet(stream);
 
                 path = DependencyService.Get<ISave>()
                                         .SaveSpreadSheet(fileName, "application/msexcel", stream)
@@ -155,6 +172,18 @@ namespace WorkStudy.Services
 
             return numberOfObservations;
 
+        }
+
+        public static void SaveSpreadSheet(MemoryStream stream)
+        {
+ 
+                stream.Seek(0, SeekOrigin.Begin);
+
+                using (FileStream fs = new FileStream(@"C:\BillyOutput.xls", FileMode.OpenOrCreate ))
+                {
+                    stream.CopyTo(fs);
+                    fs.Flush();
+                }
         }
     }
 }

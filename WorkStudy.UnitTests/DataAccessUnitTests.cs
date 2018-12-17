@@ -36,7 +36,7 @@ namespace WorkStudy.UnitTests
                 //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
 
-                CleanDatabase();
+               // CleanDatabase();
             }
 
             [TestMethod]
@@ -162,16 +162,16 @@ namespace WorkStudy.UnitTests
             }
 
 
-            [TestMethod]
-            public void Add_And_Retrieve_Operator_With_No_Rated_Activities()
-            {
-                var operator1 = Link_UnRated_Activities_To_Operator();
-                Utilities.StudyId = 1000;
-                var model = new AddOperatorsViewModel(connString);
-                model.ValidateOperatorActivities();
-                Assert.IsTrue(model.IsInvalid);
+            //[TestMethod]
+            //public void Add_And_Retrieve_Operator_With_No_Rated_Activities()
+            //{
+            //    var operator1 = Link_UnRated_Activities_To_Operator();
+            //    Utilities.StudyId = 1000;
+            //    var model = new AddOperatorsViewModel(connString);
+            //    model.ValidateOperatorActivities();
+            //    Assert.IsTrue(model.IsInvalid);
 
-            }
+            //}
 
             [TestMethod]
             public void Add_And_Retrieve_Operator_With_No_Rated_And_Unrated_Activities()
@@ -684,55 +684,61 @@ namespace WorkStudy.UnitTests
             }
             private void CleanDatabase()
             {
-                //activityRepo.DropTable();
-                //activityRepo.CreateTable();
+                activityRepo.DropTable();
+                activityRepo.CreateTable();
 
-                //operatorRepo.DropTable();
-                //operatorRepo.CreateTable();
+                operatorRepo.DropTable();
+                operatorRepo.CreateTable();
 
-                //sampleRepo.DropTable();
-                //sampleRepo.CreateTable();
+                sampleRepo.DropTable();
+                sampleRepo.CreateTable();
 
-                //observationRepo.DropTable();
-                //observationRepo.CreateTable();
+                observationRepo.DropTable();
+                observationRepo.CreateTable();
 
-                //operatorActivityRepo.DropTable();
-                //operatorActivityRepo.CreateTable();
-
-                //mergedActivityRepo.DropTable();
-                //mergedActivityRepo.CreateTable();
+                mergedActivityRepo.DropTable();
+                mergedActivityRepo.CreateTable();
             }
 
+            //[TestMethod]
+            //public void Test_Operator_Activities_SumUp()
+            //{
+            //    List<OperatorRunningTotal> runningTotals = new List<OperatorRunningTotal>();
+
+            //    int opId = 1;
+
+            //    var operators = operatorRepo.GetWithChildren(opId);
+            //    //var activities = operators.Activities;
+            //    var observations = operators.Observations;
+            //    var totalObs = observations.Count;
+
+            //    //foreach (var item in activities)
+            //    //{
+            //    //    var count = observations.Count(x => x.ActivityId == item.Id);
+            //    //    double percentage = count > 0 ? (double)count / totalObs : 0;
+            //    //    percentage = Math.Round(percentage * 100, 1); 
+
+            //    //    var runningTotal = new OperatorRunningTotal()
+            //    //    {
+            //    //        ActivityId = item.Id,
+            //    //        OperatorId = opId,
+            //    //        ActivityName = item.Name,
+            //    //        NumberOfObservations = count,
+            //    //        Percentage = percentage,
+            //    //        PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
+            //    //    };
+
+            //    //    runningTotals.Add(runningTotal);
+            //    //}
+            //}
+
             [TestMethod]
-            public void Test_Operator_Activities_SumUp()
+            public void Create_Excel_Spreadsheet()
             {
-                List<OperatorRunningTotal> runningTotals = new List<OperatorRunningTotal>();
 
-                int opId = 1;
-
-                var operators = operatorRepo.GetWithChildren(opId);
-                //var activities = operators.Activities;
-                var observations = operators.Observations;
-                var totalObs = observations.Count;
-
-                //foreach (var item in activities)
-                //{
-                //    var count = observations.Count(x => x.ActivityId == item.Id);
-                //    double percentage = count > 0 ? (double)count / totalObs : 0;
-                //    percentage = Math.Round(percentage * 100, 1); 
-
-                //    var runningTotal = new OperatorRunningTotal()
-                //    {
-                //        ActivityId = item.Id,
-                //        OperatorId = opId,
-                //        ActivityName = item.Name,
-                //        NumberOfObservations = count,
-                //        Percentage = percentage,
-                //        PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
-                //    };
-
-                //    runningTotals.Add(runningTotal);
-                //}
+                Utilities.Connection = "WorkStudy1.db1";
+                Utilities.StudyId = 1;
+                Utilities.CreateExcelWorkBook(new List<Operator>());
             }
         }
     }
