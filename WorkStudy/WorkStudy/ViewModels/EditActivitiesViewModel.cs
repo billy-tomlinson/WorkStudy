@@ -107,7 +107,7 @@ namespace WorkStudy.ViewModels
 
                 parentActivity.Name = parentActivity.Name + " " + merged.Name;
                 parentActivity.IsEnabled = true;
-                parentActivity.Rated = true;
+                parentActivity.Rated = countRated;
 
                 ActivityRepo.SaveItem(parentActivity);
                 parentActivity.Activities.Add(merged);
