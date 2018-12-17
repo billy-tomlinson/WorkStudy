@@ -129,7 +129,7 @@ namespace WorkStudy.ViewModels
 
             var mergedActivity = mergedActivities[0];
 
-            var inUse = ObservationRepo.GetItems().Any(cw => cw.AliasActivityId == mergedActivity.Id);
+            var inUse = ObservationRepo.GetItems().Any(cw => cw.ActivityId == mergedActivity.Id);
 
             if (inUse)
             {
@@ -140,7 +140,9 @@ namespace WorkStudy.ViewModels
                 return;
             }
 
-            var mergedItems = MergedActivityRepo.GetItems().Where(x => x.ActivityId == mergedActivity.Id);
+            var mergedItems = MergedActivityRepo.GetItems()
+                                                .Where(x => x.ActivityId == mergedActivity.Id)
+                                                .ToList();
 
             foreach (var item in mergedItems)
             {
