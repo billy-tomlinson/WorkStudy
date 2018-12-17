@@ -81,6 +81,7 @@ namespace WorkStudy.ViewModels
             {
                 ValidationText = "Cannot merge rated and unrated activities together.";
                 Opacity = 0.2;
+                RefreshActivities();
                 IsInvalid = true;
                 return;
             }
@@ -112,9 +113,7 @@ namespace WorkStudy.ViewModels
                 parentActivity.Activities.Add(merged);
             }
 
-            MergedActivities = new List<Activity>();
-            Activities = Get_All_Enabled_Activities_WithChildren();
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+            RefreshActivities();
         }
 
         public void UnMergeActivitiesEvent()
@@ -123,6 +122,7 @@ namespace WorkStudy.ViewModels
             {
                 ValidationText = "Please select one activity only to un-merge";
                 Opacity = 0.2;
+                RefreshActivities();
                 IsInvalid = true;
                 return;
             }
@@ -135,6 +135,7 @@ namespace WorkStudy.ViewModels
             {
                 ValidationText = "Activity cannot be un-merged. It has been used in the study";
                 Opacity = 0.2;
+                RefreshActivities();
                 IsInvalid = true;
                 return;
             }
@@ -154,6 +155,11 @@ namespace WorkStudy.ViewModels
                 MergedActivityRepo.DeleteItem(item);
             }
 
+            RefreshActivities();
+        }
+
+        private void RefreshActivities()
+        {
             MergedActivities = new List<Activity>();
             Activities = Get_All_Enabled_Activities_WithChildren();
             GroupActivities = Utilities.BuildGroupOfActivities(Activities);
@@ -189,6 +195,5 @@ namespace WorkStudy.ViewModels
             InvalidText = $"There are no activities to merge for study {Utilities.StudyId}";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted && Activities.Count > 0);
         }
-
     }
 }
