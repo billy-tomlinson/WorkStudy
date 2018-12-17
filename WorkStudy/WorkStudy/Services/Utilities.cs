@@ -92,27 +92,21 @@ namespace WorkStudy.Services
             var obsRepo = new BaseRepository<Observation>(Connection);
             var opsRepo = new BaseRepository<Operator>(Connection);
 
-            var dataItems = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId)
-                                                        .GroupBy(p => p.Id, p => p.Observations).ToList();
-
+            var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
+                                   
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
                 IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                IWorksheet worksheet = workbook.Worksheets[0];
+                foreach (var op in operators)
+                {
+                    var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
+                    IWorksheet destSheet = workbook.Worksheets.Create(op.Name);
+                    destSheet.ImportData(obs, 1, 1, true);
 
-                worksheet.ImportData(dataItems, 1, 1, true);
-
-                //for (var i = 0; i < dataItems.Count; i++)
-                //{
-                //    workbook.Worksheets.Create(i.ToString());
-                //    IWorksheet worksheet = workbook.Worksheets[i.ToString()];
-
-                //    worksheet.ImportData(dataItems[i], 1, 1, true);
-                //}
-
+                }
 
                 MemoryStream stream = new MemoryStream();
 
@@ -120,7 +114,7 @@ namespace WorkStudy.Services
                 
                 workbook.Close();
 
-                SaveSpreadSheet(stream);
+                //SaveSpreadSheet(stream);
 
                 path = DependencyService.Get<ISave>()
                                         .SaveSpreadSheet(fileName, "application/msexcel", stream)
@@ -179,7 +173,7 @@ namespace WorkStudy.Services
  
                 stream.Seek(0, SeekOrigin.Begin);
 
-                using (FileStream fs = new FileStream(@"C:\BillyOutput.xls", FileMode.OpenOrCreate ))
+                using (FileStream fs = new FileStream(@"BillyOutput.xls", FileMode.OpenOrCreate ))
                 {
                     stream.CopyTo(fs);
                     fs.Flush();
