@@ -114,6 +114,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        int closeColumnSpan = 2;
+        public int CloseColumnSpan
+        {
+            get { return closeColumnSpan; }
+            set
+            {
+                closeColumnSpan = value;
+                OnPropertyChanged();
+            }
+        }
 
         int totalObservationsRequired;
         public int TotalObservationsRequired

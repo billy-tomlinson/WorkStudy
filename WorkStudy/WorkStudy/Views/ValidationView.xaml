@@ -9,12 +9,30 @@
                     <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150" HorizontalOptions="Center">
-                        <Button Text="OK" Style="{StaticResource popUpButton}" Command="{Binding CloseView}" 
-                                Margin="60,10,60,10"  />
-                    <Button Text="OVERRIDE" Style="{StaticResource popUpButton}" IsVisible="{Binding IsOverrideVisible}" Command="{Binding Override}" 
-                                Margin="60,10,60,10"  />
-                </StackLayout>
+                 <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
+                                Text="CLOSE" Style="{StaticResource popUpButton}" 
+                                Command="{Binding CloseView}" 
+                                Margin="10,10,10,10" 
+                                FontSize="12" 
+                                HorizontalOptions="Center" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="OVERRIDE" 
+                                Style="{StaticResource popUpButton}" 
+                                HorizontalOptions="Center" 
+                                IsVisible="{Binding IsOverrideVisible}" 
+                                Command="{Binding Override}" 
+                                FontSize="12"
+                                Margin="10,10,10,10"/>
+
+                    </Grid>
                 </StackLayout>
             </ContentView>
     </ContentView.Content>

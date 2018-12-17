@@ -163,6 +163,8 @@ namespace WorkStudy.ViewModels
                 IsOverrideVisible = true;
                 Opacity = 0.2;
                 IsInvalid = true;
+                CloseColumnSpan = 1;
+                RequestToTerminateStudy = false;
             }
         }
 
@@ -182,6 +184,7 @@ namespace WorkStudy.ViewModels
                 ValidationText = "Study has not reached Limits Of Accuracy. Override?";
                 IsOverrideVisible = true;
                 Opacity = 0.2;
+                CloseColumnSpan = 1;
                 IsInvalid = true;
                 RequestToTerminateStudy = true;
                 return;
@@ -384,8 +387,12 @@ namespace WorkStudy.ViewModels
         {
             if(RequestToTerminateStudy)
                 TerminateStudyProcess();
+
             else
                 SetUpForNextObservationRound();
+
+            IsInvalid = false;
+            Opacity = 1;
         }
 
         private void GetObservationRound()
