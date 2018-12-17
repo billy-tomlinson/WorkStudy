@@ -5,7 +5,6 @@ using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
-using XLabs.Platform.Services.IO;
 
 namespace WorkStudy.ViewModels
 {
