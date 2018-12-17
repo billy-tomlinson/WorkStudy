@@ -16,7 +16,10 @@ namespace WorkStudy.ViewModels
     {      
         public event PropertyChangedEventHandler PropertyChanged;
         public Command CloseView { get; set; }
+        public Command Override { get; set; }
+
         private readonly string conn;
+
         public Operator Operator;
 
         public BaseViewModel(string conn = null)
@@ -158,6 +161,17 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        bool isOverrideVisible = false;
+        public bool IsOverrideVisible
+        {
+            get { return isOverrideVisible; }
+            set
+            {
+                isOverrideVisible = value;
+                IsPageUnavailableVisible = !value;
+                OnPropertyChanged();
+            }
+        }
 
         int isItemEnabled;
         public int IsItemEnabled
@@ -209,7 +223,6 @@ namespace WorkStudy.ViewModels
             return new ObservableCollection<Activity>(ActivityRepo.GetItems()
                                          .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
-
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities()
         {

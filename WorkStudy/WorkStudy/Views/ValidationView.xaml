@@ -9,10 +9,12 @@
                     <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150">
+                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent" WidthRequest="150" HorizontalOptions="Center">
                         <Button Text="OK" Style="{StaticResource popUpButton}" Command="{Binding CloseView}" 
                                 Margin="60,10,60,10"  />
-                    </StackLayout>
+                    <Button Text="OVERRIDE" Style="{StaticResource popUpButton}" IsVisible="{Binding IsOverrideVisible}" Command="{Binding Override}" 
+                                Margin="60,10,60,10"  />
+                </StackLayout>
                 </StackLayout>
             </ContentView>
     </ContentView.Content>

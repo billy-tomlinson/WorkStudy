@@ -84,6 +84,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool requestToTerminateStudy;
+        public bool RequestToTerminateStudy
+        {
+            get => requestToTerminateStudy;
+            set
+            {
+                requestToTerminateStudy = value;
+                OnPropertyChanged();
+            }
+        }
 
         static double totalPercent;
         public double TotalPercent
@@ -95,6 +105,7 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         static string operatorName;
         public string OperatorName
         {
@@ -143,22 +154,43 @@ namespace WorkStudy.ViewModels
         {
             if (AllObservationsTaken)
             {
-                Utilities.AllObservationsTaken = true;
-                observations = new List<Observation>();
-                UpdateObservationRound();
-                CreateOperatorObservations();
-                TotalPercent = GetStudyTotalPercent();
+                SetUpForNextObservationRound();
             }
             else
             {
                 Utilities.AllObservationsTaken = false;
                 ValidationText = "Not All Operators have been observed.";
+                IsOverrideVisible = true;
                 Opacity = 0.2;
                 IsInvalid = true;
             }
         }
 
+        private void SetUpForNextObservationRound()
+        {
+            Utilities.AllObservationsTaken = true;
+            observations = new List<Observation>();
+            UpdateObservationRound();
+            CreateOperatorObservations();
+            TotalPercent = GetStudyTotalPercent();
+        }
+
         void TerminateStudy()
+        {
+            if (GetStudyTotalPercent() != 100)
+            {
+                ValidationText = "Study has not reached Limits Of Accuracy. Override?";
+                IsOverrideVisible = true;
+                Opacity = 0.2;
+                IsInvalid = true;
+                RequestToTerminateStudy = true;
+                return;
+            }
+
+            TerminateStudyProcess();
+        }
+
+        private void TerminateStudyProcess()
         {
             var study = SampleRepo.GetItem(Utilities.StudyId);
             study.Completed = true;
@@ -332,6 +364,7 @@ namespace WorkStudy.ViewModels
             EndStudy = new Command(TerminateStudy);
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
+            Override = new Command(OverrideEvent);
             Opacity = 1.0;
 
             Operators = GetAllEnabledOperators();
@@ -345,6 +378,14 @@ namespace WorkStudy.ViewModels
             CreateOperatorObservations();
 
             TotalPercent = GetStudyTotalPercent();
+        }
+
+        void OverrideEvent(object sender)
+        {
+            if(RequestToTerminateStudy)
+                TerminateStudyProcess();
+            else
+                SetUpForNextObservationRound();
         }
 
         private void GetObservationRound()
@@ -449,13 +490,13 @@ namespace WorkStudy.ViewModels
                                                            && _.IsEnabled));
         }
 
-
         private ObservableCollection<Operator> GetAllEnabledAndDisabledOperators()
         {
             return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId
                                                            ));
         }
+
         private double GetStudyTotalPercent()
         {
             double totalPercent = 0;
