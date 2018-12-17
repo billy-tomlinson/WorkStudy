@@ -227,7 +227,7 @@ namespace WorkStudy.ViewModels
 
         private void CheckActivitiesInUse()
         {
-            var activities = Get_Rated_Enabled_Activities();
+            var activities = Get_All_Enabled_Activities();
 
             foreach (var item in activities)
             {

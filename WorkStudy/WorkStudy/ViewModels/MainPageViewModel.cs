@@ -407,9 +407,10 @@ namespace WorkStudy.ViewModels
                 return;
             }
             
-            var obsCount = ObservationRepo.GetItems().Count(x => x.ObservationNumber == lastObservationRound);
-            var opsCount = GetAllEnabledAndDisabledOperators().Count();
-
+            var obsCount = ObservationRepo.GetItems()
+                                          .Count(x => x.ObservationNumber == lastObservationRound
+                                                && x.StudyId == Utilities.StudyId);
+            var opsCount = GetAllEnabledOperators().Count();
             if (ObservationRound == lastObservationRound)
             {
                 if(opsCount == obsCount)

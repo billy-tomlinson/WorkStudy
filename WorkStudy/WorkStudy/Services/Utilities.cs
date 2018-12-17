@@ -111,11 +111,11 @@ namespace WorkStudy.Services
                 MemoryStream stream = new MemoryStream();
 
                 workbook.SaveAs(stream);
-                
+                //SaveSpreadSheet(stream);
                 workbook.Close();
 
                 //SaveSpreadSheet(stream);
-
+                //path = string.Empty;
                 path = DependencyService.Get<ISave>()
                                         .SaveSpreadSheet(fileName, "application/msexcel", stream)
                                         .Result;
@@ -170,14 +170,21 @@ namespace WorkStudy.Services
 
         public static void SaveSpreadSheet(MemoryStream stream)
         {
- 
-                stream.Seek(0, SeekOrigin.Begin);
+            stream.Seek(0, SeekOrigin.Begin);
 
-                using (FileStream fs = new FileStream(@"BillyOutput.xls", FileMode.OpenOrCreate ))
-                {
-                    stream.CopyTo(fs);
-                    fs.Flush();
-                }
+            using (var fileStream = new FileStream(@"BillyOutput.xlsx", FileMode.Create, FileAccess.Write))
+            {
+                stream.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+ 
+                //stream.Seek(0, SeekOrigin.Begin);
+
+                //using (FileStream fs = new FileStream(@"BillyOutput.xlsx", FileMode.OpenOrCreate ))
+                //{
+                //    stream.CopyTo(fs);
+                //    fs.Flush();
+                //}
         }
     }
 }
