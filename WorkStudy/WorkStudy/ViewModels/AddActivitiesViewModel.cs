@@ -231,12 +231,17 @@ namespace WorkStudy.ViewModels
 
             foreach (var item in activities)
             {
-                var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == item.Id
-                          && x.StudyId == Utilities.StudyId);
+                var obs = ObservationRepo.GetItems()
+                                         .Where(x => x.ActivityId == item.Id || x.AliasActivityId == item.Id
+                                          && x.StudyId == Utilities.StudyId)
+                                         .ToList();
 
-                var merged = MergedActivityRepo.GetItems().Where(x => x.ActivityId == item.Id);
+                var merged = MergedActivityRepo.GetItems()
+                                               .Where(x => x.MergedActivityId == item.Id)
+                                               .ToList();
 
-                var deleteIcon = "delete.png";
+                var deleteIcon = item.Rated ? "delete.png" : string.Empty;
+
                 if (obs.Any() || merged.Any())
                 {
                     deleteIcon = string.Empty;
