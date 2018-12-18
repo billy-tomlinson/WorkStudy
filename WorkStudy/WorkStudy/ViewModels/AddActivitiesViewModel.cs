@@ -237,7 +237,7 @@ namespace WorkStudy.ViewModels
                                          .ToList();
 
                 var merged = MergedActivityRepo.GetItems()
-                                               .Where(x => x.MergedActivityId == item.Id)
+                                               .Where(x => x.ActivityId == item.Id || x.MergedActivityId == item.Id)
                                                .ToList();
 
                 var deleteIcon = item.Rated ? "delete.png" : string.Empty;
