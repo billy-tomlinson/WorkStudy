@@ -94,17 +94,31 @@ namespace WorkStudy.Services
 
             var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
                                    
-            using (ExcelEngine excelEngine = new ExcelEngine())
+            using (var excelEngine = new ExcelEngine())
             {
                 excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
-                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+                var workbook = excelEngine.Excel.Workbooks.Create(1);
 
                 foreach (var op in operators)
                 {
+                    var data = new List<SpreadSheetObservation>();
                     var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
-                    IWorksheet destSheet = workbook.Worksheets.Create(op.Name);
-                    destSheet.ImportData(obs, 1, 1, true);
+
+                    foreach (var observation in obs)
+                    {
+                        data.Add(new SpreadSheetObservation()
+                        {
+                            ActivityName = observation.ActivityName,
+                            StudyId = StudyId,
+                            OperatorName = op.Name,
+                            ObservationNumber = observation.ObservationNumber,
+                            Rating = observation.Rating
+
+                        });
+                    }
+                    var destSheet = workbook.Worksheets.Create(op.Name);
+                    destSheet.ImportData(data, 1, 1, true);
 
                 }
 

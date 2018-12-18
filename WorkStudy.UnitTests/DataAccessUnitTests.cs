@@ -36,7 +36,7 @@ namespace WorkStudy.UnitTests
                 //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
 
-               CleanDatabase();
+              // CleanDatabase();
             }
 
             [TestMethod]
@@ -212,6 +212,24 @@ namespace WorkStudy.UnitTests
                 };
 
                 var id = observationRepo.SaveItem(observation);
+
+                observation = new Observation()
+                {
+                    ActivityId = 2,
+                    OperatorId = 1,
+                    Rating = 85
+                };
+
+                id = observationRepo.SaveItem(observation);
+
+                observation = new Observation()
+                {
+                    ActivityId = 1,
+                    OperatorId = 1,
+                    Rating = 85
+                };
+
+                id = observationRepo.SaveItem(observation);
 
                 var value = observationRepo.GetItem(id);
                 Assert.AreEqual(id, value.Id);
@@ -389,12 +407,15 @@ namespace WorkStudy.UnitTests
                     activityRepo.SaveItem(item);
                 }
 
-                var x = activityRepo.GetItems();
+                //var x = activityRepo.GetItems();
 
+                AddAndUpdateAndRetrieveActivitySampleStudy();
+                AddAndRetrieveOperator_And_Get_All_Operators();
+                AddAndRetrieveObservation_And_Get_All_Observations();
 
-                //var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId);
+                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 1);
 
-                var operators = activityRepo.GetItems().ToList();
+                //var operators = activityRepo.GetItems().ToList();
 
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
@@ -405,18 +426,29 @@ namespace WorkStudy.UnitTests
                     //Create a workbook with a worksheet
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                    //Access first worksheet from the workbook instance.
-                    IWorksheet worksheet = workbook.Worksheets[0];
-
                     foreach (var op in operators)
                     {
-                        //var obs = observationRepo.GetItems().Where( cw => cw.OperatorId == op.Id);
-                        IWorksheet destSheet = workbook.Worksheets.Create(op.Name);
-                        destSheet.ImportData(operators, 1, 1, true);
+                        var data = new List<SpreadSheetObservation>();
+                        var obs = observationRepo.GetItems().Where(x => x.OperatorId == op.Id);
+
+                        foreach (var observation in obs)
+                        {
+                            data.Add(new SpreadSheetObservation()
+                            {
+                                ActivityName = observation.ActivityName,
+                                StudyId = Utilities.StudyId,
+                                OperatorName = op.Name,
+                                ObservationNumber = observation.ObservationNumber,
+                                Rating = observation.Rating
+
+                            });
+                        }
+                        var destSheet = workbook.Worksheets.Create();
+                        destSheet.ImportData(data, 1, 1, true);
 
                     }
 
-                    worksheet.ImportData(x, 1, 1, true);
+                    //worksheet.ImportData(x, 1, 1, true);
 
                     using (MemoryStream ms = new MemoryStream())
                     {
@@ -425,7 +457,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutput.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTest.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
