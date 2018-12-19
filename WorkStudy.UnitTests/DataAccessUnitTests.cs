@@ -426,29 +426,37 @@ namespace WorkStudy.UnitTests
                     //Create a workbook with a worksheet
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
 
+                    var sample  = sampleRepo.GetItem(1);
+
                     foreach (var op in operators)
                     {
                         var data = new List<SpreadSheetObservation>();
-                        var obs = observationRepo.GetItems().Where(x => x.OperatorId == op.Id);
+                        var obs = observationRepo.GetAllWithChildren().Where(x => x.OperatorId == op.Id);
 
                         foreach (var observation in obs)
                         {
                             data.Add(new SpreadSheetObservation()
                             {
                                 ActivityName = observation.ActivityName,
-                                StudyId = Utilities.StudyId,
+                                Study = sample.Name,
                                 OperatorName = op.Name,
                                 ObservationNumber = observation.ObservationNumber,
-                                Rating = observation.Rating
-
+                                Rating = observation.Rating,
+                                Date = observation.Date
                             });
                         }
-                        var destSheet = workbook.Worksheets.Create();
-                        destSheet.ImportData(data, 1, 1, true);
+                        var destSheet = workbook.Worksheets.Create(op.Name);
+
+                        destSheet.Range["A1"].Text = "Study";
+                        destSheet.Range["B1"].Text = "Date/Time";
+                        destSheet.Range["C1"].Text = "Operator";
+                        destSheet.Range["D1"].Text = "Observation Round";
+                        destSheet.Range["E1"].Text = "Activity";
+                        destSheet.Range["F1"].Text = "Rating";
+
+                        destSheet.ImportData(data, 3, 1, false);
 
                     }
-
-                    //worksheet.ImportData(x, 1, 1, true);
 
                     using (MemoryStream ms = new MemoryStream())
                     {

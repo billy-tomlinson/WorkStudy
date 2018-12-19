@@ -110,7 +110,7 @@ namespace WorkStudy.Services
                         data.Add(new SpreadSheetObservation()
                         {
                             ActivityName = observation.ActivityName,
-                            StudyId = StudyId,
+                           // StudyId = StudyId,
                             OperatorName = op.Name,
                             ObservationNumber = observation.ObservationNumber,
                             Rating = observation.Rating
