@@ -11,9 +11,9 @@
                          Opacity="{Binding Opacity}"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                <StackLayout Padding="5" Margin="5" Orientation="Horizontal" HorizontalOptions="Center">
+                <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
                     <views:StudyDetailsView />
-                    <Label Text="   Observed: ">
+                    <Label Text=" Observed: ">
                     </Label>
                     <Label Text="{Binding TotalPercent}">
                     </Label>

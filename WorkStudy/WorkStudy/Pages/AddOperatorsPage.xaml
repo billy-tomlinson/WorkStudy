@@ -42,7 +42,10 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <StackLayout HorizontalOptions="Center" 
+                         VerticalOptions="Center" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
                 <views:RunningTotalsView IsVisible="{Binding RunningTotalsVisible}" 
                                          Padding="0" 
                                          AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1"

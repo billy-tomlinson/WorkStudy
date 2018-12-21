@@ -141,11 +141,13 @@ namespace WorkStudy.ViewModels
             var value = (int)sender;
             Operator = OperatorRepo.GetWithChildren(value);
             RunningTotals = new ObservableCollection<OperatorRunningTotal>(GetRunningTotals(Operator));
+            Opacity = 0.2;
             RunningTotalsVisible = true;
         }
 
         void CloseRunningTotalsEvent(object sender)
         {
+            Opacity = 1.0;
             RunningTotalsVisible = false;
         }
 
@@ -161,6 +163,7 @@ namespace WorkStudy.ViewModels
             Operator = new Operator();
             Operator.SettingsIcon = string.Empty;
             Name = string.Empty;
+            Opacity = 1.0;
         }
 
         private void ValidateValues()

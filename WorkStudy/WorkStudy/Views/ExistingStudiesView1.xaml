@@ -5,10 +5,11 @@
                         VerticalOptions="Center" 
                         BackgroundColor="Transparent" 
                         HeightRequest="800"
-                        WidthRequest="420"
-                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                        AbsoluteLayout.LayoutFlags="All">
-            <StackLayout BackgroundColor="Transparent" WidthRequest="320">
+                        WidthRequest="420">
+            <StackLayout BackgroundColor="Transparent" 
+                         WidthRequest="320"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="2,2,2,2">
                     <Label Text="Existing Studies" FontSize="20" TextColor="White" />
                 </StackLayout>
@@ -18,7 +19,7 @@
                                       HasUnevenRows="True" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
                                       HorizontalOptions="Center" SeparatorVisibility="Default" 
-                                      SeparatorColor="#605F5F" HeightRequest="500" WidthRequest="310">
+                                      SeparatorColor="#605F5F" HeightRequest="500">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>

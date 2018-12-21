@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:custom="clr-namespace:WorkStudy.Custom;assembly=WorkStudy" x:Name="RunningTotals" x:Class="WorkStudy.Views.RunningTotalsView">
     <ContentView.Content>
-        <StackLayout BackgroundColor="Gray" HeightRequest="450">
+        <StackLayout BackgroundColor="Gray" 
+                     HeightRequest="450" 
+                     HorizontalOptions="Center" 
+                     VerticalOptions="Center" WidthRequest="310">
             <custom:CustomListView x:Name="List" Margin="3" 
                                    ItemsSource="{Binding RunningTotals}" BackgroundColor="Gray" 
                                    HasUnevenRows="true" HorizontalOptions="Center" 
@@ -10,7 +13,7 @@
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>
                 <ListView.Header>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Grid Padding="5" Margin="5" HorizontalOptions="Start">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*">
