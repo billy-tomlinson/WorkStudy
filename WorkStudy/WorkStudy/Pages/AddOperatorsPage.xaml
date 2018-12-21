@@ -11,39 +11,34 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="Transparent">
+                        BackgroundColor="Transparent" 
+                        HeightRequest="800"
+                        WidthRequest="420" >
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout IsVisible="{Binding IsPageVisible}" 
-                         Padding="5" Margin="5" 
-                         Opacity="{Binding Opacity}">
-                <views:StudyDetailsView />
+                         Padding="5" 
+                         Margin="5" 
+                         Opacity="{Binding Opacity}"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:StudyDetailsView Padding="10" 
+                                        Margin="10"/>
                 <StackLayout Orientation="Horizontal" 
                              HeightRequest="60"
                              BackgroundColor="#FCFAFA"
                              VerticalOptions="Center">
                     <Entry Style="{StaticResource inputEntry}" 
                            Placeholder="Operator Name"
-                           Text="{Binding Name}" 
-                           HeightRequest="50"/>
+                           Text="{Binding Name}"
+                           WidthRequest="240"
+                           HeightRequest="50" />
                     <Button Style="{StaticResource plusButton}" 
                             Command="{Binding SaveOperator}"
-                            BackgroundColor="Transparent"/>
+                            BackgroundColor="Transparent"
+                            WidthRequest="50"/>
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-<!--            <StackLayout IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
-                <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" 
-                                      BackgroundColor="#FCFAFA" 
-                                      HeightRequest="400" 
-                                      VerticalOptions="Center" 
-                                      HorizontalOptions="Center"/>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5" Margin="5">
-                    <Button WidthRequest="100" BackgroundColor="#4174f4" TextColor="White" Text="Save" Command="{Binding SaveActivities}" />
-                    <Button WidthRequest="100" BackgroundColor="#4174f4" TextColor="White" Text="Cancel"  Command="{Binding CancelActivities}" />
-                </StackLayout>
-            </StackLayout>-->
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>

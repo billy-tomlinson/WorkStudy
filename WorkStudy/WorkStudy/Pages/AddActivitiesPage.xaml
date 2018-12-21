@@ -11,26 +11,38 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="Transparent">
+                        BackgroundColor="Transparent"
+                        HeightRequest="800"
+                        WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout IsVisible="{Binding IsPageVisible}" Padding="5" Margin="5" Opacity="{Binding Opacity}">
-                <views:StudyDetailsView />
+            <StackLayout IsVisible="{Binding IsPageVisible}" 
+                         Padding="5" 
+                         Margin="5" 
+                         Opacity="{Binding Opacity}"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:StudyDetailsView Padding="10" 
+                                        Margin="10" />
                 <StackLayout Orientation="Horizontal" 
                              HeightRequest="60" 
                              BackgroundColor="#FCFAFA" 
-                             VerticalOptions="Center">
+                             VerticalOptions="Center" >
                     <Entry Style="{StaticResource inputEntry}" 
                            Placeholder="Activity Name" 
                            Text="{Binding Name}" 
-                           HeightRequest="50" />
+                           WidthRequest="240"
+                           HeightRequest="50"/>
                     <Button Style="{StaticResource plusButton}" 
                             Command="{Binding SaveActivity}" 
-                            BackgroundColor="Transparent" />
+                            BackgroundColor="Transparent" 
+                            WidthRequest="50"/>
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
-            <ContentView x:Name="commentView" BackgroundColor="Transparent" 
-                         IsVisible="{Binding CommentsVisible}" AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
+            <ContentView x:Name="commentView" 
+                         BackgroundColor="Transparent" 
+                         IsVisible="{Binding CommentsVisible}" 
+                         AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
                          AbsoluteLayout.LayoutFlags="All">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#FCFAFA">
                     <StackLayout Orientation="Vertical" Padding="5" Margin="5" WidthRequest="260" HeightRequest="200" 
