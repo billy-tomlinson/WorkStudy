@@ -145,6 +145,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static ObservationRoundStatus observationRoundStatus;
+        public ObservationRoundStatus ObservationRoundStatus
+        {
+            get => observationRoundStatus;
+            set
+            {
+                observationRoundStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void UpdateObservationRound()
         {
             ObservationRound = ObservationRound + 1;
@@ -154,6 +166,7 @@ namespace WorkStudy.ViewModels
         {
             if (AllObservationsTaken)
             {
+                UpdateObservationRoundStatus();
                 SetUpForNextObservationRound();
             }
             else
@@ -166,6 +179,12 @@ namespace WorkStudy.ViewModels
                 CloseColumnSpan = 1;
                 RequestToTerminateStudy = false;
             }
+        }
+
+        private void UpdateObservationRoundStatus()
+        {
+            ObservationRoundStatus.Status = "Complete";
+            ObservationRoundStatusRepo.SaveItem(ObservationRoundStatus);
         }
 
         private void SetUpForNextObservationRound()
@@ -381,6 +400,12 @@ namespace WorkStudy.ViewModels
             CreateOperatorObservations();
 
             TotalPercent = GetStudyTotalPercent();
+
+            var obsStatus = ObservationRoundStatusRepo.GetItems()
+                                          .Where(x => x.ObservationId == ObservationRound)
+                                          .FirstOrDefault();
+
+            ObservationRoundStatus = obsStatus == null ? new ObservationRoundStatus() : obsStatus;
         }
 
         void OverrideEvent(object sender)
@@ -389,7 +414,11 @@ namespace WorkStudy.ViewModels
                 TerminateStudyProcess();
 
             else
+            {
+                UpdateObservationRoundStatus();
                 SetUpForNextObservationRound();
+            }
+                
 
             IsInvalid = false;
             Opacity = 1;
@@ -404,22 +433,55 @@ namespace WorkStudy.ViewModels
             if(lastObservationRound == 0)
             {
                 ObservationRound = 1;
+                if(ObservationRoundStatus?.Id == null)
+                    SaveInitialObservationRoundStatus();
                 return;
             }
+
+            ObservationRoundStatus = ObservationRoundStatusRepo.GetItems()
+                         .Where(x => x.ObservationId == ObservationRound)
+                         .FirstOrDefault();
             
             var obsCount = ObservationRepo.GetItems()
                                           .Count(x => x.ObservationNumber == lastObservationRound
                                                 && x.StudyId == Utilities.StudyId);
+
+            if (ObservationRoundStatus?.Status == "Complete")
+            {
+                ObservationRound = lastObservationRound + 1;
+                return;
+            }
+
             var opsCount = GetAllEnabledOperators().Count();
+
             if (ObservationRound == lastObservationRound)
             {
+                if(ObservationRoundStatus?.Status == "Complete")
+                {
+                    ObservationRound = lastObservationRound + 1;
+                    return;
+                }
                 if(opsCount == obsCount)
                     ObservationRound = lastObservationRound;
             }
-            else if (opsCount > obsCount)
-                ObservationRound = lastObservationRound;
-            else 
-                ObservationRound = lastObservationRound + 1; 
+            else if(ObservationRound > lastObservationRound)
+                ObservationRound = lastObservationRound + 1;
+            else
+            {
+                ObservationRound = lastObservationRound + 1;
+                SaveInitialObservationRoundStatus();
+            }    
+        }
+
+        private void SaveInitialObservationRoundStatus()
+        {
+            var id = ObservationRoundStatusRepo.SaveItem(new ObservationRoundStatus
+            {
+                ObservationId = ObservationRound,
+                StudyId = Utilities.StudyId
+            });
+
+            ObservationRoundStatus = ObservationRoundStatusRepo.GetItem(id);
         }
 
         private bool IsStudyValid()

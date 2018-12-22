@@ -44,6 +44,8 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
 
+        public IBaseRepository<ObservationRoundStatus> ObservationRoundStatusRepo => new BaseRepository<ObservationRoundStatus>(conn);
+
         public TimeSpan CurrentTime => DateTime.Now.TimeOfDay;
 
 
@@ -276,6 +278,7 @@ namespace WorkStudy.ViewModels
             ActivityRepo.CreateTable();
             MergedActivityRepo.CreateTable();
             SampleRepo.CreateTable();
+            ObservationRoundStatusRepo.CreateTable();
         }
        
         public void CloseValidationView()

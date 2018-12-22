@@ -30,9 +30,9 @@
                              HorizontalOptions="Center" 
                              Padding="5" 
                              Margin="5">
-                    <Button WidthRequest="95" Text="Merge" Command="{Binding SaveActivities}" />
-                    <Button WidthRequest="95" Text="UnMerge" Command="{Binding UnMergeActivities}" />
-                    <Button WidthRequest="95" Text="Cancel"  Command="{Binding CancelActivities}" />
+                    <Button WidthRequest="95" Text="Merge" FontSize="13" Command="{Binding SaveActivities}" />
+                    <Button WidthRequest="95" Text="UnMerge" FontSize="13" Command="{Binding UnMergeActivities}" />
+                    <Button WidthRequest="95" Text="Cancel" FontSize="13"  Command="{Binding CancelActivities}" />
                 </StackLayout>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
