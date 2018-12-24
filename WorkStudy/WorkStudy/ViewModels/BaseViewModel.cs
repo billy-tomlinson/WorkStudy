@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WorkStudy.Model;
-using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -386,7 +385,7 @@ namespace WorkStudy.ViewModels
             var interval = int.Parse(IntervalMinutes);
             if (interval <= 0)
                 interval = random.Next(3, 10);
-            Device.StartTimer(TimeSpan.FromSeconds(interval), SetUpTimer());
+            Device.StartTimer(TimeSpan.FromMinutes(interval), SetUpTimer());
         }
 
         private Func<bool> SetUpTimer()
