@@ -22,6 +22,7 @@ namespace WorkStudy.Pages
             continueTimer = false;
             cancelAlarm = true;
         }
+
         public VibratePage()
         {
             
@@ -30,12 +31,13 @@ namespace WorkStudy.Pages
             
             Device.StartTimer(TimeSpan.FromSeconds(20), () =>
             {
+                if (!continueTimer)
+                    return false;
                 cancelAlarm = false;
                 vibrateButton.IsVisible = true;
                 StartTimer().GetAwaiter();
-                return continueTimer; // True = Repeat again, False = Stop the timer
+                return continueTimer;
             });
-           
         }
 
         public async Task StartTimer()

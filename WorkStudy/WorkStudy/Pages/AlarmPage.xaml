@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy"
+             x:Class="WorkStudy.Pages.AlarmPage">
+            <ContentPage.BindingContext>
+                <viewModels:AlarmPageViewModel />
+            </ContentPage.BindingContext><ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent" 
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout Padding="10" 
+                         Margin="10" 
+                         VerticalOptions="Center" 
+                         HorizontalOptions="Center" 
+                         BackgroundColor="Transparent">
+                <StackLayout HorizontalOptions="Center" 
+                             Padding="20,20,20,20" Margin="10,10,10,10">
+                    <StackLayout Orientation="Horizontal" 
+                                 HeightRequest="70" 
+                                 HorizontalOptions="Center">
+                        <Label Text="Alarm Details" 
+                               HeightRequest="50" 
+                               FontSize="40" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
+                        <Label Style="{StaticResource studyLabel}" 
+                               Text="Alarm Interval" HeightRequest="25" />
+                        <Picker SelectedIndex="{Binding CountriesSelectedIndex}"
+                                ItemsSource="{Binding Countries}" 
+                                WidthRequest="100" 
+                                HeightRequest="25"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" 
+                                 Margin="10,10,10,10">
+                        <Label Style="{StaticResource studyLabel}" 
+                               Text="Interval mins" 
+                               IsEnabled="{Binding IsIntervalMinutesVisible}" 
+                               HeightRequest="25"/>
+                        <Entry Placeholder="mins" WidthRequest="100" 
+                               Text="{Binding IntervalMinutes}" 
+                               IsVisible="{Binding IsIntervalMinutesVisible}" 
+                               HeightRequest="25"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Button Text="Enable Alarm" WidthRequest="110" Command="{Binding EnableAlarm}" />
+                        <Button Text="Disable Alarm" WidthRequest="110" Command="{Binding DisableAlarm}" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

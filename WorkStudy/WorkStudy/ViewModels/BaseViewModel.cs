@@ -5,9 +5,11 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using WorkStudy.Model;
 using WorkStudy.Pages;
 using WorkStudy.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
@@ -31,6 +33,10 @@ namespace WorkStudy.ViewModels
             InvalidText = "Please create a new study or select an existing one.";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
         }
+
+        public bool CancelAlarm { get; set; }
+
+        public bool ContinueTimer { get; set; } = true;
 
         public Command SubmitDetails { get; set; }
 
@@ -344,6 +350,46 @@ namespace WorkStudy.ViewModels
             }
 
             return totals;
+        }
+
+        public void TurnOffAlarm()
+        {
+            Vibration.Cancel();
+            CancelAlarm = true;
+        }
+
+       
+        public void StartVibrateTimer()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(20), () =>
+            {
+                if (!ContinueTimer)
+                    return false;
+                CancelAlarm = false;
+                StartTimer().GetAwaiter();
+                return ContinueTimer;
+            });
+        }
+
+        private async Task StartTimer()
+        {
+            await Task.Run(async () =>
+            {
+                while (true)
+                {
+                    if (CancelAlarm)
+                    {
+                        Vibration.Cancel();
+                        break;
+                    }
+                    else
+                    {
+                        Vibration.Vibrate();
+                        CancelAlarm = false;
+                        await Task.Delay(1000);
+                    }
+                }
+            });
         }
     }
 }

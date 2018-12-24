@@ -34,9 +34,9 @@ namespace WorkStudy.Services
         public static void ClearNavigation()
         {
 
-            var existingPages = App.NavigationPage.Navigation.NavigationStack.ToList();
+            var existingPages = App.NavigationPage?.Navigation.NavigationStack.ToList();
 
-            for (int i = 0; i < existingPages.Count; i++)
+            for (int i = 0; i < existingPages?.Count; i++)
             {
                 if (i != existingPages.Count - 1)
                     App.NavigationPage.Navigation.RemovePage(existingPages[i]);
