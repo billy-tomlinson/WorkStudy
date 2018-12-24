@@ -380,7 +380,6 @@ namespace WorkStudy.ViewModels
             CancelAlarm = true;
         }
 
-       
         public void StartVibrateTimer()
         {
             Random random = new Random();
