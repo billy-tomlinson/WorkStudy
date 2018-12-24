@@ -38,6 +38,8 @@ namespace WorkStudy.ViewModels
             var success = int.TryParse(IntervalMinutes, out int result);
             if (!success)
             {
+                ValidationText = "Please enter valid minutes less than 99";
+                Opacity = 0.2;
                 IsInvalid = true;
                 return;
             }

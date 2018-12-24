@@ -16,7 +16,8 @@
                          Margin="10" 
                          VerticalOptions="Center" 
                          HorizontalOptions="Center" 
-                         BackgroundColor="Transparent">
+                         BackgroundColor="Transparent"
+                         Opacity="{Binding Opacity}">
                 <StackLayout HorizontalOptions="Center" 
                              Padding="20,20,20,20" Margin="10,10,10,10">
                     <StackLayout Orientation="Horizontal" 
