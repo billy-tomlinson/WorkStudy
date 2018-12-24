@@ -224,6 +224,28 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static string alarmStatus;
+        public string AlarmStatus
+        {
+            get => alarmStatus;
+            set
+            {
+                alarmStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static string intervalMinutes;
+        public string IntervalMinutes
+        {
+            get => intervalMinutes;
+            set
+            {
+                intervalMinutes = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool StudyInProcess
         {
             get => Get_Observations_By_StudyId().Count > 0;
@@ -361,14 +383,25 @@ namespace WorkStudy.ViewModels
        
         public void StartVibrateTimer()
         {
-            Device.StartTimer(TimeSpan.FromSeconds(20), () =>
+            Random random = new Random();
+            var interval = int.Parse(IntervalMinutes);
+            if (interval <= 0)
+                interval = random.Next(3, 10);
+            Device.StartTimer(TimeSpan.FromSeconds(interval), SetUpTimer());
+        }
+
+        private Func<bool> SetUpTimer()
+        {
+            return () =>
             {
                 if (!ContinueTimer)
+                {
                     return false;
+                }
                 CancelAlarm = false;
                 StartTimer().GetAwaiter();
                 return ContinueTimer;
-            });
+            };
         }
 
         private async Task StartTimer()

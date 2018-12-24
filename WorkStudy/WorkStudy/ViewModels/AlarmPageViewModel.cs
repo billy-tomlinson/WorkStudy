@@ -30,12 +30,20 @@ namespace WorkStudy.ViewModels
         {
             ContinueTimer = false;
             CancelAlarm = true;
+            AlarmStatus = "Alarm is disabled";
         }
 
         void EnableAlarmEvent(object obj)
         {
+            var success = int.TryParse(IntervalMinutes, out int result);
+            if (!success)
+            {
+                IsInvalid = true;
+                return;
+            }
             ContinueTimer = true;
             StartVibrateTimer();
+            AlarmStatus = "Alarm is enabled";
         }
 
         int countriesSelectedIndex;
@@ -59,13 +67,12 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        List<string> countries = new List<string>
+        List<string> intervalTypes = new List<string>
         {
-            
             "Random",
             "Interval"   
         };
 
-        public List<string> Countries => countries;
+        public List<string> IntervalTypes => intervalTypes;
     }
 }

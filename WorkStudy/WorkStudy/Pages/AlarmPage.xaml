@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy"
+             xmlns:views="clr-namespace:WorkStudy.Views"
              x:Class="WorkStudy.Pages.AlarmPage">
             <ContentPage.BindingContext>
                 <viewModels:AlarmPageViewModel />
@@ -29,7 +30,7 @@
                         <Label Style="{StaticResource studyLabel}" 
                                Text="Alarm Interval" HeightRequest="25" />
                         <Picker SelectedIndex="{Binding CountriesSelectedIndex}"
-                                ItemsSource="{Binding Countries}" 
+                                ItemsSource="{Binding IntervalTypes}" 
                                 WidthRequest="100" 
                                 HeightRequest="25"/>
                     </StackLayout>
@@ -39,7 +40,9 @@
                                Text="Interval mins" 
                                IsEnabled="{Binding IsIntervalMinutesVisible}" 
                                HeightRequest="25"/>
-                        <Entry Placeholder="mins" WidthRequest="100" 
+                        <Entry Placeholder="mins" 
+                               WidthRequest="100"  
+                               MaxLength="2"
                                Text="{Binding IntervalMinutes}" 
                                IsVisible="{Binding IsIntervalMinutesVisible}" 
                                HeightRequest="25"/>
@@ -48,7 +51,19 @@
                         <Button Text="Enable Alarm" WidthRequest="110" Command="{Binding EnableAlarm}" />
                         <Button Text="Disable Alarm" WidthRequest="110" Command="{Binding DisableAlarm}" />
                     </StackLayout>
+                     <StackLayout Orientation="Horizontal" 
+                                 Margin="10,10,10,10" HorizontalOptions="Center">
+                        <Label Style="{StaticResource studyLabel}" 
+                               Text="{Binding AlarmStatus}"  
+                               HeightRequest="25"/>
+                    </StackLayout>
                 </StackLayout>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center" 
+                         VerticalOptions="Center" 
+                         AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
