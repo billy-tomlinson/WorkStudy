@@ -33,10 +33,6 @@ namespace WorkStudy.ViewModels
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
         }
 
-        public bool CancelAlarm { get; set; }
-
-        public bool ContinueTimer { get; set; } = true;
-
         public Command SubmitDetails { get; set; }
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
@@ -371,56 +367,6 @@ namespace WorkStudy.ViewModels
             }
 
             return totals;
-        }
-
-        public void TurnOffAlarm()
-        {
-            Vibration.Cancel();
-            CancelAlarm = true;
-        }
-
-        public void StartVibrateTimer()
-        {
-            Random random = new Random();
-            var interval = int.Parse(IntervalMinutes);
-            if (interval <= 0)
-                interval = random.Next(3, 10);
-            Device.StartTimer(TimeSpan.FromMinutes(interval), SetUpTimer());
-        }
-
-        private Func<bool> SetUpTimer()
-        {
-            return () =>
-            {
-                if (!ContinueTimer)
-                {
-                    return false;
-                }
-                CancelAlarm = false;
-                StartTimer().GetAwaiter();
-                return ContinueTimer;
-            };
-        }
-
-        private async Task StartTimer()
-        {
-            await Task.Run(async () =>
-            {
-                while (true)
-                {
-                    if (CancelAlarm)
-                    {
-                        Vibration.Cancel();
-                        break;
-                    }
-                    else
-                    {
-                        Vibration.Vibrate();
-                        CancelAlarm = false;
-                        await Task.Delay(1000);
-                    }
-                }
-            });
         }
     }
 }

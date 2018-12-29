@@ -34,7 +34,7 @@ namespace WorkStudy.ViewModels
 
         void TurnOffAlarmEvent(object obj)
         {
-            TurnOffAlarm();
+            AlarmService.TurnOffAlarm();
         }
 
         void AlarmSetUpEvent(object obj)

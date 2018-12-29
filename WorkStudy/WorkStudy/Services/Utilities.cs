@@ -29,6 +29,10 @@ namespace WorkStudy.Services
         public static Color Clicked = Color.Orange;
         public static Color UnClicked = Color.FromHex("#4174f4");
 
+        public static bool   CancelAlarm { get; set; }
+
+        public static bool ContinueTimer { get; set; } = true;
+
         public static string ValidColour = "#d5f0f1";
 
         public static void ClearNavigation()

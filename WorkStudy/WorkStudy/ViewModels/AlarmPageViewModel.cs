@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
+using WorkStudy.Services;
 
 namespace WorkStudy.ViewModels
 {
@@ -28,8 +29,8 @@ namespace WorkStudy.ViewModels
 
         void DisableAlarmEvent(object obj)
         {
-            ContinueTimer = false;
-            CancelAlarm = true;
+            AlarmService.ContinueTimer = false;
+            AlarmService.CancelAlarm = true;
             AlarmStatus = "Alarm is disabled";
         }
 
@@ -43,8 +44,8 @@ namespace WorkStudy.ViewModels
                 IsInvalid = true;
                 return;
             }
-            ContinueTimer = true;
-            StartVibrateTimer();
+            AlarmService.ContinueTimer = true;
+            AlarmService.StartVibrateTimer(IntervalMinutes);
             AlarmStatus = "Alarm is enabled";
         }
 
@@ -69,12 +70,10 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        List<string> intervalTypes = new List<string>
+        public List<string> IntervalTypes { get; } = new List<string>
         {
             "Random",
-            "Interval"   
+            "Interval"
         };
-
-        public List<string> IntervalTypes => intervalTypes;
     }
 }
