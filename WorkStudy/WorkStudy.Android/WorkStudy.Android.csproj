@@ -30,7 +30,6 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidKeyStore>
     </AndroidKeyStore>
     <AndroidLinkMode>None</AndroidLinkMode>
@@ -90,6 +89,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveAndroid.cs" />
+    <Compile Include="DependencyServices\LocalNotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -129,6 +129,7 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkStudy\WorkStudy.csproj">
