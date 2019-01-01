@@ -23,6 +23,21 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        Command _disableCommand;
+        public Command DisableCommand
+        {
+            get
+            {
+                return _disableCommand;
+            }
+            set
+            {
+                SetProperty(ref _disableCommand, value);
+            }
+        }
+
+
         bool _notificationONOFF;
         public bool NotificationONOFF
         {
@@ -92,6 +107,7 @@ namespace WorkStudy.ViewModels
         public LocalNotificationPageViewModel()
         {
             SaveCommand = new Command(() => SaveLocalNotification());
+            DisableCommand = new Command(() => DisableLocalNotification());
         }
 
         void SaveLocalNotification()
@@ -126,6 +142,12 @@ namespace WorkStudy.ViewModels
             {
                 Application.Current.MainPage.DisplayAlert("LocalNotificationDemo", "Please switch on notification", "OK");
             }
+        }
+
+
+        void DisableLocalNotification()
+        {
+            DependencyService.Get<ILocalNotificationService>().Cancel(0);
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

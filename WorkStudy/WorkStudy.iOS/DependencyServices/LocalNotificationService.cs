@@ -42,6 +42,11 @@ namespace WorkStudy.iOS.DependencyServices
                 UIApplication.SharedApplication.CancelAllLocalNotifications();
             }
         }
+
+        public void Disable()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class DateTimeExtensions

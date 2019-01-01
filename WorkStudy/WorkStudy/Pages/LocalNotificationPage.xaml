@@ -12,6 +12,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
@@ -39,6 +40,9 @@
             </Grid>
             <Grid Grid.Row="4">
                 <Button Text="Save" Command="{Binding SaveCommand}" FontSize="15" TextColor="White" BackgroundColor="Purple"  HorizontalOptions="FillAndExpand" BorderRadius="15"/>
+            </Grid>
+             <Grid Grid.Row="5">
+                <Button Text="Disable Alarm" Command="{Binding DisableCommand}" FontSize="15" TextColor="White" BackgroundColor="Purple"  HorizontalOptions="FillAndExpand" BorderRadius="15"/>
             </Grid>
         </Grid>
     </ContentPage.Content>
