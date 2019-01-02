@@ -21,8 +21,8 @@ namespace WorkStudy
             NavigationPage.SetHasNavigationBar(this, false);
             DatabasePath = databasePath;
             Utilities.Connection = DatabasePath;
-            //CallMain();
-            MainPage = new NavigationPage(new LocalNotificationPage());
+            CallMain();
+            //MainPage = new NavigationPage(new LocalNotificationPage());
         }
 
         public static NavigationPage NavigationPage { get; private set; }

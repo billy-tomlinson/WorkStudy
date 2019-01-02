@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 using WorkStudy.Services;
@@ -10,13 +11,13 @@ namespace WorkStudy.ViewModels
         public ICommand DisableAlarm { get; set; }
         public ICommand EnableAlarm { get; set; }
 
-        static bool isIntervalMinutesVisible;
+        static bool _isIntervalMinutesVisible;
         public bool IsIntervalMinutesVisible
         {
-            get => isIntervalMinutesVisible;
+            get => _isIntervalMinutesVisible;
             set
             {
-                isIntervalMinutesVisible = value;
+                _isIntervalMinutesVisible = value;
                 OnPropertyChanged();
             }
         }
@@ -27,10 +28,33 @@ namespace WorkStudy.ViewModels
             EnableAlarm = new Command(EnableAlarmEvent);
         }
 
+        //void DisableAlarmEvent(object obj)
+        //{
+        //    AlarmService.ContinueTimer = false;
+        //    AlarmService.CancelAlarm = true;
+        //    AlarmStatus = "Alarm is disabled";
+        //}
+
+        //void EnableAlarmEvent(object obj)
+        //{
+        //    var success = int.TryParse(IntervalMinutes, out int result);
+        //    if (!success)
+        //    {
+        //        ValidationText = "Please enter valid minutes less than 99";
+        //        Opacity = 0.2;
+        //        IsInvalid = true;
+        //        return;
+        //    }
+        //    AlarmService.ContinueTimer = true;
+        //    AlarmService.StartVibrateTimer(IntervalMinutes);
+        //    AlarmStatus = "Alarm is enabled";
+        //}
+
+
         void DisableAlarmEvent(object obj)
         {
-            AlarmService.ContinueTimer = false;
-            AlarmService.CancelAlarm = true;
+            DependencyService.Get<ILocalNotificationService>().Cancel(0);
+            DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", "Next Observation", 0, DateTime.Now);
             AlarmStatus = "Alarm is disabled";
         }
 
@@ -44,28 +68,24 @@ namespace WorkStudy.ViewModels
                 IsInvalid = true;
                 return;
             }
-            AlarmService.ContinueTimer = true;
-            AlarmService.StartVibrateTimer(IntervalMinutes);
+
+            DependencyService.Get<ILocalNotificationService>().Cancel(0);
+            DependencyService.Get<ILocalNotificationService>().LocalNotification("Local Notification", "Next Observation", 0, DateTime.Now);
+
             AlarmStatus = "Alarm is enabled";
         }
 
         int countriesSelectedIndex;
         public int CountriesSelectedIndex
         {
-            get
-            {
-                return countriesSelectedIndex;
-            }
+            get => countriesSelectedIndex;
             set
             {
                 if (countriesSelectedIndex != value)
                 {
                     countriesSelectedIndex = value;
                     OnPropertyChanged();
-                    if (countriesSelectedIndex == 1)
-                        IsIntervalMinutesVisible = true;
-                    else
-                        IsIntervalMinutesVisible = false;
+                    IsIntervalMinutesVisible = countriesSelectedIndex == 1;
                 }
             }
         }
