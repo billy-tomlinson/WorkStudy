@@ -45,7 +45,7 @@ namespace WorkStudy.iOS.DependencyServices
 
         public void Disable()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void DisableLocalNotification(string title, string body, int id, DateTime notifyTime)
