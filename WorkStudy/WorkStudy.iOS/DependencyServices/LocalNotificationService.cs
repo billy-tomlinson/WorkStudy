@@ -47,6 +47,11 @@ namespace WorkStudy.iOS.DependencyServices
         {
             throw new NotImplementedException();
         }
+
+        public void DisableLocalNotification(string title, string body, int id, DateTime notifyTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class DateTimeExtensions

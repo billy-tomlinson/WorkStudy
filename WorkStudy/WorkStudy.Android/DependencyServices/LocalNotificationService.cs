@@ -49,17 +49,17 @@ namespace WorkStudy.Droid.DependencyServices
             var serializedNotification = SerializeNotification(localNotification);
             intent.PutExtra(ScheduledAlarmHandler.LocalNotificationKey, serializedNotification);
 
-            Random generator = new Random();
-            _randomNumber = generator.Next(100000, 999999).ToString("D6");
+            //Random generator = new Random();
+            //_randomNumber = generator.Next(100000, 999999).ToString("D6");
 
-            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(_randomNumber), intent, PendingIntentFlags.Immutable);
+            //var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(_randomNumber), intent, PendingIntentFlags.Immutable);
+            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, 0, intent, PendingIntentFlags.CancelCurrent);
             var alarmManager = GetAlarmManager();
             alarmManager.SetRepeating(AlarmType.RtcWakeup, totalMilliSeconds, repeateForMinute, pendingIntent);
         }
 
         public void Cancel(int id)
         {
-
             var intent = CreateIntent(id);
             var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(_randomNumber), intent, PendingIntentFlags.CancelCurrent);
             var alarmManager = GetAlarmManager();
@@ -100,6 +100,48 @@ namespace WorkStudy.Droid.DependencyServices
                 xmlSerializer.Serialize(stringWriter, notification);
                 return stringWriter.ToString();
             }
+        }
+
+        public void DisableLocalNotification(string title, string body, int id, DateTime notifyTime)
+        {
+            //long repeateDay = 1000 * 60 * 60 * 24;
+            long repeateForMinute = 60000;
+            long totalMilliSeconds = (long)(notifyTime.ToUniversalTime() - _jan1st1970).TotalMilliseconds;
+            if (totalMilliSeconds < JavaSystem.CurrentTimeMillis())
+            {
+                totalMilliSeconds = totalMilliSeconds + repeateForMinute;
+            }
+
+            var intent = CreateIntent(id);
+            var localNotification = new LocalNotification();
+            localNotification.Title = title;
+            localNotification.Body = body;
+            localNotification.Id = id;
+            localNotification.NotifyTime = notifyTime;
+
+            if (_notificationIconId != 0)
+            {
+                localNotification.IconId = _notificationIconId;
+            }
+            else
+            {
+                localNotification.IconId = Resource.Drawable.alert;
+            }
+
+            var serializedNotification = SerializeNotification(localNotification);
+            intent.PutExtra(ScheduledAlarmHandler.LocalNotificationKey, serializedNotification);
+
+            //Random generator = new Random();
+            //_randomNumber = generator.Next(100000, 999999).ToString("D6");
+
+            //var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(_randomNumber), intent, PendingIntentFlags.Immutable);
+            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, 0, intent, PendingIntentFlags.CancelCurrent);
+            var alarmManager = GetAlarmManager();
+            alarmManager.Cancel(pendingIntent);
+
+            var notificationManager = NotificationManagerCompat.From(Application.Context);
+            notificationManager.CancelAll();
+            notificationManager.Cancel(id);
         }
     }
 
