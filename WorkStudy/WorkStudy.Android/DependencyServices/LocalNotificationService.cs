@@ -61,7 +61,7 @@ namespace WorkStudy.Droid.DependencyServices
         {
 
             var intent = CreateIntent(id);
-            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(_randomNumber), intent, PendingIntentFlags.Immutable);
+            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(_randomNumber), intent, PendingIntentFlags.CancelCurrent);
             var alarmManager = GetAlarmManager();
             alarmManager.Cancel(pendingIntent);
             var notificationManager = NotificationManagerCompat.From(Application.Context);
@@ -75,7 +75,6 @@ namespace WorkStudy.Droid.DependencyServices
             var packageName = Application.Context.PackageName;
             return Application.Context.PackageManager.GetLaunchIntentForPackage(packageName);
         }
-
 
         private Intent CreateIntent(int id)
         {
