@@ -147,6 +147,7 @@ namespace WorkStudy.ViewModels
 
         void DisableLocalNotification()
         {
+            DependencyService.Get<ILocalNotificationService>().Cancel(0);
             DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", MessageText, 0, DateTime.Now);
             //DependencyService.Get<ILocalNotificationService>().Cancel(0);
         }
