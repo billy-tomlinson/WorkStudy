@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 using WorkStudy.Services;
-using Plugin.Toasts;
 
 namespace WorkStudy.ViewModels
 {

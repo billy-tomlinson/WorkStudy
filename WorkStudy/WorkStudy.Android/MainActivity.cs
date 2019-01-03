@@ -1,23 +1,16 @@
 ﻿
 using Android.App;
-using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using System.IO;
 using Android.Views;
-using System.Threading.Tasks;
-using System;
 using Android.Content;
-using WorkStudy.Pages;
-using WorkStudy.Services;
-//using Toasts.Forms.Plugin.Sample;
-using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using Plugin.Toasts;
 
 namespace WorkStudy.Droid
 {
-    [Activity(Label = "Toasts.Forms.Plugin.Sample.DroidAppCompat", Theme = "@style/MyTheme", MainLauncher = true, Icon = "@mipmap/icon", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
+    [Activity(Label = "WorkStudy", Theme = "@style/MainTheme", MainLauncher = true, Icon = "@mipmap/icon", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
     //[Activity(Label = "WorkStudy", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     //public class MainActivity : FormsAppCompatActivity
     //{
