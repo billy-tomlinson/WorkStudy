@@ -9,6 +9,8 @@ using Java.Lang;
 using WorkStudy.Droid.DependencyServices;
 using WorkStudy.Model;
 using WorkStudy.Services;
+using Plugin.Toasts;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LocalNotificationService))]
 namespace WorkStudy.Droid.DependencyServices
@@ -17,12 +19,6 @@ namespace WorkStudy.Droid.DependencyServices
     {
         private int _notificationIconId { get; set; }
         readonly DateTime jan1St1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        private readonly string randomNumber;
-
-        public LocalNotificationService(string randomNumber)
-        {
-            this.randomNumber = randomNumber;
-        }
 
         public void LocalNotification(string title, string body, int id, DateTime notifyTime)
         {
@@ -42,6 +38,7 @@ namespace WorkStudy.Droid.DependencyServices
         private PendingIntent GeneratePendingIntent(string title, string body, int id, DateTime notifyTime)
         {
             var intent = CreateIntent(id);
+            intent.AddFlags(ActivityFlags.SingleTop);
             var localNotification = new LocalNotification
             {
                 Title = title,
@@ -54,17 +51,17 @@ namespace WorkStudy.Droid.DependencyServices
             var serializedNotification = SerializeNotification(localNotification);
             intent.PutExtra(ScheduledAlarmHandler.LocalNotificationKey, serializedNotification);
 
-            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, 0, intent, PendingIntentFlags.CancelCurrent);
+            var pendingIntent = PendingIntent.GetBroadcast(Android.App.Application.Context, 0, intent, PendingIntentFlags.CancelCurrent);
             return pendingIntent;
         }
 
         public void Cancel(int id)
         {
             var intent = CreateIntent(id);
-            var pendingIntent = PendingIntent.GetBroadcast(Application.Context, Convert.ToInt32(randomNumber), intent, PendingIntentFlags.CancelCurrent);
+            var pendingIntent = PendingIntent.GetBroadcast(Android.App.Application.Context, 0 , intent, PendingIntentFlags.CancelCurrent);
             var alarmManager = GetAlarmManager();
             alarmManager.Cancel(pendingIntent);
-            var notificationManager = NotificationManagerCompat.From(Application.Context);
+            var notificationManager = NotificationManagerCompat.From(Android.App.Application.Context);
             notificationManager.CancelAll();
             notificationManager.Cancel(id);
         }
@@ -72,18 +69,18 @@ namespace WorkStudy.Droid.DependencyServices
         public static Intent GetLauncherActivity()
         {
 
-            var packageName = Application.Context.PackageName;
-            return Application.Context.PackageManager.GetLaunchIntentForPackage(packageName);
+            var packageName = Android.App.Application.Context.PackageName;
+            return Android.App.Application.Context.PackageManager.GetLaunchIntentForPackage(packageName);
         }
 
         private Intent CreateIntent(int id)
         {
-            return new Intent(Application.Context, typeof(ScheduledAlarmHandler)).SetAction("LocalNotifierIntent" + id);
+            return new Intent(Android.App.Application.Context, typeof(ScheduledAlarmHandler)).SetAction("LocalNotifierIntent" + id);
         }
 
         private AlarmManager GetAlarmManager()
         {
-            var alarmManager = Application.Context.GetSystemService(Context.AlarmService) as AlarmManager;
+            var alarmManager = Android.App.Application.Context.GetSystemService(Context.AlarmService) as AlarmManager;
             return alarmManager;
         }
 
@@ -105,7 +102,7 @@ namespace WorkStudy.Droid.DependencyServices
             var alarmManager = GetAlarmManager();
             alarmManager.Cancel(pendingIntent);
 
-            var notificationManager = NotificationManagerCompat.From(Application.Context);
+            var notificationManager = NotificationManagerCompat.From(Android.App.Application.Context);
             notificationManager.CancelAll();
             notificationManager.Cancel(id);
         }
@@ -119,32 +116,102 @@ namespace WorkStudy.Droid.DependencyServices
 
         public override void OnReceive(Context context, Intent intent)
         {
-            var extra = intent.GetStringExtra(LocalNotificationKey);
-            var notification = DeserializeNotification(extra);
-            //Generating notification
-            var builder = new NotificationCompat.Builder(Application.Context)
-                .SetContentTitle(notification.Title)
-                .SetContentText(notification.Body)
-                .SetSmallIcon(notification.IconId)
-                .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone))
-                .SetPriority(NotificationCompat.PriorityMax)
-                .SetVisibility(1)
-                .SetAutoCancel(true);
+            //var notificationId = intent.Extras.GetInt(NotificationBuilder.NotificationId, -1);
+            //if (notificationId > -1)
+            //{
+            //    switch (intent.Action)
+            //    {
+            //        case NotificationBuilder.OnClickIntent:
 
-            var resultIntent = LocalNotificationService.GetLauncherActivity();
-            resultIntent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
-            var stackBuilder = Android.Support.V4.App.TaskStackBuilder.Create(Application.Context);
-            stackBuilder.AddNextIntent(resultIntent);
+            //            try
+            //            {
+            //                // Attempt to re-focus/open the app.
+            //                var doForceOpen = intent.Extras.GetBoolean(NotificationBuilder.NotificationForceOpenApp, false);
+            //                if (doForceOpen)
+            //                {
+            //                    var packageManager = Android.App.Application.Context.PackageManager;
+            //                    Intent launchIntent = packageManager.GetLaunchIntentForPackage(NotificationBuilder.PackageName);
+            //                    if (launchIntent != null)
+            //                    {
+            //                        launchIntent.AddCategory(Intent.CategoryLauncher);
+            //                        Android.App.Application.Context.StartActivity(launchIntent);
+            //                    }
+            //                }
+            //            }
+            //            catch (System.Exception ex)
+            //            {
+            //                System.Diagnostics.Debug.WriteLine("Failed to re-focus/launch the app: " + ex);
+            //            }
 
-            Random random = new Random();
-            int randomNumber = random.Next(9999 - 1000) + 1000;
+            //            // Click
+            //            if (NotificationBuilder.EventResult != null && !NotificationBuilder.EventResult.ContainsKey(notificationId.ToString()))
+            //            {
+            //                NotificationBuilder.EventResult.Add(notificationId.ToString(), new NotificationResult() { Action = NotificationAction.Clicked, Id = notificationId });
+            //            }
+            //            break;
 
-            var resultPendingIntent =
-                stackBuilder.GetPendingIntent(randomNumber, (int)PendingIntentFlags.Immutable);
-            builder.SetContentIntent(resultPendingIntent);
-            // Sending notification
-            var notificationManager = NotificationManagerCompat.From(Application.Context);
-            notificationManager.Notify(randomNumber, builder.Build());
+            //        default:
+
+            //            // Dismiss/Default
+            //            if (NotificationBuilder.EventResult != null && !NotificationBuilder.EventResult.ContainsKey(notificationId.ToString()))
+            //            {
+            //                NotificationBuilder.EventResult.Add(notificationId.ToString(), new NotificationResult() { Action = NotificationAction.Dismissed, Id = notificationId });
+            //            }
+            //            break;
+            //    }
+
+            //    if (NotificationBuilder.ResetEvent != null && NotificationBuilder.ResetEvent.ContainsKey(notificationId.ToString()))
+            //    {
+            //        NotificationBuilder.ResetEvent[notificationId.ToString()].Set();
+            //    }
+            //}
+
+            ////var extra = intent.GetStringExtra(LocalNotificationKey);
+            ////var notification = DeserializeNotification(extra);
+            //////Generating notification
+            ////var builder = new NotificationCompat.Builder(Application.Context)
+            ////    .SetContentTitle(notification.Title)
+            ////    .SetContentText(notification.Body)
+            ////    .SetSmallIcon(notification.IconId)
+            ////    .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone))
+            ////    .SetPriority(NotificationCompat.PriorityMax)
+            ////    .SetVisibility(1)
+            ////    .SetAutoCancel(true);
+
+            ////var resultIntent = LocalNotificationService.GetLauncherActivity();
+            ////resultIntent.SetFlags(ActivityFlags.SingleTop);
+            ////var stackBuilder = Android.Support.V4.App.TaskStackBuilder.Create(Application.Context);
+            ////stackBuilder.AddNextIntent(resultIntent);
+
+            ////Random random = new Random();
+            ////int randomNumber = random.Next(9999 - 1000) + 1000;
+
+            ////var resultPendingIntent =
+            ////    stackBuilder.GetPendingIntent(randomNumber, (int)PendingIntentFlags.Immutable);
+            ////builder.SetContentIntent(resultPendingIntent);
+            ////// Sending notification
+            ////var notificationManager = NotificationManagerCompat.From(Application.Context);
+            ////notificationManager.Notify(randomNumber, builder.Build());
+
+            var options = new NotificationOptions()
+            {
+                Title = "The Title Line",
+                Description = "The Description Content",
+                IsClickable = true,
+                WindowsOptions = new WindowsOptions() { LogoUri = "icon.png" },
+                ClearFromHistory = false,
+                AllowTapInNotificationCenter = false,
+                AndroidOptions = new AndroidOptions()
+                {
+                    HexColor = "#F99D1C",
+                    ForceOpenAppOnNotificationTap = true
+                }
+            };
+
+            var notificator = DependencyService.Get<IToastNotificator>();
+
+            notificator.Notify(options);
+           
         }
 
         private LocalNotification DeserializeNotification(string notificationString)

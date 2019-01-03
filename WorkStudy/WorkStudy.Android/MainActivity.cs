@@ -7,10 +7,36 @@ using System.IO;
 using Android.Views;
 using System.Threading.Tasks;
 using System;
+using Android.Content;
+using WorkStudy.Pages;
+using WorkStudy.Services;
+//using Toasts.Forms.Plugin.Sample;
+using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms;
+using Plugin.Toasts;
 
 namespace WorkStudy.Droid
 {
-    [Activity(Label = "WorkStudy", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Toasts.Forms.Plugin.Sample.DroidAppCompat", Theme = "@style/MyTheme", MainLauncher = true, Icon = "@mipmap/icon", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
+    //[Activity(Label = "WorkStudy", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    //public class MainActivity : FormsAppCompatActivity
+    //{
+    //    protected override void OnCreate(Bundle bundle)
+    //    {
+    //        base.OnCreate(bundle);
+
+    //        ToolbarResource = Resource.Layout.Tabbar;
+    //        TabLayoutResource = Resource.Layout.Toolbar;
+
+    //        Xamarin.Forms.Forms.Init(this, bundle);
+
+    //        DependencyService.Register<ToastNotification>();
+    //        ToastNotification.Init(this, new PlatformOptions() { SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo });
+
+    //        LoadApplication(new App());
+    //    }
+    //}
+    //[Activity(Label = "WorkStudy", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
 
@@ -35,7 +61,7 @@ namespace WorkStudy.Droid
 
             Window.DecorView.SystemUiVisibility =
              (StatusBarVisibility)uiOptions;
-            
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -43,7 +69,12 @@ namespace WorkStudy.Droid
             string dbName = "WorkStudy4.db3";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbPath = Path.Combine(folderPath, dbName);
-            LoadApplication(new App(dbPath));
+
+            DependencyService.Register<ToastNotification>();
+            ToastNotification.Init(this, new PlatformOptions() { SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo });
+
+            LoadApplication(new WorkStudy.App(dbPath));
+            //LoadApplication(new App());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -51,6 +82,33 @@ namespace WorkStudy.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            NotificationClickedOn(intent);
+        }
+
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            //Utilities.Navigate(new StudySetUpTabbedPage());
+
+        }
+
+        void NotificationClickedOn(Intent intent)
+        {
+            if (intent.Action == "ASushiNotification" && intent.HasExtra("MessageFromSushiHangover"))
+            {
+                /// Do something now that you know the user clicked on the notification...
+
+                //var notificationMessage = intent.Extras.GetString("MessageFromSushiHangover");
+                //var winnerToast = Toast.MakeText(this, $"{notificationMessage}.\n\n🍣 Please send 2 BitCoins to SushiHangover to process your winning ticket! 🍣", ToastLength.Long);
+                //winnerToast.SetGravity(Android.Views.GravityFlags.Center, 0, 0);
+                //winnerToast.Show();
+            }
         }
     }
 }

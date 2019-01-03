@@ -8,8 +8,6 @@ namespace WorkStudy.Services
     public class AlarmService
     {
     
-       
-
         public static bool CancelAlarm { get; set; }
 
         public static bool ContinueTimer { get; set; } = true;

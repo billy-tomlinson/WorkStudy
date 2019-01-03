@@ -1,4 +1,5 @@
 ﻿
+using Plugin.Toasts;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -21,6 +22,18 @@ namespace WorkStudy.Pages
         protected override bool OnBackButtonPressed()
         {
             return true;
+        }
+
+        void ShowToast(INotificationOptions options)
+        {
+            var notificator = DependencyService.Get<IToastNotificator>();
+
+            // await notificator.Notify(options);
+
+            notificator.Notify((INotificationResult result) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Notification [" + result.Id + "] Result Action: " + result.Action);
+            }, options);
         }
     }
 }

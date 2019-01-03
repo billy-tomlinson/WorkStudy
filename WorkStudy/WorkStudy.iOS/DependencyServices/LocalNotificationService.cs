@@ -2,14 +2,16 @@
 using UIKit;
 using Foundation;
 using System.Linq;
-
 using WorkStudy.Services;
+using WorkStudy.iOS.DependencyServices;
+using Xamarin.Forms;
+using UserNotifications;
 
+[assembly: Dependency(typeof(LocalNotificationService))]
 namespace WorkStudy.iOS.DependencyServices
 {
     public class LocalNotificationService : ILocalNotificationService
     {
-
         const string NotificationKey = "LocalNotificationKey";
 
         public void LocalNotification(string title, string body, int id, DateTime notifyTime)
@@ -23,7 +25,6 @@ namespace WorkStudy.iOS.DependencyServices
                 SoundName = UILocalNotification.DefaultSoundName,
                 FireDate = notifyTime.ToNSDate(),
                 RepeatInterval = NSCalendarUnit.Minute,
-
                 UserInfo = NSDictionary.FromObjectAndKey(NSObject.FromObject(id), NSObject.FromObject(NotificationKey))
             };
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
@@ -45,12 +46,29 @@ namespace WorkStudy.iOS.DependencyServices
 
         public void Disable()
         {
-            
+            var notifications = UIApplication.SharedApplication.ScheduledLocalNotifications;
+            var notification = notifications.Where(n => n.UserInfo.ContainsKey(NSObject.FromObject(NotificationKey)))
+                .FirstOrDefault(n => n.UserInfo[NotificationKey].Equals(NSObject.FromObject(0)));
+            UIApplication.SharedApplication.CancelAllLocalNotifications();
+            if (notification != null)
+            {
+                UIApplication.SharedApplication.CancelLocalNotification(notification);
+                UIApplication.SharedApplication.CancelAllLocalNotifications();
+            }
         }
 
         public void DisableLocalNotification(string title, string body, int id, DateTime notifyTime)
         {
-            throw new NotImplementedException();
+            var notifications = UIApplication.SharedApplication.ScheduledLocalNotifications;
+            var notification = notifications.Where(n => n.UserInfo.ContainsKey(NSObject.FromObject(NotificationKey)))
+                .FirstOrDefault(n => n.UserInfo[NotificationKey].Equals(NSObject.FromObject(id)));
+            UIApplication.SharedApplication.CancelAllLocalNotifications();
+            if (notification != null)
+            {
+                UIApplication.SharedApplication.CancelLocalNotification(notification);
+                UIApplication.SharedApplication.CancelAllLocalNotifications();
+            }
+            //throw new NotImplementedException();
         }
     }
 

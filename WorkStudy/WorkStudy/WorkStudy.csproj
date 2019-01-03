@@ -37,14 +37,11 @@
     <Compile Remove="Model\ValidationBase.cs" />
     <Compile Remove="Model\Product.cs" />
     <Compile Remove="Views\ExistingStudiesView.xaml.cs" />
+    <Compile Remove="Pages\App.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -79,5 +76,8 @@
     <EmbeddedResource Update="Views\RunningTotalsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Downloads\Toasts.Forms-2.Plugin-master\Toasts.Forms.Plugin.Abstractions\Toasts.Forms.Plugin.Abstractions.csproj" />
   </ItemGroup>
 </Project>

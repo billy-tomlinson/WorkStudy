@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Foundation;
 using UIKit;
+using UserNotifications;
 
 namespace WorkStudy.iOS
 {
@@ -10,6 +11,7 @@ namespace WorkStudy.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -48,6 +50,7 @@ namespace WorkStudy.iOS
                 );
 
                 app.RegisterUserNotificationSettings(notificationSettings);
+                UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
             }
 
             #endregion
