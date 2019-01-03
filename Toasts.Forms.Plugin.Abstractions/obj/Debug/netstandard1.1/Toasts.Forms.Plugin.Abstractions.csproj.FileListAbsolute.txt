@@ -1,0 +1,9 @@
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/bin/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.deps.json
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/bin/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.dll
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/bin/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.pdb
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.csprojAssemblyReference.cache
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.csproj.CoreCompileInputs.cache
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.AssemblyInfoInputs.cache
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.AssemblyInfo.cs
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.dll
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/Toasts.Forms.Plugin.Abstractions.pdb

@@ -1,0 +1,4 @@
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/WorkStudy.Abstractions.csprojAssemblyReference.cache
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/WorkStudy.Abstractions.csproj.CoreCompileInputs.cache
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/WorkStudy.Abstractions.AssemblyInfoInputs.cache
+/Users/billytomlinson/Downloads/Toasts.Forms.Plugin-master/Toasts.Forms.Plugin.Abstractions/obj/Debug/netstandard1.1/WorkStudy.Abstractions.AssemblyInfo.cs
