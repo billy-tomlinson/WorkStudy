@@ -34,16 +34,23 @@ namespace WorkStudy.ViewModels
 
         void EnableAlarmEvent(object obj)
         {
-            var success = int.TryParse(IntervalMinutes, out int result);
-            if (!success)
-            {
-                ValidationText = "Please enter valid minutes less than 99";
-                Opacity = 0.2;
-                IsInvalid = true;
-                return;
-            }
+            int interval = 5; //use this as a temp - will be replaced with a random
 
-            var interval = result * 60;
+            if(CountriesSelectedIndex == 1)
+            {
+                var success = int.TryParse(IntervalMinutes, out int result);
+                if (!success)
+                {
+                    ValidationText = "Please enter valid minutes less than 99";
+                    Opacity = 0.2;
+                    IsInvalid = true;
+                    return;
+                }
+
+                interval = result * 60;
+            }
+            else
+                interval = interval * 60;
 
             DependencyService.Get<ILocalNotificationService>()
                 .LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, interval);

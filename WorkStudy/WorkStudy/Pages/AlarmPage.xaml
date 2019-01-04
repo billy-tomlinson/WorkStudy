@@ -29,24 +29,24 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
                         <Label Style="{StaticResource studyLabel}" 
-                               Text="Alarm Interval" HeightRequest="25" />
+                               Text="Alarm type" HeightRequest="40" />
                         <Picker SelectedIndex="{Binding CountriesSelectedIndex}"
                                 ItemsSource="{Binding IntervalTypes}" 
-                                WidthRequest="100" 
-                                HeightRequest="25"/>
+                                WidthRequest="90" 
+                                HeightRequest="40" FontSize="15"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" 
                                  Margin="10,10,10,10">
                         <Label Style="{StaticResource studyLabel}" 
                                Text="Interval mins" 
                                IsEnabled="{Binding IsIntervalMinutesVisible}" 
-                               HeightRequest="25"/>
+                               HeightRequest="40"/>
                         <Entry Placeholder="mins" 
-                               WidthRequest="100"  
+                               WidthRequest="90"  
                                MaxLength="2"
                                Text="{Binding IntervalMinutes}" 
                                IsVisible="{Binding IsIntervalMinutesVisible}" 
-                               HeightRequest="25"/>
+                               HeightRequest="40" FontSize="15"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                         <Button Text="Enable Alarm" WidthRequest="110" Command="{Binding EnableAlarm}" />
