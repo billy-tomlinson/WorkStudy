@@ -3,7 +3,6 @@ using System.IO;
 using System.Xml.Serialization;
 using Android.App;
 using Android.Content;
-using Android.Media;
 using Android.Support.V4.App;
 using Java.Lang;
 using WorkStudy.Droid.DependencyServices;
@@ -12,7 +11,7 @@ using WorkStudy.Services;
 using Plugin.Toasts;
 using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(LocalNotificationService))]
+[assembly: Dependency(typeof(LocalNotificationService))]
 namespace WorkStudy.Droid.DependencyServices
 {
     public class LocalNotificationService : ILocalNotificationService
@@ -116,90 +115,14 @@ namespace WorkStudy.Droid.DependencyServices
 
         public override void OnReceive(Context context, Intent intent)
         {
-            //var notificationId = intent.Extras.GetInt(NotificationBuilder.NotificationId, -1);
-            //if (notificationId > -1)
-            //{
-            //    switch (intent.Action)
-            //    {
-            //        case NotificationBuilder.OnClickIntent:
-
-            //            try
-            //            {
-            //                // Attempt to re-focus/open the app.
-            //                var doForceOpen = intent.Extras.GetBoolean(NotificationBuilder.NotificationForceOpenApp, false);
-            //                if (doForceOpen)
-            //                {
-            //                    var packageManager = Android.App.Application.Context.PackageManager;
-            //                    Intent launchIntent = packageManager.GetLaunchIntentForPackage(NotificationBuilder.PackageName);
-            //                    if (launchIntent != null)
-            //                    {
-            //                        launchIntent.AddCategory(Intent.CategoryLauncher);
-            //                        Android.App.Application.Context.StartActivity(launchIntent);
-            //                    }
-            //                }
-            //            }
-            //            catch (System.Exception ex)
-            //            {
-            //                System.Diagnostics.Debug.WriteLine("Failed to re-focus/launch the app: " + ex);
-            //            }
-
-            //            // Click
-            //            if (NotificationBuilder.EventResult != null && !NotificationBuilder.EventResult.ContainsKey(notificationId.ToString()))
-            //            {
-            //                NotificationBuilder.EventResult.Add(notificationId.ToString(), new NotificationResult() { Action = NotificationAction.Clicked, Id = notificationId });
-            //            }
-            //            break;
-
-            //        default:
-
-            //            // Dismiss/Default
-            //            if (NotificationBuilder.EventResult != null && !NotificationBuilder.EventResult.ContainsKey(notificationId.ToString()))
-            //            {
-            //                NotificationBuilder.EventResult.Add(notificationId.ToString(), new NotificationResult() { Action = NotificationAction.Dismissed, Id = notificationId });
-            //            }
-            //            break;
-            //    }
-
-            //    if (NotificationBuilder.ResetEvent != null && NotificationBuilder.ResetEvent.ContainsKey(notificationId.ToString()))
-            //    {
-            //        NotificationBuilder.ResetEvent[notificationId.ToString()].Set();
-            //    }
-            //}
-
-            ////var extra = intent.GetStringExtra(LocalNotificationKey);
-            ////var notification = DeserializeNotification(extra);
-            //////Generating notification
-            ////var builder = new NotificationCompat.Builder(Application.Context)
-            ////    .SetContentTitle(notification.Title)
-            ////    .SetContentText(notification.Body)
-            ////    .SetSmallIcon(notification.IconId)
-            ////    .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone))
-            ////    .SetPriority(NotificationCompat.PriorityMax)
-            ////    .SetVisibility(1)
-            ////    .SetAutoCancel(true);
-
-            ////var resultIntent = LocalNotificationService.GetLauncherActivity();
-            ////resultIntent.SetFlags(ActivityFlags.SingleTop);
-            ////var stackBuilder = Android.Support.V4.App.TaskStackBuilder.Create(Application.Context);
-            ////stackBuilder.AddNextIntent(resultIntent);
-
-            ////Random random = new Random();
-            ////int randomNumber = random.Next(9999 - 1000) + 1000;
-
-            ////var resultPendingIntent =
-            ////    stackBuilder.GetPendingIntent(randomNumber, (int)PendingIntentFlags.Immutable);
-            ////builder.SetContentIntent(resultPendingIntent);
-            ////// Sending notification
-            ////var notificationManager = NotificationManagerCompat.From(Application.Context);
-            ////notificationManager.Notify(randomNumber, builder.Build());
 
             var options = new NotificationOptions()
             {
-                Title = "The Title Line",
-                Description = "The Description Content",
+                Title = "Alert",
+                Description = "Next Observation Round",
                 IsClickable = true,
                 WindowsOptions = new WindowsOptions() { LogoUri = "icon.png" },
-                ClearFromHistory = false,
+                ClearFromHistory = true,
                 AllowTapInNotificationCenter = false,
                 AndroidOptions = new AndroidOptions()
                 {

@@ -5,7 +5,6 @@ using System.Linq;
 using WorkStudy.Services;
 using WorkStudy.iOS.DependencyServices;
 using Xamarin.Forms;
-using UserNotifications;
 
 [assembly: Dependency(typeof(LocalNotificationService))]
 namespace WorkStudy.iOS.DependencyServices
@@ -19,7 +18,6 @@ namespace WorkStudy.iOS.DependencyServices
 
             var notification = new UILocalNotification
             {
-
                 AlertTitle = title,
                 AlertBody = body,
                 SoundName = UILocalNotification.DefaultSoundName,
@@ -27,37 +25,26 @@ namespace WorkStudy.iOS.DependencyServices
                 RepeatInterval = NSCalendarUnit.Minute,
                 UserInfo = NSDictionary.FromObjectAndKey(NSObject.FromObject(id), NSObject.FromObject(NotificationKey))
             };
+
             UIApplication.SharedApplication.ScheduleLocalNotification(notification);
         }
 
         public void Cancel(int id)
         {
-
-            var notifications = UIApplication.SharedApplication.ScheduledLocalNotifications;
-            var notification = notifications.Where(n => n.UserInfo.ContainsKey(NSObject.FromObject(NotificationKey)))
-                .FirstOrDefault(n => n.UserInfo[NotificationKey].Equals(NSObject.FromObject(id)));
-            UIApplication.SharedApplication.CancelAllLocalNotifications();
-            if (notification != null)
-            {
-                UIApplication.SharedApplication.CancelLocalNotification(notification);
-                UIApplication.SharedApplication.CancelAllLocalNotifications();
-            }
+            DisableAlarm(id);
         }
 
         public void Disable()
         {
-            var notifications = UIApplication.SharedApplication.ScheduledLocalNotifications;
-            var notification = notifications.Where(n => n.UserInfo.ContainsKey(NSObject.FromObject(NotificationKey)))
-                .FirstOrDefault(n => n.UserInfo[NotificationKey].Equals(NSObject.FromObject(0)));
-            UIApplication.SharedApplication.CancelAllLocalNotifications();
-            if (notification != null)
-            {
-                UIApplication.SharedApplication.CancelLocalNotification(notification);
-                UIApplication.SharedApplication.CancelAllLocalNotifications();
-            }
+            DisableAlarm(0);
         }
 
         public void DisableLocalNotification(string title, string body, int id, DateTime notifyTime)
+        {
+            DisableAlarm(id);
+        }
+
+        private static void DisableAlarm(int id)
         {
             var notifications = UIApplication.SharedApplication.ScheduledLocalNotifications;
             var notification = notifications.Where(n => n.UserInfo.ContainsKey(NSObject.FromObject(NotificationKey)))
@@ -68,7 +55,6 @@ namespace WorkStudy.iOS.DependencyServices
                 UIApplication.SharedApplication.CancelLocalNotification(notification);
                 UIApplication.SharedApplication.CancelAllLocalNotifications();
             }
-            //throw new NotImplementedException();
         }
     }
 
