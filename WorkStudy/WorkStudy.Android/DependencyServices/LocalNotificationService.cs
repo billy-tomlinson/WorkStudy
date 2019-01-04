@@ -19,20 +19,19 @@ namespace WorkStudy.Droid.DependencyServices
         private int _notificationIconId { get; set; }
         readonly DateTime jan1St1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public void LocalNotification(string title, string body, int id, DateTime notifyTime)
+        public void LocalNotification(string title, string body, int id, DateTime notifyTime, double repeatInterval)
         {
-
-            var repeatForMinute = 60000;
+            long repeatIntervalTime = (long)repeatInterval * 1000;
             var totalMilliSeconds = (long)(notifyTime.ToUniversalTime() - jan1St1970).TotalMilliseconds;
             if (totalMilliSeconds < JavaSystem.CurrentTimeMillis())
             {
-                totalMilliSeconds = totalMilliSeconds + repeatForMinute;
+                totalMilliSeconds = totalMilliSeconds + repeatIntervalTime;
             }
 
             var pendingIntent = GeneratePendingIntent(title, body, id, notifyTime);
             var alarmManager = GetAlarmManager();
-            //alarmManager.SetRepeating(AlarmType.RtcWakeup, totalMilliSeconds, repeatForMinute, pendingIntent);
-            alarmManager.Set(AlarmType.RtcWakeup, totalMilliSeconds, pendingIntent);
+            alarmManager.SetRepeating(AlarmType.RtcWakeup, totalMilliSeconds, repeatIntervalTime, pendingIntent);
+            //alarmManager.Set(AlarmType.RtcWakeup, totalMilliSeconds, pendingIntent);
         }
 
         private PendingIntent GeneratePendingIntent(string title, string body, int id, DateTime notifyTime)
@@ -55,20 +54,8 @@ namespace WorkStudy.Droid.DependencyServices
             return pendingIntent;
         }
 
-        public void Cancel(int id)
-        {
-            var intent = CreateIntent(id);
-            var pendingIntent = PendingIntent.GetBroadcast(Android.App.Application.Context, 0 , intent, PendingIntentFlags.CancelCurrent);
-            var alarmManager = GetAlarmManager();
-            alarmManager.Cancel(pendingIntent);
-            var notificationManager = NotificationManagerCompat.From(Android.App.Application.Context);
-            notificationManager.CancelAll();
-            notificationManager.Cancel(id);
-        }
-
         public static Intent GetLauncherActivity()
         {
-
             var packageName = Android.App.Application.Context.PackageName;
             return Android.App.Application.Context.PackageManager.GetLaunchIntentForPackage(packageName);
         }
@@ -134,19 +121,7 @@ namespace WorkStudy.Droid.DependencyServices
 
             var notificator = DependencyService.Get<IToastNotificator>();
 
-            notificator.Notify(options);
-           
-        }
-
-        private LocalNotification DeserializeNotification(string notificationString)
-        {
-
-            var xmlSerializer = new XmlSerializer(typeof(LocalNotification));
-            using (var stringReader = new StringReader(notificationString))
-            {
-                var notification = (LocalNotification)xmlSerializer.Deserialize(stringReader);
-                return notification;
-            }
+            notificator.Notify(options);          
         }
     }
 }

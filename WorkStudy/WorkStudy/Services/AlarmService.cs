@@ -44,13 +44,13 @@ namespace WorkStudy.Services
         {
             if (CancelAlarm)
             {
-                DependencyService.Get<ILocalNotificationService>().Cancel(0);
-                DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", "Next Observation", 0, DateTime.Now);
+                DependencyService.Get<ILocalNotificationService>()
+                    .DisableLocalNotification("Local Notification", "Next Observation", 0, DateTime.Now);
             }
             else
             {
-                DependencyService.Get<ILocalNotificationService>().Cancel(0);
-                DependencyService.Get<ILocalNotificationService>().LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+                DependencyService.Get<ILocalNotificationService>()
+                    .LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, 60);
                 CancelAlarm = false;
             }
         }

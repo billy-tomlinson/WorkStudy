@@ -61,7 +61,7 @@ namespace WorkStudy.ViewModels
                 MessageText = string.Empty;
                 SelectedTime = DateTime.Now.TimeOfDay;
                 SelectedDate = DateTime.Today;
-                DependencyService.Get<ILocalNotificationService>().Cancel(0);
+                //DependencyService.Get<ILocalNotificationService>().Cancel(0);
             }
         }
 
@@ -127,8 +127,9 @@ namespace WorkStudy.ViewModels
                 if (!string.IsNullOrEmpty(MessageText))
                 {
 
-                    DependencyService.Get<ILocalNotificationService>().Cancel(0);
-                    DependencyService.Get<ILocalNotificationService>().LocalNotification("Local Notification", MessageText, 0, selectedDateTime);
+                    //DependencyService.Get<ILocalNotificationService>().Cancel(0);
+                    DependencyService.Get<ILocalNotificationService>()
+                        .LocalNotification("Local Notification", MessageText, 0, selectedDateTime, 60);
                     Application.Current.MainPage.DisplayAlert("LocalNotificationDemo", "Notification details saved successfully ", "Ok");
 
                 }
@@ -147,7 +148,7 @@ namespace WorkStudy.ViewModels
 
         void DisableLocalNotification()
         {
-            DependencyService.Get<ILocalNotificationService>().Cancel(0);
+            //DependencyService.Get<ILocalNotificationService>().Cancel(0);
             DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", MessageText, 0, DateTime.Now);
             //DependencyService.Get<ILocalNotificationService>().Cancel(0);
         }

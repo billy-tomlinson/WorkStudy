@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using Foundation;
+using Plugin.Toasts;
 using UIKit;
 using UserNotifications;
+using Xamarin.Forms;
 
 namespace WorkStudy.iOS
 {
@@ -22,9 +24,6 @@ namespace WorkStudy.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
-            #region local notification
-
 
             // check for a notification
             if (options != null)
@@ -53,7 +52,6 @@ namespace WorkStudy.iOS
                 UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
             }
 
-            #endregion
 
             string dbName = "WorkStudy1.db3";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
@@ -64,7 +62,6 @@ namespace WorkStudy.iOS
             return base.FinishedLaunching(app, options);
         }
 
-        #region Which will be called when a notification is received:
 
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
@@ -74,6 +71,5 @@ namespace WorkStudy.iOS
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }
 
-        #endregion
     }
 }

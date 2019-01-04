@@ -43,19 +43,17 @@ namespace WorkStudy.ViewModels
                 return;
             }
 
-            AlarmService.ContinueTimer = true;
-            AlarmService.StartVibrateTimer(IntervalMinutes);
+            var interval = result * 60;
 
+            DependencyService.Get<ILocalNotificationService>()
+                .LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, interval);
             AlarmStatus = "Alarm is enabled";
         }
 
         void DisableAlarmEvent(object obj)
         {
-            AlarmService.ContinueTimer = false;
-            AlarmService.CancelAlarm = true;
-
-            DependencyService.Get<ILocalNotificationService>().Cancel(0);
-            DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", "Next Observation", 0, DateTime.Now);
+            DependencyService.Get<ILocalNotificationService>()
+                .DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
             AlarmStatus = "Alarm is disabled";
         }
 
