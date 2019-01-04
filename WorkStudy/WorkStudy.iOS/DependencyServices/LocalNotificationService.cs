@@ -22,7 +22,7 @@ namespace WorkStudy.iOS.DependencyServices
                 AlertBody = body,
                 SoundName = UILocalNotification.DefaultSoundName,
                 FireDate = notifyTime.ToNSDate(),
-                RepeatInterval = NSCalendarUnit.Minute,
+                //RepeatInterval = NSCalendarUnit.Hour,
                 UserInfo = NSDictionary.FromObjectAndKey(NSObject.FromObject(id), NSObject.FromObject(NotificationKey))
             };
 

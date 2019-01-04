@@ -31,7 +31,8 @@ namespace WorkStudy.Droid.DependencyServices
 
             var pendingIntent = GeneratePendingIntent(title, body, id, notifyTime);
             var alarmManager = GetAlarmManager();
-            alarmManager.SetRepeating(AlarmType.RtcWakeup, totalMilliSeconds, repeatForMinute, pendingIntent);
+            //alarmManager.SetRepeating(AlarmType.RtcWakeup, totalMilliSeconds, repeatForMinute, pendingIntent);
+            alarmManager.Set(AlarmType.RtcWakeup, totalMilliSeconds, pendingIntent);
         }
 
         private PendingIntent GeneratePendingIntent(string title, string body, int id, DateTime notifyTime)

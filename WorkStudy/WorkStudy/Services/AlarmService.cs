@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace WorkStudy.Services
 {
-    public class AlarmService
+    public static class AlarmService
     {
     
         public static bool CancelAlarm { get; set; }
@@ -31,36 +30,29 @@ namespace WorkStudy.Services
         {
             return () =>
             {
-                if (!AlarmService.ContinueTimer)
+                if (!ContinueTimer)
                 {
                     return false;
                 }
                 CancelAlarm = false;
-                StartTimer().GetAwaiter();
+                StartTimer();
                 return ContinueTimer;
             };
         }
 
-        public static async Task StartTimer()
+        public static void StartTimer()
         {
-            await Task.Run(async () =>
+            if (CancelAlarm)
             {
-                while (true)
-                {
-                    if (AlarmService.CancelAlarm)
-                    {
-                        Vibration.Cancel();
-                        break;
-                    }
-                    else
-                    {
-                        Vibration.Vibrate();
-                        AlarmService.CancelAlarm = false;
-                        await Task.Delay(1000);
-                    }
-                }
-            });
+                DependencyService.Get<ILocalNotificationService>().Cancel(0);
+                DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", "Next Observation", 0, DateTime.Now);
+            }
+            else
+            {
+                DependencyService.Get<ILocalNotificationService>().Cancel(0);
+                DependencyService.Get<ILocalNotificationService>().LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+                CancelAlarm = false;
+            }
         }
-
     }
 }
