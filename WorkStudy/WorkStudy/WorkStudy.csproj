@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.11.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.11.0" />
     <PackageReference Include="Xam.Plugins.Vibrate" Version="4.0.0.5" />
+    <PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,8 +77,5 @@
     <EmbeddedResource Update="Views\RunningTotalsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Downloads\Toasts.Forms-2.Plugin-master\Toasts.Forms.Plugin.Abstractions\Toasts.Forms.Plugin.Abstractions.csproj" />
   </ItemGroup>
 </Project>
