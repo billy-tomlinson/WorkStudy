@@ -361,7 +361,8 @@ namespace WorkStudy.ViewModels
             if(TotalObservationsRequired > 0)
             {
                 totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-                TotalOperatorPercentage = $"{totalPercentage.ToString(CultureInfo.InvariantCulture)}%";
+                var percentage = totalPercentage < 100 ? totalPercentage : 100;
+                TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
             }
 
             return totals;

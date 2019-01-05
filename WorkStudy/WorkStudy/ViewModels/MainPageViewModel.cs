@@ -324,7 +324,8 @@ namespace WorkStudy.ViewModels
             if(TotalObservationsTaken > 0)
             {
                 totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-                TotalOperatorPercentage = $"{totalPercentage.ToString(CultureInfo.InvariantCulture)}%";
+                var percentage = totalPercentage < 100 ? totalPercentage : 100;
+                TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
             }
 
 
@@ -512,6 +513,7 @@ namespace WorkStudy.ViewModels
 
                 foreach (var obs in item.Observations)
                 {
+                    var percentage = limitsReached.TotalPercentage < 100 ? limitsReached.TotalPercentage : 100;
                     if (obs.ObservationNumber == ObservationRound)
                     {
                         var opObservation = new OperatorObservation
@@ -523,8 +525,8 @@ namespace WorkStudy.ViewModels
                             IsRated = obs.Rating > 0,
                             ObservedColour = System.Drawing.Color.Silver,
                             LimitsOfAccuracy = limitsReached.AccuracyReached,
-                            TotalPercentageDouble = limitsReached.TotalPercentage,
-                            TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
+                            TotalPercentageDouble = percentage,
+                            TotalPercentage = percentage.ToString() + "%"
                         };
 
                         ops.Add(opObservation);
@@ -535,6 +537,7 @@ namespace WorkStudy.ViewModels
 
                 if (added == false)
                 {
+                    var percentage = limitsReached.TotalPercentage < 100 ? limitsReached.TotalPercentage : 100;
                     var opObs = new OperatorObservation
                     {
                         Name = item.Name,
@@ -542,8 +545,8 @@ namespace WorkStudy.ViewModels
                         IsRated = false,
                         ObservedColour = System.Drawing.Color.Gray,
                         LimitsOfAccuracy = limitsReached.AccuracyReached,
-                        TotalPercentageDouble = limitsReached.TotalPercentage,
-                        TotalPercentage = limitsReached.TotalPercentage.ToString() + "%"
+                        TotalPercentageDouble = percentage,
+                        TotalPercentage = percentage.ToString() + "%"
                     };
                     ops.Add(opObs);
                 }
@@ -572,7 +575,8 @@ namespace WorkStudy.ViewModels
             double totalPercent = 0;
             foreach (var op in OperatorObservations)
             {
-                totalPercent = totalPercent + op.TotalPercentageDouble;
+                var percentage = op.TotalPercentageDouble < 100 ? op.TotalPercentageDouble : 100;
+                totalPercent = totalPercent + percentage;
             }
 
             if (totalPercent > 0)
