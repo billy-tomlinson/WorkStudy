@@ -429,6 +429,8 @@ namespace WorkStudy.UnitTests
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
                     var destSheetAll = workbook.Worksheets.Create("Summary");
 
+                    List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
+
                     foreach (var op in operators)
                     {
                         var data = new List<SpreadSheetObservation>();
@@ -458,10 +460,9 @@ namespace WorkStudy.UnitTests
                         destSheet.ImportData(data, 3, 1, false);
 
                         var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
-                            .Select(g => new OperatorRunningTotal
+                            .Select(g => new ObservationSummary
                             {
                                 ActivityName  = g.Key.ActivityName,
-                                ActivityId = g.Key.ActivityId,
                                 NumberOfObservations = g.Count()
                             }).ToList();
                             
@@ -471,12 +472,26 @@ namespace WorkStudy.UnitTests
                         foreach (var item in summary)
                         {
                             var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObs * 100, 2);
-                            var activity = activityRepo.GetItem(item.ActivityId);
-                            item.IsRated = activity.Rated;
+                            //var activity = activityRepo.GetItem(item.ActivityId);
+                            //item.IsRated = activity.Rated;
                             item.Percentage = totalPercentage;
                         }
-                    }
 
+                        allTotals.Add(summary);
+                    }
+                    var columnCount = 0;
+
+                    foreach (var item in allTotals)
+                    {
+                        destSheetAll.Range[3, columnCount + 1].Text = "Activity";
+                        destSheetAll.Range[3, columnCount + 2].Text = "Total Observations";
+                        destSheetAll.Range[3, columnCount + 3].Text = "Percentage of Total";
+
+                        destSheetAll.ImportData(item, 5, columnCount + 1, false);
+
+                        columnCount = columnCount + 5;
+
+                    }
 
                     using (MemoryStream ms = new MemoryStream())
                     {
@@ -485,7 +500,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQL14.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary1.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
