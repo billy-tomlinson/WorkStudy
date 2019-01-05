@@ -15,7 +15,6 @@ namespace WorkStudy.ViewModels
         public ICommand Reports { get; set; }
         public ICommand CurrentStudy { get; set; }
         public ICommand StudySetUp { get; set; }
-        public ICommand TurnOffAlarmCommand { get; set; }
         public ICommand AlarmSetUp { get; set; }
 
         public MenuPageViewModel()
@@ -28,13 +27,7 @@ namespace WorkStudy.ViewModels
             Reports = new Command(GoReports);
             CurrentStudy = new Command(GoCurrentStudy);
             StudySetUp = new Command(GoStudySetUp);
-            TurnOffAlarmCommand = new Command(TurnOffAlarmEvent);
             AlarmSetUp = new Command(AlarmSetUpEvent);
-        }
-
-        void TurnOffAlarmEvent(object obj)
-        {
-            AlarmService.TurnOffAlarm();
         }
 
         void AlarmSetUpEvent(object obj)

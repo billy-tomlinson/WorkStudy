@@ -40,9 +40,6 @@
         <Button Text="Alarm Set Up" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AlarmSetUp}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
-        <Button Text="Turn Off Alarm" TextColor="DarkGray" BackgroundColor="White" 
-                HorizontalOptions="StartAndExpand" Command="{Binding TurnOffAlarmCommand}"/>
-        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
     </StackLayout>
 </ContentPage.Content>
 </ContentPage>
