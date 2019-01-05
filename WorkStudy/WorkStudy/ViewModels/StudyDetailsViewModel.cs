@@ -28,6 +28,35 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        bool _isUnRated;
+        public bool IsUnRated
+        {
+            get => _isUnRated;
+            set
+            {
+                _isUnRated = value;
+                OnPropertyChanged();
+                Switch_Toggled();
+            }
+        }
+
+
+        string studyType = "Rated";
+        public string StudyType
+        {
+            get { return studyType; }
+            set
+            {
+                studyType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        void Switch_Toggled()
+        {
+            StudyType = _isUnRated == false ? "Rated" : "UnRated";
+        }
+
         bool isActive;
         public bool IsActive
         {
@@ -58,7 +87,7 @@ namespace WorkStudy.ViewModels
 
             SampleStudy = new ActivitySampleStudy()
             {
-                IsRated = true,
+                IsRated = IsUnRated,
                 Date = DateTime.Now,
                 Time = DateTime.Now.TimeOfDay
             };

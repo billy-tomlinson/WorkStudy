@@ -29,7 +29,7 @@ namespace WorkStudy.Pages
 
         public void studiedBy_Completed(object sender, EventArgs e)
         {
-            studyRated.Focus();
+            studiedBy.Focus();
         }
 
         protected override bool OnBackButtonPressed()
