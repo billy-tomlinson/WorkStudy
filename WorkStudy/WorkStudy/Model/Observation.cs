@@ -13,7 +13,7 @@ namespace WorkStudy.Model
 
         public int AliasActivityId { get; set; }
 
-        public DateTime Date => DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public int Rating { get; set; }
 

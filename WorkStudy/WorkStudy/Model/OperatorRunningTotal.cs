@@ -9,5 +9,6 @@
         public double Percentage { get; set; }
         public int ObservationsRequired { get; set; }
         public string PercentageFormatted { get; set; }
+        public bool IsRated { get; set; }
     }
 }

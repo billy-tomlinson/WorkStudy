@@ -87,7 +87,7 @@ namespace WorkStudy.ViewModels
 
             SampleStudy = new ActivitySampleStudy()
             {
-                IsRated = IsUnRated,
+                IsRated = !IsUnRated,
                 Date = DateTime.Now,
                 Time = DateTime.Now.TimeOfDay
             };
