@@ -5,10 +5,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using WorkStudy.Model;
 using WorkStudy.Services;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels

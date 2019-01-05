@@ -198,7 +198,7 @@ namespace WorkStudy.ViewModels
 
         void TerminateStudy()
         {
-            if (GetStudyTotalPercent() != 100)
+            if (GetStudyTotalPercent() < 100)
             {
                 ValidationText = "Study has not reached Limits Of Accuracy. Override?";
                 IsOverrideVisible = true;
@@ -330,7 +330,7 @@ namespace WorkStudy.ViewModels
 
             return new LimitsOfAccuracy()
             {
-                AccuracyReached = totalPercentage == 100,
+                AccuracyReached = totalPercentage >= 100,
                 TotalPercentage = totalPercentage
             };
 
