@@ -492,7 +492,7 @@ namespace WorkStudy.ViewModels
 
             if (Activities.Count == 0 || !Operators.Any())
             {
-                InvalidText = $"Please add Operators to the study {Utilities.StudyId.ToString()}";
+                InvalidText = $"Please add at least one operator to study {Utilities.StudyId.ToString()}";
                 return false;
             }
 
