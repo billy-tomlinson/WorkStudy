@@ -430,6 +430,13 @@ namespace WorkStudy.UnitTests
 
                     List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
+                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15)
+                    .Select(y => new ActivityName() {Name = y.Name }).ToList();
+
+                    destSheetAll.Range[3, 1].Text = "Activity";
+                    destSheetAll.ImportData(allActivities, 5, 1, false);
+
+
                     foreach (var op in operators)
                     {
                         var data = new List<SpreadSheetObservation>();
@@ -479,24 +486,37 @@ namespace WorkStudy.UnitTests
                         foreach (var item in summary)
                         {
                             var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObs * 100, 2);
-                            //var activity = activityRepo.GetItem(item.ActivityId);
-                            //item.IsRated = activity.Rated;
                             item.Percentage = totalPercentage;
                             item.TotalTime = item.NumberOfObservations * timePerObservation;
                         }
 
                         allTotals.Add(summary);
                     }
-                    var columnCount = 0;
+                    var columnCount = 3;
 
                     foreach (var item in allTotals)
                     {
-                        destSheetAll.Range[3, columnCount + 1].Text = "Activity";
                         destSheetAll.Range[3, columnCount + 2].Text = "Total Observations";
                         destSheetAll.Range[3, columnCount + 3].Text = "Total Time";
                         destSheetAll.Range[3, columnCount + 4].Text = "Percentage of Total";
 
-                        destSheetAll.ImportData(item, 5, columnCount + 1, false);
+                        var range = destSheetAll["A1:A100"].ToList();
+
+                        foreach (var cell in range.Where(x => x.Value != string.Empty))
+                        {
+                            var v = cell.Value;
+                            var c = cell.Row;
+
+                            foreach (var vv in item)
+                            {
+                                if(vv.ActivityName == v)
+                                {
+                                    destSheetAll.Range[c, columnCount + 2].Text = vv.NumberOfObservations.ToString();
+                                    destSheetAll.Range[c, columnCount + 3].Text = vv.TotalTime.ToString();
+                                    destSheetAll.Range[c, columnCount + 4].Text = vv.Percentage.ToString();
+                                }
+                            }
+                        }
 
                         columnCount = columnCount + 5;
 
@@ -509,7 +529,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary4.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary7.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
