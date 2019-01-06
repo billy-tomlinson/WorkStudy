@@ -488,11 +488,12 @@ namespace WorkStudy.UnitTests
                             var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObs * 100, 2);
                             item.Percentage = totalPercentage;
                             item.TotalTime = item.NumberOfObservations * timePerObservation;
+                            item.OperatorName = op.Name;
                         }
 
                         allTotals.Add(summary);
                     }
-                    var columnCount = 3;
+                    var columnCount = 1;
 
                     foreach (var item in allTotals)
                     {
@@ -500,7 +501,8 @@ namespace WorkStudy.UnitTests
                         destSheetAll.Range[3, columnCount + 3].Text = "Total Time";
                         destSheetAll.Range[3, columnCount + 4].Text = "Percentage of Total";
 
-                        var range = destSheetAll["A1:A100"].ToList();
+                        var computedRange = $"A5:A{allActivities.Count + 5}";
+                        var range = destSheetAll[computedRange].ToList();
 
                         foreach (var cell in range.Where(x => x.Value != string.Empty))
                         {
@@ -509,7 +511,9 @@ namespace WorkStudy.UnitTests
 
                             foreach (var vv in item)
                             {
-                                if(vv.ActivityName == v)
+                                destSheetAll.Range[1, columnCount + 2].Text = vv.OperatorName;
+
+                                if (vv.ActivityName == v)
                                 {
                                     destSheetAll.Range[c, columnCount + 2].Text = vv.NumberOfObservations.ToString();
                                     destSheetAll.Range[c, columnCount + 3].Text = vv.TotalTime.ToString();
@@ -529,7 +533,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary7.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary10.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
