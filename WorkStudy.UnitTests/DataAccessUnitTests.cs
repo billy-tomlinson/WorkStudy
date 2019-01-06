@@ -438,6 +438,7 @@ namespace WorkStudy.UnitTests
 
                         foreach (var observation in obs)
                         {
+                            var formattedDate = String.Format("{0:d/M/yyyy HH:mm:ss}", observation.Date);
                             data.Add(new SpreadSheetObservation()
                             {
                                 ActivityName = observation.ActivityName,
@@ -445,13 +446,13 @@ namespace WorkStudy.UnitTests
                                 OperatorName = op.Name,
                                 ObservationNumber = observation.ObservationNumber,
                                 Rating = observation.Rating,
-                                Date = observation.Date
+                                Date = formattedDate
                             });
                         }
                         var destSheet = workbook.Worksheets.Create(op.Name);
 
                         destSheet.Range["A1"].Text = "Study";
-                        destSheet.Range["B1"].Text = "Date/Time";
+                        destSheet.Range["B1"].Text = "Date";
                         destSheet.Range["C1"].Text = "Operator";
                         destSheet.Range["D1"].Text = "Observation Round";
                         destSheet.Range["E1"].Text = "Activity";
@@ -500,7 +501,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary1.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary3.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
