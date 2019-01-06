@@ -5,6 +5,7 @@ namespace WorkStudy.Model
     {
         public string ActivityName { get; set; }
         public int NumberOfObservations { get; set; }
+        public double TotalTime { get; set; }
         public double Percentage { get; set; }
 
     }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,7 +35,7 @@ namespace WorkStudy.UnitTests
                 //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
 
-              // CleanDatabase();
+                // CleanDatabase();
             }
 
             [TestMethod]
@@ -60,7 +59,7 @@ namespace WorkStudy.UnitTests
                 Assert.AreEqual(id, sample.Id);
                 Assert.AreEqual(activityStudy.Department, sample.Department);
             }
- 
+
 
             [TestMethod]
             public void AddAndUpdateAndRetrieveActivitySampleStudy()
@@ -354,7 +353,7 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void Create_Excel_Spreadsheet_From_SQL()
             {
-                
+
                 var activity1 = new Activity()
                 {
                     Name = "Activity One",
@@ -413,11 +412,11 @@ namespace WorkStudy.UnitTests
                 //AddAndRetrieveOperator_And_Get_All_Operators();
                 //AddAndRetrieveObservation_And_Get_All_Observations();
 
-                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 13).ToList();
+                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 15).ToList();
 
                 //var operators = activityRepo.GetItems().ToList();
 
-                var sample = sampleRepo.GetItem(13);
+                var sample = sampleRepo.GetItem(15);
 
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
@@ -435,6 +434,13 @@ namespace WorkStudy.UnitTests
                     {
                         var data = new List<SpreadSheetObservation>();
                         var obs = observationRepo.GetAllWithChildren().Where(x => x.OperatorId == op.Id).ToList();
+
+                        var totalCount = obs.Count();
+                        var firstOb = obs.Min(y => y.Date);
+                        var lastOb = obs.Max(y => y.Date);
+                        var totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
+
+                        var timePerObservation = Math.Round(totalTimeMinutes / totalCount , 2);
 
                         foreach (var observation in obs)
                         {
@@ -463,10 +469,10 @@ namespace WorkStudy.UnitTests
                         var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                             .Select(g => new ObservationSummary
                             {
-                                ActivityName  = g.Key.ActivityName,
+                                ActivityName = g.Key.ActivityName,
                                 NumberOfObservations = g.Count()
                             }).ToList();
-                            
+
 
                         var totalObs = obs.Count;
 
@@ -476,6 +482,7 @@ namespace WorkStudy.UnitTests
                             //var activity = activityRepo.GetItem(item.ActivityId);
                             //item.IsRated = activity.Rated;
                             item.Percentage = totalPercentage;
+                            item.TotalTime = item.NumberOfObservations * timePerObservation;
                         }
 
                         allTotals.Add(summary);
@@ -486,7 +493,8 @@ namespace WorkStudy.UnitTests
                     {
                         destSheetAll.Range[3, columnCount + 1].Text = "Activity";
                         destSheetAll.Range[3, columnCount + 2].Text = "Total Observations";
-                        destSheetAll.Range[3, columnCount + 3].Text = "Percentage of Total";
+                        destSheetAll.Range[3, columnCount + 3].Text = "Total Time";
+                        destSheetAll.Range[3, columnCount + 4].Text = "Percentage of Total";
 
                         destSheetAll.ImportData(item, 5, columnCount + 1, false);
 
@@ -501,7 +509,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary3.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary4.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
@@ -574,7 +582,7 @@ namespace WorkStudy.UnitTests
                 var returnedActivity2 = activityRepo.GetItem(activityId2);
                 var returnedActivity3 = activityRepo.GetItem(activityId3);
 
-                returnedActivity1.Activities = new List<Activity> {returnedActivity2, returnedActivity3};
+                returnedActivity1.Activities = new List<Activity> { returnedActivity2, returnedActivity3 };
 
                 activityRepo.UpdateWithChildren(returnedActivity1);
 
