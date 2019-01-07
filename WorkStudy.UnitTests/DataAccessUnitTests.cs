@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Syncfusion.XlsIO;
 using WorkStudy.Model;
@@ -515,12 +516,24 @@ namespace WorkStudy.UnitTests
 
                                 if (vv.ActivityName == v)
                                 {
-                                    destSheetAll.Range[c, columnCount + 2].Text = vv.NumberOfObservations.ToString();
-                                    destSheetAll.Range[c, columnCount + 3].Text = vv.TotalTime.ToString();
-                                    destSheetAll.Range[c, columnCount + 4].Text = vv.Percentage.ToString();
+                                    destSheetAll.Range[c, columnCount + 2].Number = vv.NumberOfObservations;
+                                    destSheetAll.Range[c, columnCount + 3].Number = vv.TotalTime;
+                                    destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
                                 }
                             }
                         }
+
+                        var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                        var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                        var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
+
+                        var formula1 = $"=SUM({columnAddress1}5:{columnAddress1}{allActivities.Count + 5})";
+                        var formula2 = $"=SUM({columnAddress2}5:{columnAddress2}{allActivities.Count + 5})";
+                        var formula3 = $"=SUM({columnAddress3}5:{columnAddress3}{allActivities.Count + 5})";
+
+                        destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula1;
+                        destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
+                        destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
 
                         columnCount = columnCount + 5;
                     }
@@ -544,14 +557,26 @@ namespace WorkStudy.UnitTests
                                     var totalActivity = totalObs.Count(x => x.ActivityName == v);
                                     var totalObsCount = totalObs.Count();
                                     var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                                    var totalPerActivity = Math.Round((double) totalTimeMinutes / totalActivity, 2 );
+                                    var totalPerActivity = Math.Round((double) totalTimeMinutes / totalActivity, 2);
 
-                                    destSheetAll.Range[c, columnCount + 1].Text = totalActivity.ToString();
-                                    destSheetAll.Range[c, columnCount + 2].Text = totalPerActivity.ToString();
-                                    destSheetAll.Range[c, columnCount + 3].Text = totalPercent.ToString(CultureInfo.InvariantCulture);
+                                    destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
+                                    destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                                    destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2); ;
                                 }
                             }
                         }
+
+                        var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
+                        var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                        var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+
+                        var formula1 = $"=SUM({columnAddress1}5:{columnAddress1}{allActivities.Count + 5})";
+                        var formula2 = $"=SUM({columnAddress2}5:{columnAddress2}{allActivities.Count + 5})";
+                        var formula3 = $"=SUM({columnAddress3}5:{columnAddress3}{allActivities.Count + 5})";
+
+                        destSheetAll.Range[allActivities.Count + 6, columnCount + 1].Formula = formula1;
+                        destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula2;
+                        destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula3;
                     }
 
                     using (MemoryStream ms = new MemoryStream())
@@ -561,7 +586,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummaryB.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummaryE.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
