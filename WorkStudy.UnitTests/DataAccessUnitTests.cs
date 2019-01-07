@@ -17,8 +17,8 @@ namespace WorkStudy.UnitTests
         [TestClass]
         public class DataAccessTests
         {
-            //private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
-            private const string connString = "WorkStudy1.db3";
+            private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
+            //private const string connString = "WorkStudy1.db3";
 
             private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
             private readonly IBaseRepository<Activity> activityRepo;
@@ -414,11 +414,11 @@ namespace WorkStudy.UnitTests
                 //AddAndRetrieveOperator_And_Get_All_Operators();
                 //AddAndRetrieveObservation_And_Get_All_Observations();
 
-                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 1).ToList();
+                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 15).ToList();
 
                 //var operators = activityRepo.GetItems().ToList();
                 #endregion
-                var sample = sampleRepo.GetItem(1);
+                var sample = sampleRepo.GetItem(15);
 
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
@@ -432,25 +432,24 @@ namespace WorkStudy.UnitTests
 
                     List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
-                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 1)
+                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15)
                     .Select(y => new ActivityName() {Name = y.Name }).ToList();
 
                     destSheetAll.Range[3, 1].Text = "Activity";
                     destSheetAll.ImportData(allActivities, 5, 1, false);
 
+                    var totalObs = observationRepo.GetItems().Where(x => x.StudyId == 15).ToList();
+                    var totalCount = totalObs.Count();
+                    var firstOb = totalObs.Min(y => y.Date);
+                    var lastOb = totalObs.Max(y => y.Date);
+                    var totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
+                    var timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
 
                     foreach (var op in operators)
                     {
                         var data = new List<SpreadSheetObservation>();
-                        var obs = observationRepo.GetAllWithChildren().Where(x => x.OperatorId == op.Id).ToList();
-
-                        var totalCount = obs.Count();
-                        var firstOb = obs.Min(y => y.Date);
-                        var lastOb = obs.Max(y => y.Date);
-                        var totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
-
-                        var timePerObservation = Math.Round(totalTimeMinutes / totalCount , 2);
-
+                        var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
+                        var totalObsPerOperator = obs.Count();
                         foreach (var observation in obs)
                         {
                             var formattedDate = String.Format("{0:d/M/yyyy HH:mm:ss}", observation.Date);
@@ -481,13 +480,10 @@ namespace WorkStudy.UnitTests
                                 ActivityName = g.Key.ActivityName,
                                 NumberOfObservations = g.Count()
                             }).ToList();
-
-
-                        var totalObs = obs.Count;
-
+                            
                         foreach (var item in summary)
                         {
-                            var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObs * 100, 2);
+                            var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
                             item.Percentage = totalPercentage;
                             item.TotalTime = item.NumberOfObservations * timePerObservation;
                             item.OperatorName = op.Name;
@@ -545,20 +541,17 @@ namespace WorkStudy.UnitTests
                             {
                                 if (vv.ActivityName == v)
                                 {
-                                    var totalObs = observationRepo.GetItems().Where(x => x.StudyId == 1).ToList();
                                     var totalActivity = totalObs.Count(x => x.ActivityName == v);
                                     var totalObsCount = totalObs.Count();
                                     var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-
+                                    var totalPerActivity = Math.Round((double) totalTimeMinutes / totalActivity, 2 );
 
                                     destSheetAll.Range[c, columnCount + 1].Text = totalActivity.ToString();
-                                    //destSheetAll.Range[c, columnCount + 2].Text = vv.TotalTime.ToString();
+                                    destSheetAll.Range[c, columnCount + 2].Text = totalPerActivity.ToString();
                                     destSheetAll.Range[c, columnCount + 3].Text = totalPercent.ToString(CultureInfo.InvariantCulture);
                                 }
                             }
                         }
-
-                       // columnCount = columnCount + 5;
                     }
 
                     using (MemoryStream ms = new MemoryStream())
@@ -568,7 +561,7 @@ namespace WorkStudy.UnitTests
 
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummary10.xlsx", FileMode.OpenOrCreate))
+                        using (FileStream fs = new FileStream("ReportOutputTestSQLSummaryB.xlsx", FileMode.OpenOrCreate))
                         {
                             ms.CopyTo(fs);
                             fs.Flush();
