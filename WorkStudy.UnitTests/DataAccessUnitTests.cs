@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,7 +17,8 @@ namespace WorkStudy.UnitTests
         [TestClass]
         public class DataAccessTests
         {
-            private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
+            //private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
+            private const string connString = "WorkStudy1.db3";
 
             private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
             private readonly IBaseRepository<Activity> activityRepo;
@@ -35,7 +37,7 @@ namespace WorkStudy.UnitTests
                 //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
                 mergedActivityRepo = new BaseRepository<MergedActivities>(connString);
 
-                // CleanDatabase();
+                //CleanDatabase();
             }
 
             [TestMethod]
@@ -353,7 +355,7 @@ namespace WorkStudy.UnitTests
             [TestMethod]
             public void Create_Excel_Spreadsheet_From_SQL()
             {
-
+                #region
                 var activity1 = new Activity()
                 {
                     Name = "Activity One",
@@ -403,7 +405,7 @@ namespace WorkStudy.UnitTests
 
                 foreach (var item in activities)
                 {
-                    activityRepo.SaveItem(item);
+                    //activityRepo.SaveItem(item);
                 }
 
                 //var x = activityRepo.GetItems();
@@ -412,11 +414,11 @@ namespace WorkStudy.UnitTests
                 //AddAndRetrieveOperator_And_Get_All_Operators();
                 //AddAndRetrieveObservation_And_Get_All_Observations();
 
-                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 15).ToList();
+                var operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == 1).ToList();
 
                 //var operators = activityRepo.GetItems().ToList();
-
-                var sample = sampleRepo.GetItem(15);
+                #endregion
+                var sample = sampleRepo.GetItem(1);
 
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
@@ -430,7 +432,7 @@ namespace WorkStudy.UnitTests
 
                     List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
-                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15)
+                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 1)
                     .Select(y => new ActivityName() {Name = y.Name }).ToList();
 
                     destSheetAll.Range[3, 1].Text = "Activity";
@@ -493,19 +495,21 @@ namespace WorkStudy.UnitTests
 
                         allTotals.Add(summary);
                     }
+
                     var columnCount = 1;
+
+                    var computedRange = $"A5:A{allActivities.Count + 5}";
+                    var range = destSheetAll[computedRange].ToList();
 
                     foreach (var item in allTotals)
                     {
-                        destSheetAll.Range[3, columnCount + 2].Text = "Total Observations";
+                        destSheetAll.Range[3, columnCount + 2].Text = "Total Obs";
                         destSheetAll.Range[3, columnCount + 3].Text = "Total Time";
-                        destSheetAll.Range[3, columnCount + 4].Text = "Percentage of Total";
-
-                        var computedRange = $"A5:A{allActivities.Count + 5}";
-                        var range = destSheetAll[computedRange].ToList();
+                        destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
 
                         foreach (var cell in range.Where(x => x.Value != string.Empty))
                         {
+                            
                             var v = cell.Value;
                             var c = cell.Row;
 
@@ -523,7 +527,38 @@ namespace WorkStudy.UnitTests
                         }
 
                         columnCount = columnCount + 5;
+                    }
 
+                    destSheetAll.Range[3, columnCount + 1].Text = "OBS TOTAL";
+                    destSheetAll.Range[3, columnCount + 2].Text = "TIME TOTAL";
+                    destSheetAll.Range[3, columnCount + 3].Text = "% TOTAL";
+
+
+                    foreach (var item in allTotals)
+                    {
+                        foreach (var cell in range.Where(x => x.Value != string.Empty))
+                        {
+                            var v = cell.Value;
+                            var c = cell.Row;
+
+                            foreach (var vv in item)
+                            {
+                                if (vv.ActivityName == v)
+                                {
+                                    var totalObs = observationRepo.GetItems().Where(x => x.StudyId == 1).ToList();
+                                    var totalActivity = totalObs.Count(x => x.ActivityName == v);
+                                    var totalObsCount = totalObs.Count();
+                                    var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
+
+
+                                    destSheetAll.Range[c, columnCount + 1].Text = totalActivity.ToString();
+                                    //destSheetAll.Range[c, columnCount + 2].Text = vv.TotalTime.ToString();
+                                    destSheetAll.Range[c, columnCount + 3].Text = totalPercent.ToString(CultureInfo.InvariantCulture);
+                                }
+                            }
+                        }
+
+                       // columnCount = columnCount + 5;
                     }
 
                     using (MemoryStream ms = new MemoryStream())
