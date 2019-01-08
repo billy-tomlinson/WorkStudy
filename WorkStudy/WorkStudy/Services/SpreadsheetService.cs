@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using Xamarin.Forms;
-using Syncfusion.Drawing;
 
 namespace WorkStudy.Services
 {
@@ -129,6 +128,7 @@ namespace WorkStudy.Services
                     foreach (var vv in item)
                     {
                         destSheetAll.Range[1, columnCount + 2].Text = vv.OperatorName;
+                        destSheetAll.Range[1, columnCount + 2].CellStyle = headerStyle;
 
                         if (vv.ActivityName == v)
                         {
@@ -372,7 +372,13 @@ namespace WorkStudy.Services
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1].Text = "TOTAL";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = headerStyle;
 
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].CellStyle = titleStyle;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].CellStyle = titleStyle;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = titleStyle;
+
                 destSheetAll.Range[3, 1, 3, columnCount + 3].CellStyle = titleStyle;
+
+                destSheetAll.Range[1, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 3].AutofitColumns();
             }
         }
 

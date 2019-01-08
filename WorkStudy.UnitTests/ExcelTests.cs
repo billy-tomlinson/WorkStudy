@@ -370,6 +370,8 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].CellStyle = titleStyle;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = titleStyle;
                 destSheetAll.Range[3, 1, 3, columnCount + 3].CellStyle = titleStyle;
+
+                destSheetAll.Range[1, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 3].AutofitColumns();
             }
         }
 
