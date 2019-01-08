@@ -45,7 +45,7 @@ namespace WorkStudy.Services
             timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
 
             string path;
-            string fileName = $"Workstudy_Study_{Utilities.StudyId}.xlsx";
+            string fileName = $"ActivitySample_StudyNo_{Utilities.StudyId}.xlsx";
 
             using (var excelEngine = new ExcelEngine())
             {
