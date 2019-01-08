@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using Xamarin.Forms;
+using Syncfusion.Drawing;
 
 namespace WorkStudy.Services
 {
@@ -25,6 +26,9 @@ namespace WorkStudy.Services
 
         private int ratedActivitiesTotalRowIndex;
         private int unRatedActivitiesTotalRowIndex;
+
+        IStyle headerStyle;
+        IStyle titleStyle;
 
         public SpreadSheet CreateExcelWorkBook()
         {
@@ -54,6 +58,28 @@ namespace WorkStudy.Services
 
                 //Create a workbook with a worksheet
                 workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                headerStyle = workbook.Styles.Add("HeaderStyle");
+                headerStyle.BeginUpdate();
+                headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 174, 33);
+                headerStyle.Font.Bold = true;
+                headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                headerStyle.EndUpdate();
+
+
+                titleStyle = workbook.Styles.Add("TitleStyle");
+                titleStyle.BeginUpdate();
+                titleStyle.Color = Syncfusion.Drawing.Color.FromArgb(93, 173, 226);
+                titleStyle.Font.Bold = true;
+                titleStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                titleStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                titleStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                titleStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                titleStyle.EndUpdate();
+
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
                 BuildRatedActivities();
@@ -182,6 +208,9 @@ namespace WorkStudy.Services
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula3;
             }
+
+            destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL EFFECTIVE";
+            destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 3].CellStyle = headerStyle;
         }
 
         private void BuildUnRatedActivities()
@@ -325,6 +354,8 @@ namespace WorkStudy.Services
                 destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 2].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 3].Formula = formula3;
 
+                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
+                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, 1, allActivities.Count + unratedStartRow + 1, columnCount + 3].CellStyle = headerStyle;
 
                 // Total All observations  - Add together total Rated +  total unrated
                 var formula4 =
@@ -337,6 +368,11 @@ namespace WorkStudy.Services
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].Formula = formula4;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula6;
+
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1].Text = "TOTAL";
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = headerStyle;
+
+                destSheetAll.Range[3, 1, 3, columnCount + 3].CellStyle = titleStyle;
             }
         }
 
