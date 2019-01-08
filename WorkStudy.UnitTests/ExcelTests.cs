@@ -306,30 +306,28 @@ namespace WorkStudy.UnitTests
                     }
                 }
 
-                //var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
-                //var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                //var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                //total all unrated totals of all operators
+                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
 
-                //var formula1 = $"=SUM({columnAddress1}12:{columnAddress1}13)";
-                //var formula2 = $"=SUM({columnAddress2}12:{columnAddress2}13)";
-                //var formula3 = $"=SUM({columnAddress3}12:{columnAddress3}13)";
+                var formula1 = $"=SUM({columnAddress1}{unratedStartRow}:{columnAddress1}{allActivities.Count + unratedStartRow})";
+                var formula2 = $"=SUM({columnAddress2}{unratedStartRow}:{columnAddress2}{allActivities.Count + unratedStartRow})";
+                var formula3 = $"=SUM({columnAddress3}{unratedStartRow}:{columnAddress3}{allActivities.Count + unratedStartRow})";
 
-                //destSheetAll.Range[15, columnCount + 1].Formula = formula1;
-                //destSheetAll.Range[15, columnCount + 2].Formula = formula2;
-                //destSheetAll.Range[15, columnCount + 3].Formula = formula3;
+                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 1].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 2].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 3].Formula = formula3;
 
-                //all totals
-                //var columnAddress4 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
-                //var columnAddress5 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                //var columnAddress6 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
 
-                //var formula4 = $"=SUM({columnAddress1}9+{columnAddress1}15)";
-                //var formula5 = $"=SUM({columnAddress2}9+{columnAddress2}15)";
-                //var formula6 = $"=SUM({columnAddress3}9+{columnAddress3}15)";
+                // Total All observations  - Add together total Rated +  total unrated
+                var formula4 = $"=SUM({columnAddress1}{ratedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula5 = $"=SUM({columnAddress2}{ratedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
+                var formula6 = $"=SUM({columnAddress3}{ratedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
-                //destSheetAll.Range[17, columnCount + 1].Formula = formula4;
-                //destSheetAll.Range[17, columnCount + 2].Formula = formula5;
-                //destSheetAll.Range[17, columnCount + 3].Formula = formula6;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].Formula = formula4;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula5;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula6;
 
             }
         }
