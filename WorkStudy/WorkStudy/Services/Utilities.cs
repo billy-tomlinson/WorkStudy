@@ -85,57 +85,57 @@ namespace WorkStudy.Services
             return groupedActivities;
         }
 
-        public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
-        {
-            string path;
-            string fileName = $"Workstudy_Study_{StudyId}.xlsx";
+        //public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
+        //{
+        //    string path;
+        //    string fileName = $"Workstudy_Study_{StudyId}.xlsx";
 
 
-            var obsRepo = new BaseRepository<Observation>(Connection);
-            var opsRepo = new BaseRepository<Operator>(Connection);
+        //    var obsRepo = new BaseRepository<Observation>(Connection);
+        //    var opsRepo = new BaseRepository<Operator>(Connection);
 
-            var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
+        //    var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
                                    
-            using (var excelEngine = new ExcelEngine())
-            {
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+        //    using (var excelEngine = new ExcelEngine())
+        //    {
+        //        excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
-                var workbook = excelEngine.Excel.Workbooks.Create(1);
+        //        var workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                foreach (var op in operators)
-                {
-                    var data = new List<SpreadSheetObservation>();
-                    var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
+        //        foreach (var op in operators)
+        //        {
+        //            var data = new List<SpreadSheetObservation>();
+        //            var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
 
-                    foreach (var observation in obs)
-                    {
-                        data.Add(new SpreadSheetObservation()
-                        {
-                            ActivityName = observation.ActivityName,
-                           // StudyId = StudyId,
-                            OperatorName = op.Name,
-                            ObservationNumber = observation.ObservationNumber,
-                            Rating = observation.Rating
+        //            foreach (var observation in obs)
+        //            {
+        //                data.Add(new SpreadSheetObservation()
+        //                {
+        //                    ActivityName = observation.ActivityName,
+        //                   // StudyId = StudyId,
+        //                    OperatorName = op.Name,
+        //                    ObservationNumber = observation.ObservationNumber,
+        //                    Rating = observation.Rating
 
-                        });
-                    }
-                    var destSheet = workbook.Worksheets.Create(op.Name);
-                    destSheet.ImportData(data, 1, 1, true);
+        //                });
+        //            }
+        //            var destSheet = workbook.Worksheets.Create(op.Name);
+        //            destSheet.ImportData(data, 1, 1, true);
 
-                }
+        //        }
 
-                MemoryStream stream = new MemoryStream();
+        //        MemoryStream stream = new MemoryStream();
 
-                workbook.SaveAs(stream);
-                workbook.Close();
+        //        workbook.SaveAs(stream);
+        //        workbook.Close();
 
-                path = DependencyService.Get<ISave>()
-                                        .SaveSpreadSheet(fileName, "application/msexcel", stream)
-                                        .Result;
-            }
+        //        path = DependencyService.Get<ISave>()
+        //                                .SaveSpreadSheet(fileName, "application/msexcel", stream)
+        //                                .Result;
+        //    }
 
-            return new SpreadSheet() { FileName = fileName, FilePath = path };
-        }
+        //    return new SpreadSheet() { FileName = fileName, FilePath = path };
+        //}
 
         public static bool SendEmail(SpreadSheet spreadSheet)
         {

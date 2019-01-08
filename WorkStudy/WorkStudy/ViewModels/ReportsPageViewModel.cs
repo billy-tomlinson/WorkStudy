@@ -21,8 +21,9 @@ namespace WorkStudy.ViewModels
         private void SendEmailDetails()
         {
             
-            Activities = Get_Rated_Enabled_Activities();
-            var spreadsheet = Utilities.CreateExcelWorkBook(Activities);
+            //Activities = Get_Rated_Enabled_Activities();
+            var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+            //var spreadsheet = Utilities.CreateExcelWorkBook(Activities);
             Utilities.SendEmail(spreadsheet);
         }
     }
