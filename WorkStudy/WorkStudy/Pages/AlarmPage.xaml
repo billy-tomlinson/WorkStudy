@@ -29,11 +29,15 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
                         <Label Style="{StaticResource studyLabel}" 
-                               Text="Alarm type" HeightRequest="40" />
-                        <Picker SelectedIndex="{Binding CountriesSelectedIndex}"
-                                ItemsSource="{Binding IntervalTypes}" 
-                                WidthRequest="90" 
-                                HeightRequest="40" FontSize="15"/>
+                               Text="Interval/Random" HeightRequest="40" />
+                        <Switch IsToggled="{Binding IsRandom}" 
+                                HorizontalOptions="Start"/>
+                    </StackLayout>
+                              <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
+                        <Label Style="{StaticResource studyLabel}" 
+                               Text="{Binding AlarmType}" HeightRequest="40" 
+                               FontAttributes="Bold" 
+                               TextColor="Black"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" 
                                  Margin="10,10,10,10">
@@ -45,7 +49,8 @@
                                WidthRequest="90"  
                                MaxLength="2"
                                Text="{Binding IntervalMinutes}" 
-                               IsVisible="{Binding IsIntervalMinutesVisible}" 
+                               IsEnabled="{Binding IsIntervalMinutesVisible}" 
+                               BackgroundColor="{Binding DisabledColour}"
                                HeightRequest="40" FontSize="15"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">

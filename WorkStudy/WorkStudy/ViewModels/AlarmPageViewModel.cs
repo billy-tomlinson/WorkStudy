@@ -15,15 +15,57 @@ namespace WorkStudy.ViewModels
 
         public bool ContinueTimer { get; set; } = true;
 
-        static bool _isIntervalMinutesVisible;
+        static bool isIntervalMinutesVisible;
         public bool IsIntervalMinutesVisible
         {
-            get => _isIntervalMinutesVisible;
+            get => !IsRandom;
             set
             {
-                _isIntervalMinutesVisible = value;
+                isIntervalMinutesVisible = value;
                 OnPropertyChanged();
             }
+        }
+
+        static Color disabledColour;
+        public Color DisabledColour
+        {
+            get => disabledColour;
+            set
+            {
+                disabledColour = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static bool isRandom;
+        public bool IsRandom
+        {
+            get => isRandom;
+            set
+            {
+                isRandom = value;
+                OnPropertyChanged();
+                OnPropertyChanged("IsIntervalMinutesVisible");
+                Switch_Toggled();
+            }
+        }
+
+
+        static string alarmType = "INTERVAL";
+        public string AlarmType
+        {
+            get => alarmType;
+            set
+            {
+                alarmType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        void Switch_Toggled()
+        {
+            AlarmType = isRandom == false ? "INTERVAL" : "RANDOM";
+            DisabledColour = isRandom == false ? Color.White : Color.Gray;
         }
 
         public AlarmPageViewModel()
@@ -36,7 +78,7 @@ namespace WorkStudy.ViewModels
         {
             int interval = 5; //use this as a temp - will be replaced with a random
 
-            if(CountriesSelectedIndex == 1)
+            if(!IsRandom)
             {
                 var success = int.TryParse(IntervalMinutes, out int result);
                 if (!success)
@@ -63,26 +105,5 @@ namespace WorkStudy.ViewModels
                 .DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
             AlarmStatus = "Alarm is disabled";
         }
-
-        int countriesSelectedIndex;
-        public int CountriesSelectedIndex
-        {
-            get => countriesSelectedIndex;
-            set
-            {
-                if (countriesSelectedIndex != value)
-                {
-                    countriesSelectedIndex = value;
-                    OnPropertyChanged();
-                    IsIntervalMinutesVisible = countriesSelectedIndex == 1;
-                }
-            }
-        }
-
-        public List<string> IntervalTypes { get; } = new List<string>
-        {
-            "Random",
-            "Interval"
-        };
     }
 }
