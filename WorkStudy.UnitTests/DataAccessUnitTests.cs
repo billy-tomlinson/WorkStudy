@@ -15,6 +15,8 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class DataAccessUnitTests
     {
+
+
         [TestClass]
         public class DataAccessTests
         {
@@ -27,7 +29,6 @@ namespace WorkStudy.UnitTests
             private readonly IBaseRepository<Observation> observationRepo;
             //private readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
             private readonly IBaseRepository<MergedActivities> mergedActivityRepo;
-
 
             public DataAccessTests()
             {
@@ -424,6 +425,9 @@ namespace WorkStudy.UnitTests
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
 
+                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
+                        .Select(y => new ActivityName() { Name = y.Name }).ToList();
+
                     //Set the default application version as Excel 2013.
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
@@ -432,7 +436,7 @@ namespace WorkStudy.UnitTests
                     var destSheetAll = workbook.Worksheets.Create("Summary");
 
                     BuildRatedActivities(operators, sample, workbook, destSheetAll);
-                    BuildUnRatedActivities(operators, sample, workbook, destSheetAll);
+                    BuildUnRatedActivities(operators, destSheetAll);
 
                     using (MemoryStream ms = new MemoryStream())
                     {
@@ -454,7 +458,7 @@ namespace WorkStudy.UnitTests
             {
                 List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
-                var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated == true)
+                var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
                 .Select(y => new ActivityName() { Name = y.Name }).ToList();
 
                 destSheetAll.Range[3, 1].Text = "Activity";
@@ -601,12 +605,11 @@ namespace WorkStudy.UnitTests
                 }
             }
 
-
-            private void BuildUnRatedActivities(List<Operator> operators, ActivitySampleStudy sample, IWorkbook workbook, IWorksheet destSheetAll)
+            private void BuildUnRatedActivities(List<Operator> operators, IWorksheet destSheetAll)
             {
                 List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
-                var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated == false)
+                var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && !x.Rated)
                 .Select(y => new ActivityName() { Name = y.Name }).ToList();
                     
                 destSheetAll.ImportData(allActivities, 12, 1, false);
