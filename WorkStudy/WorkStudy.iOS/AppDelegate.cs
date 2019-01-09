@@ -25,16 +25,19 @@ namespace WorkStudy.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            // check for a notification
             if (options != null)
             {
-
+                // check for a local notification
                 if (options.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
                 {
-                    UILocalNotification localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
+                    var localNotification = options[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
                     if (localNotification != null)
                     {
-                        new UIAlertView(localNotification.AlertAction, localNotification.AlertBody, null, "OK", null).Show();
+                        UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
+                        okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+                        Window.RootViewController.PresentViewController(okayAlertController, true, null);
+
                         // reset our badge
                         UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
                     }
@@ -62,14 +65,16 @@ namespace WorkStudy.iOS
             return base.FinishedLaunching(app, options);
         }
 
-
         public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
         {
+            // show an alert
+            //UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+            //okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-            UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
-            okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+            //UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(okayAlertController, true, null);
+
+            // reset our badge
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
         }
-
     }
 }

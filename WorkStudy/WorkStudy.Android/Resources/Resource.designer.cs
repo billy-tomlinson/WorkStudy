@@ -26,6 +26,7 @@ namespace WorkStudy.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Plugin.LocalNotifications.Resource.Drawable.plugin_lc_smallicon = global::WorkStudy.Droid.Resource.Drawable.plugin_lc_smallicon;
 			global::Plugin.Toasts.Resource.Animation.abc_fade_in = global::WorkStudy.Droid.Resource.Animation.abc_fade_in;
 			global::Plugin.Toasts.Resource.Animation.abc_fade_out = global::WorkStudy.Droid.Resource.Animation.abc_fade_out;
 			global::Plugin.Toasts.Resource.Animation.abc_grow_fade_in_from_bottom = global::WorkStudy.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -5257,26 +5258,26 @@ namespace WorkStudy.Droid
 			// aapt resource value: 0x7f020055
 			public const int avd_hide_password = 2130837589;
 			
-			// aapt resource value: 0x7f02013a
-			public const int avd_hide_password_1 = 2130837818;
-			
 			// aapt resource value: 0x7f02013b
-			public const int avd_hide_password_2 = 2130837819;
+			public const int avd_hide_password_1 = 2130837819;
 			
 			// aapt resource value: 0x7f02013c
-			public const int avd_hide_password_3 = 2130837820;
+			public const int avd_hide_password_2 = 2130837820;
+			
+			// aapt resource value: 0x7f02013d
+			public const int avd_hide_password_3 = 2130837821;
 			
 			// aapt resource value: 0x7f020056
 			public const int avd_show_password = 2130837590;
 			
-			// aapt resource value: 0x7f02013d
-			public const int avd_show_password_1 = 2130837821;
-			
 			// aapt resource value: 0x7f02013e
-			public const int avd_show_password_2 = 2130837822;
+			public const int avd_show_password_1 = 2130837822;
 			
 			// aapt resource value: 0x7f02013f
-			public const int avd_show_password_3 = 2130837823;
+			public const int avd_show_password_2 = 2130837823;
+			
+			// aapt resource value: 0x7f020140
+			public const int avd_show_password_3 = 2130837824;
 			
 			// aapt resource value: 0x7f020057
 			public const int calendar_bg_selector = 2130837591;
@@ -5926,11 +5927,11 @@ namespace WorkStudy.Droid
 			// aapt resource value: 0x7f02012e
 			public const int notification_icon_background = 2130837806;
 			
-			// aapt resource value: 0x7f020138
-			public const int notification_template_icon_bg = 2130837816;
-			
 			// aapt resource value: 0x7f020139
-			public const int notification_template_icon_low_bg = 2130837817;
+			public const int notification_template_icon_bg = 2130837817;
+			
+			// aapt resource value: 0x7f02013a
+			public const int notification_template_icon_low_bg = 2130837818;
 			
 			// aapt resource value: 0x7f02012f
 			public const int notification_tile_bg = 2130837807;
@@ -5939,25 +5940,28 @@ namespace WorkStudy.Droid
 			public const int notify_panel_notification_icon_bg = 2130837808;
 			
 			// aapt resource value: 0x7f020131
-			public const int settings = 2130837809;
+			public const int plugin_lc_smallicon = 2130837809;
 			
 			// aapt resource value: 0x7f020132
-			public const int stopwatch = 2130837810;
+			public const int settings = 2130837810;
 			
 			// aapt resource value: 0x7f020133
-			public const int thumb = 2130837811;
+			public const int stopwatch = 2130837811;
 			
 			// aapt resource value: 0x7f020134
-			public const int thumbsUp = 2130837812;
+			public const int thumb = 2130837812;
 			
 			// aapt resource value: 0x7f020135
-			public const int tooltip_frame_dark = 2130837813;
+			public const int thumbsUp = 2130837813;
 			
 			// aapt resource value: 0x7f020136
-			public const int tooltip_frame_light = 2130837814;
+			public const int tooltip_frame_dark = 2130837814;
 			
 			// aapt resource value: 0x7f020137
-			public const int undo = 2130837815;
+			public const int tooltip_frame_light = 2130837815;
+			
+			// aapt resource value: 0x7f020138
+			public const int undo = 2130837816;
 			
 			static Drawable()
 			{

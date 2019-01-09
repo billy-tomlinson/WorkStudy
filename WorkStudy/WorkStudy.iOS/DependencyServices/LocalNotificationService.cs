@@ -19,7 +19,7 @@ namespace WorkStudy.iOS.DependencyServices
             {
                 Title = title,
                 Subtitle = body,
-                //content.Body = "This is the message body of the notification.";
+                Body = "Time for Next Observation.",
                 Sound = UNNotificationSound.Default,
                 Badge = 1
             };

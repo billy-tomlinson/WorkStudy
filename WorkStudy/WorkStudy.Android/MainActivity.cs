@@ -45,7 +45,10 @@ namespace WorkStudy.Droid
             string dbPath = Path.Combine(folderPath, dbName);
 
             DependencyService.Register<ToastNotification>();
-            ToastNotification.Init(this, new PlatformOptions() { SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo });
+            ToastNotification.Init(this, new PlatformOptions() 
+            { 
+                SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo 
+            });
 
             LoadApplication(new WorkStudy.App(dbPath));
         }
