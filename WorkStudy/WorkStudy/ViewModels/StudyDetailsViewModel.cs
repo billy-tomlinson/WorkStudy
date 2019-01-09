@@ -18,6 +18,7 @@ namespace WorkStudy.ViewModels
 
             if(!IsInvalid)
             {
+                SampleStudy.IsRated = !IsUnRated;
                 Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
                 StudyNumber = Utilities.StudyId;
                 CreateUnratedActivities();
