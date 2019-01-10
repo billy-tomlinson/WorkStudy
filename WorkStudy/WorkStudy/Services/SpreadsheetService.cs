@@ -181,7 +181,7 @@ namespace WorkStudy.Services
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double) totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = Math.Round((double) totalTimeMinutes / totalActivity, 2);
+                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double) totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double) totalPerActivity, 2);
@@ -323,7 +323,7 @@ namespace WorkStudy.Services
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double) totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = Math.Round((double) totalTimeMinutes / totalActivity, 2);
+                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double) totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double) totalPerActivity, 2);
