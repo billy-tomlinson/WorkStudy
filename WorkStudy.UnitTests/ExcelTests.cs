@@ -16,8 +16,8 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class ExcelTests
     {
-        private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
-        //private const string connString = "WorkStudy1.db3";
+        //private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
+        private const string connString = "WorkStudy1.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
@@ -47,7 +47,7 @@ namespace WorkStudy.UnitTests
 
         public ExcelTests()
         {
-            Utilities.StudyId = 15;
+            Utilities.StudyId = 1;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
@@ -201,7 +201,7 @@ namespace WorkStudy.UnitTests
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = Math.Round((double)totalTimeMinutes / totalActivity, 2);
+                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
@@ -329,7 +329,7 @@ namespace WorkStudy.UnitTests
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = Math.Round((double)totalTimeMinutes / totalActivity, 2);
+                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
