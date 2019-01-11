@@ -19,15 +19,6 @@
         <Button Text="Current Study" BackgroundColor="White" TextColor="DarkGray" 
                 HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
-        <Button Text="Activities" BackgroundColor="White" TextColor="DarkGray" 
-                HorizontalOptions="StartAndExpand" Command="{Binding AddActivities}" />
-        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>            
-        <Button Text="Merge Activities" BackgroundColor="White" TextColor="DarkGray" 
-                HorizontalOptions="StartAndExpand" Command="{Binding MergeActivities}" />
-        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
-        <Button Text="Operators" TextColor="DarkGray" BackgroundColor="White" 
-                HorizontalOptions="StartAndExpand" Command="{Binding AddOperators}"/>
-        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
         <Button Text="Existing Studies" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
@@ -39,6 +30,9 @@
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
         <Button Text="Alarm Set Up" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AlarmSetUp}"/>
+        <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
+        <Button Text="Close Application" TextColor="DarkGray" BackgroundColor="White" 
+                HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
     </StackLayout>
 </ContentPage.Content>

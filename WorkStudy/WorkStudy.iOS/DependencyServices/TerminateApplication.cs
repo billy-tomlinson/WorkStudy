@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using WorkStudy.Services;
 using WorkStudy.iOS.DependencyServices;
 using Xamarin.Forms;
@@ -9,7 +8,7 @@ namespace WorkStudy.iOS.DependencyServices
 {
     public class TerminateApplication : ITerminateApplication
     {
-        public void CLoseApplication()
+        public void CloseApplication()
         {
             Thread.CurrentThread.Abort();
         }

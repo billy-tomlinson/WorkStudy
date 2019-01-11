@@ -2,6 +2,6 @@
 {
     public interface ITerminateApplication
     {
-        void CLoseApplication();
+        void CloseApplication();
     }
 }

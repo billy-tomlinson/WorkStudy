@@ -164,6 +164,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Syncfusion.Xamarin.XlsIO">
