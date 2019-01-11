@@ -30,7 +30,8 @@
                     <Label Text="Observation Round : " FontSize="15" HorizontalOptions="Start" />
                     <Label Text="{Binding ObservationRound}" FontSize="15" />
                     <Label Text="  Time : " FontSize="15" />
-                    <TimePicker Time="{Binding CurrentTime}" FontSize="15" IsEnabled="false" />
+                    <!--<TimePicker Time="{Binding CurrentTime}" FontSize="15" IsEnabled="false" />-->
+                    <Label Text="{Binding CurrentTime}" FontSize="15" WidthRequest="75"/>
                 </StackLayout>
                 <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" 
                                       BackgroundColor="Gray" HasUnevenRows="True" 

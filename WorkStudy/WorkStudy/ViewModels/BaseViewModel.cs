@@ -12,7 +12,7 @@ using Xamarin.Forms;
 namespace WorkStudy.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
-    {      
+    {
         public event PropertyChangedEventHandler PropertyChanged;
         public Command CloseView { get; set; }
         public Command Override { get; set; }
@@ -29,6 +29,12 @@ namespace WorkStudy.ViewModels
             EnsureTableCreation();
             InvalidText = "Please create a new study or select an existing one.";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => 
+                {
+                    Device.BeginInvokeOnMainThread( () => CurrentTime = DateTime.Now.ToString("HH.mm:ss"));
+                    return true;
+                });
         }
 
         public Command SubmitDetails { get; set; }
@@ -39,16 +45,13 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 
-        public IBaseRepository<Activity> ActivityRepo  => new BaseRepository<Activity>(conn);
+        public IBaseRepository<Activity> ActivityRepo => new BaseRepository<Activity>(conn);
 
         public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>(conn);
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
 
         public IBaseRepository<ObservationRoundStatus> ObservationRoundStatusRepo => new BaseRepository<ObservationRoundStatus>(conn);
-
-        public TimeSpan CurrentTime => DateTime.Now.TimeOfDay;
-
 
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities
@@ -60,6 +63,19 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
+
+        static string currentTime;
+        public string CurrentTime
+        {
+            get => currentTime;
+            set
+            {
+                currentTime = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         static ObservableCollection<MultipleActivities> _groupActivities;
         public ObservableCollection<MultipleActivities> GroupActivities
