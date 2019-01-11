@@ -5,9 +5,9 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent" Opacity="{Binding Opacity}">
+            <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
                 <StackLayout HorizontalOptions="Center" Padding="20,20,20,20" Margin="10,10,10,10">
-                    <StackLayout IsEnabled="{Binding IsPageEnabled}">
+                    <StackLayout IsEnabled="{Binding IsPageEnabled}" Opacity="{Binding Opacity}">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
                             <Label Text="Alarm Details" HeightRequest="50" FontSize="40" />
                         </StackLayout>

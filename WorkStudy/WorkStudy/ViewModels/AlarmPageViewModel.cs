@@ -93,9 +93,20 @@ namespace WorkStudy.ViewModels
                 if(!pageLoading)
                 {
                     SaveAlarmDetails();
-                    if (value)
+                    if (value) 
+                    {
                         IsPageEnabled = false;
                         OnPropertyChanged("IsPageEnabled");
+                        Opacity = 0.5;
+                    }
+
+                    else
+                    {
+                        IsPageEnabled = true;
+                        OnPropertyChanged("IsPageEnabled");
+                        Opacity = 1;
+                    }
+
                 }
 
             }
