@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace WorkStudy.Services
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static string Connection { get; set; }
+        public static DateTime LastNotification { get; set; } = DateTime.Now;
 
         public static async void Navigate(Page page)
         {

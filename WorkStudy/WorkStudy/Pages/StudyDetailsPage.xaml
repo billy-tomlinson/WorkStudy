@@ -23,15 +23,19 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Name" />
-                            <Entry x:Name="studyName" Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20" IsEnabled="{Binding IsActive}" />
+                            <Entry x:Name="studyName" Placeholder="Name" 
+                                   WidthRequest="150" Text="{Binding Name}" 
+                                   MaxLength="20" IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Department" />
-                            <Entry x:Name="studyDepartment" Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20" IsEnabled="{Binding IsActive}" />
+                            <Entry x:Name="studyDepartment" Placeholder="Department" 
+                                   WidthRequest="150" Text="{Binding Department}" MaxLength="20" IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Studied By" />
-                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
+                            <Entry x:Name="studiedBy" Placeholder="Studied By" 
+                                   WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Date" />

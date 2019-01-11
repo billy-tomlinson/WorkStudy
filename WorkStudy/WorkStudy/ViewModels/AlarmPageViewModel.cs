@@ -76,7 +76,7 @@ namespace WorkStudy.ViewModels
 
         void EnableAlarmEvent(object obj)
         {
-            int interval = 5; //use this as a temp - will be replaced with a random
+            int interval = 1; //use this as a temp - will be replaced with a random
 
             if(!IsRandom)
             {

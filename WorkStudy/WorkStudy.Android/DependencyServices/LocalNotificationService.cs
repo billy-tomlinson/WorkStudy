@@ -102,11 +102,12 @@ namespace WorkStudy.Droid.DependencyServices
 
         public override void OnReceive(Context context, Intent intent)
         {
-
+            var elapsedTime = DateTime.Now.Subtract(Utilities.LastNotification);
+            Utilities.LastNotification = DateTime.Now;
             var options = new NotificationOptions()
             {
                 Title = "Alert",
-                Description = "Next Observation Round",
+                Description = $"{elapsedTime.Minutes} mins have elapsed - Next Observation",
                 IsClickable = true,
                 WindowsOptions = new WindowsOptions() { LogoUri = "icon.png" },
                 ClearFromHistory = true,
@@ -120,7 +121,29 @@ namespace WorkStudy.Droid.DependencyServices
 
             var notificator = DependencyService.Get<IToastNotificator>();
 
-            notificator.Notify(options);          
+            //notificator.Notify(options);
+            notificator.Notify(HandleAction, options);
+
         }
+        #region  - possible random alarm functionlity - -maybe...
+        void HandleAction(INotificationResult obj)
+        {
+            DisableAlarmEvent();
+            EnableAlarmEvent();
+        }
+
+        void EnableAlarmEvent()
+        {
+            DependencyService.Get<ILocalNotificationService>()
+            .LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now.AddSeconds(60), 60);
+        }
+
+        void DisableAlarmEvent()
+        {
+            DependencyService.Get<ILocalNotificationService>()
+                .DisableLocalNotification("Alert", "Next Observation Round", 0 , DateTime.Now.AddSeconds(60));
+        }
+        #endregion
+
     }
 }
