@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -12,23 +13,30 @@ namespace WorkStudy.ViewModels
 
         public StudyDetailsViewModel(){ ConstructorSetUp(); }
 
-        override public void SubmitDetailsAndNavigate()
-        {
-            ValidateValues();
-
-            if(!IsInvalid)
+        public ICommand SubmitAndFocusOperators => new Command
+        (
+            (parameter) =>
             {
-                SampleStudy.IsRated = !IsUnRated;
-                Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
-                StudyNumber = Utilities.StudyId;
-                CreateUnratedActivities();
+                ValidateValues();
 
-                Utilities.RatedStudy = SampleStudy.IsRated;
+                if (!IsInvalid)
+                {
+                    SampleStudy.IsRated = !IsUnRated;
+                    Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
+                    StudyNumber = Utilities.StudyId;
+                    CreateUnratedActivities();
 
-                IsActive = false;
+                    Utilities.RatedStudy = SampleStudy.IsRated;
+
+                    IsActive = false;
+                }
+
+                var page = parameter as ContentPage;
+                var parentPage = page.Parent as TabbedPage;
+                parentPage.CurrentPage = parentPage.Children[2];
             }
-        }
-
+        );
+                    
         bool _isUnRated;
         public bool IsUnRated
         {

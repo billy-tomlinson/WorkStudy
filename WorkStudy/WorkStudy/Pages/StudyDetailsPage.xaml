@@ -55,7 +55,7 @@
                         </StackLayout>
                     </StackLayout>
                     <StackLayout>
-                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitDetails}" IsEnabled="{Binding IsActive}" />
+                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitAndFocusOperators}" CommandParameter="{x:Reference StudyDetailsView}" IsEnabled="{Binding IsActive}" />
                     </StackLayout>
                 </StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
