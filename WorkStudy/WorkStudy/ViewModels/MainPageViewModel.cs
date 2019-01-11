@@ -174,7 +174,10 @@ namespace WorkStudy.ViewModels
                 Utilities.AllObservationsTaken = false;
                 ValidationText = "Not All Operators have been observed.";
                 IsOverrideVisible = true;
+                ShowClose = true;
+                ShowOkCancel = false;
                 Opacity = 0.2;
+                IsPageUnavailableVisible = false;
                 IsInvalid = true;
                 CloseColumnSpan = 1;
                 RequestToTerminateStudy = false;
@@ -202,8 +205,25 @@ namespace WorkStudy.ViewModels
             {
                 ValidationText = "Study has not reached Limits Of Accuracy. Override?";
                 IsOverrideVisible = true;
+                ShowClose = true;
+                ShowOkCancel = false;
+                IsPageUnavailableVisible = false;
                 Opacity = 0.2;
                 CloseColumnSpan = 1;
+                IsInvalid = true;
+                RequestToTerminateStudy = true;
+                return;
+            }
+
+            if (GetStudyTotalPercent() >= 100)
+            {
+                ValidationText = "Are you sure you want to finish the study?";
+                ShowOkCancel = true;
+                IsOverrideVisible = false;
+                ShowClose = false;
+                Opacity = 0.2;
+                CloseColumnSpan = 1;
+                IsPageUnavailableVisible = false;
                 IsInvalid = true;
                 RequestToTerminateStudy = true;
                 return;

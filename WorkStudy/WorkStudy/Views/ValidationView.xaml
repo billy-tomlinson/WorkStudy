@@ -23,12 +23,27 @@
                                 Command="{Binding CloseView}" 
                                 Margin="10,10,10,10" 
                                 FontSize="12" 
+                                IsVisible="{Binding ShowClose}" 
                                 HorizontalOptions="Center" />
                         <Button Grid.Row="0" Grid.Column="1" Text="OVERRIDE" 
                                 Style="{StaticResource popUpButton}" 
                                 HorizontalOptions="Center" 
                                 IsVisible="{Binding IsOverrideVisible}" 
                                 Command="{Binding Override}" 
+                                FontSize="12"
+                                Margin="10,10,10,10"/>
+                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
+                                Text="OK" Style="{StaticResource popUpButton}" 
+                                Command="{Binding Override}" 
+                                Margin="10,10,10,10" 
+                                FontSize="12" 
+                                IsVisible="{Binding ShowOkCancel}" 
+                                HorizontalOptions="Center" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="CANCEL" 
+                                Style="{StaticResource popUpButton}" 
+                                HorizontalOptions="Center" 
+                                IsVisible="{Binding ShowOkCancel}" 
+                                Command="{Binding CloseView}" 
                                 FontSize="12"
                                 Margin="10,10,10,10"/>
 

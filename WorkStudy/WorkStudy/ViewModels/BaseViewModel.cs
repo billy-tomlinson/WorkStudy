@@ -202,6 +202,30 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        bool showOkCancel = true;
+        public bool ShowOkCancel
+        {
+            get { return showOkCancel; }
+            set
+            {
+                showOkCancel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool showClose = true;
+        public bool ShowClose
+        {
+            get { return showClose; }
+            set
+            {
+                showClose = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         int isItemEnabled;
         public int IsItemEnabled
         {
