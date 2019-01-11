@@ -138,12 +138,14 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please Enter a valid Name";
 
             IsInvalid = true;
+            ShowClose = true;
             Opacity = 0.2;
 
             if ((Name != null && Name?.Trim().Length > 0))
             {
                 Opacity = 1;
                 IsInvalid = false;
+
             }
         }
 
@@ -153,6 +155,7 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please add at least one Activity";
 
             IsInvalid = true;
+            ShowClose = true;
             Opacity = 0.2;
 
             var activities = Get_Rated_Enabled_Activities();
@@ -191,6 +194,7 @@ namespace WorkStudy.ViewModels
                     ValidationText = "Cannot delete an activity once Study has started.";
                     Opacity = 0.2;
                     IsInvalid = true;
+                    ShowClose = true;
                 }
                 else
                     DeleteActivity(value);

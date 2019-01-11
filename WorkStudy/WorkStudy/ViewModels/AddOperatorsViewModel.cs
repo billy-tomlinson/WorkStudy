@@ -171,6 +171,7 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please Enter a valid Name";
             Opacity = 0.2;
             IsInvalid = true;
+            ShowClose = true;
 
             if ((Name != null && Name?.Trim().Length > 0))
             {
@@ -181,6 +182,7 @@ namespace WorkStudy.ViewModels
 
         public void ValidateOperatorActivities()
         {
+            ShowClose = true;
             IsInvalid = true;
             Opacity = 0.2;
 

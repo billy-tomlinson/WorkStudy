@@ -21,7 +21,6 @@
                         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
                                 Text="CLOSE" Style="{StaticResource popUpButton}" 
                                 Command="{Binding CloseView}" 
-                                Margin="10,10,10,10" 
                                 FontSize="12" 
                                 IsVisible="{Binding ShowClose}" 
                                 HorizontalOptions="Center" />
@@ -30,12 +29,10 @@
                                 HorizontalOptions="Center" 
                                 IsVisible="{Binding IsOverrideVisible}" 
                                 Command="{Binding Override}" 
-                                FontSize="12"
-                                Margin="10,10,10,10"/>
+                                FontSize="12"/>
                         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
                                 Text="OK" Style="{StaticResource popUpButton}" 
                                 Command="{Binding Override}" 
-                                Margin="10,10,10,10" 
                                 FontSize="12" 
                                 IsVisible="{Binding ShowOkCancel}" 
                                 HorizontalOptions="Center" />
@@ -44,8 +41,7 @@
                                 HorizontalOptions="Center" 
                                 IsVisible="{Binding ShowOkCancel}" 
                                 Command="{Binding CloseView}" 
-                                FontSize="12"
-                                Margin="10,10,10,10"/>
+                                FontSize="12"/>
 
                     </Grid>
                 </StackLayout>

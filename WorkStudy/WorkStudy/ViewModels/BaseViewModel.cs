@@ -203,7 +203,7 @@ namespace WorkStudy.ViewModels
         }
 
 
-        bool showOkCancel = true;
+        bool showOkCancel = false;
         public bool ShowOkCancel
         {
             get { return showOkCancel; }
@@ -214,7 +214,7 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        bool showClose = true;
+        bool showClose = false;
         public bool ShowClose
         {
             get { return showClose; }

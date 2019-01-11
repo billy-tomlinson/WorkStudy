@@ -28,13 +28,15 @@ namespace WorkStudy.ViewModels
 
                     Utilities.RatedStudy = SampleStudy.IsRated;
 
+                    var page = parameter as ContentPage;
+                    var parentPage = page.Parent as TabbedPage;
+                    parentPage.CurrentPage = parentPage.Children[2];
+
                     IsActive = false;
                 }
 
-                var page = parameter as ContentPage;
-                var parentPage = page.Parent as TabbedPage;
-                parentPage.CurrentPage = parentPage.Children[2];
                 Opacity = 0.5;
+                ShowClose = true;
             }
         );
                     
@@ -121,7 +123,7 @@ namespace WorkStudy.ViewModels
         private void ValidateValues()
         {
             ValidationText = "Please enter all study details";
-
+            ShowClose = true;
             IsInvalid = true;
             Opacity = 0.2;
 

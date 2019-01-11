@@ -191,6 +191,7 @@ namespace WorkStudy.ViewModels
                 Opacity = 0.2;
                 IsInvalid = true;
                 IsEnabled = false;
+                ShowClose = true;
                 Switch_Toggled_Enabled();
                 return false;
 

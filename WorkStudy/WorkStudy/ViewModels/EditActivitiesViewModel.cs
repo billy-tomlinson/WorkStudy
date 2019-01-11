@@ -83,6 +83,7 @@ namespace WorkStudy.ViewModels
                 Opacity = 0.2;
                 RefreshActivities();
                 IsInvalid = true;
+                ShowClose = true;
                 return;
             }
 
@@ -124,6 +125,7 @@ namespace WorkStudy.ViewModels
                 ValidationText = "Please select one activity only to un-merge";
                 Opacity = 0.2;
                 RefreshActivities();
+                ShowClose = true;
                 IsInvalid = true;
                 return;
             }
@@ -137,6 +139,7 @@ namespace WorkStudy.ViewModels
                 ValidationText = "Activity cannot be un-merged. It has been used in the study";
                 Opacity = 0.2;
                 RefreshActivities();
+                ShowClose = true;
                 IsInvalid = true;
                 return;
             }
