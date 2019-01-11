@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Input;
 using Xamarin.Forms;
 using WorkStudy.Services;
+using WorkStudy.Model;
 
 namespace WorkStudy.ViewModels
 {
     public class AlarmPageViewModel : BaseViewModel
     {
-        public ICommand DisableAlarm { get; set; }
-        public ICommand EnableAlarm { get; set; }
+        const string interval = "INTERVAL";
+        const string random = "RANDOM";
+        int intervalTime = 1;
+        readonly bool pageLoading;
+
+        AlarmDetails alarmDetails;
 
         public bool CancelAlarm { get; set; }
 
@@ -46,12 +49,59 @@ namespace WorkStudy.ViewModels
                 isRandom = value;
                 OnPropertyChanged();
                 OnPropertyChanged("IsIntervalMinutesVisible");
-                Switch_Toggled();
+                Switch_Toggled_Type();
+                if(!pageLoading)
+                {
+                    var success = int.TryParse(IntervalMinutes, out int result);
+                    IntervalIsValid(success);
+                    IsEnabled = false;
+                    OnPropertyChanged("IsEnabled");
+                    IsPageEnabled = true;
+                    OnPropertyChanged("IsPageEnabled");
+                    if (value)
+                    {
+                        IntervalMinutes = null;
+                        OnPropertyChanged("IntervalMinutes");
+                    }
+
+                }   
+            }
+        }
+
+        static bool isPageEnabled;
+        public bool IsPageEnabled
+        {
+            get => !IsEnabled;
+            set
+            {
+                isPageEnabled = value;
+                OnPropertyChanged();
             }
         }
 
 
-        static string alarmType = "INTERVAL";
+        static bool isEnabled;
+        public bool IsEnabled
+        {
+            get => isEnabled;
+            set
+            {
+                isEnabled = value;
+                OnPropertyChanged();
+                OnPropertyChanged("AlarmType");
+                Switch_Toggled_Enabled();
+                if(!pageLoading)
+                {
+                    SaveAlarmDetails();
+                    if (value)
+                        IsPageEnabled = false;
+                        OnPropertyChanged("IsPageEnabled");
+                }
+
+            }
+        }
+
+        static string alarmType = interval;
         public string AlarmType
         {
             get => alarmType;
@@ -62,48 +112,81 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        void Switch_Toggled()
+        void Switch_Toggled_Type()
         {
-            AlarmType = isRandom == false ? "INTERVAL" : "RANDOM";
+            alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
+            intervalTime = alarmDetails.Interval / 60;
+            AlarmType = isRandom == false ? interval : random;
             DisabledColour = isRandom == false ? Color.White : Color.Gray;
+        }
+
+
+        void Switch_Toggled_Enabled()
+        {
+            alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
+            intervalTime = alarmDetails.Interval / 60;
+            if (IsEnabled)
+                AlarmStatus = "ENABLED";
+            else
+                AlarmStatus = "DISABLED";
         }
 
         public AlarmPageViewModel()
         {
-            DisableAlarm = new Command(DisableAlarmEvent);
-            EnableAlarm = new Command(EnableAlarmEvent);
+            pageLoading = true;
+            alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
+
+            AlarmType = alarmDetails.Type != string.Empty ? alarmDetails.Type : interval;
+            IsRandom = alarmDetails.Type != interval;
+            IsEnabled = alarmDetails.IsActive;
+            IntervalMinutes = (alarmDetails.Interval / 60).ToString();
+            pageLoading = false;
         }
 
-        void EnableAlarmEvent(object obj)
+        void SaveAlarmDetails()
         {
-            int interval = 1; //use this as a temp - will be replaced with a random
-
-            if(!IsRandom)
+            if (!IsRandom && IsEnabled)
             {
                 var success = int.TryParse(IntervalMinutes, out int result);
-                if (!success)
-                {
-                    ValidationText = "Please enter valid minutes less than 99";
-                    Opacity = 0.2;
-                    IsInvalid = true;
-                    return;
-                }
 
-                interval = result * 60;
+                if(!IntervalIsValid(success)) return;
+
+                intervalTime = result * 60;
             }
             else
-                interval = interval * 60;
+                intervalTime = intervalTime * 60;
 
-            DependencyService.Get<ILocalNotificationService>()
-                .LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, interval);
-            AlarmStatus = "Alarm is enabled";
+            alarmDetails.Interval = intervalTime;
+            alarmDetails.Type = AlarmType;
+            alarmDetails.IsActive = IsEnabled;
+
+            AlarmRepo.SaveItem(alarmDetails);
+
+            var service = DependencyService.Get<ILocalNotificationService>();
+
+            if (IsEnabled)
+                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, intervalTime);
+            else
+                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
         }
 
-        void DisableAlarmEvent(object obj)
+        private bool IntervalIsValid(bool success)
         {
-            DependencyService.Get<ILocalNotificationService>()
-                .DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
-            AlarmStatus = "Alarm is disabled";
+            if (!IsEnabled) return true;
+
+            if (!success)
+            {
+                ValidationText = "Please enter valid minutes less than 99";
+                Opacity = 0.2;
+                IsInvalid = true;
+                IsEnabled = false;
+                Switch_Toggled_Enabled();
+                return false;
+
+            }
+            else
+                return true;
+
         }
     }
 }

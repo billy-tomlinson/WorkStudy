@@ -35,6 +35,8 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
 
+        public IBaseRepository<AlarmDetails> AlarmRepo => new BaseRepository<AlarmDetails>(conn);
+
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 
         public IBaseRepository<Activity> ActivityRepo  => new BaseRepository<Activity>(conn);
@@ -294,6 +296,7 @@ namespace WorkStudy.ViewModels
 
         private void EnsureTableCreation()
         {
+            AlarmRepo.CreateTable();
             OperatorRepo.CreateTable();
             ObservationRepo.CreateTable();
             ActivityRepo.CreateTable();
