@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace WorkStudy.Model
 {
@@ -21,6 +23,10 @@ namespace WorkStudy.Model
         public bool IsRated { get; set; }
 
         public bool Completed { get; set; }
+
+        [ManyToMany(typeof(Acitivity_Study), "StudyId", "Acitivity_Study",
+        CascadeOperations = CascadeOperation.All)]
+        public List<Activity> Activities { get; set; }
 
         [Ignore]
         public string DateTimeFormatted 

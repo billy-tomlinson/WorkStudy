@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -13,16 +12,10 @@ namespace WorkStudy.ViewModels
 
         public AllActivitiesViewModel()
         {
-            Submit = new Command(ActivitySelectedEvent);
+            Submit = new Command(AddHistoricActivities);
 
-            Utilities.StudyId = 1;
             IsPageVisible = true;
-            ItemsCollection = Get_Previous_Enabled_Activities();
-            foreach (var item in ItemsCollection)
-            {
-                item.DeleteIcon = string.Empty;
-                item.SettingsIcon = string.Empty;
-            }
+            ItemsCollection = Get_Previous_Rated_Activities();
         }
 
         static ObservableCollection<Activity> itemsCollection;
@@ -36,9 +29,22 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        void ActivitySelectedEvent(object sender)
+        void AddHistoricActivities(object sender)
         {
+            foreach (var item in ItemsCollection.Where(x => x.Selected))
+            {
+                var newActivity = new Activity()
+                {
+                    Comment = item.Comment,
+                    DeleteIcon = "delete.png",
+                    IsEnabled = true,
+                    Rated = item.Rated,
+                    //StudyId = Utilities.StudyId,
+                    Name = item.Name,
+                };
 
+                ActivityRepo.SaveItem(newActivity);
+            }
         }
     }
 }

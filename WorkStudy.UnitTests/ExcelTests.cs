@@ -55,7 +55,11 @@ namespace WorkStudy.UnitTests
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+            var allStudyActivities = activityRepo.GetAllWithChildren()
+            //.Where(x => x.Rated)
+           .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)).ToList();
+           //.Select(y => new ActivityName() { Name = y.Name }).ToList();
+            //allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalObs.Count();

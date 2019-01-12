@@ -425,8 +425,11 @@ namespace WorkStudy.UnitTests
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
 
-                    var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
-                        .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                    var allActivities = activityRepo.GetAllWithChildren()
+                    .Where(x => x.Rated)
+                    .Where(x => x.ActivitySampleStudies.Any(c => c.Id == 15));
+                    //var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
+                        //.Select(y => new ActivityName() { Name = y.Name }).ToList();
 
                     //Set the default application version as Excel 2013.
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
@@ -458,8 +461,13 @@ namespace WorkStudy.UnitTests
             {
                 List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
-                var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                var allActivities = activityRepo.GetAllWithChildren()
+                    .Where(x => x.Rated)
+                    .Where(x => x.ActivitySampleStudies.Any(c => c.Id == 15))
+                    .Select(y => new ActivityName() { Name = y.Name }).ToList();
+
+                //var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
+                //.Select(y => new ActivityName() { Name = y.Name }).ToList();
 
                 destSheetAll.Range[3, 1].Text = "Activity";
                 destSheetAll.ImportData(allActivities, 5, 1, false);
@@ -609,8 +617,12 @@ namespace WorkStudy.UnitTests
             {
                 List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
-                var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && !x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+               // var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && !x.Rated)
+                             var allActivities = activityRepo.GetAllWithChildren()
+                    .Where(x => !x.Rated)
+                    .Where(x => x.ActivitySampleStudies.Any(c => c.Id == 15))
+                    .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                //.Select(y => new ActivityName() { Name = y.Name }).ToList();
                     
                 destSheetAll.ImportData(allActivities, 12, 1, false);
 
@@ -1027,6 +1039,13 @@ namespace WorkStudy.UnitTests
                 mergedActivityRepo.CreateTable();
             }
 
+            [TestMethod]
+            public void TestSampleRepo()
+            {
+                Utilities.StudyId = 15;
+                var allData = activityRepo.GetAllWithChildren().Where(x => x.IsEnabled)
+                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)).ToList();
+            }
             //[TestMethod]
             //public void Test_Operator_Activities_SumUp()
             //{

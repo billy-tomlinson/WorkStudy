@@ -144,7 +144,7 @@ namespace WorkStudy.ViewModels
                 Name = "IDLE",
                 IsEnabled = true,
                 Rated = false,
-                StudyId = Utilities.StudyId,
+                //StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
@@ -153,7 +153,7 @@ namespace WorkStudy.ViewModels
                 Name = "INACTIVE",
                 IsEnabled = true,
                 Rated = false,
-                StudyId = Utilities.StudyId,
+                //StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
@@ -162,7 +162,7 @@ namespace WorkStudy.ViewModels
                 Name = "OTHER",
                 IsEnabled = true,
                 Rated = false,
-                StudyId = Utilities.StudyId,
+                //StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 

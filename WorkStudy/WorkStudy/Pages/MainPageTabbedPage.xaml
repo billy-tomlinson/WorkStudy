@@ -6,6 +6,7 @@
             x:Class="WorkStudy.Pages.MainPageTabbedPage">
     <pages:MainPage Title="Current Study" />
     <pages:AddActivitiesPage Title="Activities" />
+    <pages:AllActivitiesPage Title="All Activities" />
     <pages:AddOperatorsPage Title="Operators" />
     <pages:EditActivitiesPage Title="Merge Activities" />
 </TabbedPage>

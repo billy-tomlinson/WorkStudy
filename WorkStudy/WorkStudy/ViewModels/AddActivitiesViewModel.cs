@@ -77,11 +77,27 @@ namespace WorkStudy.ViewModels
         {
             ValidateValues();
 
+            var sample = SampleRepo.GetItem(Utilities.StudyId);
+
             if (!IsInvalid)
             {
                 var duplicatesCheck = new List<Activity>(ItemsCollection);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true });
+                    //ActivityRepo.SaveItem(new Activity 
+                    //{ 
+                    //    Name = Name.ToUpper().Trim(), 
+                    //    IsEnabled = true, 
+                    //    Rated = true
+                    //});
+                
+                ActivityRepo.InsertOrReplaceWithChildren(new Activity
+                {
+                    Name = Name.ToUpper().Trim(),
+                    IsEnabled = true,
+                    Rated = true,
+                    ActivitySampleStudies = new List<ActivitySampleStudy>() { sample }
+                });
+
                 ItemsCollection = Get_All_Enabled_Activities();;
 
                 Name = string.Empty;

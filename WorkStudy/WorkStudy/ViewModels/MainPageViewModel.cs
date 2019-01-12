@@ -380,9 +380,9 @@ namespace WorkStudy.ViewModels
                 };
                 OperatorName = operator1.Name;
 
-                Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems()
-                                                                .Where(x => x.StudyId == Utilities.StudyId 
-                                                                       && x.IsEnabled == true));
+                Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                    .Where(x => x.IsEnabled)
+                    .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;

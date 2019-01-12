@@ -14,13 +14,15 @@ namespace WorkStudy.Model
         {
             Colour = Utilities.UnClicked;
             Activities  = new List<Activity>();
-            StudyId = Utilities.StudyId;
+            //StudyId = Utilities.StudyId;
         }
 
         public string Name { get; set; }
 
-        [ForeignKey(typeof(ActivitySampleStudy))]
-        public int StudyId { get; set; }
+        //[ForeignKey(typeof(ActivitySampleStudy))]
+        //public int StudyId { get; set; }
+        //[Ignore]
+        //public int StudyId { get; set; }
 
         public string Comment { get; set; }
 
@@ -45,6 +47,10 @@ namespace WorkStudy.Model
         [ManyToMany(typeof(MergedActivities), "MergedActivityId", "Activities",
         CascadeOperations = CascadeOperation.All, ReadOnly = true)]
         public List<Activity> MergedActivities { get; set; }
+
+        [ManyToMany(typeof(Acitivity_Study), "ActivityId", "Acitivity_Study",
+        CascadeOperations = CascadeOperation.All)]
+        public List<ActivitySampleStudy> ActivitySampleStudies { get; set; }
 
         public string ObservedColour { get; set; } = "#d5f0f1";
 
