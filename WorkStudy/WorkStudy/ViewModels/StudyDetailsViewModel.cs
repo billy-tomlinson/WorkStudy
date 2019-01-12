@@ -11,7 +11,7 @@ namespace WorkStudy.ViewModels
     {
         public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 
-        public StudyDetailsViewModel(){ ConstructorSetUp(); }
+        public StudyDetailsViewModel() { ConstructorSetUp(); }
 
         public ICommand SubmitAndFocusOperators => new Command
         (
@@ -39,7 +39,7 @@ namespace WorkStudy.ViewModels
                 ShowClose = true;
             }
         );
-                    
+
         bool _isUnRated;
         public bool IsUnRated
         {
@@ -109,10 +109,10 @@ namespace WorkStudy.ViewModels
             int lastStudyId = 0;
             var studies = SampleRepo.GetItems()?.ToList();
 
-            if(studies.Count > 0)
+            if (studies.Count > 0)
                 lastStudyId = studies.OrderByDescending(x => x.Id)
                                         .FirstOrDefault().Id;
-            
+
             lastStudyId = lastStudyId + 1;
 
             SampleStudy.StudyNumber = lastStudyId;
@@ -127,14 +127,14 @@ namespace WorkStudy.ViewModels
             IsInvalid = true;
             Opacity = 0.2;
 
-            if ((SampleStudy.Department != null &&  SampleStudy.Department?.Trim().Length > 0) &&
+            if ((SampleStudy.Department != null && SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
                 (SampleStudy.StudiedBy != null && SampleStudy.StudiedBy?.Trim().Length > 0))
             {
                 Opacity = 1;
                 IsInvalid = false;
             }
-                
+
         }
 
         public void CreateUnratedActivities()
@@ -144,7 +144,7 @@ namespace WorkStudy.ViewModels
                 Name = "IDLE",
                 IsEnabled = true,
                 Rated = false,
-                //StudyId = Utilities.StudyId,
+                StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
@@ -153,7 +153,7 @@ namespace WorkStudy.ViewModels
                 Name = "INACTIVE",
                 IsEnabled = true,
                 Rated = false,
-                //StudyId = Utilities.StudyId,
+                StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
@@ -162,7 +162,7 @@ namespace WorkStudy.ViewModels
                 Name = "OTHER",
                 IsEnabled = true,
                 Rated = false,
-                //StudyId = Utilities.StudyId,
+                StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 

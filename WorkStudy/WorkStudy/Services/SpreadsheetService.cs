@@ -38,10 +38,7 @@ namespace WorkStudy.Services
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            //allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
-
-            allStudyActivities = activityRepo.GetAllWithChildren()
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)).ToList();
+            allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalObs.Count();
@@ -97,7 +94,7 @@ namespace WorkStudy.Services
                     .Result;
             }
 
-            return new SpreadSheet() {FileName = fileName, FilePath = path};
+            return new SpreadSheet() { FileName = fileName, FilePath = path };
         }
 
         private void BuildRatedActivities()
@@ -105,7 +102,7 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated)
-                .Select(y => new ActivityName() {Name = y.Name}).ToList();
+                .Select(y => new ActivityName() { Name = y.Name }).ToList();
 
             destSheetAll.Range[3, 1].Text = "Activity";
             destSheetAll.ImportData(allActivities, 5, 1, false);
@@ -183,12 +180,12 @@ namespace WorkStudy.Services
                         {
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
-                            var totalPercent = Math.Round((double) totalActivity / totalObsCount * 100, 2);
+                            var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double) totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double) totalPerActivity, 2);
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double) totalPercent, 2);
+                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
+                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
                 }
@@ -221,7 +218,7 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => !x.Rated)
-                .Select(y => new ActivityName() {Name = y.Name}).ToList();
+                .Select(y => new ActivityName() { Name = y.Name }).ToList();
 
             var unratedStartRow = ratedActivitiesTotalRowIndex + 2;
 
@@ -232,7 +229,7 @@ namespace WorkStudy.Services
                 var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
                 var totalObsPerOperator = obs.Count();
 
-                var summary = obs.GroupBy(a => new {a.ActivityId, a.ActivityName})
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                     .Select(g => new ObservationSummary
                     {
                         ActivityName = g.Key.ActivityName,
@@ -241,7 +238,7 @@ namespace WorkStudy.Services
 
                 foreach (var item in summary)
                 {
-                    var totalPercentage = Math.Round((double) item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
                     item.Percentage = totalPercentage;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
@@ -325,12 +322,12 @@ namespace WorkStudy.Services
                         {
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
-                            var totalPercent = Math.Round((double) totalActivity / totalObsCount * 100, 2);
+                            var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double) totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double) totalPerActivity, 2);
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double) totalPercent, 2);
+                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
+                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
                 }
@@ -417,7 +414,7 @@ namespace WorkStudy.Services
 
                 destSheet.ImportData(data, 3, 1, false);
 
-                var summary = obs.GroupBy(a => new {a.ActivityId, a.ActivityName})
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                     .Select(g => new ObservationSummary
                     {
                         ActivityName = g.Key.ActivityName,
@@ -426,7 +423,7 @@ namespace WorkStudy.Services
 
                 foreach (var item in summary)
                 {
-                    var totalPercentage = Math.Round((double) item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
                     item.Percentage = totalPercentage;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;

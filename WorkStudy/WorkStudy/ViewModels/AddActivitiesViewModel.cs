@@ -77,28 +77,12 @@ namespace WorkStudy.ViewModels
         {
             ValidateValues();
 
-            var sample = SampleRepo.GetItem(Utilities.StudyId);
-
             if (!IsInvalid)
             {
                 var duplicatesCheck = new List<Activity>(ItemsCollection);
                 if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    //ActivityRepo.SaveItem(new Activity 
-                    //{ 
-                    //    Name = Name.ToUpper().Trim(), 
-                    //    IsEnabled = true, 
-                    //    Rated = true
-                    //});
-                
-                ActivityRepo.InsertOrReplaceWithChildren(new Activity
-                {
-                    Name = Name.ToUpper().Trim(),
-                    IsEnabled = true,
-                    Rated = true,
-                    ActivitySampleStudies = new List<ActivitySampleStudy>() { sample }
-                });
-
-                ItemsCollection = Get_All_Enabled_Activities();;
+                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true });
+                ItemsCollection = Get_All_Enabled_Activities(); ;
 
                 Name = string.Empty;
             }
@@ -194,10 +178,6 @@ namespace WorkStudy.ViewModels
 
         void DeleteSelectedEvent(object sender)
         {
-
-            // NEED TO CHANGE THIS TO ONLY BE ABLE TO DELETE AN ACTIVITY IF IT HAS JUST BEEN CREATED
-            // OR JUST TO DELETE THE LINKING TABLE RECORD IN ACTIVITY_STUDY
-            // CANNOT DELETE AN HISTORIC ACTIVITY IF IT HAS BEEN USED IN PREVIOUS STUDIES
             var value = (int)sender;
 
             if (!StudyInProcess)
@@ -269,13 +249,14 @@ namespace WorkStudy.ViewModels
                 if (obs.Any() || merged.Any())
                 {
                     deleteIcon = string.Empty;
-                } 
+                }
 
                 var activity = ActivityRepo.GetItem(item.Id);
                 activity.DeleteIcon = deleteIcon;
                 ActivityRepo.SaveItem(activity);
             }
-        } 
+        }
     }
 }
+
 

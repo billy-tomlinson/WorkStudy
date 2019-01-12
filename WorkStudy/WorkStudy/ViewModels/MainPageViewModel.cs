@@ -341,7 +341,7 @@ namespace WorkStudy.ViewModels
             }
 
             double totalPercentage = 0;
-            if(TotalObservationsTaken > 0)
+            if (TotalObservationsTaken > 0)
             {
                 totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
                 var percentage = totalPercentage < 100 ? totalPercentage : 100;
@@ -380,9 +380,9 @@ namespace WorkStudy.ViewModels
                 };
                 OperatorName = operator1.Name;
 
-                Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                    .Where(x => x.IsEnabled)
-                    .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
+                Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                                                .Where(x => x.StudyId == Utilities.StudyId
+                                                                       && x.IsEnabled == true));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;
@@ -431,7 +431,7 @@ namespace WorkStudy.ViewModels
 
         void OverrideEvent(object sender)
         {
-            if(RequestToTerminateStudy)
+            if (RequestToTerminateStudy)
                 TerminateStudyProcess();
 
             else
@@ -439,7 +439,7 @@ namespace WorkStudy.ViewModels
                 UpdateObservationRoundStatus();
                 SetUpForNextObservationRound();
             }
-                
+
 
             IsInvalid = false;
             Opacity = 1;
@@ -451,10 +451,10 @@ namespace WorkStudy.ViewModels
                                   .OrderByDescending(y => y.ObservationNumber)
                                   .Select(c => c.ObservationNumber).FirstOrDefault();
 
-            if(lastObservationRound == 0)
+            if (lastObservationRound == 0)
             {
                 ObservationRound = 1;
-                if(ObservationRoundStatus?.Id == null)
+                if (ObservationRoundStatus?.Id == null)
                     SaveInitialObservationRoundStatus();
                 return;
             }
@@ -462,7 +462,7 @@ namespace WorkStudy.ViewModels
             ObservationRoundStatus = ObservationRoundStatusRepo.GetItems()
                          .Where(x => x.ObservationId == ObservationRound)
                          .FirstOrDefault();
-            
+
             var obsCount = ObservationRepo.GetItems()
                                           .Count(x => x.ObservationNumber == lastObservationRound
                                                 && x.StudyId == Utilities.StudyId);
@@ -477,21 +477,21 @@ namespace WorkStudy.ViewModels
 
             if (ObservationRound == lastObservationRound)
             {
-                if(ObservationRoundStatus?.Status == "Complete")
+                if (ObservationRoundStatus?.Status == "Complete")
                 {
                     ObservationRound = lastObservationRound + 1;
                     return;
                 }
-                if(opsCount == obsCount)
+                if (opsCount == obsCount)
                     ObservationRound = lastObservationRound;
             }
-            else if(ObservationRound > lastObservationRound)
+            else if (ObservationRound > lastObservationRound)
                 ObservationRound = lastObservationRound + 1;
             else
             {
                 ObservationRound = lastObservationRound + 1;
                 SaveInitialObservationRoundStatus();
-            }    
+            }
         }
 
         private void SaveInitialObservationRoundStatus()

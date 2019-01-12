@@ -55,11 +55,7 @@ namespace WorkStudy.UnitTests
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            var allStudyActivities = activityRepo.GetAllWithChildren()
-            //.Where(x => x.Rated)
-           .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)).ToList();
-           //.Select(y => new ActivityName() { Name = y.Name }).ToList();
-            //allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+            allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalObs.Count();
@@ -73,7 +69,7 @@ namespace WorkStudy.UnitTests
         [TestMethod]
         public void Create_Excel_Spreadsheet_From_SQL()
         {
-        
+
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 //Set the default application version as Excel 2013.
@@ -209,7 +205,7 @@ namespace WorkStudy.UnitTests
 
                             destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2); 
+                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
                 }

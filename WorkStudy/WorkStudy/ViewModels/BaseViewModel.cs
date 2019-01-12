@@ -30,18 +30,16 @@ namespace WorkStudy.ViewModels
             InvalidText = "Please create a new study or select an existing one.";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), () => 
-                {
-                    Device.BeginInvokeOnMainThread( () => CurrentTime = DateTime.Now.ToString("HH.mm:ss"));
-                    return true;
-                });
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                Device.BeginInvokeOnMainThread(() => CurrentTime = DateTime.Now.ToString("HH.mm:ss"));
+                return true;
+            });
         }
 
         public Command SubmitDetails { get; set; }
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
-
-        public IBaseRepository<Acitivity_Study> ActivityStudyRepo => new BaseRepository<Acitivity_Study>(conn);
 
         public IBaseRepository<AlarmDetails> AlarmRepo => new BaseRepository<AlarmDetails>(conn);
 
@@ -287,43 +285,32 @@ namespace WorkStudy.ViewModels
         {
             get => Get_Observations_By_StudyId().Count > 0;
         }
-              
+
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual void SubmitDetailsAndNavigate(){}
+        public virtual void SubmitDetailsAndNavigate() { }
 
         public ObservableCollection<Activity> Get_Rated_Enabled_Activities()
         {
-            //return new ObservableCollection<Activity>(ActivityRepo.GetItems()
-            //.Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && x.Rated)
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                         .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities()
         {
-            //return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-            //.Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
-
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled)
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                         .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
 
-        public ObservableCollection<Activity> Get_Previous_Rated_Activities()
+        public ObservableCollection<Activity> Get_Previous_Enabled_Activities()
         {
-            //return new ObservableCollection<Activity>(ActivityRepo.GetItems()
-            //.Where(x => x.Rated && x.StudyId != Utilities.StudyId)
-            //.OrderBy(y => y.Id));
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.Rated)
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id != Utilities.StudyId))
-                .OrderBy(y => y.Id));
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                         .Where(x => x.IsEnabled && x.StudyId != Utilities.StudyId)
+                                         .OrderBy(y => y.Id));
         }
 
         public List<Observation> Get_Observations_By_StudyId()
@@ -334,29 +321,20 @@ namespace WorkStudy.ViewModels
 
         public ObservableCollection<Activity> Get_Enabled_Activities()
         {
-            //return new ObservableCollection<Activity>(ActivityRepo.GetItems()
-            //.Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled)
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> Get_Rated_Enabled_Activities_WithChildren()
         {
-            //return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-            //.Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && x.Rated)
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
+                                        .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
         {
-            //return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                //.Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled)
-                .Where(x => x.ActivitySampleStudies.Any(c => c.Id == Utilities.StudyId)));
+                .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
@@ -373,9 +351,8 @@ namespace WorkStudy.ViewModels
             MergedActivityRepo.CreateTable();
             SampleRepo.CreateTable();
             ObservationRoundStatusRepo.CreateTable();
-            ActivityStudyRepo.CreateTable();
         }
-       
+
         public void CloseValidationView()
         {
             Opacity = 1;
@@ -432,7 +409,7 @@ namespace WorkStudy.ViewModels
             TotalObservationsRequired = totalRequiredForOperator;
             double totalPercentage = 0;
 
-            if(TotalObservationsRequired > 0)
+            if (TotalObservationsRequired > 0)
             {
                 totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
                 var percentage = totalPercentage < 100 ? totalPercentage : 100;
