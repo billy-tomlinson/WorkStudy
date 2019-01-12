@@ -194,6 +194,10 @@ namespace WorkStudy.ViewModels
 
         void DeleteSelectedEvent(object sender)
         {
+
+            // NEED TO CHANGE THIS TO ONLY BE ABLE TO DELETE AN ACTIVITY IF IT HAS JUST BEEN CREATED
+            // OR JUST TO DELETE THE LINKING TABLE RECORD IN ACTIVITY_STUDY
+            // CANNOT DELETE AN HISTORIC ACTIVITY IF IT HAS BEEN USED IN PREVIOUS STUDIES
             var value = (int)sender;
 
             if (!StudyInProcess)
