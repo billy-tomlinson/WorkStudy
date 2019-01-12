@@ -6,12 +6,6 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using WorkStudy.Services;
 
-//using Xamarin.Forms;
-using Plugin.Toasts;
-using System;
-using Plugin.Toasts.Options;
-using System.Threading.Tasks;
-
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WorkStudy
 {
@@ -27,8 +21,8 @@ namespace WorkStudy
             NavigationPage.SetHasNavigationBar(this, false);
             DatabasePath = databasePath;
             Utilities.Connection = DatabasePath;
-            CallMain();
-            //MainPage = new NavigationPage(new LocalNotificationPage());
+            //CallMain();
+            MainPage = new NavigationPage(new AllActivitiesPage());
         }
 
         public static NavigationPage NavigationPage { get; private set; }

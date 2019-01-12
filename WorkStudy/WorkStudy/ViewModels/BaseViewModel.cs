@@ -305,6 +305,14 @@ namespace WorkStudy.ViewModels
                                          .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
+
+        public ObservableCollection<Activity> Get_Previous_Enabled_Activities()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                                         .Where(x => x.IsEnabled && x.StudyId != Utilities.StudyId)
+                                         .OrderBy(y => y.Id));
+        }
+
         public List<Observation> Get_Observations_By_StudyId()
         {
             return ObservationRepo.GetItems()

@@ -35,6 +35,9 @@ namespace WorkStudy.Model
         [Ignore]
         public Color Colour { get; set; }
 
+        [Ignore]
+        public bool Selected { get; set; }
+
         [ManyToMany(typeof(MergedActivities), "ActivityId", "MergedActivities",
         CascadeOperations = CascadeOperation.All)]
         public List<Activity> Activities { get; set; }

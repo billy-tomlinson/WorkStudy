@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:views="clr-namespace:WorkStudy.Views" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" x:Class="WorkStudy.Pages.AllActivitiesPage">
+    <ContentPage.BindingContext>
+        <viewModels:AllActivitiesViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" HeightRequest="800" WidthRequest="300">
+            <StackLayout IsVisible="{Binding IsPageVisible}" 
+                         Padding="5" Margin="5" Opacity="{Binding Opacity}" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <ListView ItemsSource="{Binding ItemsCollection}" Margin="20">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout VerticalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Name}" TextColor="Black" />
+                                    </StackLayout>
+                                    <Switch IsToggled="{Binding Selected}" Grid.Column="1" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout>
+                    <Button Text="Submit Details" 
+                            WidthRequest="150" 
+                            Command="{Binding Submit}"/>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
