@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -31,19 +32,12 @@ namespace WorkStudy.ViewModels
 
         void AddHistoricActivities(object sender)
         {
+            var sample = SampleRepo.GetItem(Utilities.StudyId);
+
             foreach (var item in ItemsCollection.Where(x => x.Selected))
             {
-                var newActivity = new Activity()
-                {
-                    Comment = item.Comment,
-                    DeleteIcon = "delete.png",
-                    IsEnabled = true,
-                    Rated = item.Rated,
-                    //StudyId = Utilities.StudyId,
-                    Name = item.Name,
-                };
-
-                ActivityRepo.SaveItem(newActivity);
+                item.ActivitySampleStudies = new List<ActivitySampleStudy>() { sample };
+                ActivityRepo.InsertOrReplaceWithChildren(item);
             }
         }
     }
