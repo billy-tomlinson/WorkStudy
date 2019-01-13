@@ -92,9 +92,8 @@ namespace WorkStudy.ViewModels
                         IsEnabled = true, 
                         Rated = true 
                     };
-                    ActivityNameRepo.SaveItem(activityName);
-                    ActivityRepo.SaveItem(activity);
-                    ActivityRepo.UpdateWithChildren(activity);
+
+                    SaveActivityDetails(activity);
                 }
 
                 ItemsCollection = Get_All_Enabled_Activities(); ;
@@ -266,9 +265,10 @@ namespace WorkStudy.ViewModels
                     deleteIcon = string.Empty;
                 }
 
-                var activity = ActivityRepo.GetItem(item.Id);
+                var activity = ActivityRepo.GetWithChildren(item.Id);
                 activity.DeleteIcon = deleteIcon;
-                ActivityRepo.SaveItem(activity);
+
+                SaveActivityDetails(activity);
             }
         }
     }

@@ -350,6 +350,14 @@ namespace WorkStudy.ViewModels
             return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));
         }
 
+        public int SaveActivityDetails(Activity activity)
+        {
+            ActivityNameRepo.SaveItem(activity.ActivityName);
+            var returnId = ActivityRepo.SaveItem(activity);
+            ActivityRepo.UpdateWithChildren(activity);
+            return returnId;
+        }
+
         private void EnsureTableCreation()
         {
             AlarmRepo.CreateTable();

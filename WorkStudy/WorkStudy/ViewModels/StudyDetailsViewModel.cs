@@ -139,45 +139,60 @@ namespace WorkStudy.ViewModels
 
         public void CreateUnratedActivities()
         {
-            var activityName1 = new ActivityName { Name = "IDLE" };
+            var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "IDLE");
+
+            if(activityName == null)
+                activityName = new ActivityName { Name = "IDLE" };
+
+            //var activityName1 = new ActivityName { Name = "IDLE" };
             var unrated1 = new Activity()
             {
-                ActivityName = activityName1,
+                ActivityName = activityName,
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
-            var activityName2 = new ActivityName { Name = "INACTIVE" };
+            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INACTIVE");
+
+            if (activityName == null)
+                activityName = new ActivityName { Name = "INACTIVE" };
+
+            //var activityName2 = new ActivityName { Name = "INACTIVE" };
             var unrated2 = new Activity()
             {
-                ActivityName = activityName2,
+                ActivityName = activityName,
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
-            var activityName3 = new ActivityName { Name = "OTHER" };
+            //var activityName3 = new ActivityName { Name = "OTHER" };
+            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
+
+            if (activityName == null)
+                activityName = new ActivityName { Name = "OTHER" };
+
             var unrated3 = new Activity()
             {
-                ActivityName = activityName3,
+                ActivityName = activityName,
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
-            ActivityNameRepo.SaveItem(activityName1);
+            ActivityNameRepo.SaveItem(unrated1.ActivityName);
             ActivityRepo.SaveItem(unrated1);
             ActivityRepo.UpdateWithChildren(unrated1);
 
-            ActivityNameRepo.SaveItem(activityName2);
+            ActivityNameRepo.SaveItem(unrated2.ActivityName);
             ActivityRepo.SaveItem(unrated2);
             ActivityRepo.UpdateWithChildren(unrated2);
 
-            ActivityNameRepo.SaveItem(activityName3);
+            ActivityNameRepo.SaveItem(unrated3.ActivityName);
             ActivityRepo.SaveItem(unrated3);
             ActivityRepo.UpdateWithChildren(unrated3);
 

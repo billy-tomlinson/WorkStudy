@@ -15,7 +15,7 @@ namespace WorkStudy.ViewModels
         {
             Submit = new Command(ActivitySelectedEvent);
 
-            Utilities.StudyId = 1;
+            //Utilities.StudyId = 1;
             IsPageVisible = true;
             ItemsCollection = Get_All_ActivityNames();
         }
