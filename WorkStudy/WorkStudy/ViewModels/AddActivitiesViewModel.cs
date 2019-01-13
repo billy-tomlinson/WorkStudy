@@ -79,8 +79,11 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                var duplicatesCheck = new List<Activity>(ItemsCollection);
-                if (duplicatesCheck.Find(_ => _.ActivityName.Name.ToUpper() == Name.ToUpper().Trim()) == null)
+                //var duplicatesCheck = new List<Activity>(ItemsCollection);
+                var duplicatesCheck = ActivityNameRepo.GetItems()
+                    .FirstOrDefault(_ => _.Name.ToUpper() == Name.ToUpper().Trim());
+
+                if (duplicatesCheck == null)
                 {
                     var activityName = new ActivityName()
                     {
@@ -94,6 +97,13 @@ namespace WorkStudy.ViewModels
                     };
 
                     SaveActivityDetails(activity);
+                }
+                else
+                {
+                    ValidationText = $"{Name.ToUpper().Trim()} is a duplicate. Please add a unique activity or select from list.";
+                    Opacity = 0.2;
+                    IsInvalid = true;
+                    ShowClose = true;
                 }
 
                 ItemsCollection = Get_All_Enabled_Activities(); ;
