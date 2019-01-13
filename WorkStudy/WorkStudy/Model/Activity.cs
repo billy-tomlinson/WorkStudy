@@ -15,9 +15,14 @@ namespace WorkStudy.Model
             Colour = Utilities.UnClicked;
             Activities = new List<Activity>();
             StudyId = Utilities.StudyId;
+            ActivityName = new ActivityName();
         }
 
-        public string Name { get; set; }
+        [ForeignKey(typeof(ActivityName))] 
+        public int ActivityNameId { get; set; }
+
+        [OneToOne]
+        public ActivityName ActivityName { get; set; }
 
         [ForeignKey(typeof(ActivitySampleStudy))]
         public int StudyId { get; set; }
@@ -31,6 +36,9 @@ namespace WorkStudy.Model
         public DateTime Date => DateTime.Now;
 
         public double Opacity { get; set; } = 1;
+
+        [Ignore]
+        public string Name => ActivityName.Name;
 
         [Ignore]
         public Color Colour { get; set; }

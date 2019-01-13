@@ -1,6 +1,10 @@
-﻿namespace WorkStudy.Model
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
+
+namespace WorkStudy.Model
 {
-    public class ActivityName
+    [Table("ActivityName")]
+    public class ActivityName : BaseEntity
     {
         public string Name { get; set; }
     }

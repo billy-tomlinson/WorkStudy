@@ -47,6 +47,8 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<Activity> ActivityRepo => new BaseRepository<Activity>(conn);
 
+        public IBaseRepository<ActivityName> ActivityNameRepo => new BaseRepository<ActivityName>(conn);
+
         public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>(conn);
 
         public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
@@ -295,20 +297,20 @@ namespace WorkStudy.ViewModels
 
         public ObservableCollection<Activity> Get_Rated_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
 
         public ObservableCollection<Activity> Get_Previous_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && x.StudyId != Utilities.StudyId)
                                          .OrderBy(y => y.Id));
         }
@@ -321,7 +323,7 @@ namespace WorkStudy.ViewModels
 
         public ObservableCollection<Activity> Get_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetItems()
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                 .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
@@ -337,6 +339,12 @@ namespace WorkStudy.ViewModels
                 .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
+        public ObservableCollection<ActivityName> Get_All_ActivityNames()
+        {
+            return new ObservableCollection<ActivityName>(ActivityNameRepo.GetItems());
+
+        }
+
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
         {
             return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));
@@ -348,6 +356,7 @@ namespace WorkStudy.ViewModels
             OperatorRepo.CreateTable();
             ObservationRepo.CreateTable();
             ActivityRepo.CreateTable();
+            ActivityNameRepo.CreateTable();
             MergedActivityRepo.CreateTable();
             SampleRepo.CreateTable();
             ObservationRoundStatusRepo.CreateTable();

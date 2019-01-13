@@ -102,7 +102,7 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
             destSheetAll.Range[3, 1].Text = "Activity";
             destSheetAll.ImportData(allActivities, 5, 1, false);
@@ -218,7 +218,7 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => !x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
             var unratedStartRow = ratedActivitiesTotalRowIndex + 2;
 

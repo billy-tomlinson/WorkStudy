@@ -129,7 +129,7 @@ namespace WorkStudy.UnitTests
 
                 var activity = new Activity()
                 {
-                    Name = "Activity One",
+                    ActivityName = new ActivityName() { Name = "Activity One"},
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -138,7 +138,7 @@ namespace WorkStudy.UnitTests
 
                 var value = activityRepo.GetItem(id);
                 Assert.AreEqual(id, value.Id);
-                Assert.AreEqual(value.Name, activity.Name);
+                Assert.AreEqual(value.ActivityName.Name, activity.ActivityName.Name);
 
                 var activities = activityRepo.GetItems();
                 Assert.IsTrue(activities.ToList().Count == 1);
@@ -262,20 +262,20 @@ namespace WorkStudy.UnitTests
 
                 var activity1 = new Activity()
                 {
-                    Name = "Activity One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
 
                 var activity2 = new Activity()
                 {
-                    Name = "Activity Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
                 var activity3 = new Activity()
                 {
-                    Name = "Activity Three",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -283,13 +283,13 @@ namespace WorkStudy.UnitTests
 
                 var activity4 = new Activity()
                 {
-                    Name = "Activity Four",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
                 var activity5 = new Activity()
                 {
-                    Name = "Activity Five",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -297,7 +297,7 @@ namespace WorkStudy.UnitTests
 
                 var activity6 = new Activity()
                 {
-                    Name = "Activity Six",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -360,20 +360,20 @@ namespace WorkStudy.UnitTests
                 #region
                 var activity1 = new Activity()
                 {
-                    Name = "Activity One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
 
                 var activity2 = new Activity()
                 {
-                    Name = "Activity Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
                 var activity3 = new Activity()
                 {
-                    Name = "Activity Three",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -381,13 +381,13 @@ namespace WorkStudy.UnitTests
 
                 var activity4 = new Activity()
                 {
-                    Name = "Activity Four",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
                 var activity5 = new Activity()
                 {
-                    Name = "Activity Five",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -395,7 +395,7 @@ namespace WorkStudy.UnitTests
 
                 var activity6 = new Activity()
                 {
-                    Name = "Activity Six",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -426,7 +426,7 @@ namespace WorkStudy.UnitTests
                 {
 
                     var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
-                        .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                        .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
                     //Set the default application version as Excel 2013.
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
@@ -459,7 +459,7 @@ namespace WorkStudy.UnitTests
                 List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
                 var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
                 destSheetAll.Range[3, 1].Text = "Activity";
                 destSheetAll.ImportData(allActivities, 5, 1, false);
@@ -610,7 +610,7 @@ namespace WorkStudy.UnitTests
                 List<List<ObservationSummary>> allTotals = new List<List<ObservationSummary>>();
 
                 var allActivities = activityRepo.GetItems().Where(x => x.StudyId == 15 && !x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
                 destSheetAll.ImportData(allActivities, 12, 1, false);
 
@@ -783,14 +783,14 @@ namespace WorkStudy.UnitTests
 
                 var activity1 = new Activity()
                 {
-                    Name = "Activity One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
 
                 var activity2 = new Activity()
                 {
-                    Name = "Activity Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -798,7 +798,7 @@ namespace WorkStudy.UnitTests
 
                 var activity3 = new Activity()
                 {
-                    Name = "Activity Three",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -839,7 +839,7 @@ namespace WorkStudy.UnitTests
 
                 var activity1 = new Activity()
                 {
-                    Name = "Activity One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -847,7 +847,7 @@ namespace WorkStudy.UnitTests
 
                 var activity2 = new Activity()
                 {
-                    Name = "Activity Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true
                 };
@@ -879,7 +879,7 @@ namespace WorkStudy.UnitTests
 
                 var activity1 = new Activity()
                 {
-                    Name = "Inactive One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true,
                     Rated = false
@@ -888,7 +888,7 @@ namespace WorkStudy.UnitTests
 
                 var activity2 = new Activity()
                 {
-                    Name = "Inactive Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true,
                     Rated = false
@@ -930,7 +930,7 @@ namespace WorkStudy.UnitTests
 
                 var activity1 = new Activity()
                 {
-                    Name = "Inactive One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true,
                     Rated = false
@@ -939,7 +939,7 @@ namespace WorkStudy.UnitTests
 
                 var activity2 = new Activity()
                 {
-                    Name = "Rated Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true,
                     Rated = true
@@ -982,7 +982,7 @@ namespace WorkStudy.UnitTests
 
                 var activity1 = new Activity()
                 {
-                    Name = "Inactive One",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true,
                     Rated = false
@@ -991,7 +991,7 @@ namespace WorkStudy.UnitTests
 
                 var activity2 = new Activity()
                 {
-                    Name = "Rated Two",
+                    ActivityName = new ActivityName() { Name = "Activity One" },
                     Comment = "Some comment or other",
                     IsEnabled = true,
                     Rated = false

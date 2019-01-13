@@ -139,36 +139,48 @@ namespace WorkStudy.ViewModels
 
         public void CreateUnratedActivities()
         {
+            var activityName1 = new ActivityName { Name = "IDLE" };
             var unrated1 = new Activity()
             {
-                Name = "IDLE",
+                ActivityName = activityName1,
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
+            var activityName2 = new ActivityName { Name = "INACTIVE" };
             var unrated2 = new Activity()
             {
-                Name = "INACTIVE",
+                ActivityName = activityName2,
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
+            var activityName3 = new ActivityName { Name = "OTHER" };
             var unrated3 = new Activity()
             {
-                Name = "OTHER",
+                ActivityName = activityName3,
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty
             };
 
+            ActivityNameRepo.SaveItem(activityName1);
             ActivityRepo.SaveItem(unrated1);
+            ActivityRepo.UpdateWithChildren(unrated1);
+
+            ActivityNameRepo.SaveItem(activityName2);
             ActivityRepo.SaveItem(unrated2);
+            ActivityRepo.UpdateWithChildren(unrated2);
+
+            ActivityNameRepo.SaveItem(activityName3);
             ActivityRepo.SaveItem(unrated3);
+            ActivityRepo.UpdateWithChildren(unrated3);
+
         }
     }
 }

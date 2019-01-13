@@ -90,7 +90,7 @@ namespace WorkStudy.Custom
 
                     var label = new CustomButton
                     {
-                        Text = product.Name,
+                        Text = product.ActivityName.Name,
                         ActivityId = product.Id,
                         Command = Command,
                         VerticalOptions = LayoutOptions.Center,

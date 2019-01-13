@@ -311,7 +311,7 @@ namespace WorkStudy.ViewModels
             if (existingObservation != null)
                 Observation = existingObservation;
 
-            Observation.ActivityName = CurrentActivity.Name;
+            Observation.ActivityName = CurrentActivity.ActivityName.Name;
             Observation.ActivityId = ActivityId;
             Observation.Rating = Rating;
             Observation.AliasActivityId = ActivityId;

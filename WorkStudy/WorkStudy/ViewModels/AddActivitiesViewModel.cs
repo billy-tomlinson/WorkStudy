@@ -80,8 +80,23 @@ namespace WorkStudy.ViewModels
             if (!IsInvalid)
             {
                 var duplicatesCheck = new List<Activity>(ItemsCollection);
-                if (duplicatesCheck.Find(_ => _.Name.ToUpper() == Name.ToUpper().Trim()) == null)
-                    ActivityRepo.SaveItem(new Activity { Name = Name.ToUpper().Trim(), IsEnabled = true, Rated = true });
+                if (duplicatesCheck.Find(_ => _.ActivityName.Name.ToUpper() == Name.ToUpper().Trim()) == null)
+                {
+                    var activityName = new ActivityName()
+                    {
+                        Name = Name.ToUpper().Trim()
+                    };
+                    var activity = new Activity 
+                    { 
+                        ActivityName = activityName, 
+                        IsEnabled = true, 
+                        Rated = true 
+                    };
+                    ActivityNameRepo.SaveItem(activityName);
+                    ActivityRepo.SaveItem(activity);
+                    ActivityRepo.UpdateWithChildren(activity);
+                }
+
                 ItemsCollection = Get_All_Enabled_Activities(); ;
 
                 Name = string.Empty;

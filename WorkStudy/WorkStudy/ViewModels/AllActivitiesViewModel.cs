@@ -17,16 +17,11 @@ namespace WorkStudy.ViewModels
 
             Utilities.StudyId = 1;
             IsPageVisible = true;
-            ItemsCollection = Get_Previous_Enabled_Activities();
-            foreach (var item in ItemsCollection)
-            {
-                item.DeleteIcon = string.Empty;
-                item.SettingsIcon = string.Empty;
-            }
+            ItemsCollection = Get_All_ActivityNames();
         }
 
-        static ObservableCollection<Activity> itemsCollection;
-        public ObservableCollection<Activity> ItemsCollection
+        static ObservableCollection<ActivityName> itemsCollection;
+        public ObservableCollection<ActivityName> ItemsCollection
         {
             get => itemsCollection;
             set

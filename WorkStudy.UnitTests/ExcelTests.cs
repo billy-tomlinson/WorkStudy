@@ -125,7 +125,7 @@ namespace WorkStudy.UnitTests
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated)
-                .Select(y => new ActivityName() { Name = y.Name }).ToList();
+                .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
             ratedActivitiesCount = allActivities.Count;
 
@@ -233,7 +233,7 @@ namespace WorkStudy.UnitTests
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => !x.Rated)
-             .Select(y => new ActivityName() { Name = y.Name }).ToList();
+             .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
             unRatedActivitiesCount = allActivities.Count;
 
