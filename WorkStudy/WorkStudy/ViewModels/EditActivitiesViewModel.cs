@@ -101,7 +101,7 @@ namespace WorkStudy.ViewModels
                 }
 
                 var merged = MergedActivities[i];
-                MergedActivityRepo.SaveItem(new Model.MergedActivities() { ActivityId = parentActivity.Id, MergedActivityId = MergedActivities[i].Id });
+
                 merged.IsEnabled = false;
 
                 SaveActivityDetails(merged);
@@ -115,6 +115,17 @@ namespace WorkStudy.ViewModels
                 SaveActivityDetails(parentActivity);
 
                 parentActivity.Activities.Add(merged);
+            }
+
+            //NOTE - have to do this in seperate loop as UpDateWithChildren deletes the merge record !!
+            for (var i = 0; i < MergedActivities.Count; i++)
+            {
+                var merged = MergedActivities[i];
+                MergedActivityRepo.SaveItem(new Model.MergedActivities() 
+                { 
+                    ActivityId = parentActivity.Id,
+                    MergedActivityId = MergedActivities[i].Id 
+                });
             }
 
             RefreshActivities();
