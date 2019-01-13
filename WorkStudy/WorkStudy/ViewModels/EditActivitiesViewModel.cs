@@ -89,7 +89,6 @@ namespace WorkStudy.ViewModels
 
             var parentActivity = new Activity();
             var returnId = SaveActivityDetails(parentActivity);
-            //var returnId = ActivityRepo.SaveItem(parentActivity);
             parentActivity = ActivityRepo.GetWithChildren(returnId);
 
             for (var i = 0; i < MergedActivities.Count; i++)
@@ -105,7 +104,6 @@ namespace WorkStudy.ViewModels
                 MergedActivityRepo.SaveItem(new Model.MergedActivities() { ActivityId = parentActivity.Id, MergedActivityId = MergedActivities[i].Id });
                 merged.IsEnabled = false;
 
-                //ActivityRepo.SaveItem(merged);
                 SaveActivityDetails(merged);
 
                 parentActivity.ActivityName.Name = parentActivity.ActivityName.Name + " " + merged.ActivityName.Name;
@@ -115,7 +113,6 @@ namespace WorkStudy.ViewModels
                 parentActivity.DeleteIcon = countRated ? "delete.png" : string.Empty;
 
                 SaveActivityDetails(parentActivity);
-                //ActivityRepo.SaveItem(parentActivity);
 
                 parentActivity.Activities.Add(merged);
             }
@@ -155,16 +152,12 @@ namespace WorkStudy.ViewModels
 
             foreach (var item in mergedItems)
             {
-                //var activity = ActivityRepo.GetItem(item.MergedActivityId);
                 var activity = ActivityRepo.GetWithChildren(item.MergedActivityId);
                 activity.IsEnabled = true;
-                //ActivityRepo.SaveItem(activity);
                 SaveActivityDetails(activity);
 
-                //activity = ActivityRepo.GetItem(item.ActivityId);
                 activity = ActivityRepo.GetWithChildren(item.ActivityId);
                 activity.IsEnabled = false;
-                //ActivityRepo.SaveItem(activity);
                 SaveActivityDetails(activity);
 
                 MergedActivityRepo.DeleteItem(item);

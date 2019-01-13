@@ -126,8 +126,7 @@ namespace WorkStudy.ViewModels
 
                 if (!string.IsNullOrEmpty(MessageText))
                 {
-
-                    //DependencyService.Get<ILocalNotificationService>().Cancel(0);
+                
                     DependencyService.Get<ILocalNotificationService>()
                         .LocalNotification("Local Notification", MessageText, 0, selectedDateTime, 60);
                     Application.Current.MainPage.DisplayAlert("LocalNotificationDemo", "Notification details saved successfully ", "Ok");
@@ -148,9 +147,8 @@ namespace WorkStudy.ViewModels
 
         void DisableLocalNotification()
         {
-            //DependencyService.Get<ILocalNotificationService>().Cancel(0);
-            DependencyService.Get<ILocalNotificationService>().DisableLocalNotification("Local Notification", MessageText, 0, DateTime.Now);
-            //DependencyService.Get<ILocalNotificationService>().Cancel(0);
+            DependencyService.Get<ILocalNotificationService>()
+                .DisableLocalNotification("Local Notification", MessageText, 0, DateTime.Now);
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

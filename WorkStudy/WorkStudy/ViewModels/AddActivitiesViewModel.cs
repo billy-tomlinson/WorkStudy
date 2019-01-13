@@ -79,7 +79,6 @@ namespace WorkStudy.ViewModels
 
             if (!IsInvalid)
             {
-                //var duplicatesCheck = new List<Activity>(ItemsCollection);
                 var duplicatesCheck = ActivityNameRepo.GetItems()
                     .FirstOrDefault(_ => _.Name.ToUpper() == Name.ToUpper().Trim());
 
@@ -215,7 +214,7 @@ namespace WorkStudy.ViewModels
 
                 if (obs.Any() || merged.Any())
                 {
-                    ValidationText = "Cannot delete an activity once Study has started.";
+                    ValidationText = "Cannot delete an activity once used in Study.";
                     Opacity = 0.2;
                     IsInvalid = true;
                     ShowClose = true;

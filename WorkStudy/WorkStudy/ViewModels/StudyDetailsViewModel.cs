@@ -143,8 +143,7 @@ namespace WorkStudy.ViewModels
 
             if(activityName == null)
                 activityName = new ActivityName { Name = "IDLE" };
-
-            //var activityName1 = new ActivityName { Name = "IDLE" };
+                
             var unrated1 = new Activity()
             {
                 ActivityName = activityName,
@@ -158,8 +157,7 @@ namespace WorkStudy.ViewModels
 
             if (activityName == null)
                 activityName = new ActivityName { Name = "INACTIVE" };
-
-            //var activityName2 = new ActivityName { Name = "INACTIVE" };
+                
             var unrated2 = new Activity()
             {
                 ActivityName = activityName,
@@ -169,7 +167,6 @@ namespace WorkStudy.ViewModels
                 DeleteIcon = string.Empty
             };
 
-            //var activityName3 = new ActivityName { Name = "OTHER" };
             activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
 
             if (activityName == null)
