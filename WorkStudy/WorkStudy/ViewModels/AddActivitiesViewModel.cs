@@ -105,7 +105,7 @@ namespace WorkStudy.ViewModels
                     ShowClose = true;
                 }
 
-                ItemsCollection = Get_All_Enabled_Activities(); ;
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
 
                 Name = string.Empty;
             }
@@ -237,7 +237,7 @@ namespace WorkStudy.ViewModels
             if (!activities.Any())
                 ActivityNameRepo.DeleteItem(Activity.ActivityName);
 
-            ItemsCollection = Get_All_Enabled_Activities();
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
         }
 
         void ActivitySelectedEvent(object sender)
@@ -256,7 +256,7 @@ namespace WorkStudy.ViewModels
 
             Name = string.Empty;
             CheckActivitiesInUse();
-            ItemsCollection = Get_All_Enabled_Activities();
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
             Activity = new Activity();
             Activity.SettingsIcon = "comments.png";
         }

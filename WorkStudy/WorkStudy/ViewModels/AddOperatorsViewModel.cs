@@ -159,6 +159,7 @@ namespace WorkStudy.ViewModels
             CloseRunningTotals = new Command(CloseRunningTotalsEvent);
 
             ItemsCollection = GetAllOperators();
+
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();
             Operator.SettingsIcon = string.Empty;
@@ -201,7 +202,7 @@ namespace WorkStudy.ViewModels
         private ObservableCollection<Operator> GetAllOperators()
         {
             return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
-                       .Where(_ => _.StudyId == Utilities.StudyId));
+                       .Where(_ => _.StudyId == Utilities.StudyId).OrderByDescending(x => x.Id));
         }
     }
 }
