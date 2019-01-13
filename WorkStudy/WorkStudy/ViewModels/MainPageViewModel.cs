@@ -259,7 +259,7 @@ namespace WorkStudy.ViewModels
             ActivityId = value;
 
             Observation.ActivityId = ActivityId;
-            CurrentActivity = ActivityRepo.GetItem(ActivityId);
+            CurrentActivity = ActivityRepo.GetWithChildren(ActivityId);
 
             if (Utilities.RatedStudy && CurrentActivity.Rated)
             {
@@ -380,7 +380,7 @@ namespace WorkStudy.ViewModels
                 };
                 OperatorName = operator1.Name;
 
-                Activities = new ObservableCollection<Activity>(ActivityRepo.GetItems()
+                Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                                                                 .Where(x => x.StudyId == Utilities.StudyId
                                                                        && x.IsEnabled == true));
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
