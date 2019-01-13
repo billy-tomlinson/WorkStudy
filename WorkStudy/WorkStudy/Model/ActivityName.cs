@@ -7,5 +7,8 @@ namespace WorkStudy.Model
     public class ActivityName : BaseEntity
     {
         public string Name { get; set; }
+
+        [Ignore]
+        public bool Selected { get; set; }
     }
 }

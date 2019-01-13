@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:views="clr-namespace:WorkStudy.Views" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" x:Class="WorkStudy.Pages.AllActivitiesPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:WorkStudy.Views" 
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             x:Name="AllActivitiesView"
+             x:Class="WorkStudy.Pages.AllActivitiesPage">
     <ContentPage.BindingContext>
         <viewModels:AllActivitiesViewModel />
     </ContentPage.BindingContext>
@@ -30,7 +35,8 @@
                 <StackLayout>
                     <Button Text="Submit Details" 
                             WidthRequest="150" 
-                            Command="{Binding Submit}"/>
+                            Command="{Binding Submit}"
+                            CommandParameter="{x:Reference AllActivitiesView}" />
                 </StackLayout>
             </StackLayout>
         </AbsoluteLayout>
