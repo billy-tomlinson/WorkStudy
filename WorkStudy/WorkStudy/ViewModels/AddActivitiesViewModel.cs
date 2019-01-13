@@ -80,7 +80,7 @@ namespace WorkStudy.ViewModels
             if (!IsInvalid)
             {
                 var duplicatesCheck = ActivityNameRepo.GetItems()
-                    .FirstOrDefault(_ => _.Name.ToUpper() == Name.ToUpper().Trim());
+                    .FirstOrDefault(_ => _.Name?.ToUpper() == Name.ToUpper().Trim());
 
                 if (duplicatesCheck == null)
                 {
@@ -226,8 +226,17 @@ namespace WorkStudy.ViewModels
 
         private void DeleteActivity(int value)
         {
-            Activity = ActivityRepo.GetItem(value);
+            Activity = ActivityRepo.GetWithChildren(value);
             ActivityRepo.DeleteItem(Activity);
+
+            var activities = ActivityRepo
+                                .GetAllWithChildren()
+                                .Where(x => x.ActivityName.Name == Activity.ActivityName.Name 
+                                 && x.StudyId != Utilities.StudyId);
+                                
+            if (!activities.Any())
+                ActivityNameRepo.DeleteItem(Activity.ActivityName);
+
             ItemsCollection = Get_All_Enabled_Activities();
         }
 
