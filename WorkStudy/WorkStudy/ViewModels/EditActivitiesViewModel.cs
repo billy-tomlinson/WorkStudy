@@ -109,6 +109,7 @@ namespace WorkStudy.ViewModels
                 SaveActivityDetails(merged);
 
                 parentActivity.ActivityName.Name = parentActivity.ActivityName.Name + " " + merged.ActivityName.Name;
+                parentActivity.ActivityName.IsMerge = true;
                 parentActivity.IsEnabled = true;
                 parentActivity.Rated = countRated;
                 parentActivity.DeleteIcon = countRated ? "delete.png" : string.Empty;

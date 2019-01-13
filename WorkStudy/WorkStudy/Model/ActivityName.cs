@@ -8,6 +8,8 @@ namespace WorkStudy.Model
     {
         public string Name { get; set; }
 
+        public bool IsMerge { get; set; } = false;
+
         [Ignore]
         public bool Selected { get; set; }
     }

@@ -18,14 +18,13 @@ namespace WorkStudy.ViewModels
 
             IsPageVisible = true;
 
-            //ItemsCollection = Get_All_ActivityNames();
             ItemsCollection = GetUnusedActivities();
-            //GetUnusedActivities();
+
         }
 
         private ObservableCollection<ActivityName> GetUnusedActivities()
         {
-            var allActivities = Get_All_ActivityNames();
+            var allActivities = Get_All_ActivityNames().Where(x => !x.IsMerge).ToList();
 
             var activityNames = allActivities.Select(x => x.Name).ToList();
 
@@ -43,7 +42,7 @@ namespace WorkStudy.ViewModels
                 }
             }
 
-            return allActivities;
+            return new ObservableCollection<ActivityName>(allActivities);
         }
 
         static ObservableCollection<ActivityName> itemsCollection;

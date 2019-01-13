@@ -6,5 +6,6 @@
             x:Class="WorkStudy.Pages.StudySetUpTabbedPage">
     <pages:StudyDetailsPage Title="Study Details" />
     <pages:AddActivitiesPage Title="Activities" />
+    <pages:AllActivitiesPage Title="All Activities" />
     <pages:AddOperatorsPage Title="Operators" />
 </TabbedPage>
