@@ -44,8 +44,13 @@
                          IsVisible="{Binding CommentsVisible}" 
                          AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
                          AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="#FCFAFA">
-                    <StackLayout Orientation="Vertical" Padding="5" Margin="5" WidthRequest="260" HeightRequest="200" 
+                <StackLayout VerticalOptions="Center" 
+                             HorizontalOptions="Center" 
+                             BackgroundColor="#FCFAFA">
+                    <StackLayout Orientation="Vertical" 
+                                 Padding="5" Margin="5" 
+                                 WidthRequest="260" 
+                                 HeightRequest="200" 
                                  BackgroundColor="#FCFAFA">
                         <Label Text="Comments" TextColor="Black" />
                         <Editor Text="{Binding Comment}" HeightRequest="90" />
@@ -58,6 +63,15 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
+            <StackLayout HorizontalOptions="Center" 
+                         VerticalOptions="Center" 
+                         BackgroundColor="Transparent" 
+                         Padding="10, 0" 
+                         AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:CategoriesView x:Name="categoriesView" 
+                                      IsVisible="{Binding CategoriesVisible}" />
+            </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>

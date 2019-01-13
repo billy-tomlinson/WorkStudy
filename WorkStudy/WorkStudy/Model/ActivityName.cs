@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
 
 namespace WorkStudy.Model
 {
@@ -13,4 +12,5 @@ namespace WorkStudy.Model
         [Ignore]
         public bool Selected { get; set; }
     }
+
 }

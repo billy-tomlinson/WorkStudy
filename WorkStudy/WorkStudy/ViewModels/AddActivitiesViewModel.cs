@@ -17,6 +17,8 @@ namespace WorkStudy.ViewModels
         public Command ItemSelected { get; set; }
         public Command SettingsSelected { get; set; }
         public Command DeleteSelected { get; set; }
+        public Command CloseCategories { get; set; }
+        public Command SaveCategory { get; set; }
         public Activity Activity;
 
         public AddActivitiesViewModel()
@@ -73,6 +75,45 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool categoriesVisible;
+        public bool CategoriesVisible
+        {
+            get => categoriesVisible;
+            set
+            {
+                categoriesVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool _isNonValueAdded;
+        public bool IsNonValueAdded
+        {
+            get => _isNonValueAdded;
+            set
+            {
+                _isNonValueAdded = value;
+                OnPropertyChanged();
+                Switch_Toggled();
+            }
+        }
+
+        void Switch_Toggled()
+        {
+            ActivityType = IsNonValueAdded == false ?  "VALUE ADDED": "NON VALUE ADDED";
+        }
+
+        string activityType = "VALUE ADDED";
+        public string ActivityType
+        {
+            get { return activityType; }
+            set
+            {
+                activityType = value;
+                OnPropertyChanged();
+            }
+        }
+
         void SaveActivityDetails()
         {
             ValidateValues();
@@ -88,11 +129,12 @@ namespace WorkStudy.ViewModels
                     {
                         Name = Name.ToUpper().Trim()
                     };
-                    var activity = new Activity 
-                    { 
-                        ActivityName = activityName, 
-                        IsEnabled = true, 
-                        Rated = true 
+                    var activity = new Activity
+                    {
+                        ActivityName = activityName,
+                        IsEnabled = true,
+                        Rated = true,
+                        IsValueAdded = true
                     };
 
                     SaveActivityDetails(activity);
@@ -190,6 +232,20 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        void CloseCategoriesEvent(object sender)
+        {
+            Opacity = 1.0;
+            CategoriesVisible = false;
+        }
+
+        void SaveCategoryEvent(object sender)
+        {
+            Activity.IsValueAdded = !IsNonValueAdded;
+            ActivityRepo.SaveItem(Activity);
+            Opacity = 1.0;
+            CategoriesVisible = false;
+        }
+
         void AddSelectedEvent(object sender)
         {
             var value = (int)sender;
@@ -243,6 +299,10 @@ namespace WorkStudy.ViewModels
         void ActivitySelectedEvent(object sender)
         {
             var value = (int)sender;
+            Activity = ActivityRepo.GetItem(value);
+            IsNonValueAdded =  !Activity.IsValueAdded;
+            Opacity = 0.2;
+            CategoriesVisible = true;
         }
 
         private void ConstructorSetUp()
@@ -253,6 +313,8 @@ namespace WorkStudy.ViewModels
             ItemSelected = new Command(ActivitySelectedEvent);
             SettingsSelected = new Command(AddSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
+            CloseCategories = new Command(CloseCategoriesEvent);
+            SaveCategory = new Command(SaveCategoryEvent);
 
             Name = string.Empty;
             CheckActivitiesInUse();

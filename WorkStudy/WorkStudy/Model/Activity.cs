@@ -33,6 +33,8 @@ namespace WorkStudy.Model
 
         public bool Rated { get; set; }
 
+        public bool IsValueAdded { get; set; } = true;
+
         public DateTime Date => DateTime.Now;
 
         public double Opacity { get; set; } = 1;
