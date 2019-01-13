@@ -15,10 +15,17 @@
                         BackgroundColor="Transparent" 
                         HeightRequest="700"
                         WidthRequest="420">
-            <StackLayout BackgroundColor="Transparent" 
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout IsVisible="{Binding IsPageVisible}"
+                         BackgroundColor="Transparent" 
                          WidthRequest="320"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         Padding="5" 
+                         Margin="5" 
                          AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Padding="10">
+                    <Label Text="All Existing Activities" FontSize="20"/>
+                </StackLayout>
                 <local:CustomListView 
                     ItemsSource="{Binding ItemsCollection}"
                     BackgroundColor="Gray" 
@@ -44,14 +51,19 @@
                                                TextColor="White" 
                                                Margin="5,5,5,5"/>
                                     </StackLayout>
-                                    <Switch IsToggled="{Binding Selected}" Grid.Column="1" Margin="5,5,5,5"/>
+                                    <Switch IsToggled="{Binding Selected}" 
+                                            Grid.Column="1" 
+                                            Margin="5,5,5,5"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </local:CustomListView>
-                <StackLayout>
-                    <Button Text="Submit Details" WidthRequest="150" Command="{Binding Submit}" CommandParameter="{x:Reference AllActivitiesView}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Add to Study" WidthRequest="205" 
+                            MinimumWidthRequest="205" 
+                            Command="{Binding Submit}" 
+                            CommandParameter="{x:Reference AllActivitiesView}"  />
                 </StackLayout>
             </StackLayout>
         </AbsoluteLayout>

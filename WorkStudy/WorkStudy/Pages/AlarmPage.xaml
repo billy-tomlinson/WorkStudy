@@ -4,7 +4,11 @@
         <viewModels:AlarmPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent" 
+                        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                        AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
                 <StackLayout HorizontalOptions="Center" Padding="20,20,20,20" Margin="10,10,10,10">
                     <StackLayout IsEnabled="{Binding IsPageEnabled}" Opacity="{Binding Opacity}">

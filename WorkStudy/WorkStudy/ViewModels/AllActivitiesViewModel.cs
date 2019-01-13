@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using WorkStudy.Model;
 using WorkStudy.Services;
@@ -15,11 +13,7 @@ namespace WorkStudy.ViewModels
         public AllActivitiesViewModel()
         {
             Submit = new Command(ActivitySelectedEvent);
-
-            IsPageVisible = true;
-
             ItemsCollection = GetUnusedActivities();
-
         }
 
         private ObservableCollection<ActivityName> GetUnusedActivities()
