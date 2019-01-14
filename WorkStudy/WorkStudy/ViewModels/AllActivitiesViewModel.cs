@@ -52,7 +52,7 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
-            var sample = SampleRepo.GetItem(Utilities.StudyId);
+            //var sample = SampleRepo.GetItem(Utilities.StudyId);
 
             foreach (var item in ItemsCollection.Where(x => x.Selected))
             {
@@ -63,7 +63,7 @@ namespace WorkStudy.ViewModels
                     Rated = true
                 };
 
-                SaveActivityDetails(activity);
+                var returnID = SaveActivityDetails(activity);
             }
 
             var page = sender as ContentPage;
