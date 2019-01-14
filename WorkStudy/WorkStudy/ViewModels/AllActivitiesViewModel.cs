@@ -66,7 +66,14 @@ namespace WorkStudy.ViewModels
 
                 var returnID = SaveActivityDetails(activity);
             }
+
+            //*** do this to delay the navigation and refersh the page
+            //come up with a btter solution + show a spinner control
             await Task.Delay(1500);
+            ItemsCollection = GetUnusedActivities();
+            await Task.Delay(1000);
+            //***
+
             var page = sender as ContentPage;
             var parentPage = page.Parent as TabbedPage;
             parentPage.CurrentPage = parentPage.Children[1];
