@@ -29,8 +29,9 @@ namespace WorkStudy.Services
         public static Color Clicked = Color.Orange;
         public static Color UnClicked = Color.FromHex("#4174f4");
 
-        public static string ValueAddedColour = "#D5F0F1";
-        public static string NonValueAddedColour = "#FAFDBC";
+        public static string ValueAddedColour = "#01E30F";
+        public static string NonValueAddedColour = "#F7FA11";
+        public static string InactiveColour = "#FF6969";
         public static string ValidColour = "#d5f0f1";
 
 

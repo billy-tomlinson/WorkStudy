@@ -150,7 +150,8 @@ namespace WorkStudy.ViewModels
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
-                DeleteIcon = string.Empty
+                DeleteIcon = string.Empty,
+                ItemColour = Utilities.InactiveColour
             };
 
             activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INACTIVE");
@@ -164,7 +165,8 @@ namespace WorkStudy.ViewModels
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
-                DeleteIcon = string.Empty
+                DeleteIcon = string.Empty,
+                ItemColour = Utilities.InactiveColour
             };
 
             activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
@@ -178,7 +180,8 @@ namespace WorkStudy.ViewModels
                 IsEnabled = true,
                 Rated = false,
                 StudyId = Utilities.StudyId,
-                DeleteIcon = string.Empty
+                DeleteIcon = string.Empty,
+                ItemColour = Utilities.InactiveColour
             };
 
             ActivityNameRepo.SaveItem(unrated1.ActivityName);
