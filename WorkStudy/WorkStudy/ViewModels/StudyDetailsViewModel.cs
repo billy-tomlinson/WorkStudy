@@ -139,10 +139,10 @@ namespace WorkStudy.ViewModels
 
         public void CreateUnratedActivities()
         {
-            var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "IDLE");
+            var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "ABSENT");
 
             if(activityName == null)
-                activityName = new ActivityName { Name = "IDLE" };
+                activityName = new ActivityName { Name = "ABSENT" };
                 
             var unrated1 = new Activity()
             {
