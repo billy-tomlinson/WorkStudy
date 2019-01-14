@@ -33,7 +33,7 @@ namespace WorkStudy.Model
         [OneToMany]
         public List<Observation> Observations { get; set; }
 
-        public string ObservedColour { get; set; } = "#d5f0f1";
+        public string ObservedColour { get; set; } = Utilities.ValidColour;
 
         [Ignore]
         public Color ConvertedColour => Color.FromHex(ObservedColour);

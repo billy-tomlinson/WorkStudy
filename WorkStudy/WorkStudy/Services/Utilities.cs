@@ -31,12 +31,11 @@ namespace WorkStudy.Services
 
         public static string ValueAddedColour = "#D5F0F1";
         public static string NonValueAddedColour = "#FAFDBC";
+        public static string ValidColour = "#d5f0f1";
 
         public static bool   CancelAlarm { get; set; }
 
         public static bool ContinueTimer { get; set; } = true;
-
-        public static string ValidColour = "#d5f0f1";
 
         public static void ClearNavigation()
         {

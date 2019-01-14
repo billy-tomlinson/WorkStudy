@@ -58,7 +58,7 @@ namespace WorkStudy.Model
         CascadeOperations = CascadeOperation.All, ReadOnly = true)]
         public List<Activity> MergedActivities { get; set; }
 
-        public string ObservedColour { get; set; } = "#d5f0f1";
+        public string ObservedColour { get; set; } = Utilities.ValidColour;
 
         [Ignore]
         public Color ConvertedColour => Color.FromHex(ObservedColour);
