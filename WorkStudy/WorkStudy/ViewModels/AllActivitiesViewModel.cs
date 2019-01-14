@@ -52,7 +52,6 @@ namespace WorkStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
-            //var sample = SampleRepo.GetItem(Utilities.StudyId);
 
             foreach (var item in ItemsCollection.Where(x => x.Selected))
             {
@@ -60,7 +59,8 @@ namespace WorkStudy.ViewModels
                 {
                     ActivityName = item,
                     IsEnabled = true,
-                    Rated = true
+                    Rated = true,
+                    ObservedColour = Utilities.ValueAddedColour
                 };
 
                 var returnID = SaveActivityDetails(activity);

@@ -383,6 +383,17 @@ namespace WorkStudy.ViewModels
                 Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                                     .Where(x => x.StudyId == Utilities.StudyId
                                         && x.IsEnabled == true));
+                IEnumerable<Activity> obsCollection = Activities;
+
+                var list1 = new List<Activity>(obsCollection);
+
+                foreach (var activity in list1)
+                {
+                    activity.Colour = Color.FromHex(activity.ItemColour);
+                }
+
+                Activities = ConvertListToObservable(list1);
+
                 GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;
