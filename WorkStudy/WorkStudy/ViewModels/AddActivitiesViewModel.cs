@@ -356,7 +356,7 @@ namespace WorkStudy.ViewModels
                                                .Where(x => x.ActivityId == item.Id || x.MergedActivityId == item.Id)
                                                .ToList();
 
-                var deleteIcon = item.Rated ? "delete.png" : string.Empty;
+                var deleteIcon = item.Rated ? Utilities.DeleteImage : string.Empty;
 
                 if (obs.Any() || merged.Any())
                 {

@@ -33,6 +33,9 @@ namespace WorkStudy.Services
         public static string NonValueAddedColour = "#FAFDBC";
         public static string ValidColour = "#d5f0f1";
 
+
+        public static string DeleteImage = "delete.png";
+        public static string UndoImage = "undo.png";
         public static bool   CancelAlarm { get; set; }
 
         public static bool ContinueTimer { get; set; } = true;
