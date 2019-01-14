@@ -151,7 +151,9 @@ namespace WorkStudy.ViewModels
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty,
-                ItemColour = Utilities.InactiveColour
+                ItemColour = Utilities.InactiveColour,
+                ObservedColour = Utilities.InactiveColour
+
             };
 
             activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INACTIVE");
@@ -166,7 +168,8 @@ namespace WorkStudy.ViewModels
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty,
-                ItemColour = Utilities.InactiveColour
+                ItemColour = Utilities.InactiveColour,
+                ObservedColour = Utilities.InactiveColour
             };
 
             activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
@@ -181,7 +184,8 @@ namespace WorkStudy.ViewModels
                 Rated = false,
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty,
-                ItemColour = Utilities.InactiveColour
+                ItemColour = Utilities.InactiveColour,
+                ObservedColour = Utilities.InactiveColour
             };
 
             ActivityNameRepo.SaveItem(unrated1.ActivityName);
