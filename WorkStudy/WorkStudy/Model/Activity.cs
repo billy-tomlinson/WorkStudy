@@ -45,7 +45,7 @@ namespace WorkStudy.Model
         public string Name => ActivityName.Name;
 
         [Ignore]
-        public Color Colour { get; set; }
+        public Color Colour { get; set; } 
 
         [Ignore]
         public bool Selected { get; set; }

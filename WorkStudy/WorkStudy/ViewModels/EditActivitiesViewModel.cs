@@ -46,10 +46,9 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = ChangeButtonColourForCategory(activity.ItemColour);
 
-            //activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString()) 
-            //    ? Utilities.Clicked : Utilities.UnClicked;
+            activity.Colour = ChangeButtonColourForCategory(activity.Colour.GetShortHexString(), activity.ItemColour);
+
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
             Activities = ConvertListToObservable(list);
@@ -61,35 +60,36 @@ namespace WorkStudy.ViewModels
             else
                 MergedActivities.RemoveAll(_ => _.Id == sender);
         }
-        private Color ChangeButtonColourForCategory(string colour)
+
+        private Color ChangeButtonColourForCategory(string currentColour, string originalColour)
         {
             Color activityColour;
 
-            switch (colour)
-            {
-                case Utilities.ValueAddedColour:
-                    activityColour = Utilities.ValueAddedColour.Equals(colour)
-                        ? Utilities.Clicked
-                        : Color.FromHex(Utilities.ValueAddedColour);
-                    break;
-                case Utilities.NonValueAddedColour:
-                    activityColour = Utilities.NonValueAddedColour.Equals(colour)
-                        ? Utilities.Clicked
-                        : Color.FromHex(Utilities.NonValueAddedColour);
-                    break;
-                case Utilities.InactiveColour:
-                    activityColour = Utilities.InactiveColour.Equals(colour)
-                        ? Utilities.Clicked
-                        : Color.FromHex(Utilities.InactiveColour);
-                    break;
-                default:
-                    activityColour = Utilities.UnClicked.GetHexString().Equals(colour)
-                        ? Utilities.Clicked
-                        : Utilities.UnClicked;
-                    break;
-            }
+            if (currentColour == Utilities.ClickedHex)
+                activityColour = Color.FromHex(originalColour);
+            else
+                activityColour = Color.FromHex(Utilities.ClickedHex);
 
             return activityColour;
+        }
+
+        private void RefreshActivities()
+        {
+
+            MergedActivities = new List<Activity>();
+            Activities = Get_All_Enabled_Activities_WithChildren();
+
+            IEnumerable<Activity> obsCollection = Activities;
+
+            var list1 = new List<Activity>(obsCollection);
+
+            foreach (var activity in list1)
+            {
+                activity.Colour = Color.FromHex(activity.ItemColour);
+            }
+
+            Activities = ConvertListToObservable(list1);
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
         private ObservableCollection<MultipleActivities> ChangeButtonColourOnLoad()
@@ -100,7 +100,7 @@ namespace WorkStudy.ViewModels
 
             foreach (var activity in list1)
             {
-                activity.Colour = ChangeButtonColourForCategory(activity.ItemColour);
+                activity.Colour = Color.FromHex(activity.ItemColour);
             }
 
             Activities = ConvertListToObservable(list1);
@@ -219,13 +219,6 @@ namespace WorkStudy.ViewModels
             RefreshActivities();
         }
 
-        private void RefreshActivities()
-        {
-            MergedActivities = new List<Activity>();
-            Activities = Get_All_Enabled_Activities_WithChildren();
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
-        }
-
         void CancelActivityDetails()
         {
             IEnumerable<Activity> obsCollection = Activities;
@@ -235,7 +228,7 @@ namespace WorkStudy.ViewModels
             foreach (var item in list)
             {
                 list1.RemoveAll(_ => _.Id == (int)item.Id);
-                item.Colour = Utilities.UnClicked;
+                item.Colour = Color.FromHex(item.ItemColour);
                 list1.Add(item);
             }
 

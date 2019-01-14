@@ -26,13 +26,14 @@ namespace WorkStudy.Services
             await App.NavigationPage.Navigation.PushAsync(page);
         }
 
-        public static Color Clicked = Color.Orange;
+        public static Color Clicked = Color.FromHex("#FC9715");
         public static Color UnClicked = Color.FromHex("#4174f4");
 
         public const string ValueAddedColour = "#01E30F";
         public const string NonValueAddedColour = "#F7FA11";
         public const string InactiveColour = "#FF6969";
         public const string ValidColour = "#d5f0f1";
+        public const string ClickedHex = "#FC9715";
 
 
         public const string DeleteImage = "delete.png";
