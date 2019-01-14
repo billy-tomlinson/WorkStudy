@@ -65,7 +65,7 @@ namespace WorkStudy.Model
 
         public string DeleteIcon { get; set; } = Utilities.DeleteImage;
 
-        public string SettingsIcon { get; set; } = "comments.png";
+        public string SettingsIcon { get; set; } = Utilities.CommentsImage;
 
     }
 }

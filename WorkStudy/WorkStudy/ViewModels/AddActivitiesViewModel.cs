@@ -338,7 +338,7 @@ namespace WorkStudy.ViewModels
             CheckActivitiesInUse();
             ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
             Activity = new Activity();
-            Activity.SettingsIcon = "comments.png";
+            Activity.SettingsIcon = Utilities.CommentsImage;
         }
 
         private void CheckActivitiesInUse()
