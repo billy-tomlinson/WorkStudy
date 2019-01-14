@@ -134,7 +134,7 @@ namespace WorkStudy.ViewModels
                         ActivityName = activityName,
                         IsEnabled = true,
                         Rated = true,
-                        ObservedColour = "#D5F0F1",
+                        ObservedColour = Utilities.ValueAddedColour,
                         IsValueAdded = true
                     };
 
@@ -243,13 +243,13 @@ namespace WorkStudy.ViewModels
         {
             if(IsNonValueAdded)
             {
-                Activity.ItemColour = "#FAFDBC";
-                Activity.ObservedColour = "#FAFDBC";
+                Activity.ItemColour = Utilities.NonValueAddedColour;
+                Activity.ObservedColour = Utilities.NonValueAddedColour;
             }
             else 
             {
-                Activity.ItemColour = "#D5F0F1";
-                Activity.ObservedColour = "#D5F0F1";
+                Activity.ItemColour = Utilities.ValueAddedColour;
+                Activity.ObservedColour = Utilities.ValueAddedColour;
             }
 
             Activity.IsValueAdded = !IsNonValueAdded;
