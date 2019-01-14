@@ -46,8 +46,28 @@ namespace WorkStudy.ViewModels
             IEnumerable<Activity> obsCollection = Activities;
             var list = new List<Activity>(obsCollection);
             var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString()) 
-                ? Utilities.Clicked : Utilities.UnClicked;
+            switch (activity.ItemColour)
+            {
+                case Utilities.ValueAddedColour:
+                    activity.Colour = Utilities.ValueAddedColour.Equals(activity.ItemColour)
+                        ? Utilities.Clicked : Color.FromHex(Utilities.ValueAddedColour);
+                    break;
+                case Utilities.NonValueAddedColour:
+                    activity.Colour = Utilities.NonValueAddedColour.Equals(activity.ItemColour)
+                        ? Utilities.Clicked : Color.FromHex(Utilities.NonValueAddedColour);
+                    break;
+                case Utilities.InactiveColour:
+                    activity.Colour = Utilities.InactiveColour.Equals(activity.ItemColour)
+                        ? Utilities.Clicked : Color.FromHex(Utilities.InactiveColour);
+                    break;
+                default:
+                    activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
+                        ? Utilities.Clicked : Utilities.UnClicked;
+                    break;
+            }
+
+            //activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString()) 
+            //    ? Utilities.Clicked : Utilities.UnClicked;
             list.RemoveAll(_ => _.Id == sender);
             list.Add(activity);
             Activities = ConvertListToObservable(list);
@@ -59,7 +79,6 @@ namespace WorkStudy.ViewModels
             else
                 MergedActivities.RemoveAll(_ => _.Id == sender);
         }
-
         private ObservableCollection<MultipleActivities> ChangeButtonColourOnLoad()
         {
             IEnumerable<Activity> obsCollection = Activities;

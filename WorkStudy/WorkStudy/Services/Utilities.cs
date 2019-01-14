@@ -29,15 +29,15 @@ namespace WorkStudy.Services
         public static Color Clicked = Color.Orange;
         public static Color UnClicked = Color.FromHex("#4174f4");
 
-        public static string ValueAddedColour = "#01E30F";
-        public static string NonValueAddedColour = "#F7FA11";
-        public static string InactiveColour = "#FF6969";
-        public static string ValidColour = "#d5f0f1";
+        public const string ValueAddedColour = "#01E30F";
+        public const string NonValueAddedColour = "#F7FA11";
+        public const string InactiveColour = "#FF6969";
+        public const string ValidColour = "#d5f0f1";
 
 
-        public static string DeleteImage = "delete.png";
+        public const string DeleteImage = "delete.png";
         public static string UndoImage = "undo.png";
-        public static string CommentsImage = "comments.png";
+        public const string CommentsImage = "comments.png";
         public static bool   CancelAlarm { get; set; }
 
         public static bool ContinueTimer { get; set; } = true;
