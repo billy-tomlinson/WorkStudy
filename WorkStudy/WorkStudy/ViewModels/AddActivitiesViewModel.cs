@@ -134,6 +134,7 @@ namespace WorkStudy.ViewModels
                         ActivityName = activityName,
                         IsEnabled = true,
                         Rated = true,
+                        ObservedColour = "#D5F0F1",
                         IsValueAdded = true
                     };
 
@@ -240,9 +241,23 @@ namespace WorkStudy.ViewModels
 
         void SaveCategoryEvent(object sender)
         {
+            if(IsNonValueAdded)
+            {
+                Activity.ItemColour = "#FAFDBC";
+                Activity.ObservedColour = "#FAFDBC";
+            }
+            else 
+            {
+                Activity.ItemColour = "#D5F0F1";
+                Activity.ObservedColour = "#D5F0F1";
+            }
+
             Activity.IsValueAdded = !IsNonValueAdded;
             ActivityRepo.SaveItem(Activity);
-            Opacity = 1.0;
+            Opacity = 1.0; 
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities()
+                .OrderByDescending(x => x.Id));
+
             CategoriesVisible = false;
         }
 
@@ -300,9 +315,12 @@ namespace WorkStudy.ViewModels
         {
             var value = (int)sender;
             Activity = ActivityRepo.GetItem(value);
-            IsNonValueAdded =  !Activity.IsValueAdded;
-            Opacity = 0.2;
-            CategoriesVisible = true;
+            IsNonValueAdded = !Activity.IsValueAdded;
+            if(Activity.Rated)
+            {
+                Opacity = 0.2;
+                CategoriesVisible = true;
+            }
         }
 
         private void ConstructorSetUp()

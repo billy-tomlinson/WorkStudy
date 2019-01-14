@@ -28,14 +28,16 @@
                                                      Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="40">
                                             <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" 
                                                                Grid.Column="0"
-                                                               Opacity="{Binding Opacity}" 
+                                                               Opacity="{Binding Opacity}"
+                                                               BackgroundColor="{Binding ItemColour}"
                                                                FontAttributes="Bold" VerticalTextAlignment="Center" 
                                                                HorizontalTextAlignment="Start" WidthRequest="300">
                                                 <local:CustomLabel.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.ItemSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
                                                 </local:CustomLabel.GestureRecognizers>
                                             </local:CustomLabel>
-                                            <local:CustomImage Source="{Binding SettingsIcon}" Grid.Row="0" 
+                                            <local:CustomImage Source="{Binding SettingsIcon}" Grid.Row="0"
+                                                               BackgroundColor="{Binding ItemColour}"
                                                                Grid.Column="1" Margin="3"
                                                                IsEnabled="{Binding IsEnabled}">
                                                 <local:CustomImage.GestureRecognizers>
@@ -43,6 +45,7 @@
                                                 </local:CustomImage.GestureRecognizers>
                                             </local:CustomImage>
                                             <local:CustomImage Source="{Binding DeleteIcon}" Grid.Row="0"
+                                                               BackgroundColor="{Binding ItemColour}"
                                                                Grid.Column="2"
                                                                Margin="3">
                                                 <local:CustomImage.GestureRecognizers>

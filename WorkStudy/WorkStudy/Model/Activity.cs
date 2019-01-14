@@ -35,6 +35,8 @@ namespace WorkStudy.Model
 
         public bool IsValueAdded { get; set; } = true;
 
+        public string ItemColour { get; set; } = "#D5F0F1";
+
         public DateTime Date => DateTime.Now;
 
         public double Opacity { get; set; } = 1;
