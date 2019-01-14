@@ -355,7 +355,6 @@ namespace WorkStudy.ViewModels
             ActivityNameRepo.SaveItem(activity.ActivityName);
             var returnId = ActivityRepo.SaveItem(activity);
             ActivityRepo.UpdateWithChildren(activity);
-            //ActivityRepo.InsertOrReplaceWithChildren(activity);
             return returnId;
         }
 

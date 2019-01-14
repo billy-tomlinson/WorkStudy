@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
@@ -50,7 +51,7 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        void ActivitySelectedEvent(object sender)
+        async void ActivitySelectedEvent(object sender)
         {
 
             foreach (var item in ItemsCollection.Where(x => x.Selected))
@@ -65,7 +66,7 @@ namespace WorkStudy.ViewModels
 
                 var returnID = SaveActivityDetails(activity);
             }
-
+            await Task.Delay(1500);
             var page = sender as ContentPage;
             var parentPage = page.Parent as TabbedPage;
             parentPage.CurrentPage = parentPage.Children[1];
