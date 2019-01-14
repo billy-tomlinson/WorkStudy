@@ -74,12 +74,14 @@ namespace WorkStudy.ViewModels
         {
             if (mergedActivities.Count < 2) return;
 
-            var countRated = mergedActivities.Any(x => x.Rated);
+            var valueAdded = mergedActivities.Any(x => x.IsValueAdded && x.Rated);
+            var nonValueAdded = mergedActivities.Any(x => !x.IsValueAdded && x.Rated);
+            //var countRated = mergedActivities.Any(x => x.Rated);
             var countUnrated = mergedActivities.Any(x => !x.Rated);
 
-            if(countRated && countUnrated)
+            if (valueAdded && nonValueAdded && countUnrated || valueAdded && nonValueAdded || valueAdded && countUnrated || nonValueAdded && countUnrated)
             {
-                ValidationText = "Cannot merge rated and unrated activities together.";
+                ValidationText = "Cannot merge activities from different categories together.";
                 Opacity = 0.2;
                 RefreshActivities();
                 IsInvalid = true;
@@ -109,8 +111,11 @@ namespace WorkStudy.ViewModels
                 parentActivity.ActivityName.Name = parentActivity.ActivityName.Name + " " + merged.ActivityName.Name;
                 parentActivity.ActivityName.IsMerge = true;
                 parentActivity.IsEnabled = true;
-                parentActivity.Rated = countRated;
-                parentActivity.DeleteIcon = countRated ? Utilities.DeleteImage : string.Empty;
+                parentActivity.Rated = merged.Rated;
+                parentActivity.DeleteIcon = merged.Rated ? Utilities.DeleteImage : string.Empty;
+                parentActivity.IsValueAdded = merged.IsValueAdded;
+                parentActivity.ItemColour = merged.ItemColour;
+                parentActivity.ObservedColour = merged.ObservedColour;
 
                 SaveActivityDetails(parentActivity);
 
