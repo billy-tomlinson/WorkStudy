@@ -137,9 +137,12 @@ namespace WorkStudy.UnitTests
 
             foreach (var item in allTotals)
             {
-                destSheetAll.Range[3, columnCount + 2].Text = "Total Obs";
-                destSheetAll.Range[3, columnCount + 3].Text = "Total Time";
+                destSheetAll.Range[3, columnCount + 2].Text = "Obs Req";
+                destSheetAll.Range[3, columnCount + 3].Text = "Total Obs";
                 destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
+
+                var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal;
+                var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
                 foreach (var cell in range.Where(x => x.Value != string.Empty))
                 {
@@ -154,8 +157,9 @@ namespace WorkStudy.UnitTests
 
                         if (vv.ActivityName == v)
                         {
-                            destSheetAll.Range[c, columnCount + 2].Number = vv.NumberOfObservations;
-                            destSheetAll.Range[c, columnCount + 3].Number = vv.TotalTime;
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
                         }
                     }
@@ -164,6 +168,7 @@ namespace WorkStudy.UnitTests
                 var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
+
 
                 var formula1 = $"=SUM({columnAddress1}5:{columnAddress1}{allActivities.Count + 5})";
                 var formula2 = $"=SUM({columnAddress2}5:{columnAddress2}{allActivities.Count + 5})";
@@ -178,8 +183,8 @@ namespace WorkStudy.UnitTests
                 columnCount = columnCount + 5;
             }
 
-            destSheetAll.Range[3, columnCount + 1].Text = "OBS TOTAL";
-            destSheetAll.Range[3, columnCount + 2].Text = "TIME TOTAL";
+            destSheetAll.Range[3, columnCount + 1].Text = "OBS REQ";
+            destSheetAll.Range[3, columnCount + 2].Text = "OBS TOTAL";
             destSheetAll.Range[3, columnCount + 3].Text = "% TOTAL";
 
 
@@ -190,6 +195,9 @@ namespace WorkStudy.UnitTests
                     var v = cell.Value;
                     var c = cell.Row;
 
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
+                    var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+
                     foreach (var vv in item)
                     {
                         if (vv.ActivityName == v)
@@ -199,8 +207,9 @@ namespace WorkStudy.UnitTests
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 1].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
@@ -267,6 +276,8 @@ namespace WorkStudy.UnitTests
             {
                 foreach (var cell in range.Where(x => x.Value != string.Empty))
                 {
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
+                    var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
                     var v = cell.Value;
                     var c = cell.Row;
@@ -275,8 +286,9 @@ namespace WorkStudy.UnitTests
                     {
                         if (vv.ActivityName == v)
                         {
-                            destSheetAll.Range[c, columnCount + 2].Number = vv.NumberOfObservations;
-                            destSheetAll.Range[c, columnCount + 3].Number = vv.TotalTime;
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
                         }
                     }
@@ -307,6 +319,9 @@ namespace WorkStudy.UnitTests
                     var v = cell.Value;
                     var c = cell.Row;
 
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
+                    var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+
                     foreach (var vv in item)
                     {
                         if (vv.ActivityName == v)
@@ -316,8 +331,12 @@ namespace WorkStudy.UnitTests
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            //destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
+                            //destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            //destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
+                            destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 1].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
@@ -384,6 +403,8 @@ namespace WorkStudy.UnitTests
             {
                 foreach (var cell in range.Where(x => x.Value != string.Empty))
                 {
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal;
+                    var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
                     var v = cell.Value;
                     var c = cell.Row;
@@ -392,8 +413,9 @@ namespace WorkStudy.UnitTests
                     {
                         if (vv.ActivityName == v)
                         {
-                            destSheetAll.Range[c, columnCount + 2].Number = vv.NumberOfObservations;
-                            destSheetAll.Range[c, columnCount + 3].Number = vv.TotalTime;
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
                         }
                     }
@@ -433,6 +455,9 @@ namespace WorkStudy.UnitTests
                     var v = cell.Value;
                     var c = cell.Row;
 
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
+                    var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+
                     foreach (var vv in item)
                     {
                         if (vv.ActivityName == v)
@@ -442,8 +467,9 @@ namespace WorkStudy.UnitTests
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 1].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
@@ -464,6 +490,7 @@ namespace WorkStudy.UnitTests
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 3].CellStyle = headerStyle;
+
 
                 // Total All observations  - Add together total value added +  total value added +  total unrated
                 var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
