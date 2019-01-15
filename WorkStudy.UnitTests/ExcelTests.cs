@@ -36,10 +36,8 @@ namespace WorkStudy.UnitTests
         IWorkbook workbook;
         IWorksheet destSheetAll;
 
-        int ratedActivitiesCount;
-        int unRatedActivitiesCount;
-
-        int ratedActivitiesTotalRowIndex;
+        int valueAddedActivitiesTotalRowIndex;
+        int nonValueAddedActivitiesTotalRowIndex;
         int unRatedActivitiesTotalRowIndex;
 
         IStyle headerStyle;
@@ -55,7 +53,7 @@ namespace WorkStudy.UnitTests
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+            allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalObs.Count();
@@ -100,8 +98,9 @@ namespace WorkStudy.UnitTests
                 titleStyle.EndUpdate();
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
-                BuildRatedActivities();
-                BuildUnRatedActivities();
+                BuildValueAddedRatedActivities();
+               // BuildNonValueAddedRatedActivities();
+                //BuildUnRatedActivities();
 
                 using (MemoryStream ms = new MemoryStream())
                 {
@@ -119,14 +118,12 @@ namespace WorkStudy.UnitTests
             }
         }
 
-        private void BuildRatedActivities()
+        private void BuildValueAddedRatedActivities()
         {
             allTotals = new List<List<ObservationSummary>>();
 
-            var allActivities = allStudyActivities.Where(x => x.Rated)
+            var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
                 .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
-
-            ratedActivitiesCount = allActivities.Count;
 
             destSheetAll.Range[3, 1].Text = "Activity";
             destSheetAll.ImportData(allActivities, 5, 1, false);
@@ -176,7 +173,7 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
 
-                ratedActivitiesTotalRowIndex = allActivities.Count + 6;
+                valueAddedActivitiesTotalRowIndex = allActivities.Count + 6;
 
                 columnCount = columnCount + 5;
             }
@@ -223,22 +220,20 @@ namespace WorkStudy.UnitTests
 
             }
 
-            destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL EFFECTIVE";
+            destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL VALUE ADDED";
             destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 3].CellStyle = headerStyle;
         }
 
-        private void BuildUnRatedActivities()
+        private void BuildNonValueAddedRatedActivities()
         {
             allTotals = new List<List<ObservationSummary>>();
 
-            var allActivities = allStudyActivities.Where(x => !x.Rated)
+            var allActivities = allStudyActivities.Where(x => x.Rated && !x.IsValueAdded)
              .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
 
-            unRatedActivitiesCount = allActivities.Count;
+            var startRow = valueAddedActivitiesTotalRowIndex + 2;
 
-            var unratedStartRow = ratedActivitiesTotalRowIndex + 2;
-
-            destSheetAll.ImportData(allActivities, unratedStartRow, 1, false);
+            destSheetAll.ImportData(allActivities, startRow, 1, false);
 
             foreach (var op in operators)
             {
@@ -265,7 +260,7 @@ namespace WorkStudy.UnitTests
 
             var columnCount = 1;
 
-            var computedRange = $"A{unratedStartRow}:A{unratedStartRow + allActivities.Count}";
+            var computedRange = $"A{startRow}:A{startRow + allActivities.Count}";
             var range = destSheetAll[computedRange].ToList();
 
             foreach (var item in allTotals)
@@ -292,20 +287,137 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{unratedStartRow}:{columnAddress1}{allActivities.Count + unratedStartRow})";
-                var formula2 = $"=SUM({columnAddress2}{unratedStartRow}:{columnAddress2}{allActivities.Count + unratedStartRow})";
-                var formula3 = $"=SUM({columnAddress3}{unratedStartRow}:{columnAddress3}{allActivities.Count + unratedStartRow})";
+                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
+                var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
+                var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 2].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 3].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 4].Formula = formula3;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
-                unRatedActivitiesTotalRowIndex = allActivities.Count + unratedStartRow + 1;
+                nonValueAddedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
 
-                // Total All observations  - Add together total Rated +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{ratedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
-                var formula5 = $"=SUM({columnAddress2}{ratedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
-                var formula6 = $"=SUM({columnAddress3}{ratedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
+                columnCount = columnCount + 5;
+            }
+
+            foreach (var item in allTotals)
+            {
+                foreach (var cell in range.Where(x => x.Value != string.Empty))
+                {
+                    var v = cell.Value;
+                    var c = cell.Row;
+
+                    foreach (var vv in item)
+                    {
+                        if (vv.ActivityName == v)
+                        {
+                            var totalActivity = totalObs.Count(x => x.ActivityName == v);
+                            var totalObsCount = totalObs.Count();
+                            var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
+                            var totalPerActivity = vv.TotalTime * totalActivity;
+
+                            destSheetAll.Range[c, columnCount + 1].Number = Math.Round((double)totalActivity, 2);
+                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalPerActivity, 2);
+                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
+                        }
+                    }
+                }
+
+                //total all unrated totals of all operators
+                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+
+                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
+                var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
+                var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
+
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula3;
+
+                destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL NON VALUE ADDED";
+                destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 3].CellStyle = headerStyle;
+            }
+        }
+
+        private void BuildUnRatedActivities()
+        {
+            allTotals = new List<List<ObservationSummary>>();
+
+            var allActivities = allStudyActivities.Where(x => !x.Rated)
+             .Select(y => new ActivityName() { Name = y.ActivityName.Name }).ToList();
+
+            var startRow = nonValueAddedActivitiesTotalRowIndex + 2;
+
+            destSheetAll.ImportData(allActivities, startRow, 1, false);
+
+            foreach (var op in operators)
+            {
+                var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
+                var totalObsPerOperator = obs.Count();
+
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
+                    .Select(g => new ObservationSummary
+                    {
+                        ActivityName = g.Key.ActivityName,
+                        NumberOfObservations = g.Count()
+                    }).ToList();
+
+                foreach (var item in summary)
+                {
+                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = totalPercentage;
+                    item.TotalTime = item.NumberOfObservations * timePerObservation;
+                    item.OperatorName = op.Name;
+                }
+
+                allTotals.Add(summary);
+            }
+
+            var columnCount = 1;
+
+            var computedRange = $"A{startRow}:A{startRow + allActivities.Count}";
+            var range = destSheetAll[computedRange].ToList();
+
+            foreach (var item in allTotals)
+            {
+                foreach (var cell in range.Where(x => x.Value != string.Empty))
+                {
+
+                    var v = cell.Value;
+                    var c = cell.Row;
+
+                    foreach (var vv in item)
+                    {
+                        if (vv.ActivityName == v)
+                        {
+                            destSheetAll.Range[c, columnCount + 2].Number = vv.NumberOfObservations;
+                            destSheetAll.Range[c, columnCount + 3].Number = vv.TotalTime;
+                            destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+                        }
+                    }
+                }
+
+                // Total All Unrated observations
+                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
+
+                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
+                var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
+                var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
+
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
+
+                unRatedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
+
+                // Total All observations  - Add together total value added +  total value added +  total unrated
+                var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
+                var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
@@ -342,21 +454,21 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{unratedStartRow}:{columnAddress1}{allActivities.Count + unratedStartRow})";
-                var formula2 = $"=SUM({columnAddress2}{unratedStartRow}:{columnAddress2}{allActivities.Count + unratedStartRow})";
-                var formula3 = $"=SUM({columnAddress3}{unratedStartRow}:{columnAddress3}{allActivities.Count + unratedStartRow})";
+                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
+                var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
+                var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 1].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 2].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, columnCount + 3].Formula = formula3;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula3;
 
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
-                destSheetAll.Range[allActivities.Count + unratedStartRow + 1, 1, allActivities.Count + unratedStartRow + 1, columnCount + 3].CellStyle = headerStyle;
+                destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
+                destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 3].CellStyle = headerStyle;
 
-                // Total All observations  - Add together total Rated +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{ratedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
-                var formula5 = $"=SUM({columnAddress2}{ratedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
-                var formula6 = $"=SUM({columnAddress3}{ratedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
+                // Total All observations  - Add together total value added +  total value added +  total unrated
+                var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
+                var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].Formula = formula4;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula5;
