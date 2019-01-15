@@ -412,7 +412,7 @@ namespace WorkStudy.ViewModels
                 {
                     ActivityId = item.Id,
                     OperatorId = op.Id,
-                    ActivityName = ActivityRepo.GetItem(item.Id).Name,
+                    ActivityName = ActivityRepo.GetWithChildren(item.Id).ActivityName.Name,
                     NumberOfObservations = count,
                     ObservationsRequired = totalRequired,
                     Percentage = percentage,
