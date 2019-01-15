@@ -17,4 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkStudy\WorkStudy\WorkStudy.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="ReportOutputTestSQLSummaryE.xlsx" />
+  </ItemGroup>
 </Project>
