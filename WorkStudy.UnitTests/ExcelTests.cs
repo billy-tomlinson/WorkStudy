@@ -63,7 +63,6 @@ namespace WorkStudy.UnitTests
             var lastOb = totalObs.Max(y => y.Date);
             totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
             timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
-
         }
 
         [TestMethod]

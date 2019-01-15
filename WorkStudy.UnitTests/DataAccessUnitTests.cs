@@ -20,11 +20,12 @@ namespace WorkStudy.UnitTests
         [TestClass]
         public class DataAccessTests
         {
-            private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
-            //private const string connString = "WorkStudy1.db3";
+            //private const string connString = "/Users/billytomlinson/WorkStudy1.db3";
+            private const string connString = "WorkStudy1.db3";
 
             private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
             private readonly IBaseRepository<Activity> activityRepo;
+            private readonly IBaseRepository<ActivityName> activityNameRepo;
             private readonly IBaseRepository<Operator> operatorRepo;
             private readonly IBaseRepository<Observation> observationRepo;
             //private readonly IBaseRepository<OperatorActivity> operatorActivityRepo;
@@ -34,6 +35,7 @@ namespace WorkStudy.UnitTests
             {
                 sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
                 activityRepo = new BaseRepository<Activity>(connString);
+                activityNameRepo = new BaseRepository<ActivityName>(connString);
                 operatorRepo = new BaseRepository<Operator>(connString);
                 observationRepo = new BaseRepository<Observation>(connString);
                 //operatorActivityRepo = new BaseRepository<OperatorActivity>(connString);
@@ -1025,6 +1027,15 @@ namespace WorkStudy.UnitTests
 
                 mergedActivityRepo.DropTable();
                 mergedActivityRepo.CreateTable();
+            }
+
+            [TestMethod]
+            public void CreateTable()
+            {
+                activityNameRepo.DropTable();
+                activityNameRepo.CreateTable();
+                activityRepo.DropTable();
+                activityRepo.CreateTable();
             }
 
             //[TestMethod]

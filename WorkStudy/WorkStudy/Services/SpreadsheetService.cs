@@ -38,7 +38,7 @@ namespace WorkStudy.Services
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            allStudyActivities = activityRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+            allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalObs.Count();
