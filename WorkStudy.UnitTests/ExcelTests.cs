@@ -119,6 +119,7 @@ namespace WorkStudy.UnitTests
             }
         }
 
+
         private void BuildValueAddedRatedActivities()
         {
             startRowIndex = 5;
@@ -126,7 +127,7 @@ namespace WorkStudy.UnitTests
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
-                .Select(y => new  {y.ActivityName.Name }).ToList();
+                .Select(y => new { y.ActivityName.Name }).ToList();
 
             destSheetAll.Range[3, 1].Text = "Activity";
             destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
@@ -177,8 +178,8 @@ namespace WorkStudy.UnitTests
                 var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
                 var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 3].NumberFormat = "###0";
+                //destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula1;
+                //destSheetAll.Range[allActivities.Count + 6, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
 
@@ -187,55 +188,55 @@ namespace WorkStudy.UnitTests
                 columnCount = columnCount + 4;
             }
 
-            destSheetAll.Range[3, columnCount + 1].Text = "OBS REQ";
-            destSheetAll.Range[3, columnCount + 2].Text = "OBS TOTAL";
-            destSheetAll.Range[3, columnCount + 3].Text = "% TOTAL";
+            destSheetAll.Range[3, columnCount + 2].Text = "OBS REQ";
+            destSheetAll.Range[3, columnCount + 3].Text = "OBS TOTAL";
+            destSheetAll.Range[3, columnCount + 4].Text = "% TOTAL";
 
 
             foreach (var item in allTotals)
             {
-                foreach (var cell in range.Where(x => x.Value != string.Empty))
+            foreach (var cell in range.Where(x => x.Value != string.Empty))
+            {
+                var v = cell.Value;
+                var c = cell.Row;
+
+                var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal;
+                var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+
+                foreach (var vv in item)
                 {
-                    var v = cell.Value;
-                    var c = cell.Row;
-
-                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
-                    var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
-
-                    foreach (var vv in item)
+                    if (vv.ActivityName == v)
                     {
-                        if (vv.ActivityName == v)
-                        {
-                            var totalActivity = totalObs.Count(x => x.ActivityName == v);
-                            var totalObsCount = totalObs.Count();
-                            var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = vv.TotalTime * totalActivity;
+                        var totalActivity = totalObs.Count(x => x.ActivityName == v);
+                        var totalObsCount = totalObs.Count();
+                        var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
+                        var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
-                            destSheetAll.Range[c, columnCount + 1].Formula = formula;
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
-                        }
+                        destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                        destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                        destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
+                        destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
                     }
                 }
+            }
 
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+            var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+            var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+            var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{allActivities.Count + startRowIndex})";
-                var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
-                var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
+            var formula1 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{allActivities.Count + startRowIndex})";
+            var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
+            var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 1].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 2].NumberFormat = "###0";
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula3;
+            //destSheetAll.Range[allActivities.Count + 6, columnCount + 1].Formula = formula1;
+            //destSheetAll.Range[allActivities.Count + 6, columnCount + 2].NumberFormat = "###0";
+            destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
+            destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
 
             }
 
             destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL VALUE ADDED";
-            destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 3].CellStyle = headerStyle;
+            destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 4].CellStyle = headerStyle;
         }
 
         private void BuildNonValueAddedRatedActivities()
@@ -281,7 +282,7 @@ namespace WorkStudy.UnitTests
             {
                 foreach (var cell in range.Where(x => x.Value != string.Empty))
                 {
-                  
+
                     var v = cell.Value;
                     var c = cell.Row;
 
@@ -309,8 +310,8 @@ namespace WorkStudy.UnitTests
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
@@ -326,7 +327,7 @@ namespace WorkStudy.UnitTests
                     var v = cell.Value;
                     var c = cell.Row;
 
-                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal;
                     var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
                     foreach (var vv in item)
@@ -338,31 +339,34 @@ namespace WorkStudy.UnitTests
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
-                            destSheetAll.Range[c, columnCount + 1].Formula = formula;
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                            destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
+                            destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
                 }
 
                 //total all unrated totals of all operators
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
                 var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].NumberFormat = "###0";
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula3;
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].NumberFormat = "###0";
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL NON VALUE ADDED";
-                destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 3].CellStyle = headerStyle;
+                destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 4].CellStyle = headerStyle;
             }
+
+            destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL NON VALUE ADDED";
+            destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 4].CellStyle = headerStyle;
         }
 
         private void BuildUnRatedActivities()
@@ -437,15 +441,15 @@ namespace WorkStudy.UnitTests
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
                 unRatedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
 
                 // Total All observations  - Add together total value added +  total value added +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula4 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex})";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
@@ -464,7 +468,7 @@ namespace WorkStudy.UnitTests
                     var v = cell.Value;
                     var c = cell.Row;
 
-                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal;
+                    var columnAddress = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal;
                     var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
                     foreach (var vv in item)
@@ -476,52 +480,55 @@ namespace WorkStudy.UnitTests
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
-                            destSheetAll.Range[c, columnCount + 1].Formula = formula;
-                            destSheetAll.Range[c, columnCount + 2].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalPercent, 2);
+                            //destSheetAll.Range[c, columnCount + 1].NumberFormat = "###0";
+                            //destSheetAll.Range[c, columnCount + 1].Formula = formula;
+                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
+                            destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
                         }
                     }
                 }
 
                 //total all unrated totals of all operators
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 1].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
                 var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].NumberFormat = "###0";
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula3;
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
+                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].NumberFormat = "###0";
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
-                destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 3].CellStyle = headerStyle;
+                destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 4].CellStyle = headerStyle;
 
 
                 // Total All observations  - Add together total value added +  total value added +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula4 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex})";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].Formula = formula4;
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].NumberFormat = "###0";
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula5;
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula6;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "###0";
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
 
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1].Text = "TOTAL";
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = headerStyle;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 4].CellStyle = headerStyle;
 
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].CellStyle = titleStyle;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].CellStyle = titleStyle;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = titleStyle;
-                destSheetAll.Range[3, 1, 3, columnCount + 3].CellStyle = titleStyle;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].CellStyle = titleStyle;
+                destSheetAll.Range[3, 1, 3, columnCount + 4].CellStyle = titleStyle;
 
-                destSheetAll.Range[1, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 3].AutofitColumns();
+                destSheetAll.Range[1, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 4].AutofitColumns();
             }
+
+            destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1].Text = "TOTAL";
+            destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 4].CellStyle = headerStyle;
         }
 
         private void CreateSheetPerOperator()
