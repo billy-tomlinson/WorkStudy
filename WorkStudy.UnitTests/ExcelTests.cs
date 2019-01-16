@@ -43,6 +43,8 @@ namespace WorkStudy.UnitTests
 
         IStyle headerStyle;
         IStyle titleStyle;
+        IStyle totalsStyle;
+
 
         public ExcelTests()
         {
@@ -95,8 +97,18 @@ namespace WorkStudy.UnitTests
                 titleStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
                 titleStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
                 titleStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-
                 titleStyle.EndUpdate();
+
+                totalsStyle = workbook.Styles.Add("TotalsStyle");
+                totalsStyle.BeginUpdate();
+                totalsStyle.Color = Color.FromArgb(255, 255, 153);
+                totalsStyle.Font.Bold = true;
+                totalsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                totalsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                totalsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                totalsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                totalsStyle.EndUpdate();
+
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
                 BuildValueAddedRatedActivities();
@@ -519,12 +531,21 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].CellStyle = titleStyle;
                 destSheetAll.Range[3, 1, 3, columnCount + 4].CellStyle = titleStyle;
 
+
                 destSheetAll.Range[1, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 4].AutofitColumns();
                 //******************************************************************************************
             }
 
             destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1].Text = "TOTAL";
             destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, 1, unRatedActivitiesTotalRowIndex + 2, columnCount + 4].CellStyle = headerStyle;
+
+            destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].CellStyle = totalsStyle;
+            destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].CellStyle = totalsStyle;
+            destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].CellStyle = totalsStyle;
+
+            destSheetAll.Range[3, columnCount + 2].CellStyle = totalsStyle;
+            destSheetAll.Range[3, columnCount + 3].CellStyle = totalsStyle;
+            destSheetAll.Range[3, columnCount + 4].CellStyle = totalsStyle;
         }
 
         private void CreateSheetPerOperator()
