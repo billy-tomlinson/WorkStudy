@@ -16,7 +16,7 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class ExcelTests
     {
-        private const string connString = "/Users/billytomlinson/WorkStudyXX.db3";
+        private const string connString = "/Users/billytomlinson/WorkStudyAA.db3";
         //private const string connString = "WorkStudyXX.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
@@ -45,7 +45,7 @@ namespace WorkStudy.UnitTests
 
         public ExcelTests()
         {
-            Utilities.StudyId = 33;
+            Utilities.StudyId = 1;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
@@ -175,6 +175,7 @@ namespace WorkStudy.UnitTests
                 var formula3 = $"=SUM({columnAddress3}5:{columnAddress3}{allActivities.Count + 5})";
 
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + 6, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
 
@@ -224,6 +225,7 @@ namespace WorkStudy.UnitTests
                 var formula3 = $"=SUM({columnAddress3}5:{columnAddress3}{allActivities.Count + 5})";
 
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 1].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + 6, columnCount + 2].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 2].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula3;
 
@@ -305,6 +307,7 @@ namespace WorkStudy.UnitTests
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
@@ -350,6 +353,7 @@ namespace WorkStudy.UnitTests
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula3;
 
@@ -431,17 +435,19 @@ namespace WorkStudy.UnitTests
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
                 unRatedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
 
                 // Total All observations  - Add together total value added +  total value added +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
-                var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
-                var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
+                var formula4 = $"=SUM({columnAddress1}{valueAddedActivitiesTotalRowIndex}+{columnAddress1}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
+                var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
 
@@ -485,6 +491,7 @@ namespace WorkStudy.UnitTests
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 1].Formula = formula1;
+                destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula3;
 
@@ -498,6 +505,7 @@ namespace WorkStudy.UnitTests
                 var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 1].Formula = formula4;
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].NumberFormat = "###0";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula6;
 
