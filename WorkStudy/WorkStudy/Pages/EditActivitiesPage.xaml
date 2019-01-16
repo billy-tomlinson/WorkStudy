@@ -16,6 +16,7 @@
                         WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
             <StackLayout BackgroundColor="#4174f4" 
+                         Opacity="{Binding Opacity}"
                          IsVisible="{Binding IsPageVisible}" 
                          Padding="5" 
                          Margin="5" 
