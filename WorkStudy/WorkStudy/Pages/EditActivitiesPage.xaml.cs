@@ -19,7 +19,21 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            BindingContext = new EditActivitiesViewModel();
+            if (Utilities.ActivityTableUpdated)
+            {
+                if (!Utilities.MergePageHasUpdatedActivityChanges)
+                {
+                    Utilities.MergePageHasUpdatedActivityChanges = true;
+
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new EditActivitiesViewModel();
+
+                    BindingContext = viewModel;
+                }
+            }
+
+            //BindingContext = new EditActivitiesViewModel();
             base.OnAppearing();
             Utilities.ClearNavigation();
         }

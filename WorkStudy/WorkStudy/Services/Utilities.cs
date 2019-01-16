@@ -20,6 +20,42 @@ namespace WorkStudy.Services
         public static string Connection { get; set; }
         public static DateTime LastNotification { get; set; } = DateTime.Now;
 
+
+        public static bool OperatorTableUpdated { get; set; }
+        public static bool ActivityTableUpdated { get; set; }
+        public static bool ObservationTableUpdated { get; set; }
+
+        public static bool MainPageHasUpdatedActivityChanges { get; set; }
+        public static bool MainPageHasUpdatedOperatorChanges { get; set; }
+        public static bool MainPageHasUpdatedObservationChanges { get; set; }
+
+        public static bool ActivityPageHasUpdatedActivityChanges { get; set; }
+        public static bool ActivityPageHasUpdatedOperatorChanges { get; set; }
+        public static bool ActivityPageHasUpdatedObservationChanges { get; set; }
+
+        public static bool OperatorPageHasUpdatedActivityChanges { get; set; }
+        public static bool OperatorPageHasUpdatedOperatorChanges { get; set; }
+
+        public static bool MergePageHasUpdatedActivityChanges { get; set; }
+
+        public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
+
+
+        public static void UpdateTableFlags()
+        {
+            if (MainPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 
+                    && OperatorPageHasUpdatedActivityChanges && MergePageHasUpdatedActivityChanges
+                    && AllActivitiesPageHasUpdatedActivityChanges)
+                ActivityTableUpdated = false;
+
+            if (MainPageHasUpdatedOperatorChanges && ActivityPageHasUpdatedOperatorChanges
+                    && OperatorPageHasUpdatedOperatorChanges)
+                OperatorTableUpdated = false;
+
+            if (MainPageHasUpdatedObservationChanges && ActivityPageHasUpdatedObservationChanges)
+                ObservationTableUpdated = false;
+        }
+
         public static async void Navigate(Page page)
         {
             await Task.Delay(500);

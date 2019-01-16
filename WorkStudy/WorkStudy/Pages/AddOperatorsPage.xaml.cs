@@ -20,11 +20,29 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            var viewModel = new AddOperatorsViewModel
+            if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {
-                RunningTotalsVisible = false
-            };
-            BindingContext = viewModel;
+                if (!Utilities.OperatorPageHasUpdatedActivityChanges
+                        || !Utilities.OperatorPageHasUpdatedOperatorChanges)
+                {
+                    Utilities.OperatorPageHasUpdatedActivityChanges = true;
+                    Utilities.OperatorPageHasUpdatedOperatorChanges = true;
+
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new AddOperatorsViewModel
+                    {
+                        RunningTotalsVisible = false
+                    };
+                    BindingContext = viewModel;
+                }
+            }
+
+            //var viewModel = new AddOperatorsViewModel
+            //{
+            //    RunningTotalsVisible = false
+            //};
+            //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
         }

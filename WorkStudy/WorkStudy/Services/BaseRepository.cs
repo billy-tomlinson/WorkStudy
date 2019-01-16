@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -61,6 +62,7 @@ namespace WorkStudy.Services
 
         public int SaveItem(T item)
         {
+            SetLastUpdatedTime(item);
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 if (item.Id != 0)
@@ -76,6 +78,7 @@ namespace WorkStudy.Services
 
         public int DeleteItem(T item)
         {
+            SetLastUpdatedTime(item);
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 return connection.Delete(item);
@@ -84,6 +87,7 @@ namespace WorkStudy.Services
 
         public void UpdateWithChildren(T item)
         {
+            SetLastUpdatedTime(item);
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.UpdateWithChildren(item);
@@ -97,6 +101,7 @@ namespace WorkStudy.Services
 
         public void InsertOrReplaceWithChildren(T item)
         {
+            SetLastUpdatedTime(item);
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.InsertOrReplaceWithChildren(item);
@@ -116,6 +121,35 @@ namespace WorkStudy.Services
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.DropTable<T>();
+            }
+        }
+
+        private void SetLastUpdatedTime(T item)
+        {
+            Type typeParameterType = typeof(T);
+            var name = typeParameterType.Name;
+
+            switch (name)
+            {
+                case "Operator":
+                    Utilities.OperatorTableUpdated = true;
+                    Utilities.ActivityPageHasUpdatedOperatorChanges = false;
+                    Utilities.MainPageHasUpdatedOperatorChanges = false;
+                    break;
+                case "Activity":
+                    Utilities.ActivityTableUpdated = true;
+                    Utilities.ActivityPageHasUpdatedActivityChanges = false;
+                    Utilities.MainPageHasUpdatedActivityChanges = false;
+                    Utilities.MergePageHasUpdatedActivityChanges = false;
+                    Utilities.AllActivitiesPageHasUpdatedActivityChanges = false;
+                    break;
+                case "Observation":
+                    Utilities.ObservationTableUpdated = true;
+                    Utilities.ActivityPageHasUpdatedObservationChanges = false;
+                    Utilities.MainPageHasUpdatedObservationChanges = false;
+                    break;
+                default:
+                    break;
             }
         }
     }

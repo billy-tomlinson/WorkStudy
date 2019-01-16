@@ -254,7 +254,6 @@ namespace WorkStudy.ViewModels
         void ActivitySelectedEvent(object sender)
         {
             Rating = 0;
-            ChangeButtonColour((int)sender);
             var value = (int)sender;
             ActivityId = value;
 
@@ -274,19 +273,6 @@ namespace WorkStudy.ViewModels
             }
 
             ActivitiesVisible = false;
-        }
-
-        private void ChangeButtonColour(int sender)
-        {
-            IEnumerable<Activity> obsCollection = Activities;
-            var list = new List<Activity>(obsCollection);
-            var activity = list.Find(_ => _.Id == sender);
-            activity.Colour = Utilities.UnClicked.GetHexString().Equals(activity.Colour.GetHexString())
-                ? Utilities.Clicked : Utilities.UnClicked;
-            list.RemoveAll(_ => _.Id == (int)sender);
-            list.Add(activity);
-            Activities = new ObservableCollection<Activity>(obsCollection);
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
         }
 
         void RatingSelectedEvent(object sender)
@@ -328,6 +314,8 @@ namespace WorkStudy.ViewModels
             Operators = GetAllEnabledOperators();
 
             CreateOperatorObservations();
+
+            Utilities.MainPageHasUpdatedObservationChanges = true;
         }
 
         private LimitsOfAccuracy LimitsOfAccuracyReached(Operator currentOperator)
@@ -380,21 +368,21 @@ namespace WorkStudy.ViewModels
                 };
                 OperatorName = operator1.Name;
 
-                Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                                    .Where(x => x.StudyId == Utilities.StudyId
-                                        && x.IsEnabled == true));
-                IEnumerable<Activity> obsCollection = Activities;
+                //Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                //                    .Where(x => x.StudyId == Utilities.StudyId
+                //                        && x.IsEnabled == true));
+                //IEnumerable<Activity> obsCollection = Activities;
 
-                var list1 = new List<Activity>(obsCollection);
+                //var list1 = new List<Activity>(obsCollection);
 
-                foreach (var activity in list1)
-                {
-                    activity.Colour = Color.FromHex(activity.ItemColour);
-                }
+                //foreach (var activity in list1)
+                //{
+                //    activity.Colour = Color.FromHex(activity.ItemColour);
+                //}
 
-                Activities = ConvertListToObservable(list1);
+                //Activities = ConvertListToObservable(list1);
 
-                GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+                //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;
             });
@@ -426,6 +414,19 @@ namespace WorkStudy.ViewModels
             GetObservationRound();
 
             Activities = Get_Enabled_Activities();
+
+            IEnumerable<Activity> obsCollection = Activities;
+
+            var list1 = new List<Activity>(obsCollection);
+
+            foreach (var activity in list1)
+            {
+                activity.Colour = Color.FromHex(activity.ItemColour);
+            }
+
+            Activities = ConvertListToObservable(list1);
+
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
 
             IsPageVisible = IsStudyValid();
 

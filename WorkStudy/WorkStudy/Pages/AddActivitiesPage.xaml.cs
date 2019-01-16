@@ -19,14 +19,48 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            var viewModel = new AddActivitiesViewModel
+            if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {
-                CommentsVisible = false
-            };
-            BindingContext = viewModel;
+                if (!Utilities.ActivityPageHasUpdatedActivityChanges 
+                        || !Utilities.ActivityPageHasUpdatedOperatorChanges
+                        || !Utilities.ActivityPageHasUpdatedObservationChanges)
+                {
+                    Utilities.ActivityPageHasUpdatedActivityChanges = true;
+                    Utilities.ActivityPageHasUpdatedOperatorChanges = true;
+                    Utilities.ActivityPageHasUpdatedObservationChanges = true;
+
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new AddActivitiesViewModel
+                    {
+                        CommentsVisible = false
+                    };
+                    BindingContext = viewModel;
+                }
+            }
+            //var viewModel = new AddActivitiesViewModel
+            //{
+            //    CommentsVisible = false
+            //};
+            //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
            
+        }
+
+        private static void UpdateTableFlags()
+        {
+            if (Utilities.MainPageHasUpdatedActivityChanges
+                                    && Utilities.ActivityPageHasUpdatedActivityChanges)
+                Utilities.ActivityTableUpdated = false;
+
+            if (Utilities.MainPageHasUpdatedOperatorChanges
+                && Utilities.ActivityPageHasUpdatedOperatorChanges)
+                Utilities.OperatorTableUpdated = false;
+
+            if (Utilities.MainPageHasUpdatedObservationChanges
+                && Utilities.ActivityPageHasUpdatedObservationChanges)
+                Utilities.ObservationTableUpdated = false;
         }
     }
 }

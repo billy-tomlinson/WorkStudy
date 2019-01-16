@@ -139,6 +139,7 @@ namespace WorkStudy.ViewModels
                     };
 
                     SaveActivityDetails(activity);
+                    Utilities.ActivityPageHasUpdatedActivityChanges = true;
                 }
                 else
                 {
@@ -160,10 +161,12 @@ namespace WorkStudy.ViewModels
             {
                 Activity.Comment = Comment.ToUpper();
                 ActivityRepo.SaveItem(Activity);
+                Utilities.ActivityPageHasUpdatedActivityChanges = true;
             }
             Opacity = 1;
             CommentsVisible = false;
             Comment = string.Empty;
+
         }
 
         void CancelCommentDetails()
@@ -259,6 +262,7 @@ namespace WorkStudy.ViewModels
                 .OrderByDescending(x => x.Id));
 
             CategoriesVisible = false;
+            Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 
         void AddSelectedEvent(object sender)
@@ -293,6 +297,7 @@ namespace WorkStudy.ViewModels
                 else
                     DeleteActivity(value);
             }
+            Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 
         private void DeleteActivity(int value)
@@ -368,6 +373,7 @@ namespace WorkStudy.ViewModels
                 activity.DeleteIcon = deleteIcon;
 
                 SaveActivityDetails(activity);
+                Utilities.ActivityPageHasUpdatedActivityChanges = true;
             }
         }
     }

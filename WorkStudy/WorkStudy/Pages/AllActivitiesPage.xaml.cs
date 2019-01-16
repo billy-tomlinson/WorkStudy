@@ -19,9 +19,23 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            var viewModel = new AllActivitiesViewModel();
+            if (Utilities.ActivityTableUpdated)
+            {
+                if (!Utilities.AllActivitiesPageHasUpdatedActivityChanges)
+                {
+                    Utilities.AllActivitiesPageHasUpdatedActivityChanges = true;
 
-            BindingContext = viewModel;
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new AllActivitiesViewModel();
+
+                    BindingContext = viewModel;
+                }
+            }
+
+            //var viewModel = new AllActivitiesViewModel();
+
+           //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
 

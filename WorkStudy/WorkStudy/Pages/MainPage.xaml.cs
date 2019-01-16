@@ -25,12 +25,33 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            var viewModel = new MainPageViewModel
+            if(Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {
-                RatingsVisible = false,
-                ActivitiesVisible = false,
-            };
-            BindingContext = viewModel;
+                if(!Utilities.MainPageHasUpdatedActivityChanges 
+                    || !Utilities.MainPageHasUpdatedOperatorChanges
+                    || !Utilities.MainPageHasUpdatedObservationChanges)
+                {
+                    Utilities.MainPageHasUpdatedActivityChanges = true;
+                    Utilities.MainPageHasUpdatedOperatorChanges = true;
+                    Utilities.MainPageHasUpdatedObservationChanges = true;
+
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new MainPageViewModel
+                    {
+                        RatingsVisible = false,
+                        ActivitiesVisible = false,
+                    };
+                    BindingContext = viewModel;
+                }
+            }
+
+            //var viewModel = new MainPageViewModel
+            //{
+            //    RatingsVisible = false,
+            //    ActivitiesVisible = false,
+            //};
+            //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
         }
