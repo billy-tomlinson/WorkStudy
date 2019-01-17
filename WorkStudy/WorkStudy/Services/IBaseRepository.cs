@@ -26,6 +26,8 @@ namespace WorkStudy.Services
 
         void InsertOrReplaceWithChildren(T item);
 
+        void InsertAll(List<T> items);
+
         void CreateTable();
 
         void DropTable();

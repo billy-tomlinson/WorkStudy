@@ -152,5 +152,14 @@ namespace WorkStudy.Services
                     break;
             }
         }
+
+        public void InsertAll(List<T> items)
+        {
+            SetLastUpdatedTime(items[0]);
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.InsertOrReplaceAllWithChildren(items);
+            }
+        }
     }
 }

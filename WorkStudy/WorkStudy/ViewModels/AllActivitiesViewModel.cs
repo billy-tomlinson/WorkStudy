@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WorkStudy.Model;
@@ -54,6 +55,12 @@ namespace WorkStudy.ViewModels
         async void ActivitySelectedEvent(object sender)
         {
 
+            IsBusy = true;
+            IsEnabled = false;
+            Opacity = 0.2;
+
+            var collection = new List<Activity>();
+
             foreach (var item in ItemsCollection.Where(x => x.Selected))
             {
                 var activity = new Activity
@@ -64,15 +71,20 @@ namespace WorkStudy.ViewModels
                     ObservedColour = Utilities.ValueAddedColour
                 };
 
-                var returnID = SaveActivityDetails(activity);
+                collection.Add(activity);
             }
 
+            ActivityRepo.InsertAll(collection);
+
             //*** do this to delay the navigation and refersh the page
-            //come up with a btter solution + show a spinner control
-            await Task.Delay(1500);
+            await Task.Delay(2000);
             ItemsCollection = GetUnusedActivities();
+
             await Task.Delay(1000);
-            //***
+
+            IsEnabled = true;
+            IsBusy = false;
+            Opacity = 1;
 
             var page = sender as ContentPage;
             var parentPage = page.Parent as TabbedPage;

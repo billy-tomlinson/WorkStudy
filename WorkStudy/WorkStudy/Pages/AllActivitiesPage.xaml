@@ -17,6 +17,7 @@
                         WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout IsVisible="{Binding IsPageVisible}"
+                         Opacity="{Binding Opacity}"
                          BackgroundColor="Transparent" 
                          WidthRequest="320"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
@@ -65,6 +66,9 @@
                             Command="{Binding Submit}" 
                             CommandParameter="{x:Reference AllActivitiesView}"  />
                 </StackLayout>
+            </StackLayout>
+                    <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
