@@ -19,38 +19,11 @@ namespace WorkStudy.ViewModels
             IsPageVisible = (Utilities.StudyId > 0);
         }
 
-        private bool busy = false;
-
-        public bool IsBusy
-        {
-            get { return busy; }
-            set
-            {
-                if (busy == value)
-                    return;
-
-                busy = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool isEnabled = true;
-        public bool IsEnabled
-        {
-            get { return isEnabled; }
-            set
-            {
-                isEnabled = value;
-                OnPropertyChanged();
-            }
-        }
-
         private async void SendEmailDetails()
         {
             IsBusy = true;
             IsEnabled = false;
-
-
+            Opacity = 0.2;
             Task emailTask = Task.Run(() => 
             {
                 var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
@@ -61,6 +34,7 @@ namespace WorkStudy.ViewModels
 
             IsEnabled = true;
             IsBusy = false;
+            Opacity = 1;
         }
     }
 }

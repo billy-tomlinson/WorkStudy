@@ -66,6 +66,11 @@
                     </ListView.ItemTemplate>
                 </local:CustomListView>
             </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                   <!-- <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" />-->
+                <ActivityIndicator IsRunning="true" IsVisible="true" Color="White" />
+            </StackLayout>
         </AbsoluteLayout>
     </ContentView.Content>
 </ContentView>

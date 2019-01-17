@@ -283,6 +283,31 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        private bool busy = false;
+        public bool IsBusy
+        {
+            get { return busy; }
+            set
+            {
+                if (busy == value)
+                    return;
+
+                busy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEnabled = true;
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool StudyInProcess
         {
             get => Get_Observations_By_StudyId().Count > 0;
