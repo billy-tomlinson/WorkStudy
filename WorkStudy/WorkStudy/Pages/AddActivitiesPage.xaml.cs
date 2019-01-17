@@ -38,11 +38,7 @@ namespace WorkStudy.Pages
                     BindingContext = viewModel;
                 }
             }
-            //var viewModel = new AddActivitiesViewModel
-            //{
-            //    CommentsVisible = false
-            //};
-            //BindingContext = viewModel;
+
             Utilities.ClearNavigation();
             base.OnAppearing();
            

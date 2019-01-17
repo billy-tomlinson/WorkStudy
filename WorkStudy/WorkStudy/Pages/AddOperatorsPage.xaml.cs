@@ -38,11 +38,6 @@ namespace WorkStudy.Pages
                 }
             }
 
-            //var viewModel = new AddOperatorsViewModel
-            //{
-            //    RunningTotalsVisible = false
-            //};
-            //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
         }

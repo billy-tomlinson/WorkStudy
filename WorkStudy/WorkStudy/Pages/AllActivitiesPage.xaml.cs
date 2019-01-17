@@ -33,9 +33,6 @@ namespace WorkStudy.Pages
                 }
             }
 
-            //var viewModel = new AllActivitiesViewModel();
-
-           //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
 

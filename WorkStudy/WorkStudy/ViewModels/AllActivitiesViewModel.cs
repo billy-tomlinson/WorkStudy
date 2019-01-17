@@ -60,6 +60,8 @@ namespace WorkStudy.ViewModels
             Opacity = 0.2;
 
             var collection = new List<Activity>();
+            var count = Get_All_Enabled_Activities().OrderByDescending(x => x.Id)
+                .Count(z => z.StudyId == Utilities.StudyId);
 
             foreach (var item in ItemsCollection.Where(x => x.Selected))
             {
@@ -76,11 +78,17 @@ namespace WorkStudy.ViewModels
 
             ActivityRepo.InsertAll(collection);
 
-            //*** do this to delay the navigation and refersh the page
-            await Task.Delay(2000);
             ItemsCollection = GetUnusedActivities();
 
-            await Task.Delay(1000);
+            //do this to ensure that everything has been written to the DB before navigating
+            while (true)
+            {
+                await Task.Delay(500);
+                var count1 = Get_All_Enabled_Activities().OrderByDescending(x => x.Id)
+                .Count(z => z.StudyId == Utilities.StudyId);
+                if (collection.Count() + count == count1)
+                    break;
+            }
 
             IsEnabled = true;
             IsBusy = false;
@@ -88,7 +96,9 @@ namespace WorkStudy.ViewModels
 
             var page = sender as ContentPage;
             var parentPage = page.Parent as TabbedPage;
-            parentPage.CurrentPage = parentPage.Children[1];
+            var activitiesPage = (Page)parentPage.Children[1];
+            activitiesPage.BindingContext = new AddActivitiesViewModel();
+            parentPage.CurrentPage = activitiesPage;
         }
     }
 }

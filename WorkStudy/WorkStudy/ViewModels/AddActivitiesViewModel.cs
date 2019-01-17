@@ -343,6 +343,7 @@ namespace WorkStudy.ViewModels
             CheckActivitiesInUse();
 
             ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
+            var count = ItemsCollection.Count;
             Activity = new Activity();
             Activity.SettingsIcon = Utilities.CommentsImage;
         }
