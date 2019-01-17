@@ -1,4 +1,5 @@
-﻿using WorkStudy.Services;
+﻿using System.Threading.Tasks;
+using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
@@ -18,13 +19,48 @@ namespace WorkStudy.ViewModels
             IsPageVisible = (Utilities.StudyId > 0);
         }
 
-        private void SendEmailDetails()
+        private bool busy = false;
+
+        public bool IsBusy
         {
-            
-            Activities = Get_Rated_Enabled_Activities();
-            var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
-            //var spreadsheet = Utilities.CreateExcelWorkBook(Activities);
-            Utilities.SendEmail(spreadsheet);
+            get { return busy; }
+            set
+            {
+                if (busy == value)
+                    return;
+
+                busy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEnabled = true;
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private async void SendEmailDetails()
+        {
+            IsBusy = true;
+            IsEnabled = false;
+
+
+            Task emailTask = Task.Run(() => 
+            {
+                var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+                Utilities.SendEmail(spreadsheet);
+            });
+
+            await emailTask;
+
+            IsEnabled = true;
+            IsBusy = false;
         }
     }
 }

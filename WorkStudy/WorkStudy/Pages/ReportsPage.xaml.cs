@@ -8,20 +8,20 @@ namespace WorkStudy.Pages
         public ReportsPage()
         {
             InitializeComponent();
-            chart.Source = ImageSource.FromFile("chart.png");
+            //chart.Source = ImageSource.FromFile("chart.png");
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
         void Submit_Clicked(object sender, System.EventArgs e)
         {
             //DataBase();
-            chartView.IsVisible = true;
+            //chartView.IsVisible = true;
         }
 
         void Ok_Clicked(object sender, System.EventArgs e)
         {
             //DataBase();
-            chartView.IsVisible = false;
+            //chartView.IsVisible = false;
         }
 
         protected override bool OnBackButtonPressed()

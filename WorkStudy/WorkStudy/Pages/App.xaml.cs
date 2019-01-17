@@ -22,7 +22,7 @@ namespace WorkStudy
             DatabasePath = databasePath;
             Utilities.Connection = DatabasePath;
             CallMain();
-            //MainPage = new NavigationPage(new AllActivitiesPage());
+            //MainPage = new NavigationPage(new ReportsPage());
         }
 
         public static NavigationPage NavigationPage { get; private set; }

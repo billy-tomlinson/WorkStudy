@@ -1,41 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:views="clr-namespace:WorkStudy.Views" 
-             x:Class="WorkStudy.Pages.ReportsPage">
-        <ContentPage.BindingContext>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:views="clr-namespace:WorkStudy.Views" x:Class="WorkStudy.Pages.ReportsPage">
+    <ContentPage.BindingContext>
         <workStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" 
-                        BackgroundColor="Transparent" Padding="30">
-            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
-            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" 
-                         Padding="10" Margin="10" IsVisible="{Binding IsPageVisible}">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Padding="30">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" IsVisible="{Binding IsPageVisible}">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Top Level Stats"  Clicked="Submit_Clicked" />
-                    <Button Text="Individual Stats"  Clicked="Submit_Clicked" />
-                    <Button Text="BreakDown Report"  Clicked="Submit_Clicked" />
-                    <Button Text="Tailored Report"  Clicked="Submit_Clicked" />
-                    <Button Text="Email Report"  Command="{Binding SendEmail}" />
+                    <Button Text="Email Report" Command="{Binding SendEmail}" IsEnabled="{Binding IsEnabled}" />
+                </StackLayout>
+                <StackLayout>
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" />
                 </StackLayout>
             </StackLayout>
-            <ContentView x:Name="chartView" BackgroundColor="White" Padding="10, 0" IsVisible="false" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
-                    <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="400" BackgroundColor="White">
-                        <Image x:Name="chart" HeightRequest="400" WidthRequest="400">
-                        </Image>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent">
-                        <Button Text="OK"  WidthRequest="120" Clicked="Ok_Clicked" />
-                    </StackLayout>
-                </StackLayout>
-            </ContentView>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
