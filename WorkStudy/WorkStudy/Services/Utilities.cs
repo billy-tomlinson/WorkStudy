@@ -56,7 +56,7 @@ namespace WorkStudy.Services
                 ObservationTableUpdated = false;
         }
 
-        public static async void Navigate(Page page)
+        public static async Task Navigate(Page page)
         {
             await Task.Delay(500);
             await App.NavigationPage.Navigation.PushAsync(page);

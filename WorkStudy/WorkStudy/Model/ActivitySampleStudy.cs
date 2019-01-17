@@ -22,6 +22,9 @@ namespace WorkStudy.Model
 
         public bool Completed { get; set; }
 
+        //[Ignore]
+        //public string ObservedColour { get; set; }
+
         [Ignore]
         public string DateTimeFormatted
         {

@@ -4,6 +4,7 @@ using WorkStudy.Model;
 using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
+using WorkStudy.Custom;
 
 namespace WorkStudy.ViewModels
 {
@@ -12,6 +13,9 @@ namespace WorkStudy.ViewModels
         bool completed;
         public ExistingStudiesViewModel(bool completed)
         {
+            Opacity = 1;
+            IsBusy = false;
+
             this.completed = completed;
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                   .Where(_ => _.Completed == completed));
@@ -35,17 +39,24 @@ namespace WorkStudy.ViewModels
 
         public Command Navigate()
         {
-            return new Command((item) =>
+            return new Command(async (item) =>
             {
+                Opacity = 0.2;
+                IsBusy = true;
+
                 var study = item as ActivitySampleStudy;
+                //study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
                 Utilities.StudyId = study.Id;
                 Utilities.RatedStudy = study.IsRated;
                 Utilities.IsCompleted = completed;
 
                 if(!completed)
-                    Utilities.Navigate(new MainPageTabbedPage());
+                   await Utilities.Navigate(new MainPageTabbedPage());
                 else
-                    Utilities.Navigate(new ReportsPage());
+                    await Utilities.Navigate(new ReportsPage());
+
+                Opacity = 1;
+                IsBusy = false;
             });
         }
     }
