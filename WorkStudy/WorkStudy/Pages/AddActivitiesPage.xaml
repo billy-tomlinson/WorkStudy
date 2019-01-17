@@ -75,6 +75,9 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

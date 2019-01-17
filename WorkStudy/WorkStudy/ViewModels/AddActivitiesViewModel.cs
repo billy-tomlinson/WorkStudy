@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkStudy.Model;
 using WorkStudy.Pages;
@@ -163,10 +164,10 @@ namespace WorkStudy.ViewModels
                 ActivityRepo.SaveItem(Activity);
                 Utilities.ActivityPageHasUpdatedActivityChanges = true;
             }
+
             Opacity = 1;
             CommentsVisible = false;
             Comment = string.Empty;
-
         }
 
         void CancelCommentDetails()
@@ -214,7 +215,6 @@ namespace WorkStudy.ViewModels
             {
                 Opacity = 1;
                 IsInvalid = false;
-
             }
         }
 
@@ -274,12 +274,12 @@ namespace WorkStudy.ViewModels
             CommentsVisible = true;
         }
 
-        void DeleteSelectedEvent(object sender)
+        async void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
 
             if (!StudyInProcess)
-                DeleteActivity(value);
+               await DeleteActivity(value);
             else
             {
                 var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
@@ -295,25 +295,37 @@ namespace WorkStudy.ViewModels
                     ShowClose = true;
                 }
                 else
-                    DeleteActivity(value);
+                    await DeleteActivity(value);
             }
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 
-        private void DeleteActivity(int value)
+        private async Task DeleteActivity(int value)
         {
-            Activity = ActivityRepo.GetWithChildren(value);
-            ActivityRepo.DeleteItem(Activity);
+            IsBusy = true;
+            IsEnabled = false;
+            Opacity = 0.2;
+            Task deleteTask = Task.Run(() =>
+            {
+                Activity = ActivityRepo.GetWithChildren(value);
+                ActivityRepo.DeleteItem(Activity);
 
-            var activities = ActivityRepo
-                                .GetAllWithChildren()
-                                .Where(x => x.ActivityName.Name == Activity.ActivityName.Name 
-                                 && x.StudyId != Utilities.StudyId);
-                                
-            if (!activities.Any())
-                ActivityNameRepo.DeleteItem(Activity.ActivityName);
+                var activities = ActivityRepo
+                                    .GetAllWithChildren()
+                                    .Where(x => x.ActivityName.Name == Activity.ActivityName.Name
+                                     && x.StudyId != Utilities.StudyId);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
+                if (!activities.Any())
+                    ActivityNameRepo.DeleteItem(Activity.ActivityName);
+
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
+            });
+
+            await deleteTask;
+
+            IsEnabled = true;
+            IsBusy = false;
+            Opacity = 1;
         }
 
         void ActivitySelectedEvent(object sender)
