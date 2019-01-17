@@ -11,7 +11,7 @@
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>
                 <StackLayout>
-                    <Button Text="Email Report" Command="{Binding SendEmail}" IsEnabled="{Binding IsEnabled}" />
+                    <Button Text="Send Report" Command="{Binding SendEmail}" IsEnabled="{Binding IsEnabled}" />
                 </StackLayout>
                 <StackLayout>
                     <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="White" />
