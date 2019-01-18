@@ -23,13 +23,13 @@
                             <Label Style="{StaticResource studyLabel}" Text="{Binding AlarmType}" HeightRequest="40" FontAttributes="Bold" TextColor="Black" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
-                            <Label Style="{StaticResource studyLabel}" Text="Interval mins" IsEnabled="{Binding IsIntervalMinutesVisible}" HeightRequest="40" />
-                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding IntervalMinutes}" IsEnabled="{Binding IsIntervalMinutesVisible}" BackgroundColor="{Binding DisabledColour}" HeightRequest="40" FontSize="15" />
+                            <Label Style="{StaticResource studyLabel}" Text="Interval mins" HeightRequest="40" />
+                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding IntervalMinutes}" HeightRequest="40" FontSize="15" />
                         </StackLayout>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
                         <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
-                        <Switch IsToggled="{Binding IsEnabled}" HorizontalOptions="Start" />
+                        <Switch IsToggled="{Binding IsAlarmEnabled}" HorizontalOptions="Start" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="10,10,10,10">
                         <Label Style="{StaticResource studyLabel}" Text="{Binding AlarmStatus}" HeightRequest="40" FontAttributes="Bold" TextColor="Black" />

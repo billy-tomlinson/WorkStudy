@@ -54,7 +54,7 @@ namespace WorkStudy.ViewModels
                 {
                     var success = int.TryParse(IntervalMinutes, out int result);
                     IntervalIsValid(success);
-                    IsEnabled = false;
+                    IsAlarmEnabled = false;
                     OnPropertyChanged("IsEnabled");
                     IsPageEnabled = true;
                     OnPropertyChanged("IsPageEnabled");
@@ -71,7 +71,7 @@ namespace WorkStudy.ViewModels
         static bool isPageEnabled;
         public bool IsPageEnabled
         {
-            get => !IsEnabled;
+            get => !IsAlarmEnabled;
             set
             {
                 isPageEnabled = value;
@@ -81,7 +81,7 @@ namespace WorkStudy.ViewModels
 
 
         static bool isEnabled;
-        public bool IsEnabled
+        public bool IsAlarmEnabled
         {
             get => isEnabled;
             set
@@ -136,7 +136,7 @@ namespace WorkStudy.ViewModels
         {
             alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
             intervalTime = alarmDetails.Interval / 60;
-            if (IsEnabled)
+            if (IsAlarmEnabled)
                 AlarmStatus = "ENABLED";
             else
                 AlarmStatus = "DISABLED";
@@ -149,14 +149,14 @@ namespace WorkStudy.ViewModels
 
             AlarmType = alarmDetails.Type != string.Empty ? alarmDetails.Type : interval;
             IsRandom = alarmDetails.Type != interval;
-            IsEnabled = alarmDetails.IsActive;
+            IsAlarmEnabled = alarmDetails.IsActive;
             IntervalMinutes = (alarmDetails.Interval / 60).ToString();
             pageLoading = false;
         }
 
         void SaveAlarmDetails()
         {
-            if (!IsRandom && IsEnabled)
+            if (IsAlarmEnabled)
             {
                 var success = int.TryParse(IntervalMinutes, out int result);
 
@@ -169,13 +169,13 @@ namespace WorkStudy.ViewModels
 
             alarmDetails.Interval = intervalTime;
             alarmDetails.Type = AlarmType;
-            alarmDetails.IsActive = IsEnabled;
+            alarmDetails.IsActive = IsAlarmEnabled;
 
             AlarmRepo.SaveItem(alarmDetails);
 
             var service = DependencyService.Get<ILocalNotificationService>();
 
-            if (IsEnabled)
+            if (IsAlarmEnabled)
                 service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, intervalTime);
             else
                 service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
@@ -183,14 +183,14 @@ namespace WorkStudy.ViewModels
 
         private bool IntervalIsValid(bool success)
         {
-            if (!IsEnabled) return true;
+            if (!IsAlarmEnabled) return true;
 
             if (!success)
             {
                 ValidationText = "Please enter valid minutes less than 99";
                 Opacity = 0.2;
                 IsInvalid = true;
-                IsEnabled = false;
+                IsAlarmEnabled = false;
                 ShowClose = true;
                 Switch_Toggled_Enabled();
                 return false;

@@ -8,6 +8,5 @@ namespace WorkStudy.Model
         public string Type { get; set; }
         public bool IsActive { get; set; }
         public int Interval { get; set; }
-        public string RandomDetails { get; set; }
     }
 }

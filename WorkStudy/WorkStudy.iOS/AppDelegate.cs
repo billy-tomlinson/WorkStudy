@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Foundation;
+using Intents;
+using ObjCRuntime;
 using Plugin.Toasts;
 using UIKit;
 using UserNotifications;
@@ -44,19 +47,28 @@ namespace WorkStudy.iOS
                 }
             }
 
-            // We have checked to see if the device is running iOS 8, if so we are required to ask for the user's permission to receive notifications
-            if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                // Request Permissions
+                UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert 
+                        | UNAuthorizationOptions.Badge 
+                        | UNAuthorizationOptions.Sound, (granted, error) =>
+                            {
+                                // Do something if needed
+                            });
+                UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
+            }
+
+            else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
             {
                 var notificationSettings = UIUserNotificationSettings.GetSettingsForTypes(
-                    UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null
-                );
+                UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, null);
 
                 app.RegisterUserNotificationSettings(notificationSettings);
                 UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
             }
 
-
-            string dbName = "WorkStudyAB.db3";
+            string dbName = "WorkStudyAC.db3";
            //string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
             string folderPath = "/Users/billytomlinson";
             string dbPath = Path.Combine(folderPath, dbName);
