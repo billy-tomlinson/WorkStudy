@@ -23,7 +23,7 @@
                              Margin="10" 
                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                              AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
-                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
+                    <StackLayout BindingContext="{Binding AlarmPageViewModel}" Padding="20,20,20,20">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
                             <Label Text="Study Details" HeightRequest="50" FontSize="40" />
                         </StackLayout>

@@ -36,16 +36,8 @@ namespace WorkStudy.ViewModels
                 {
                     var success = int.TryParse(IntervalMinutes, out int result);
                     IntervalIsValid(success);
-                    IsAlarmEnabled = false;
-                    OnPropertyChanged("IsAlarmEnabled");
                     IsPageEnabled = true;
                     OnPropertyChanged("IsPageEnabled");
-                    if (value)
-                    {
-                        IntervalMinutes = null;
-                        OnPropertyChanged("IntervalMinutes");
-                    }
-
                 }   
             }
         }
@@ -62,13 +54,13 @@ namespace WorkStudy.ViewModels
         }
 
 
-        static bool isEnabled;
+        static bool isAlarmEnabled;
         public bool IsAlarmEnabled
         {
-            get => isEnabled;
+            get => isAlarmEnabled;
             set
             {
-                isEnabled = value;
+                isAlarmEnabled = value;
                 OnPropertyChanged();
                 OnPropertyChanged("AlarmType");
                 Switch_Toggled_Enabled();
