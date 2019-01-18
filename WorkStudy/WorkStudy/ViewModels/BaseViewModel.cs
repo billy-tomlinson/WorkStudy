@@ -44,7 +44,8 @@ namespace WorkStudy.ViewModels
             {
                 if (SecondsToNextObservation == 0)
                 {
-                    return false;
+                    SecondsToNextObservation = 61;
+                    //return false;
                 }
                 Device.BeginInvokeOnMainThread(() =>
                 {
