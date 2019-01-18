@@ -186,8 +186,24 @@ namespace WorkStudy.ViewModels
 
         private void UpdateObservationRoundStatus()
         {
+            SetNextRandomAlarmTime();
+
             ObservationRoundStatus.Status = "Complete";
             ObservationRoundStatusRepo.SaveItem(ObservationRoundStatus);
+        }
+
+        private void SetNextRandomAlarmTime()
+        {
+            var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+            var service = DependencyService.Get<ILocalNotificationService>();
+
+            Random r = new Random();
+            var intervalTime = r.Next(0, alarm.Interval * 2);
+            if (alarm.IsActive && alarm.Type == "RANDOM")
+            {
+                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, intervalTime);
+            }
         }
 
         private void SetUpForNextObservationRound()
@@ -368,21 +384,6 @@ namespace WorkStudy.ViewModels
                 };
                 OperatorName = operator1.Name;
 
-                //Activities = new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                //                    .Where(x => x.StudyId == Utilities.StudyId
-                //                        && x.IsEnabled == true));
-                //IEnumerable<Activity> obsCollection = Activities;
-
-                //var list1 = new List<Activity>(obsCollection);
-
-                //foreach (var activity in list1)
-                //{
-                //    activity.Colour = Color.FromHex(activity.ItemColour);
-                //}
-
-                //Activities = ConvertListToObservable(list1);
-
-                //GroupActivities = Utilities.BuildGroupOfActivities(Activities);
                 Opacity = 0.2;
                 ActivitiesVisible = true;
             });

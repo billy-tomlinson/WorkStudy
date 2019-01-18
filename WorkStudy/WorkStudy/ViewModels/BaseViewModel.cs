@@ -78,6 +78,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static string timeToNextObservation;
+        public string TimeToNextObservation
+        {
+            get => timeToNextObservation;
+            set
+            {
+                timeToNextObservation = value;
+                OnPropertyChanged();
+            }
+        }
 
         static ObservableCollection<MultipleActivities> _groupActivities;
         public ObservableCollection<MultipleActivities> GroupActivities
