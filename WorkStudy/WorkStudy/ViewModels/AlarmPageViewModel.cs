@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using WorkStudy.Services;
 using WorkStudy.Model;
+using System.Linq;
 
 namespace WorkStudy.ViewModels
 {
@@ -125,7 +126,8 @@ namespace WorkStudy.ViewModels
 
         void Switch_Toggled_Type()
         {
-            alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
+            alarmDetails = AlarmRepo.GetItems()
+                .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
             intervalTime = alarmDetails.Interval / 60;
             AlarmType = isRandom == false ? interval : random;
             DisabledColour = isRandom == false ? Color.White : Color.Gray;
@@ -134,7 +136,8 @@ namespace WorkStudy.ViewModels
 
         void Switch_Toggled_Enabled()
         {
-            alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
+            alarmDetails = AlarmRepo.GetItems()
+                .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
             intervalTime = alarmDetails.Interval / 60;
             if (IsAlarmEnabled)
                 AlarmStatus = "ENABLED";
@@ -145,7 +148,8 @@ namespace WorkStudy.ViewModels
         public AlarmPageViewModel()
         {
             pageLoading = true;
-            alarmDetails = AlarmRepo.GetItem(1) ?? new AlarmDetails();
+            alarmDetails = AlarmRepo.GetItems()
+                .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
 
             AlarmType = alarmDetails.Type != string.Empty ? alarmDetails.Type : interval;
             IsRandom = alarmDetails.Type != interval;
@@ -170,6 +174,7 @@ namespace WorkStudy.ViewModels
             alarmDetails.Interval = intervalTime;
             alarmDetails.Type = AlarmType;
             alarmDetails.IsActive = IsAlarmEnabled;
+            alarmDetails.StudyId = Utilities.StudyId;
 
             AlarmRepo.SaveItem(alarmDetails);
 
