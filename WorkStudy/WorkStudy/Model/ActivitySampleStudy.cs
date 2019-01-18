@@ -33,5 +33,17 @@ namespace WorkStudy.Model
             get { return $"{Date.ToString("dd/MM/yyyy")} : {Time.ToString((@"hh\:mm"))}"; }
         }
 
+        [Ignore]
+        public string DateFormatted
+        {
+            get { return $"{Date.ToString("dd/MM/yyyy")}"; }
+        }
+
+        [Ignore]
+        public string TimeFormatted
+        {
+            get { return $"{Time.ToString((@"hh\:mm"))}"; }
+        }
+
     }
 }

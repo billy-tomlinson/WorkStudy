@@ -8,7 +8,7 @@ namespace WorkStudy.ViewModels
 {
     public class AlarmPageViewModel : BaseViewModel
     {
-        const string interval = "INTERVAL";
+        const string interval = "CONSTANT";
         const string random = "RANDOM";
         int intervalTime = 1;
         readonly bool pageLoading;
@@ -16,6 +16,10 @@ namespace WorkStudy.ViewModels
         AlarmDetails alarmDetails;
 
         public bool CancelAlarm { get; set; }
+
+        public ActivitySampleStudy ActivtySample { get; set; }
+
+        public string StudyType { get; set; }
 
         public bool ContinueTimer { get; set; } = true;
 
@@ -124,6 +128,10 @@ namespace WorkStudy.ViewModels
         public AlarmPageViewModel()
         {
             pageLoading = true;
+            ActivtySample = SampleRepo.GetItem(Utilities.StudyId);
+
+            StudyType = ActivtySample.IsRated == false ? "RATED" : "UNRATED";
+
             alarmDetails = AlarmRepo.GetItems()
                 .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
 
