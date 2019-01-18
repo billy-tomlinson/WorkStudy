@@ -6,6 +6,7 @@ using WorkStudy.Services;
 using Xamarin.Forms;
 using WorkStudy.Custom;
 using System.Threading.Tasks;
+using System;
 
 namespace WorkStudy.ViewModels
 {
@@ -43,22 +44,29 @@ namespace WorkStudy.ViewModels
 
             return new  Command(async (item) =>
             {
-                Opacity = 0.2;
                 IsBusy = true;
+                Task navigateTask = Task.Run( async () =>
+                {
+                    await Task.Delay(200);
+                    Opacity = 0.2;
 
-                var study = item as ActivitySampleStudy;
-                study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
-                Utilities.StudyId = study.Id;
-                Utilities.RatedStudy = study.IsRated;
-                Utilities.IsCompleted = completed;
+                    var study = item as ActivitySampleStudy;
+                    study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
+                    Utilities.StudyId = study.Id;
+                    Utilities.RatedStudy = study.IsRated;
+                    Utilities.IsCompleted = completed;
 
-                if(!completed)
-                   await Utilities.Navigate(new MainPageTabbedPage());
-                else
-                    await Utilities.Navigate(new ReportsPage());
+                    Device.BeginInvokeOnMainThread(async  () =>
+                    {
+                        if (!completed)
+                           await Utilities.Navigate(new MainPageTabbedPage());
+                        else
+                            await Utilities.Navigate(new ReportsPage());
+                    });
+                });
 
-                Opacity = 1;
-                IsBusy = false;
+                await navigateTask;
+
             });
         }
     }
