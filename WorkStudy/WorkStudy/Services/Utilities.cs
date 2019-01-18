@@ -183,27 +183,18 @@ namespace WorkStudy.Services
             return new SpreadSheet() { FileName = fileName, FilePath = path };
         }
 
-        public static bool SendEmail(SpreadSheet spreadSheet)
+        public static void SendEmail(SpreadSheet spreadSheet)
         {
-            try
-            {
-                var email = new EmailMessageBuilder()
-                    .Subject("Activity Sample Results")
-                    .Body($"Attached are the results for Study {StudyId}")
-                    .WithAttachment(Path.Combine(spreadSheet.FilePath, spreadSheet.FileName), "application/msexcel")
-                    .Build();
+            var email = new EmailMessageBuilder()
+                .Subject("Activity Sample Results")
+                .Body($"Attached are the results for Study {StudyId}")
+                .WithAttachment(Path.Combine(spreadSheet.FilePath, spreadSheet.FileName), "application/msexcel")
+                .Build();
 
-                var emailTask = CrossMessaging.Current.EmailMessenger;
-                if (emailTask.CanSendEmail)
-                {
-                    emailTask.SendEmail(email);
-                    return true;
-                }
-                return false;
-            }
-            catch
+            var emailTask = CrossMessaging.Current.EmailMessenger;
+            if (emailTask.CanSendEmail)
             {
-                return false;
+                emailTask.SendEmail(email);
             }
         }
 

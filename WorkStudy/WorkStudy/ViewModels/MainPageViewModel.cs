@@ -199,8 +199,8 @@ namespace WorkStudy.ViewModels
 
             Random r = new Random();
             var intervalTime = r.Next(0, alarm.Interval * 2);
-            SecondsToNextObservation = intervalTime;
-            SecondsToNextObservation = 61;
+            SecondsToNextObservation = intervalTime < 60 ? 61 : intervalTime;
+
             if (alarm.IsActive && alarm.Type == "RANDOM")
             {
                 service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);

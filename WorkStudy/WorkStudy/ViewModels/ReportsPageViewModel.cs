@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -24,17 +25,28 @@ namespace WorkStudy.ViewModels
             IsBusy = true;
             IsEnabled = false;
             Opacity = 0.2;
-            Task emailTask = Task.Run(() => 
+
+            try 
             {
-                var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
-                Utilities.SendEmail(spreadsheet);
-            });
+                Task emailTask = Task.Run(() =>
+                {
+                    var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+                    Utilities.SendEmail(spreadsheet);
+                });
 
-            await emailTask;
+                await emailTask;
+            }
+            catch(Exception ex)
+            {
+                IsEnabled = true;
+                IsBusy = false;
+                Opacity = 1;
 
-            IsEnabled = true;
-            IsBusy = false;
-            Opacity = 1;
+                ValidationText = "Unable to generate report.Please check STORAGE permissions.";
+                Opacity = 0.2;
+                IsInvalid = true;
+                ShowClose = true;
+            }
         }
     }
 }
