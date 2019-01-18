@@ -5,6 +5,7 @@ using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 using WorkStudy.Custom;
+using System.Threading.Tasks;
 
 namespace WorkStudy.ViewModels
 {
@@ -39,13 +40,14 @@ namespace WorkStudy.ViewModels
 
         public Command Navigate()
         {
-            return new Command(async (item) =>
+
+            return new  Command(async (item) =>
             {
                 Opacity = 0.2;
                 IsBusy = true;
 
                 var study = item as ActivitySampleStudy;
-                //study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
+                study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
                 Utilities.StudyId = study.Id;
                 Utilities.RatedStudy = study.IsRated;
                 Utilities.IsCompleted = completed;

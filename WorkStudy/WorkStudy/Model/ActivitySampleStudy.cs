@@ -1,5 +1,7 @@
 ﻿using System;
 using SQLite;
+using WorkStudy.Custom;
+using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {
@@ -22,8 +24,8 @@ namespace WorkStudy.Model
 
         public bool Completed { get; set; }
 
-        //[Ignore]
-        //public string ObservedColour { get; set; }
+        [Ignore]
+        public string ObservedColour { get; set; } = Xamarin.Forms.Color.Gray.GetShortHexString();
 
         [Ignore]
         public string DateTimeFormatted
