@@ -127,6 +127,8 @@ namespace WorkStudy.ViewModels
 
         public AlarmPageViewModel()
         {
+            if (!IsPageVisible) return;
+
             pageLoading = true;
             ActivtySample = SampleRepo.GetItem(Utilities.StudyId);
 
