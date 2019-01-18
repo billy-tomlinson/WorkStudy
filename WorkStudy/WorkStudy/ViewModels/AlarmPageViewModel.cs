@@ -19,28 +19,6 @@ namespace WorkStudy.ViewModels
 
         public bool ContinueTimer { get; set; } = true;
 
-        static bool isIntervalMinutesVisible;
-        public bool IsIntervalMinutesVisible
-        {
-            get => !IsRandom;
-            set
-            {
-                isIntervalMinutesVisible = value;
-                OnPropertyChanged();
-            }
-        }
-
-        static Color disabledColour;
-        public Color DisabledColour
-        {
-            get => disabledColour;
-            set
-            {
-                disabledColour = value;
-                OnPropertyChanged();
-            }
-        }
-
         static bool isRandom;
         public bool IsRandom
         {
@@ -49,14 +27,13 @@ namespace WorkStudy.ViewModels
             {
                 isRandom = value;
                 OnPropertyChanged();
-                OnPropertyChanged("IsIntervalMinutesVisible");
                 Switch_Toggled_Type();
                 if(!pageLoading)
                 {
                     var success = int.TryParse(IntervalMinutes, out int result);
                     IntervalIsValid(success);
                     IsAlarmEnabled = false;
-                    OnPropertyChanged("IsEnabled");
+                    OnPropertyChanged("IsAlarmEnabled");
                     IsPageEnabled = true;
                     OnPropertyChanged("IsPageEnabled");
                     if (value)
@@ -130,7 +107,6 @@ namespace WorkStudy.ViewModels
                 .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
             intervalTime = alarmDetails.Interval / 60;
             AlarmType = isRandom == false ? interval : random;
-            DisabledColour = isRandom == false ? Color.White : Color.Gray;
         }
 
 

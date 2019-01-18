@@ -53,6 +53,19 @@
                             <Label Style="{StaticResource studyLabel}" />
                             <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference StudyDetailsView}}" />
                         </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Interval type" />
+                            <Switch IsToggled="{Binding Path = BindingContext.IsRandom, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference StudyDetailsView}}" />
+                        </StackLayout>
+                         <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
+                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" 
+                                   Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
+                        </StackLayout>
                     </StackLayout>
                     <StackLayout>
                         <Button Text="Submit Details" WidthRequest="150" 

@@ -13,6 +13,8 @@ namespace WorkStudy.ViewModels
 
         public StudyDetailsViewModel() { ConstructorSetUp(); }
 
+        int intervalTime;
+
         public ICommand SubmitAndFocusOperators => new Command
         (
             (parameter) =>
@@ -23,6 +25,16 @@ namespace WorkStudy.ViewModels
                 {
                     SampleStudy.IsRated = !IsUnRated;
                     Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
+
+                    AlarmRepo.SaveItem(new AlarmDetails 
+                        {  
+                            IsActive = false, 
+                            Type = AlarmType, 
+                            Interval = intervalTime,
+                            StudyId = Utilities.StudyId
+                        }
+                    );
+
                     StudyNumber = Utilities.StudyId;
                     CreateUnratedActivities();
 
@@ -53,7 +65,7 @@ namespace WorkStudy.ViewModels
         }
 
 
-        string studyType = "Rated";
+        string studyType = "RATED";
         public string StudyType
         {
             get { return studyType; }
@@ -64,9 +76,40 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        bool isRandom = false;
+        public bool IsRandom
+        {
+            get { return isRandom; }
+            set
+            {
+                isRandom = value;
+                Switch_Toggled_Type();
+                OnPropertyChanged();
+            }
+        }
+
+
+        static string alarmType = "CONSTANT";
+        public string AlarmType 
+        {
+            get => alarmType;
+            set
+            {
+                alarmType = value;
+                OnPropertyChanged();
+            }
+        }
+
         void Switch_Toggled()
         {
-            StudyType = _isUnRated == false ? "Rated" : "UnRated";
+            StudyType = _isUnRated == false ? "RATED" : "UNRATED";
+        }
+
+
+        void Switch_Toggled_Type()
+        {
+            AlarmType = IsRandom == false ? "CONSTANT" : "RANDOM";
         }
 
         bool isActive;
@@ -120,12 +163,34 @@ namespace WorkStudy.ViewModels
 
         }
 
+        private bool IntervalIsValid(bool success)
+        {
+
+            if (!success)
+            {
+                ValidationText = "Please enter valid minutes less than 99";
+                Opacity = 0.2;
+                IsInvalid = true;
+                ShowClose = true;
+                return false;
+            }
+            else
+                return true;
+
+        }
+
         private void ValidateValues()
         {
             ValidationText = "Please enter all study details";
             ShowClose = true;
             IsInvalid = true;
             Opacity = 0.2;
+
+            var success = int.TryParse(IntervalMinutes, out int result);
+
+            if (!IntervalIsValid(success)) return;
+
+            intervalTime = result * 60;
 
             if ((SampleStudy.Department != null && SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
