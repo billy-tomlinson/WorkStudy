@@ -37,6 +37,26 @@ namespace WorkStudy.ViewModels
             });
         }
 
+        public void CountDownToNextRound()
+        {
+            SecondsToNextObservation = 61;
+            Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+            {
+                if (SecondsToNextObservation == 0)
+                {
+                    return false;
+                }
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    SecondsToNextObservation = SecondsToNextObservation - 1;
+                    TimeSpan _TimeSpan = TimeSpan.FromSeconds(SecondsToNextObservation);
+                    TimeToNextObservation = string.Format("{0:00}:{1:00}", _TimeSpan.Minutes, _TimeSpan.Seconds);
+                });
+                return true;
+
+            });
+        }
+
         public Command SubmitDetails { get; set; }
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
@@ -77,6 +97,18 @@ namespace WorkStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        static int secondsToNextObservation;
+        public int SecondsToNextObservation
+        {
+            get => secondsToNextObservation;
+            set
+            {
+                secondsToNextObservation = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         static string timeToNextObservation;
         public string TimeToNextObservation

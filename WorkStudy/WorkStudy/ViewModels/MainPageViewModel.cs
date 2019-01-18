@@ -199,11 +199,15 @@ namespace WorkStudy.ViewModels
 
             Random r = new Random();
             var intervalTime = r.Next(0, alarm.Interval * 2);
+            SecondsToNextObservation = intervalTime;
+            SecondsToNextObservation = 61;
             if (alarm.IsActive && alarm.Type == "RANDOM")
             {
                 service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
-                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, intervalTime);
+                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, SecondsToNextObservation);
             }
+
+            CountDownToNextRound();
         }
 
         private void SetUpForNextObservationRound()
