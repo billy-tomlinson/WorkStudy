@@ -121,8 +121,9 @@ namespace WorkStudy.Droid.DependencyServices
 
             var notificator = DependencyService.Get<IToastNotificator>();
 
-            //notificator.Notify(options);
-            notificator.Notify(HandleAction, options);
+            notificator.Notify(options);
+            Utilities.RestartAlarmCounter = true;
+            //notificator.Notify(HandleAction, options);
 
         }
         #region  - possible random alarm functionlity - -maybe...

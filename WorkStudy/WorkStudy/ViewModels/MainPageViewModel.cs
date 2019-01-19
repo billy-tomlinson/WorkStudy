@@ -25,8 +25,11 @@ namespace WorkStudy.ViewModels
         public Command PauseStudy { get; set; }
         public Command EditStudy { get; set; }
 
+       
+
         public MainPageViewModel(string conn) : base(conn)
         {
+
             ConstructorSetUp();
         }
 
@@ -205,9 +208,10 @@ namespace WorkStudy.ViewModels
             {
                 service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
                 service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, SecondsToNextObservation);
+                TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
             }
-
-            CountDownToNextRound();
+            else
+                TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString((@"hh\:mm"));
         }
 
         private void SetUpForNextObservationRound()
@@ -427,7 +431,7 @@ namespace WorkStudy.ViewModels
             foreach (var activity in list1)
             {
                 activity.Colour = Color.FromHex(activity.ItemColour);
-            }
+            };
 
             Activities = ConvertListToObservable(list1);
 
@@ -444,6 +448,11 @@ namespace WorkStudy.ViewModels
                                           .FirstOrDefault();
 
             ObservationRoundStatus = obsStatus == null ? new ObservationRoundStatus() : obsStatus;
+
+            var alarmDetails = AlarmRepo.GetItems()
+              .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+
+            TimeOfNextObservation = DateTime.Now.AddSeconds(alarmDetails.Interval).ToString((@"hh\:mm"));
         }
 
         void OverrideEvent(object sender)

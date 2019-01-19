@@ -32,31 +32,20 @@ namespace WorkStudy.ViewModels
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                Device.BeginInvokeOnMainThread(() => CurrentTime = DateTime.Now.ToString("HH.mm:ss"));
-                return true;
-            });
-        }
 
-        public void CountDownToNextRound()
-        {
-            SecondsToNextObservation = 61;
-            Device.StartTimer(new TimeSpan(0, 0, 1), () =>
-            {
-                if (SecondsToNextObservation == 0)
+                Device.BeginInvokeOnMainThread(() => 
                 {
-                    SecondsToNextObservation = 61;
-                    //return false;
-                }
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    SecondsToNextObservation = SecondsToNextObservation - 1;
-                    TimeSpan _TimeSpan = TimeSpan.FromSeconds(SecondsToNextObservation);
-                    TimeToNextObservation = string.Format("{0:00}:{1:00}", _TimeSpan.Minutes, _TimeSpan.Seconds);
+                    if (Utilities.RestartAlarmCounter)
+                    {
+                        TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
+                        Utilities.RestartAlarmCounter = false;
+                    }
+                    CurrentTime = DateTime.Now.ToString("HH.mm:ss");
                 });
                 return true;
-
             });
         }
+
 
         public Command SubmitDetails { get; set; }
 
@@ -111,13 +100,13 @@ namespace WorkStudy.ViewModels
         }
 
 
-        static string timeToNextObservation;
-        public string TimeToNextObservation
+        static string timeOfNextObservation;
+        public string TimeOfNextObservation
         {
-            get => timeToNextObservation;
+            get => timeOfNextObservation;
             set
             {
-                timeToNextObservation = value;
+                timeOfNextObservation = value;
                 OnPropertyChanged();
             }
         }

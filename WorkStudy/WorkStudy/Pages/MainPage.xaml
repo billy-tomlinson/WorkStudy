@@ -18,8 +18,8 @@
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
                  <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text=" Time to Next Round: "/>
-                    <Label Text="{Binding TimeToNextObservation}"/>
+                    <Label Text=" Time Of Next Round: "/>
+                    <Label Text="{Binding TimeOfNextObservation}"/>
                 </StackLayout>
                 <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
                     <views:StudyDetailsView />

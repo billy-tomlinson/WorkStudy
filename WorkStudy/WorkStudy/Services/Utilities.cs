@@ -40,6 +40,9 @@ namespace WorkStudy.Services
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
+        static bool restartAlarmCounter;
+        public static bool RestartAlarmCounter { get; set; }
+
 
         public static void UpdateTableFlags()
         {
