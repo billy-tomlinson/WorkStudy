@@ -41,8 +41,26 @@ namespace WorkStudy.Services
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
         static bool restartAlarmCounter;
-        public static bool RestartAlarmCounter { get; set; }
+        public static bool RestartAlarmCounter
+        {
+            get => restartAlarmCounter;
+            set
+            {
+                restartAlarmCounter = value;
+                InsertIntoDatabase();
+            }
+        }
 
+        private static  void InsertIntoDatabase()
+        {
+            if(restartAlarmCounter && StudyId > 0)
+            {
+                IBaseRepository<AlarmDetails> AlarmRepo = new BaseRepository<AlarmDetails>("/Users/billytomlinson/WorkStudyAC.db3");
+                var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
+                alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
+                AlarmRepo.SaveItem(alarm);
+            }
+        }
 
         public static void UpdateTableFlags()
         {

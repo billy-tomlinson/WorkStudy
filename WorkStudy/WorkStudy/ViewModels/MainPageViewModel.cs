@@ -38,6 +38,86 @@ namespace WorkStudy.ViewModels
             ConstructorSetUp();
         }
 
+
+        private void ConstructorSetUp()
+        {
+            SaveObservations = new Command(SaveObservationDetails);
+            ActivitySelected = new Command(ActivitySelectedEvent);
+            RatingSelected = new Command(RatingSelectedEvent);
+            EndStudy = new Command(TerminateStudy);
+            EditStudy = new Command(EditStudyDetails);
+            PauseStudy = new Command(NavigateToStudyMenu);
+            Override = new Command(OverrideEvent);
+            Opacity = 1.0;
+
+            Operators = GetAllEnabledOperators();
+
+            GetObservationRound();
+
+            Activities = Get_Enabled_Activities();
+
+            IEnumerable<Activity> obsCollection = Activities;
+
+            var list1 = new List<Activity>(obsCollection);
+
+            foreach (var activity in list1)
+            {
+                activity.Colour = Color.FromHex(activity.ItemColour);
+            };
+
+            Activities = ConvertListToObservable(list1);
+
+            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
+
+            IsPageVisible = IsStudyValid();
+
+            CreateOperatorObservations();
+
+            TotalPercent = GetStudyTotalPercent();
+
+            var obsStatus = ObservationRoundStatusRepo.GetItems()
+                                          .Where(x => x.ObservationId == ObservationRound)
+                                          .FirstOrDefault();
+
+            ObservationRoundStatus = obsStatus == null ? new ObservationRoundStatus() : obsStatus;
+
+            SetUpNextObservationTime();
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    CurrentTime = DateTime.Now.ToString("HH.mm:ss");
+                });
+                return true;
+            });
+        }
+
+        private void SetUpNextObservationTime()
+        {
+            if (Utilities.StudyId > 0)
+            {
+                var alarmDetails = AlarmRepo.GetItems()
+                    .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+
+                TimeOfNextObservation = DateTime.Now.AddSeconds(alarmDetails.Interval).ToString((@"hh\:mm"));
+
+                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+                {
+                    var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                    var time = alarm.NotificationRecieved.ToString((@"hh\:mm"));
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        TimeOfNextObservation = time;
+                        OnPropertyChanged("TimeOfNextObservation");
+                        Utilities.RestartAlarmCounter = false;
+                    });
+                    return true;
+                });
+
+            }
+        }
+
         private Observation Observation { get; set; }
         private int ActivityId { get; set; }
         private int Rating { get; set; }
@@ -405,54 +485,6 @@ namespace WorkStudy.ViewModels
                 RatingsVisible = true;
                 ActivitiesVisible = false;
             });
-        }
-
-        private void ConstructorSetUp()
-        {
-            SaveObservations = new Command(SaveObservationDetails);
-            ActivitySelected = new Command(ActivitySelectedEvent);
-            RatingSelected = new Command(RatingSelectedEvent);
-            EndStudy = new Command(TerminateStudy);
-            EditStudy = new Command(EditStudyDetails);
-            PauseStudy = new Command(NavigateToStudyMenu);
-            Override = new Command(OverrideEvent);
-            Opacity = 1.0;
-
-            Operators = GetAllEnabledOperators();
-
-            GetObservationRound();
-
-            Activities = Get_Enabled_Activities();
-
-            IEnumerable<Activity> obsCollection = Activities;
-
-            var list1 = new List<Activity>(obsCollection);
-
-            foreach (var activity in list1)
-            {
-                activity.Colour = Color.FromHex(activity.ItemColour);
-            };
-
-            Activities = ConvertListToObservable(list1);
-
-            GroupActivities = Utilities.BuildGroupOfActivities(Activities);
-
-            IsPageVisible = IsStudyValid();
-
-            CreateOperatorObservations();
-
-            TotalPercent = GetStudyTotalPercent();
-
-            var obsStatus = ObservationRoundStatusRepo.GetItems()
-                                          .Where(x => x.ObservationId == ObservationRound)
-                                          .FirstOrDefault();
-
-            ObservationRoundStatus = obsStatus == null ? new ObservationRoundStatus() : obsStatus;
-
-            var alarmDetails = AlarmRepo.GetItems()
-              .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-
-            TimeOfNextObservation = DateTime.Now.AddSeconds(alarmDetails.Interval).ToString((@"hh\:mm"));
         }
 
         void OverrideEvent(object sender)

@@ -29,21 +29,6 @@ namespace WorkStudy.ViewModels
             EnsureTableCreation();
             InvalidText = "Please create a new study or select an existing one.";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted);
-
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-
-                Device.BeginInvokeOnMainThread(() => 
-                {
-                    if (Utilities.RestartAlarmCounter)
-                    {
-                        TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
-                        Utilities.RestartAlarmCounter = false;
-                    }
-                    CurrentTime = DateTime.Now.ToString("HH.mm:ss");
-                });
-                return true;
-            });
         }
 
 

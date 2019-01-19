@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using System;
+using SQLite;
 
 namespace WorkStudy.Model
 {
@@ -9,5 +10,6 @@ namespace WorkStudy.Model
         public bool IsActive { get; set; }
         public int Interval { get; set; }
         public int StudyId { get; set; }
+        public DateTime NotificationRecieved { get; set; }
     }
 }
