@@ -14,6 +14,7 @@ namespace WorkStudy.ViewModels
 
     public class MainPageViewModel : BaseViewModel
     {
+        private const string FormatMinutes = "HH:mm";
         private OperatorObservation operator1;
         List<Observation> observations = new List<Observation>();
 
@@ -94,7 +95,7 @@ namespace WorkStudy.ViewModels
                 AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                 var alarmDetails = AlarmRepo.GetItems()
                     .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString((@"hh\:mm"));
+                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutes);
 
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                 {
@@ -102,7 +103,7 @@ namespace WorkStudy.ViewModels
                     {
                         AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                        var time = alarm.NextNotificationTime.ToString((@"hh\:mm"));
+                        var time = alarm.NextNotificationTime.ToString(FormatMinutes);
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TimeOfNextObservation = time;
@@ -125,10 +126,10 @@ namespace WorkStudy.ViewModels
             {
                 TimeOfNextObservation = 
                     AlarmNotificationService.SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive)
-                    .ToString((@"hh\:mm"));
+                    .ToString(FormatMinutes);
             }
             if (alarm.IsActive && alarm.Type != AlarmNotificationService.Random && notificationExpired)
-                TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString((@"hh\:mm"));
+                TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString(FormatMinutes);
         }
 
 
