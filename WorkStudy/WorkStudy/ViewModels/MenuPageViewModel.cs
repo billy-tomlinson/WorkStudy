@@ -40,6 +40,7 @@ namespace WorkStudy.ViewModels
 
         void CloseApplicationEvent(object obj)
         {
+            AlarmNotificationService.DisableAlarm();
             DependencyService.Get<ITerminateApplication>()
                 .CloseApplication();
             App.MenuIsPresented = false;

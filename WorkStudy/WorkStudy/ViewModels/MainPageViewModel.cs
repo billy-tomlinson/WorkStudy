@@ -337,7 +337,8 @@ namespace WorkStudy.ViewModels
             var study = SampleRepo.GetItem(Utilities.StudyId);
             study.Completed = true;
             Utilities.IsCompleted = true;
-            SampleRepo.SaveItem(study);
+            SampleRepo.SaveItem(study); 
+            AlarmNotificationService.DisableAlarm();
             Utilities.Navigate(new ReportsPage());
         }
 
@@ -348,6 +349,7 @@ namespace WorkStudy.ViewModels
 
         void NavigateToStudyMenu()
         {
+            AlarmNotificationService.DisableAlarm();
             Utilities.Navigate(new StudyMenuPage());
         }
 

@@ -30,7 +30,7 @@ namespace WorkStudy.Model
         [Ignore]
         public string DateTimeFormatted
         {
-            get { return $"{Date.ToString("dd/MM/yyyy")} : {Time.ToString("HH:mm")}"; }
+            get { return $"{Date.ToString("dd/MM/yyyy")} : {Time.ToString(@"hh\:mm")}"; }
         }
 
         [Ignore]
@@ -42,7 +42,7 @@ namespace WorkStudy.Model
         [Ignore]
         public string TimeFormatted
         {
-            get { return $"{Time.ToString("HH:mm")}"; }
+            get { return $"{Time.ToString(@"hh\:mm")}"; }
         }
 
     }
