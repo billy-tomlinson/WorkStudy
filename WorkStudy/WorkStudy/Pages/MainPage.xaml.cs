@@ -25,7 +25,9 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            if(Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
+            Utilities.CheckIfAlarmHasExpiredWhilstInBackgroundMode();
+
+            if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {
                 if(!Utilities.MainPageHasUpdatedActivityChanges 
                     || !Utilities.MainPageHasUpdatedOperatorChanges
@@ -46,12 +48,6 @@ namespace WorkStudy.Pages
                 }
             }
 
-            //var viewModel = new MainPageViewModel
-            //{
-            //    RatingsVisible = false,
-            //    ActivitiesVisible = false,
-            //};
-            //BindingContext = viewModel;
             Utilities.ClearNavigation();
             base.OnAppearing();
         }

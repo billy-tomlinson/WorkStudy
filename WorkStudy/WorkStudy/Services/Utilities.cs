@@ -41,7 +41,7 @@ namespace WorkStudy.Services
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
         public static IBaseRepository<AlarmDetails> AlarmRepo = 
-            new BaseRepository<AlarmDetails>("/Users/billytomlinson/WorkStudyAC.db3");
+            new BaseRepository<AlarmDetails>(Connection);
 
         static bool restartAlarmCounter;
         public static bool RestartAlarmCounter
@@ -53,25 +53,44 @@ namespace WorkStudy.Services
                 UpdateAlarm();
             }
         }
+        public static void CheckIfAlarmHasExpiredWhilstInBackgroundMode()
+        {
+            UpdateAlarmAfterBeingInBackround();
 
+        }
         private static void UpdateAlarm()
         {
             if(restartAlarmCounter && StudyId > 0)
             {
-
-                var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
-                if(alarm.Type != "RANDOM")
-                    alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
-                else 
-                {
-                    Random r = new Random();
-                    var intervalTime = r.Next(0, alarm.Interval * 2);
-                    var nextObsTime = intervalTime < 60 ? 61 : intervalTime;
-                    alarm.NotificationRecieved = DateTime.Now.AddSeconds(nextObsTime);
-                    SetNextRandomAlarmTime(nextObsTime);
-                }
-                AlarmRepo.SaveItem(alarm);
+                SaveNewAlarmDetails();
             }
+        }
+
+        private static void UpdateAlarmAfterBeingInBackround()
+        {
+            if (StudyId > 0)
+            {
+                var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
+                bool notificationExpired = alarm.NotificationRecieved < DateTime.Now;
+                if(notificationExpired)
+                    SaveNewAlarmDetails();
+            }
+        }
+
+        private static void SaveNewAlarmDetails()
+        {
+            var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
+            if (alarm.Type != "RANDOM")
+                alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
+            else
+            {
+                Random r = new Random();
+                var intervalTime = r.Next(0, alarm.Interval * 2);
+                var nextObsTime = intervalTime < 60 ? 61 : intervalTime;
+                alarm.NotificationRecieved = DateTime.Now.AddSeconds(nextObsTime);
+                SetNextRandomAlarmTime(nextObsTime);
+            }
+            AlarmRepo.SaveItem(alarm);
         }
 
         private static void  SetNextRandomAlarmTime(int nextAlarm)
