@@ -53,7 +53,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-
         static bool isAlarmEnabled;
         public bool IsAlarmEnabled
         {
@@ -158,6 +157,14 @@ namespace WorkStudy.ViewModels
 
             var service = DependencyService.Get<ILocalNotificationService>();
 
+            int nextInterval;
+
+            if(AlarmType == "RANDOM")
+            {
+                Random r = new Random();
+                nextInterval = r.Next(0, intervalTime * 2);
+                intervalTime = nextInterval < 60 ? 61 : intervalTime;
+            }
             if (IsAlarmEnabled)
                 service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, intervalTime);
             else

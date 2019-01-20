@@ -51,13 +51,21 @@ namespace WorkStudy.Services
             }
         }
 
-        private static  void InsertIntoDatabase()
+        private static void InsertIntoDatabase()
         {
             if(restartAlarmCounter && StudyId > 0)
             {
                 IBaseRepository<AlarmDetails> AlarmRepo = new BaseRepository<AlarmDetails>("/Users/billytomlinson/WorkStudyAC.db3");
                 var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
-                alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
+                if(alarm.Type != "RANDOM")
+                    alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
+                else 
+                {
+                    Random r = new Random();
+                    var intervalTime = r.Next(0, alarm.Interval * 2);
+                    var nextObsTime = intervalTime < 60 ? 61 : intervalTime;
+                    alarm.NotificationRecieved = DateTime.Now.AddSeconds(nextObsTime);
+                }
                 AlarmRepo.SaveItem(alarm);
             }
         }

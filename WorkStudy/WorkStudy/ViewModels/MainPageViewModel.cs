@@ -25,7 +25,7 @@ namespace WorkStudy.ViewModels
         public Command PauseStudy { get; set; }
         public Command EditStudy { get; set; }
 
-       
+
 
         public MainPageViewModel(string conn) : base(conn)
         {
@@ -76,12 +76,11 @@ namespace WorkStudy.ViewModels
             TotalPercent = GetStudyTotalPercent();
 
             var obsStatus = ObservationRoundStatusRepo.GetItems()
-                                          .Where(x => x.ObservationId == ObservationRound)
-                                          .FirstOrDefault();
+                            .FirstOrDefault(x => x.ObservationId == ObservationRound);
 
             ObservationRoundStatus = obsStatus == null ? new ObservationRoundStatus() : obsStatus;
 
-            SetUpNextObservationTime();
+            SetUpNextObservationTimeWithTimer();
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
@@ -93,7 +92,7 @@ namespace WorkStudy.ViewModels
             });
         }
 
-        private void SetUpNextObservationTime()
+        private void SetUpNextObservationTimeWithTimer()
         {
             if (Utilities.StudyId > 0)
             {
@@ -104,19 +103,45 @@ namespace WorkStudy.ViewModels
 
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                 {
-                    var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                    var time = alarm.NotificationRecieved.ToString((@"hh\:mm"));
-                    Device.BeginInvokeOnMainThread(() =>
+                    if(Utilities.StudyId > 0)
                     {
-                        TimeOfNextObservation = time;
-                        OnPropertyChanged("TimeOfNextObservation");
-                        Utilities.RestartAlarmCounter = false;
-                    });
+                        var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                        var time = alarm.NotificationRecieved.ToString((@"hh\:mm"));
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            TimeOfNextObservation = time;
+                            OnPropertyChanged("TimeOfNextObservation");
+                            Utilities.RestartAlarmCounter = false;
+                        });
+                    }
                     return true;
                 });
 
             }
         }
+
+        private void SetNextRandomAlarmTime()
+        {
+            var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+            var service = DependencyService.Get<ILocalNotificationService>();
+
+            bool notificationExpired = alarm.NotificationRecieved < DateTime.Now;
+
+            if (alarm.IsActive && alarm.Type == "RANDOM" && notificationExpired)
+            { 
+                //add calculation to subtract time from start of current round and deduct from interval time
+                Random r = new Random();
+                var intervalTime = r.Next(0, alarm.Interval * 2);
+                SecondsToNextObservation = intervalTime < 60 ? 61 : intervalTime;
+                
+                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, SecondsToNextObservation);
+                TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
+            }
+            else
+                TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString((@"hh\:mm"));
+        }
+
 
         private Observation Observation { get; set; }
         private int ActivityId { get; set; }
@@ -273,25 +298,6 @@ namespace WorkStudy.ViewModels
 
             ObservationRoundStatus.Status = "Complete";
             ObservationRoundStatusRepo.SaveItem(ObservationRoundStatus);
-        }
-
-        private void SetNextRandomAlarmTime()
-        {
-            var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-            var service = DependencyService.Get<ILocalNotificationService>();
-
-            Random r = new Random();
-            var intervalTime = r.Next(0, alarm.Interval * 2);
-            SecondsToNextObservation = intervalTime < 60 ? 61 : intervalTime;
-
-            if (alarm.IsActive && alarm.Type == "RANDOM")
-            {
-                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
-                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, SecondsToNextObservation);
-                TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
-            }
-            else
-                TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString((@"hh\:mm"));
         }
 
         private void SetUpForNextObservationRound()
@@ -518,8 +524,7 @@ namespace WorkStudy.ViewModels
             }
 
             ObservationRoundStatus = ObservationRoundStatusRepo.GetItems()
-                         .Where(x => x.ObservationId == ObservationRound)
-                         .FirstOrDefault();
+                .FirstOrDefault(x => x.ObservationId == ObservationRound);
 
             var obsCount = ObservationRepo.GetItems()
                                           .Count(x => x.ObservationNumber == lastObservationRound
