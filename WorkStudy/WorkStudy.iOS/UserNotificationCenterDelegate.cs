@@ -9,7 +9,7 @@ namespace WorkStudy.iOS
         public override void WillPresentNotification(UNUserNotificationCenter center, 
             UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
         {
-            Utilities.RestartAlarmCounter = true;
+            AlarmNotificationService.RestartAlarmCounter = true;
 
             // Tell system to display the notification anyway or use
             // `None` to say we have handled the display locally.

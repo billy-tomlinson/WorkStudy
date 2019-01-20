@@ -24,11 +24,8 @@ namespace WorkStudy.ViewModels
         public Command PauseStudy { get; set; }
         public Command EditStudy { get; set; }
 
-
-
         public MainPageViewModel(string conn) : base(conn)
         {
-
             ConstructorSetUp();
         }
 
@@ -36,7 +33,6 @@ namespace WorkStudy.ViewModels
         {
             ConstructorSetUp();
         }
-
 
         private void ConstructorSetUp()
         {
@@ -95,22 +91,22 @@ namespace WorkStudy.ViewModels
         {
             if (Utilities.StudyId > 0)
             {
+                AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                 var alarmDetails = AlarmRepo.GetItems()
                     .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-
-                TimeOfNextObservation = DateTime.Now.AddSeconds(alarmDetails.Interval).ToString((@"hh\:mm"));
+                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString((@"hh\:mm"));
 
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                 {
                     if(Utilities.StudyId > 0)
                     {
+                        AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
                         var time = alarm.NextNotificationTime.ToString((@"hh\:mm"));
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TimeOfNextObservation = time;
-                            OnPropertyChanged("TimeOfNextObservation");
-                            Utilities.RestartAlarmCounter = false;
+                            AlarmNotificationService.RestartAlarmCounter = false;
                         });
                     }
                     return true;
@@ -122,20 +118,16 @@ namespace WorkStudy.ViewModels
         private void SetNextRandomAlarmTime()
         {
             var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-            var service = DependencyService.Get<ILocalNotificationService>();
 
             bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
 
-            if (alarm.IsActive && alarm.Type == "RANDOM" && notificationExpired)
-            { 
-                SecondsToNextObservation = AlarmNotificationService.GenerateRandomInterval(alarm.Interval);
-                alarm.NextNotificationTime = DateTime.Now.AddSeconds(SecondsToNextObservation);
-                AlarmRepo.SaveItem(alarm);
-                AlarmNotificationService.SetNextRandomAlarmTime(SecondsToNextObservation);
-               
-                TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
+            if (alarm.IsActive && alarm.Type == AlarmNotificationService.Random && notificationExpired)
+            {
+                TimeOfNextObservation = 
+                    AlarmNotificationService.SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive)
+                    .ToString((@"hh\:mm"));
             }
-            if (alarm.IsActive && alarm.Type != "RANDOM" && notificationExpired)
+            if (alarm.IsActive && alarm.Type != AlarmNotificationService.Random && notificationExpired)
                 TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString((@"hh\:mm"));
         }
 

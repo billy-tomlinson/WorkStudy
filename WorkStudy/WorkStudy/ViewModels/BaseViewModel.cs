@@ -73,18 +73,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        static int secondsToNextObservation;
-        public int SecondsToNextObservation
-        {
-            get => secondsToNextObservation;
-            set
-            {
-                secondsToNextObservation = value;
-                OnPropertyChanged();
-            }
-        }
-
-
         static string timeOfNextObservation;
         public string TimeOfNextObservation
         {

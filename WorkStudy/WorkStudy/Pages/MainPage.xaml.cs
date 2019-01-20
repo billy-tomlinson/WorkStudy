@@ -25,7 +25,7 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
-            Utilities.CheckIfAlarmHasExpiredWhilstInBackgroundMode();
+            AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
 
             if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {

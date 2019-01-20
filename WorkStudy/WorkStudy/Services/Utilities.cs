@@ -42,63 +42,7 @@ namespace WorkStudy.Services
 
         public static IBaseRepository<AlarmDetails> AlarmRepo = 
             new BaseRepository<AlarmDetails>(Connection);
-
-        static bool restartAlarmCounter;
-        public static bool RestartAlarmCounter
-        {
-            get => restartAlarmCounter;
-            set
-            {
-                restartAlarmCounter = value;
-                UpdateAlarm();
-            }
-        }
-        public static void CheckIfAlarmHasExpiredWhilstInBackgroundMode()
-        {
-            UpdateAlarmAfterBeingInBackround();
-
-        }
-        private static void UpdateAlarm()
-        {
-            if(restartAlarmCounter && StudyId > 0)
-            {
-                SaveNewAlarmDetails();
-            }
-        }
-
-        private static void UpdateAlarmAfterBeingInBackround()
-        {
-            if (StudyId > 0)
-            {
-                var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
-                bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
-                if(notificationExpired)
-                    SaveNewAlarmDetails();
-            }
-        }
-
-        private static void SaveNewAlarmDetails()
-        {
-            var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
-            if (alarm.Type != "RANDOM")
-                alarm.NextNotificationTime = DateTime.Now.AddSeconds(alarm.Interval);
-            else
-            {
-                var nextObsTime = AlarmNotificationService.GenerateRandomInterval(alarm.Interval);
-                alarm.NextNotificationTime = DateTime.Now.AddSeconds(nextObsTime);
-                SetNextRandomAlarmTime(nextObsTime);
-            }
-            AlarmRepo.SaveItem(alarm);
-        }
-
-        private static void  SetNextRandomAlarmTime(int nextAlarm)
-        {
-            var service = DependencyService.Get<ILocalNotificationService>();
-
-            service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
-            service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
-        }
-
+            
         public static void UpdateTableFlags()
         {
             if (MainPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 

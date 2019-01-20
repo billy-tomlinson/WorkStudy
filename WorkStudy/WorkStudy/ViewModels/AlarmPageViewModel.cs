@@ -7,7 +7,7 @@ namespace WorkStudy.ViewModels
     public class AlarmPageViewModel : BaseViewModel
     {
         const string interval = "CONSTANT";
-        const string random = "RANDOM";
+
         int intervalTime = 1;
         readonly bool pageLoading;
 
@@ -99,7 +99,7 @@ namespace WorkStudy.ViewModels
             alarmDetails = AlarmRepo.GetItems()
                 .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
             intervalTime = alarmDetails.Interval / 60;
-            AlarmType = isRandom == false ? interval : random;
+            AlarmType = isRandom == false ? interval : AlarmNotificationService.Random;
         }
 
 

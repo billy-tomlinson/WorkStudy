@@ -122,7 +122,7 @@ namespace WorkStudy.Droid.DependencyServices
             var notificator = DependencyService.Get<IToastNotificator>();
 
             notificator.Notify(options);
-            Utilities.RestartAlarmCounter = true;
+            AlarmNotificationService.RestartAlarmCounter = true;
             //notificator.Notify(HandleAction, options);
 
         }
