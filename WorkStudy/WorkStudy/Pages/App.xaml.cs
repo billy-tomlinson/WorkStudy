@@ -52,8 +52,10 @@ namespace WorkStudy
         protected override void OnStart()
         {
             // Handle when your app starts
-            AppCenter.Start("android=4b7dad8c-e515-413d-9a8e-9e060c86a511;", 
-                            typeof(Analytics), typeof(Crashes));
+
+            AppCenter.Start("ios=e79293ae-e7fe-4968-b897-6df32f2bf00a;" +
+                  "android=4b7dad8c-e515-413d-9a8e-9e060c86a511;",
+                  typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
