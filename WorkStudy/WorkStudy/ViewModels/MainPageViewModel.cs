@@ -133,12 +133,15 @@ namespace WorkStudy.ViewModels
                 Random r = new Random();
                 var intervalTime = r.Next(0, alarm.Interval * 2);
                 SecondsToNextObservation = intervalTime < 60 ? 61 : intervalTime;
-                
+
+                alarm.NotificationRecieved = DateTime.Now.AddSeconds(intervalTime);
+                AlarmRepo.SaveItem(alarm);
+
                 service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
                 service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, SecondsToNextObservation);
                 TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
             }
-            else
+            if (alarm.IsActive && alarm.Type != "RANDOM" && notificationExpired)
                 TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString((@"hh\:mm"));
         }
 

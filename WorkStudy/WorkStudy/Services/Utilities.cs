@@ -40,6 +40,9 @@ namespace WorkStudy.Services
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
+        public static IBaseRepository<AlarmDetails> AlarmRepo = 
+            new BaseRepository<AlarmDetails>("/Users/billytomlinson/WorkStudyAC.db3");
+
         static bool restartAlarmCounter;
         public static bool RestartAlarmCounter
         {
@@ -47,15 +50,15 @@ namespace WorkStudy.Services
             set
             {
                 restartAlarmCounter = value;
-                InsertIntoDatabase();
+                UpdateAlarm();
             }
         }
 
-        private static void InsertIntoDatabase()
+        private static void UpdateAlarm()
         {
             if(restartAlarmCounter && StudyId > 0)
             {
-                IBaseRepository<AlarmDetails> AlarmRepo = new BaseRepository<AlarmDetails>("/Users/billytomlinson/WorkStudyAC.db3");
+
                 var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
                 if(alarm.Type != "RANDOM")
                     alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
@@ -65,9 +68,18 @@ namespace WorkStudy.Services
                     var intervalTime = r.Next(0, alarm.Interval * 2);
                     var nextObsTime = intervalTime < 60 ? 61 : intervalTime;
                     alarm.NotificationRecieved = DateTime.Now.AddSeconds(nextObsTime);
+                    SetNextRandomAlarmTime(nextObsTime);
                 }
                 AlarmRepo.SaveItem(alarm);
             }
+        }
+
+        private static void  SetNextRandomAlarmTime(int nextAlarm)
+        {
+            var service = DependencyService.Get<ILocalNotificationService>();
+
+            service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+            service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
         }
 
         public static void UpdateTableFlags()
