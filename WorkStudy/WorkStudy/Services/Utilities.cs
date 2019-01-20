@@ -71,7 +71,7 @@ namespace WorkStudy.Services
             if (StudyId > 0)
             {
                 var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
-                bool notificationExpired = alarm.NotificationRecieved < DateTime.Now;
+                bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
                 if(notificationExpired)
                     SaveNewAlarmDetails();
             }
@@ -81,13 +81,11 @@ namespace WorkStudy.Services
         {
             var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == StudyId);
             if (alarm.Type != "RANDOM")
-                alarm.NotificationRecieved = DateTime.Now.AddSeconds(alarm.Interval);
+                alarm.NextNotificationTime = DateTime.Now.AddSeconds(alarm.Interval);
             else
             {
-                Random r = new Random();
-                var intervalTime = r.Next(0, alarm.Interval * 2);
-                var nextObsTime = intervalTime < 60 ? 61 : intervalTime;
-                alarm.NotificationRecieved = DateTime.Now.AddSeconds(nextObsTime);
+                var nextObsTime = AlarmNotificationService.GenerateRandomInterval(alarm.Interval);
+                alarm.NextNotificationTime = DateTime.Now.AddSeconds(nextObsTime);
                 SetNextRandomAlarmTime(nextObsTime);
             }
             AlarmRepo.SaveItem(alarm);

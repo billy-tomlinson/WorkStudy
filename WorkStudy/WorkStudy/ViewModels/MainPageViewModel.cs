@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
-using WorkStudy.Custom;
 using WorkStudy.Model;
 using WorkStudy.Pages;
 using WorkStudy.Services;
@@ -106,7 +105,7 @@ namespace WorkStudy.ViewModels
                     if(Utilities.StudyId > 0)
                     {
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                        var time = alarm.NotificationRecieved.ToString((@"hh\:mm"));
+                        var time = alarm.NextNotificationTime.ToString((@"hh\:mm"));
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TimeOfNextObservation = time;
@@ -125,20 +124,15 @@ namespace WorkStudy.ViewModels
             var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
             var service = DependencyService.Get<ILocalNotificationService>();
 
-            bool notificationExpired = alarm.NotificationRecieved < DateTime.Now;
+            bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
 
             if (alarm.IsActive && alarm.Type == "RANDOM" && notificationExpired)
             { 
-                //add calculation to subtract time from start of current round and deduct from interval time
-                Random r = new Random();
-                var intervalTime = r.Next(0, alarm.Interval * 2);
-                SecondsToNextObservation = intervalTime < 60 ? 61 : intervalTime;
-
-                alarm.NotificationRecieved = DateTime.Now.AddSeconds(intervalTime);
+                SecondsToNextObservation = AlarmNotificationService.GenerateRandomInterval(alarm.Interval);
+                alarm.NextNotificationTime = DateTime.Now.AddSeconds(SecondsToNextObservation);
                 AlarmRepo.SaveItem(alarm);
-
-                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
-                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, SecondsToNextObservation);
+                AlarmNotificationService.SetNextRandomAlarmTime(SecondsToNextObservation);
+               
                 TimeOfNextObservation = DateTime.Now.AddSeconds(SecondsToNextObservation).ToString((@"hh\:mm"));
             }
             if (alarm.IsActive && alarm.Type != "RANDOM" && notificationExpired)

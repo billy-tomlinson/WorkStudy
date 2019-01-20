@@ -10,6 +10,6 @@ namespace WorkStudy.Model
         public bool IsActive { get; set; }
         public int Interval { get; set; }
         public int StudyId { get; set; }
-        public DateTime NotificationRecieved { get; set; }
+        public DateTime NextNotificationTime { get; set; }
     }
 }

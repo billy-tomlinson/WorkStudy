@@ -39,6 +39,7 @@
     <Compile Remove="Model\Product.cs" />
     <Compile Remove="Views\ExistingStudiesView.xaml.cs" />
     <Compile Remove="Pages\App.cs" />
+    <Compile Remove="Services\AlarmService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">

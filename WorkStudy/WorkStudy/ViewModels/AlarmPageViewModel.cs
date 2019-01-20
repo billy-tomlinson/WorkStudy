@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using WorkStudy.Services;
+﻿using WorkStudy.Services;
 using WorkStudy.Model;
 using System.Linq;
 
@@ -147,28 +145,8 @@ namespace WorkStudy.ViewModels
             }
             else
                 intervalTime = intervalTime * 60;
-
-            alarmDetails.Interval = intervalTime;
-            alarmDetails.Type = AlarmType;
-            alarmDetails.IsActive = IsAlarmEnabled;
-            alarmDetails.StudyId = Utilities.StudyId;
-
-            AlarmRepo.SaveItem(alarmDetails);
-
-            var service = DependencyService.Get<ILocalNotificationService>();
-
-            int nextInterval;
-
-            if(AlarmType == "RANDOM")
-            {
-                Random r = new Random();
-                nextInterval = r.Next(0, intervalTime * 2);
-                intervalTime = nextInterval < 60 ? 61 : intervalTime;
-            }
-            if (IsAlarmEnabled)
-                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, intervalTime);
-            else
-                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+                
+            AlarmNotificationService.SaveNewAlarmDetails(intervalTime, AlarmType, IsAlarmEnabled);
         }
 
         private bool IntervalIsValid(bool success)
