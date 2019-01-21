@@ -68,7 +68,7 @@ namespace WorkStudy.iOS
                 UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
             }
 
-            string dbName = "WorkStudyAC.db3";
+            string dbName = "WorkStudyNew.db3";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
             //string folderPath = "/Users/billytomlinson";
             string dbPath = Path.Combine(folderPath, dbName);
