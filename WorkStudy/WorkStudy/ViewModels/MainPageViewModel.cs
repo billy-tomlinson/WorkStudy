@@ -76,7 +76,15 @@ namespace WorkStudy.ViewModels
 
             ObservationRoundStatus = obsStatus == null ? new ObservationRoundStatus() : obsStatus;
 
-            SetUpNextObservationTimeWithTimer();
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    SetUpNextObservationTimeWithTimer();
+                    break;
+                case Device.Android:
+                    //do nothing for now
+                    break;
+            }
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
@@ -284,7 +292,15 @@ namespace WorkStudy.ViewModels
 
         private void UpdateObservationRoundStatus()
         {
-            SetNextRandomAlarmTime();
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    SetNextRandomAlarmTime();
+                    break;
+                case Device.Android:
+                    //do nothing for now
+                    break;
+            }
 
             ObservationRoundStatus.Status = "Complete";
             ObservationRoundStatusRepo.SaveItem(ObservationRoundStatus);
