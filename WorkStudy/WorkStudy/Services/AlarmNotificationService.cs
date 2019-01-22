@@ -36,6 +36,13 @@ namespace WorkStudy.Services
         }
 
 
+        public static void SetNextRandomAlarmTimeAndroid(int nextAlarm)
+        {
+            var service = DependencyService.Get<ILocalNotificationService>();
+
+            service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
+        }
+
         public static void DisableAlarm()
         {
             var service = DependencyService.Get<ILocalNotificationService>();
@@ -56,9 +63,25 @@ namespace WorkStudy.Services
             alarmDetails.NextNotificationTime = DateTime.Now.AddSeconds(nextObsTime);
 
             if (isAlarmEnabled)
-                SetNextRandomAlarmTime(nextObsTime);
-            else
-                DisableAlarm();
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.iOS:
+                        SetNextRandomAlarmTime(nextObsTime);
+                        break;
+                    case Device.Android:
+                        SetNextRandomAlarmTimeAndroid(nextObsTime);
+                        break;
+                }
+            if (!isAlarmEnabled)
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.iOS:
+                        DisableAlarm();
+                        break;
+                    case Device.Android:
+                        //do nothing
+                        break;
+                }
 
             Utilities.AlarmRepo.SaveItem(alarmDetails);
 
@@ -67,10 +90,17 @@ namespace WorkStudy.Services
 
         private static void UpdateAlarm()
         {
-            if (restartAlarmCounter && Utilities.StudyId > 0)
+            if (Device.RuntimePlatform == Device.iOS)
             {
-                var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                if (restartAlarmCounter && Utilities.StudyId > 0)
+                {
+                    var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                    SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                }
+            }
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                //do nothing for now
             }
         }
 
@@ -81,13 +111,23 @@ namespace WorkStudy.Services
 
         private static DateTime UpdateAlarmAfterBeingInBackroundOrAlarmOff()
         {
+
             DateTime newObsTime = new DateTime();
             if (Utilities.StudyId > 0)
             {
                 var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
                 bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
-                if (notificationExpired)
-                    newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    if (notificationExpired)
+                        newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                }
+                else if (Device.RuntimePlatform == Device.Android)
+                {
+                    //do nothing for now
+                    newObsTime = DateTime.Now.AddSeconds(alarm.Interval);
+                }
             }
 
             return newObsTime;
