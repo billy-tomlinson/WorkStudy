@@ -106,6 +106,25 @@ namespace WorkStudy.Services
             return alarmDetails.NextNotificationTime;
         }
 
+
+        public static DateTime AndroidSaveNewAlarmDetails(int intervalTime, string alarmType, bool isAlarmEnabled)
+        {
+            var alarmDetails = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+
+            alarmDetails.Interval = intervalTime;
+            alarmDetails.Type = alarmType;
+            alarmDetails.IsActive = isAlarmEnabled;
+            alarmDetails.StudyId = Utilities.StudyId;
+
+            var nextObsTime = alarmType == Random ? GenerateRandomInterval(intervalTime) : intervalTime;
+            alarmDetails.NextNotificationTime = DateTime.Now.AddSeconds(nextObsTime);
+            NextIntervalTime = nextObsTime;
+
+            Utilities.AlarmRepo.SaveItem(alarmDetails);
+            NextAlarmTime = DateTime.Now.AddSeconds(NextIntervalTime);
+            return alarmDetails.NextNotificationTime;
+        }
+
         private static void UpdateAlarm()
         {
             if (Device.RuntimePlatform == Device.iOS)
@@ -118,7 +137,11 @@ namespace WorkStudy.Services
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                //do nothing for now
+                if (restartAlarmCounter && Utilities.StudyId > 0)
+                {
+                    var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                    AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                }
             }
         }
 

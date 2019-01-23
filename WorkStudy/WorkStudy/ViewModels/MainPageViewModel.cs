@@ -14,7 +14,7 @@ namespace WorkStudy.ViewModels
 
     public class MainPageViewModel : BaseViewModel
     {
-        private const string FormatMinutes = "HH:mm";
+        private const string FormatMinutes = "HH:mm:ss";
         private OperatorObservation operator1;
         List<Observation> observations = new List<Observation>();
 
