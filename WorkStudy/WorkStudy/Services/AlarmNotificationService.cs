@@ -69,6 +69,7 @@ namespace WorkStudy.Services
                         SetNextRandomAlarmTime(nextObsTime);
                         break;
                     case Device.Android:
+                        //do nothing
                         SetNextRandomAlarmTimeAndroid(nextObsTime);
                         break;
                 }
@@ -80,6 +81,7 @@ namespace WorkStudy.Services
                         break;
                     case Device.Android:
                         //do nothing
+                        DisableAlarm();
                         break;
                 }
 
@@ -109,6 +111,10 @@ namespace WorkStudy.Services
             return UpdateAlarmAfterBeingInBackroundOrAlarmOff();
         }
 
+        public static DateTime AndroidCheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff()
+        {
+            return AndroidUpdateAlarmAfterBeingInBackroundOrAlarmOff();
+        }
         private static DateTime UpdateAlarmAfterBeingInBackroundOrAlarmOff()
         {
 
@@ -128,6 +134,25 @@ namespace WorkStudy.Services
                     //do nothing for now
                     newObsTime = DateTime.Now.AddSeconds(alarm.Interval);
                 }
+            }
+
+            return newObsTime;
+        }
+
+        private static DateTime AndroidUpdateAlarmAfterBeingInBackroundOrAlarmOff()
+        {
+
+            DateTime newObsTime = new DateTime();
+            if (Utilities.StudyId > 0)
+            {
+                var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
+
+                if (Device.RuntimePlatform == Device.Android)
+                {
+                    if (notificationExpired)
+                        newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                }    
             }
 
             return newObsTime;

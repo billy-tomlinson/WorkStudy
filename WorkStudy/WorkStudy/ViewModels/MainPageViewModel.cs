@@ -82,7 +82,7 @@ namespace WorkStudy.ViewModels
                     SetUpNextObservationTimeWithTimer();
                     break;
                 case Device.Android:
-                    //do nothing for now
+                    SetUpNextObservationTimeWithTimerForAndroid();
                     break;
             }
 
@@ -110,6 +110,34 @@ namespace WorkStudy.ViewModels
                     if(Utilities.StudyId > 0)
                     {
                         AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
+                        var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                        var time = alarm.NextNotificationTime.ToString(FormatMinutes);
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            TimeOfNextObservation = time;
+                            AlarmNotificationService.RestartAlarmCounter = false;
+                        });
+                    }
+                    return true;
+                });
+
+            }
+        }
+
+        private void SetUpNextObservationTimeWithTimerForAndroid()
+        {
+            if (Utilities.StudyId > 0)
+            {
+                AlarmNotificationService.AndroidCheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
+                var alarmDetails = AlarmRepo.GetItems()
+                    .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutes);
+
+                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+                {
+                    if (Utilities.StudyId > 0)
+                    {
+                        AlarmNotificationService.AndroidCheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
                         var time = alarm.NextNotificationTime.ToString(FormatMinutes);
                         Device.BeginInvokeOnMainThread(() =>
