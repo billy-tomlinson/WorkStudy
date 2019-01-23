@@ -121,30 +121,30 @@ namespace WorkStudy.Droid.DependencyServices
 
             var notificator = DependencyService.Get<IToastNotificator>();
 
-            notificator.Notify(options);
+            //notificator.Notify(options);
             AlarmNotificationService.RestartAlarmCounter = true;
-            //notificator.Notify(HandleAction, options);
+            notificator.Notify(HandleAction, options);
 
         }
         #region  - possible random alarm functionlity - -maybe...
         void HandleAction(INotificationResult obj)
         {
-            DisableAlarmEvent();
+           //DisableAlarmEvent();
             EnableAlarmEvent();
         }
 
         void EnableAlarmEvent()
         {
             DependencyService.Get<ILocalNotificationService>()
-            .LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now.AddSeconds(60), 60);
+            .LocalNotification("Alert", "Next Observation Round", 0, 
+                AlarmNotificationService.NextAlarmTime, AlarmNotificationService.NextIntervalTime);
         }
 
         void DisableAlarmEvent()
         {
             DependencyService.Get<ILocalNotificationService>()
-                .DisableLocalNotification("Alert", "Next Observation Round", 0 , DateTime.Now.AddSeconds(60));
+                .DisableLocalNotification("Alert", "Next Observation Round", 0, AlarmNotificationService.NextAlarmTime);
         }
         #endregion
-
     }
 }

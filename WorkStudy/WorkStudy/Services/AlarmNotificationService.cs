@@ -19,6 +19,27 @@ namespace WorkStudy.Services
             }
         }
 
+
+        static int nextIntervalTime;
+        public static int NextIntervalTime
+        {
+            get => nextIntervalTime;
+            set
+            {
+                nextIntervalTime = value;
+            }
+        }
+
+        static DateTime nextAlarmTime;
+        public static DateTime NextAlarmTime
+        {
+            get => nextAlarmTime;
+            set
+            {
+                nextAlarmTime = value;
+            }
+        }
+
         public static int GenerateRandomInterval(int interval)
         {
             Random r = new Random();
@@ -30,20 +51,19 @@ namespace WorkStudy.Services
         public static void SetNextRandomAlarmTime(int nextAlarm)
         {
             var service = DependencyService.Get<ILocalNotificationService>();
+            NextAlarmTime = DateTime.Now.AddSeconds(nextAlarm);
             switch (Device.RuntimePlatform)
             { 
-
-            case Device.iOS:
-                service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
-                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
-                break;
-            case Device.Android:
-                service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
-                break;
+                case Device.iOS:
+                    service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
+                    service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
+                    break;
+                case Device.Android:
+                    //service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
+                    service.LocalNotification("Alert", "Next Observation Round", 0, NextAlarmTime, nextAlarm);
+                    break;
             }
-
         }
-
 
         public static void SetNextRandomAlarmTimeAndroid(int nextAlarm)
         {
@@ -70,6 +90,7 @@ namespace WorkStudy.Services
 
             var nextObsTime = alarmType == Random ? GenerateRandomInterval(intervalTime) : intervalTime;
             alarmDetails.NextNotificationTime = DateTime.Now.AddSeconds(nextObsTime);
+            NextIntervalTime = nextObsTime;
 
             if (isAlarmEnabled)
 
