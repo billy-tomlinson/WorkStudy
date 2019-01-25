@@ -218,6 +218,9 @@
     <BundleResource Include="Resources\sandtimer.png" />
     <BundleResource Include="Resources\tools.png" />
     <BundleResource Include="Resources\merge.png" />
+    <BundleResource Include="Resources\new.png" />
+    <BundleResource Include="Resources\hourglassempty.png" />
+    <BundleResource Include="Resources\hourglassfull.png" />
   </ItemGroup>
   <ItemGroup />
 </Project>
