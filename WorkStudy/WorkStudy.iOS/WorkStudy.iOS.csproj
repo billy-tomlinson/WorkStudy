@@ -214,6 +214,10 @@
     <BundleResource Include="Resources\stopwatch.png" />
     <BundleResource Include="Resources\comments.png" />
     <BundleResource Include="Resources\delete.png" />
+    <BundleResource Include="Resources\group.png" />
+    <BundleResource Include="Resources\sandtimer.png" />
+    <BundleResource Include="Resources\tools.png" />
+    <BundleResource Include="Resources\merge.png" />
   </ItemGroup>
   <ItemGroup />
 </Project>
