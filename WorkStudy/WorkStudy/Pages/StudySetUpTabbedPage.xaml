@@ -4,8 +4,8 @@
             xmlns:pages="clr-namespace:WorkStudy.Pages" 
             NavigationPage.HasNavigationBar="false"
             x:Class="WorkStudy.Pages.StudySetUpTabbedPage">
-    <pages:StudyDetailsPage Title="Study Details" />
-    <pages:AddActivitiesPage Title="Activities" />
-    <pages:AllActivitiesPage Title="All Activities" />
-    <pages:AddOperatorsPage Title="Operators" />
+    <pages:StudyDetailsPage Title="Study Details" Icon="new.png"/>
+    <pages:AddActivitiesPage Title="Activities" Icon="tools.png"/>
+    <pages:AllActivitiesPage Title="All Activities" Icon="tools.png"/>
+    <pages:AddOperatorsPage Title="Operators" Icon="group.png"/>
 </TabbedPage>
