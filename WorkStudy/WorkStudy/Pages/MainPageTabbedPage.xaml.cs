@@ -8,7 +8,7 @@ namespace WorkStudy.Pages
         public MainPageTabbedPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
         }
 
         protected override bool OnBackButtonPressed()
@@ -26,5 +26,7 @@ namespace WorkStudy.Pages
         {
             base.OnCurrentPageChanged();
         }
+
+        //public Color TabColour { get => Color.LightYellow; }
     }
 }

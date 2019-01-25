@@ -2,7 +2,9 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:pages="clr-namespace:WorkStudy.Pages" 
-            x:Class="WorkStudy.Pages.ExistingStudiesTabbedPage">
+            x:Class="WorkStudy.Pages.ExistingStudiesTabbedPage"
+            BarTextColor="Black"
+            BarBackgroundColor="White">
         <pages:PausedStudiesPage Title="Paused Staudies" Icon="hourglassfull.png"/> 
         <pages:CompletedStudiesPage Title="Completed Studies" Icon="hourglassempty.png"/>
 </TabbedPage>

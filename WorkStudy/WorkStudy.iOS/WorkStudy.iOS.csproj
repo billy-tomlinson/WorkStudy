@@ -221,6 +221,7 @@
     <BundleResource Include="Resources\new.png" />
     <BundleResource Include="Resources\hourglassempty.png" />
     <BundleResource Include="Resources\hourglassfull.png" />
+    <BundleResource Include="Resources\studysetup.png" />
   </ItemGroup>
   <ItemGroup />
 </Project>
