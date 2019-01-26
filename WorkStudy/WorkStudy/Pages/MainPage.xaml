@@ -75,9 +75,9 @@
                     </ListView.ItemTemplate>
                 </local:CustomListView>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="Next Observation" WidthRequest="205" MinimumWidthRequest="205" Command="{Binding SaveObservations}" />
-                    <Button Text="Pause" WidthRequest="60" Command="{Binding PauseStudy}" />
-                    <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" />
+                    <Button Text="Next Observation" WidthRequest="170" MinimumWidthRequest="160" Command="{Binding SaveObservations}" FontSize="12" Margin="3" Padding="3"/>
+                    <Button Text="Pause" WidthRequest="60" Command="{Binding PauseStudy}" FontSize="12" Margin="3" Padding="3"/>
+                    <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" FontSize="12" Margin="3" Padding="3"/>
                 </StackLayout>
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="350" VerticalOptions="Center" HorizontalOptions="Center" />
