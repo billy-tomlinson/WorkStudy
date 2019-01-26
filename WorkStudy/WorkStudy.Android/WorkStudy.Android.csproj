@@ -141,6 +141,7 @@
     <AndroidResource Include="Resources\drawable\sandtimer.png" />
     <AndroidResource Include="Resources\drawable\tools.png" />
     <AndroidResource Include="Resources\drawable\studysetup.png" />
+    <AndroidResource Include="Resources\drawable\hamburger.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-hdpi\" />

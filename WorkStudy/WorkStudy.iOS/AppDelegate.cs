@@ -7,6 +7,7 @@ using Plugin.Toasts;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace WorkStudy.iOS
 {
@@ -27,6 +28,7 @@ namespace WorkStudy.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            UINavigationBar.Appearance.TintColor = Color.White.ToUIColor();
 
             if (options != null)
             {

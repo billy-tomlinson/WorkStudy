@@ -3,7 +3,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
-               <!-- <On Platform="iOS" Value="MarkerFelt-Thin" />-->
+                <!-- <On Platform="iOS" Value="MarkerFelt-Thin" />-->
                 <On Platform="Android" Value="Roboto-Light" />
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
@@ -39,7 +39,7 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="#E9D802" />
+               <Setter Property="BarBackgroundColor" Value="#4174f4"/>
             </Style>
             <Style TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="#E8AD00" />

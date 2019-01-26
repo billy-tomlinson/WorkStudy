@@ -10,5 +10,5 @@
     <pages:AddActivitiesPage Title="Current" Icon="tools.png" />
     <pages:AllActivitiesPage Title="Add New" Icon="tools.png" />
     <pages:AddOperatorsPage Title="Operators" Icon="group.png" />
-    <pages:EditActivitiesPage Title="Merge" Icon="merge.png"  />
+    <pages:EditActivitiesPage Title="Merge" Icon="merge.png" />
 </TabbedPage>
