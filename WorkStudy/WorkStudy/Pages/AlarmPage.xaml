@@ -5,12 +5,21 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            BackgroundColor="Transparent">
                 <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-                <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" HorizontalOptions="Center" Padding="10" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400">
+                <StackLayout BackgroundColor="Transparent" 
+                             IsVisible="{Binding IsPageVisible}" 
+                             HorizontalOptions="Center" 
+                             Padding="5" 
+                             Margin="5" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                             AbsoluteLayout.LayoutFlags="All" 
+                             WidthRequest="400">
                     <StackLayout BindingContext="{Binding AlarmPageViewModel}" Padding="20,20,20,20">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
-                            <Label Text="Study Details" HeightRequest="50" FontSize="40" />
+                            <Label Text="Study Details" HeightRequest="40" FontSize="30" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Number" />

@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" 
-             xmlns:views="clr-namespace:WorkStudy.Views" 
-             x:Name="StudyDetailsView"
-             x:Class="WorkStudy.Pages.StudyDetailsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" xmlns:views="clr-namespace:WorkStudy.Views" x:Name="StudyDetailsView" x:Class="WorkStudy.Pages.StudyDetailsPage">
     <ContentPage.BindingContext>
         <local:StudyDetailsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
             <AbsoluteLayout HorizontalOptions="Center" 
-                            VerticalOptions="Center" 
-                            BackgroundColor="Transparent" 
-                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                            AbsoluteLayout.LayoutFlags="All" 
-                            IsVisible="{Binding IsPageVisible}">
-                <StackLayout BackgroundColor="Transparent" HorizontalOptions="Center" Padding="10" Margin="10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" WidthRequest="400" Opacity="{Binding Opacity}" IsEnabled="{Binding IsActive}">
+                            VerticalOptions="StartAndExpand" 
+                            IsVisible="{Binding IsPageVisible}"
+                            BackgroundColor="Transparent">
+                <StackLayout BackgroundColor="Transparent" 
+                             IsVisible="{Binding IsPageVisible}" 
+                             Opacity="{Binding Opacity}" 
+                             IsEnabled="{Binding IsActive}"
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
-                            <Label Text="Study Details" HeightRequest="50" FontSize="40" />
+                            <Label Text="Study Details" HeightRequest="40" FontSize="30" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Number" />
@@ -28,19 +25,15 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Name" />
-                            <Entry x:Name="studyName" Placeholder="Name" 
-                                   WidthRequest="150" Text="{Binding Name}" 
-                                   MaxLength="20" IsEnabled="{Binding IsActive}" />
+                            <Entry x:Name="studyName" Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20" IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Department" />
-                            <Entry x:Name="studyDepartment" Placeholder="Department" 
-                                   WidthRequest="150" Text="{Binding Department}" MaxLength="20" IsEnabled="{Binding IsActive}" />
+                            <Entry x:Name="studyDepartment" Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20" IsEnabled="{Binding IsActive}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Studied By" />
-                            <Entry x:Name="studiedBy" Placeholder="Studied By" 
-                                   WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
+                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Date" />
@@ -66,17 +59,13 @@
                             <Label Style="{StaticResource studyLabel}" />
                             <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference StudyDetailsView}}" />
                         </StackLayout>
-                         <StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
-                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" 
-                                   Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
+                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
                         </StackLayout>
                     </StackLayout>
                     <StackLayout>
-                        <Button Text="Submit Details" WidthRequest="150" 
-                                Command="{Binding SubmitAndFocusOperators}" 
-                                CommandParameter="{x:Reference StudyDetailsView}" 
-                                IsEnabled="{Binding IsActive}" />
+                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitAndFocusOperators}" CommandParameter="{x:Reference StudyDetailsView}" IsEnabled="{Binding IsActive}" />
                     </StackLayout>
                 </StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">

@@ -11,20 +11,17 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
-                        BackgroundColor="Transparent" 
-                        HeightRequest="700"
-                        WidthRequest="420">
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent" >
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout IsVisible="{Binding IsPageVisible}"
                          Opacity="{Binding Opacity}"
                          BackgroundColor="Transparent" 
-                         WidthRequest="320"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          Padding="5" 
                          Margin="5" 
                          AbsoluteLayout.LayoutFlags="All">
-                <StackLayout Padding="10">
+                <StackLayout Padding="10" Margin ="10">
                     <Label Text="All Existing Activities" FontSize="20"/>
                 </StackLayout>
                 <local:CustomListView 
@@ -34,7 +31,7 @@
                     HorizontalOptions="Center" 
                     SeparatorVisibility="Default" 
                     SeparatorColor="#605F5F" HeightRequest="500"
-                    Margin="0,10">
+                    >
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>

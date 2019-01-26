@@ -10,7 +10,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
                         BackgroundColor="Transparent" 
                         HeightRequest="800" 
                         WidthRequest="420">

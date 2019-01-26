@@ -9,18 +9,17 @@
         <viewModels:AddActivitiesViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
-                        BackgroundColor="Transparent"
-                        HeightRequest="800"
-                        WidthRequest="420">
-            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout IsVisible="{Binding IsPageVisible}" 
-                         Padding="5" 
-                         Margin="5" 
-                         Opacity="{Binding Opacity}"
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
+          <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            BackgroundColor="Transparent">
+                <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+                <StackLayout BackgroundColor="Transparent"
+                             Padding="5" 
+                             Margin="5" 
+                             IsVisible="{Binding IsPageVisible}" 
+                             Opacity="{Binding Opacity}" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
                 <views:StudyDetailsView Padding="10" 
                                         Margin="10" />
                 <StackLayout Orientation="Horizontal" 

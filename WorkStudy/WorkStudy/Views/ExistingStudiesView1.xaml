@@ -8,16 +8,18 @@
              BackgroundColor="Transparent">
     <ContentView.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
                         BackgroundColor="Transparent" 
                         HeightRequest="800"
                         WidthRequest="420">
             <StackLayout BackgroundColor="Transparent" 
                          WidthRequest="320"
+                         Padding="5" 
+                         Margin="5" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All"
                          Opacity="{Binding Opacity}">
-                <StackLayout Padding="25">
+                <StackLayout Margin="10" Padding="10">
                     <Label Text="Existing Studies" FontSize="20"/>
                 </StackLayout>
                 <local:CustomListView x:Name="List" Margin="0,10" 

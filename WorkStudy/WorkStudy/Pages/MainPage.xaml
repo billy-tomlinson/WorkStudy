@@ -9,12 +9,14 @@
     <ContentPage.Content>
         <AbsoluteLayout 
             HorizontalOptions="Center" 
-            VerticalOptions="Center" 
+            VerticalOptions="StartAndExpand" 
             BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout BackgroundColor="Transparent" 
                          IsVisible="{Binding IsPageVisible}" 
                          Opacity="{Binding Opacity}"
+                         Padding="5" 
+                         Margin="5" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
                  <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">

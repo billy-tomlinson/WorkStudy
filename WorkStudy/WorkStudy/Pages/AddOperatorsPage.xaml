@@ -1,55 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             xmlns:views="clr-namespace:WorkStudy.Views" 
-             x:Class="WorkStudy.Pages.AddOperatorsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels1="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Views" x:Class="WorkStudy.Pages.AddOperatorsPage">
     <ContentPage.BindingContext>
         <viewModels1:AddOperatorsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
-                        BackgroundColor="Transparent" 
-                        HeightRequest="800"
-                        WidthRequest="420" >
-            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
-            <StackLayout IsVisible="{Binding IsPageVisible}" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout BackgroundColor="Transparent"
                          Padding="5" 
                          Margin="5" 
-                         Opacity="{Binding Opacity}"
+                         IsVisible="{Binding IsPageVisible}" 
+                         Opacity="{Binding Opacity}" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                <views:StudyDetailsView Padding="10" 
-                                        Margin="10"/>
-                <StackLayout Orientation="Horizontal" 
-                             HeightRequest="60"
-                             BackgroundColor="#FCFAFA"
-                             VerticalOptions="Center">
-                    <Entry Style="{StaticResource inputEntry}" 
-                           Placeholder="Operator Name"
-                           Text="{Binding Name}"
-                           WidthRequest="240"
-                           HeightRequest="50" />
-                    <Button Style="{StaticResource plusButton}" 
-                            Command="{Binding SaveOperator}"
-                            BackgroundColor="Transparent"
-                            WidthRequest="50"/>
+                <views:StudyDetailsView Padding="10" Margin="10" />
+                <StackLayout Orientation="Horizontal" HeightRequest="60" BackgroundColor="#FCFAFA" VerticalOptions="Center">
+                    <Entry Style="{StaticResource inputEntry}" Placeholder="Operator Name" Text="{Binding Name}" WidthRequest="240" HeightRequest="50" />
+                    <Button Style="{StaticResource plusButton}" Command="{Binding SaveOperator}" BackgroundColor="Transparent" WidthRequest="50" />
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
-            <StackLayout HorizontalOptions="Center" 
-                         VerticalOptions="Center" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
-                <views:RunningTotalsView IsVisible="{Binding RunningTotalsVisible}" 
-                                         Padding="0" 
-                                         AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1"
-                                         AbsoluteLayout.LayoutFlags="All" />
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:RunningTotalsView IsVisible="{Binding RunningTotalsVisible}" Padding="0" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All" />
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
