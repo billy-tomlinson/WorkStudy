@@ -7,10 +7,14 @@
         <workStudy:StudyMenuViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-            <StackLayout Padding="10" Margin="10" 
-                         VerticalOptions="Center" 
-                         HorizontalOptions="Center"  
-                         BackgroundColor="Transparent">
+          <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            BackgroundColor="Transparent">
+                <StackLayout BackgroundColor="Transparent"
+                             Padding="5" 
+                             Margin="5" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Study Options" FontSize="20" HorizontalOptions="Center" />
                 </StackLayout>
@@ -19,5 +23,6 @@
                 <Button Text="View Existing Studies" WidthRequest="200" 
                     Command="{Binding ExistingStudy}"/>
         </StackLayout>
+            </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

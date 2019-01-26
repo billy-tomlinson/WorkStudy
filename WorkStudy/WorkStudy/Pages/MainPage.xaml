@@ -76,10 +76,8 @@
                 </local:CustomListView>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Button Text="Next Observation" WidthRequest="205" MinimumWidthRequest="205" Command="{Binding SaveObservations}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="Pause" WidthRequest="100" Command="{Binding PauseStudy}" />
-                    <Button Text="Finish" WidthRequest="100" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" />
+                    <Button Text="Pause" WidthRequest="60" Command="{Binding PauseStudy}" />
+                    <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" />
                 </StackLayout>
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="350" VerticalOptions="Center" HorizontalOptions="Center" />
