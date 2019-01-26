@@ -41,8 +41,10 @@ namespace WorkStudy.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             string dbName = "WorkStudy4.db3";
+            string alarmDbName = "Alarm.db3";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbPath = Path.Combine(folderPath, dbName);
+            string alarmDbPath = Path.Combine(folderPath, alarmDbName);
 
             DependencyService.Register<ToastNotification>();
             ToastNotification.Init(this, new PlatformOptions() 
@@ -50,7 +52,7 @@ namespace WorkStudy.Droid
                 SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo 
             });
 
-            LoadApplication(new WorkStudy.App(dbPath));
+            LoadApplication(new WorkStudy.App(dbPath, alarmDbPath));
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

@@ -30,13 +30,16 @@ namespace WorkStudy.ViewModels
             {
                 Task emailTask = Task.Run(() =>
                 {
-                    var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
-                    Utilities.SendEmail(spreadsheet);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+                        Utilities.SendEmail(spreadsheet);
+                    });
                 });
 
-                await emailTask;
+                 await emailTask;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 IsEnabled = true;
                 IsBusy = false;
@@ -47,6 +50,10 @@ namespace WorkStudy.ViewModels
                 IsInvalid = true;
                 ShowClose = true;
             }
+
+            IsBusy = false;
+            IsEnabled = true;
+            Opacity = 1;
         }
     }
 }

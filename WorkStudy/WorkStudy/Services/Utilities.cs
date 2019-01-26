@@ -18,6 +18,7 @@ namespace WorkStudy.Services
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static string Connection { get; set; }
+        public static string AlarmConnection { get; set; }
         public static DateTime LastNotification { get; set; } = DateTime.Now;
 
 
@@ -41,7 +42,7 @@ namespace WorkStudy.Services
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
         public static IBaseRepository<AlarmDetails> AlarmRepo = 
-            new BaseRepository<AlarmDetails>(Connection);
+            new BaseRepository<AlarmDetails>(AlarmConnection);
             
         public static void UpdateTableFlags()
         {
@@ -136,7 +137,8 @@ namespace WorkStudy.Services
         public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
         {
             string path;
-            string fileName = $"Workstudy_Study_{StudyId}.xlsx";
+            Guid guid = Guid.NewGuid();
+            string fileName = $"Workstudy_{guid}_{StudyId}.xlsx";
 
 
             var obsRepo = new BaseRepository<Observation>(Connection);

@@ -84,10 +84,12 @@ namespace WorkStudy.iOS
             }
 
             string dbName = "WorkStudyNew.db3";
+            string alarmDbName = "Alarm.db3";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
             //string folderPath = "/Users/billytomlinson";
             string dbPath = Path.Combine(folderPath, dbName);
-            LoadApplication(new App(dbPath));
+            string alarmDbPath = Path.Combine(folderPath, alarmDbName);
+            LoadApplication(new App(dbPath, alarmDbPath));
 
             return base.FinishedLaunching(app, options);
         }

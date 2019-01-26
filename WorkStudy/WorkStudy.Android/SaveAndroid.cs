@@ -22,7 +22,7 @@ class SaveAndroid: ISave
                 root = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             //Create directory and file 
-            Java.IO.File myDir = new Java.IO.File(root + "/Syncfusion");
+            Java.IO.File myDir = new Java.IO.File(root + "/WorkStudy");
             myDir.Mkdir();
 
             Java.IO.File file = new Java.IO.File(myDir, fileName);
@@ -37,7 +37,7 @@ class SaveAndroid: ISave
             outs.Flush();
             outs.Close();
 
-            return root + "/Syncfusion";
+            return root + "/WorkStudy";
 
             ////Invoke the created file for viewing
             //if (file.Exists())

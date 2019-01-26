@@ -18,12 +18,14 @@ namespace WorkStudy.ViewModels
         public Command Override { get; set; }
 
         private readonly string conn;
+        private readonly string alarmconn;
 
         public Operator Operator;
 
-        public BaseViewModel(string conn = null)
+        public BaseViewModel(string conn = null, string alarmconn = null)
         {
             this.conn = conn;
+            this.alarmconn = alarmconn;
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
             CloseView = new Command(CloseValidationView);
             EnsureTableCreation();
@@ -36,7 +38,7 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
 
-        public IBaseRepository<AlarmDetails> AlarmRepo => new BaseRepository<AlarmDetails>(conn);
+        public IBaseRepository<AlarmDetails> AlarmRepo => new BaseRepository<AlarmDetails>(alarmconn);
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 

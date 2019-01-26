@@ -12,9 +12,10 @@ namespace WorkStudy
     public partial class App : Application
     {
         public static string DatabasePath = string.Empty;
+        public static string AlarmDatabasePath = string.Empty;
         public App(){ }
 
-        public App(string databasePath)
+        public App(string databasePath, string alarmPath)
         {
 
             InitializeComponent();
@@ -22,7 +23,9 @@ namespace WorkStudy
             NavigationPage.SetBackButtonTitle(this, "");
 
             DatabasePath = databasePath;
+            AlarmDatabasePath = alarmPath;
             Utilities.Connection = DatabasePath;
+            Utilities.AlarmConnection = AlarmDatabasePath;
             CallMain();
             //MainPage = new NavigationPage(new ReportsPage());
         }
