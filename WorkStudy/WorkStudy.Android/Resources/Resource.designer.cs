@@ -7719,6 +7719,12 @@ namespace WorkStudy.Droid
 			// aapt resource value: 0x7f0b0194
 			public const int MainTheme_Base = 2131427732;
 			
+			// aapt resource value: 0x7f0b0199
+			public const int MyTabLayout = 2131427737;
+			
+			// aapt resource value: 0x7f0b019a
+			public const int MyTabTextAppearance = 2131427738;
+			
 			// aapt resource value: 0x7f0b0196
 			public const int MyTheme = 2131427734;
 			

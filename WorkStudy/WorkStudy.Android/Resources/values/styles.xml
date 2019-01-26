@@ -39,4 +39,11 @@
         <item name="colorAccent">#012348</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
+     <style name="MyTabLayout" parent="Base.Widget.Design.TabLayout">
+    <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+  </style>
+
+  <style name="MyTabTextAppearance" parent="TextAppearance.AppCompat.Button">
+    <item name="android:textSize">10sp</item>
+  </style>
 </resources>

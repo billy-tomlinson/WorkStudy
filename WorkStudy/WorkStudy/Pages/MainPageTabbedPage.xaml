@@ -8,7 +8,7 @@
             BackgroundColor="White">
     <pages:MainPage Title="Study"  Icon="sandtimer.png" />
     <pages:AddActivitiesPage Title="Current" Icon="tools.png" />
-    <pages:AllActivitiesPage Title="Add New" Icon="tools.png" />
+    <pages:AllActivitiesPage Title="New" Icon="tools.png" />
     <pages:AddOperatorsPage Title="Operators" Icon="group.png" />
     <pages:EditActivitiesPage Title="Merge" Icon="merge.png" />
 </TabbedPage>
