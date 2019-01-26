@@ -1,4 +1,6 @@
-﻿namespace WorkStudy.Model
+﻿using SQLite;
+
+namespace WorkStudy.Model
 {
     public class OperatorObservation
     {
@@ -19,5 +21,8 @@
         public string TotalPercentage { get; set; }
 
         public double TotalPercentageDouble { get; set; }
+
+        [Ignore]
+        public bool PercentageIsVisible { get; set; }
     }
 }

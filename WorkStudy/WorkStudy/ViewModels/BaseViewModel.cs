@@ -313,6 +313,17 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool percentagesVisible;
+        public bool PercentagesVisible
+        {
+            get => percentagesVisible;
+            set
+            {
+                percentagesVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool StudyInProcess
         {
             get => Get_Observations_By_StudyId().Count > 0;
@@ -414,6 +425,15 @@ namespace WorkStudy.ViewModels
             var totalObs = observations.Count;
 
             var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == op.Id).ToList();
+
+            if (observationsTaken.Count < 10)
+            {
+                PercentagesVisible = false;
+                return totals;
+            }
+
+            PercentagesVisible = true;
+
             TotalObservationsTaken = totalObs;
 
             var activtyIds = observationsTaken.Select(x => new { Id = x.AliasActivityId })

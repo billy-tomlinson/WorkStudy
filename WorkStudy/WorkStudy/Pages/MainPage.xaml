@@ -23,12 +23,9 @@
                 </StackLayout>
                 <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
                     <views:StudyDetailsView />
-                    <Label Text=" Observed: ">
-                    </Label>
-                    <Label Text="{Binding TotalPercent}">
-                    </Label>
-                    <Label Text="%">
-                    </Label>
+                    <Label Text=" Observed: " IsVisible="{Binding PercentagesVisible}"/>
+                    <Label Text="{Binding TotalPercent}" IsVisible="{Binding PercentagesVisible}"/>
+                    <Label Text="%" IsVisible="{Binding PercentagesVisible}"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
                     <Label Text="Observation Round : " FontSize="15" HorizontalOptions="Start" />
@@ -65,7 +62,7 @@
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" IsVisible="{Binding PercentageIsVisible}"/>
                                         <Image Grid.Row="0" Grid.Column="2" Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}" WidthRequest="40" />
                                         <Label Grid.Row="0" Grid.Column="3" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
                                         <Label Grid.Row="0" Grid.Column="4" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />

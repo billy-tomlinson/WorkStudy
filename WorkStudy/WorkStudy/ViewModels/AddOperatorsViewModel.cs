@@ -141,8 +141,19 @@ namespace WorkStudy.ViewModels
             var value = (int)sender;
             Operator = OperatorRepo.GetWithChildren(value);
             RunningTotals = new ObservableCollection<OperatorRunningTotal>(GetRunningTotals(Operator));
-            Opacity = 0.2;
-            RunningTotalsVisible = true;
+            if(RunningTotals.Count == 0)
+            {
+                Opacity = 0.2;
+                ValidationText = "More observations are required for accuracy.";
+                ShowClose = true;
+                IsInvalid = true;
+            }
+            else 
+            {
+                Opacity = 0.2;
+                RunningTotalsVisible = true;
+            }
+
         }
 
         void CloseRunningTotalsEvent(object sender)
