@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using UserNotifications;
@@ -96,6 +98,11 @@ namespace WorkStudy.iOS
 
             // reset our badge
             UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+        }
+
+        public static CGColor ToCGColor(Color color)
+        {
+            return new CGColor(CGColorSpace.CreateSrgb(), new nfloat[] { (float)color.R, (float)color.G, (float)color.B, (float)color.A });
         }
     }
 }
