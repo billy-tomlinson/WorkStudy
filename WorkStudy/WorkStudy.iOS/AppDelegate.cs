@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Foundation;
-using Intents;
-using ObjCRuntime;
-using Plugin.Toasts;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
@@ -32,6 +28,15 @@ namespace WorkStudy.iOS
             UINavigationBar.Appearance.BackIndicatorImage = new UIImage();
             UINavigationBar.Appearance.BackIndicatorTransitionMaskImage = new UIImage();
 
+            UITabBar.Appearance.SelectedImageTintColor = UIColor.Black;
+
+            UITabBarItem.Appearance.SetTitleTextAttributes(
+                new UITextAttributes()
+                {
+                    TextColor = UIColor.Black
+                },
+                UIControlState.Selected);
+
             if (options != null)
             {
                 // check for a local notification
@@ -54,8 +59,8 @@ namespace WorkStudy.iOS
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
                 // Request Permissions
-                UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert 
-                        | UNAuthorizationOptions.Badge 
+                UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert
+                        | UNAuthorizationOptions.Badge
                         | UNAuthorizationOptions.Sound, (granted, error) =>
                             {
                                 // Do something if needed
