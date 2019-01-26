@@ -30,6 +30,10 @@ namespace WorkStudy.iOS
             UINavigationBar.Appearance.BackIndicatorImage = new UIImage();
             UINavigationBar.Appearance.BackIndicatorTransitionMaskImage = new UIImage();
 
+
+            UITabBar.Appearance.ShadowImage = new UIImage();
+            UITabBar.Appearance.BackgroundImage = new UIImage();
+
             UITabBar.Appearance.SelectedImageTintColor = UIColor.Black;
 
             UITabBarItem.Appearance.SetTitleTextAttributes(
