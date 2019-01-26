@@ -2,13 +2,10 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" 
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:pages="clr-namespace:WorkStudy.Pages" 
-            x:Class="WorkStudy.Pages.MainPageTabbedPage"
-            BarTextColor="Black"
-            BarBackgroundColor="White"
-            BackgroundColor="White">
+            x:Class="WorkStudy.Pages.MainPageTabbedPage" >
     <pages:MainPage Title="Study"  Icon="sandtimer.png" />
-    <pages:AddActivitiesPage Title="Current" Icon="tools.png" />
-    <pages:AllActivitiesPage Title="New" Icon="tools.png" />
+    <pages:AddActivitiesPage Title="Activities" Icon="tools.png" />
+    <pages:AllActivitiesPage Title="Historic" Icon="tools.png" />
     <pages:AddOperatorsPage Title="Operators" Icon="group.png" />
     <pages:EditActivitiesPage Title="Merge" Icon="merge.png" />
 </TabbedPage>

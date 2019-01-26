@@ -11,6 +11,11 @@
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="Padding" Value="5" />
             </Style>
+             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
+                <Setter Property="BarBackgroundColor" Value="#4174f4" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BarTextColor" Value="Black" />
+            </Style>
             <Style TargetType="StackLayout" ApplyToDerivedTypes="True">
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="0" />
