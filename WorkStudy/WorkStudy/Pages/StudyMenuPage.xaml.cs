@@ -8,7 +8,8 @@ namespace WorkStudy.Pages
         public StudyMenuPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         protected override bool OnBackButtonPressed()

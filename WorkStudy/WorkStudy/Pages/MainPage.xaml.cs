@@ -15,6 +15,7 @@ namespace WorkStudy.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetBackButtonTitle(this, "");
             BindingContext = new MainPageViewModel();
         }
 

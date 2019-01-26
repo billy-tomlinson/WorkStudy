@@ -10,7 +10,8 @@ namespace WorkStudy.Pages
         public StudyDetailsPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, "");
             studyName.Completed += studyName_Completed;
             studyDepartment.Completed += studyDepartment_Completed;
             studiedBy.Completed += studiedBy_Completed;

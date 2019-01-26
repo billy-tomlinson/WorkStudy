@@ -12,7 +12,8 @@ namespace WorkStudy.Pages
 			InitializeComponent ();
             timeStudy.Source = ImageSource.FromFile("stopwatch.png");
             NavigationPage.SetHasNavigationBar(this, false);
-		    Navigate();
+            NavigationPage.SetBackButtonTitle(this, "");
+            Navigate();
 
         }
 

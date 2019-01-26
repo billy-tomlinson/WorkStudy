@@ -19,6 +19,8 @@ namespace WorkStudy
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetBackButtonTitle(this, "");
+
             DatabasePath = databasePath;
             Utilities.Connection = DatabasePath;
             CallMain();

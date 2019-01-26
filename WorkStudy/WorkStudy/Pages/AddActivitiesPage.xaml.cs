@@ -1,6 +1,8 @@
-﻿using WorkStudy.Services;
+﻿using WorkStudy.Custom;
+using WorkStudy.Services;
 using WorkStudy.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace WorkStudy.Pages
 {
@@ -10,6 +12,7 @@ namespace WorkStudy.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         protected override bool OnBackButtonPressed()

@@ -9,7 +9,8 @@ namespace WorkStudy.Pages
         public PausedStudiesPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, "");
             listOfStudies.BindingContext = new ExistingStudiesViewModel(false);
         }
 

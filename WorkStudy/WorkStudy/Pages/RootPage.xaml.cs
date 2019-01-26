@@ -10,6 +10,7 @@ namespace WorkStudy.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         protected override bool OnBackButtonPressed()

@@ -10,6 +10,8 @@ namespace WorkStudy.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetBackButtonTitle(this, "");
+
             listOfStudies.BindingContext = new ExistingStudiesViewModel(true);
         }
 

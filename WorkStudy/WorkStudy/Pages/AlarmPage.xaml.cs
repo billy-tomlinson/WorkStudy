@@ -10,7 +10,8 @@ namespace WorkStudy.Pages
         public AlarmPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         protected override void OnAppearing()

@@ -9,7 +9,8 @@ namespace WorkStudy.Pages
         public StudySetUpTabbedPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         protected override bool OnBackButtonPressed()

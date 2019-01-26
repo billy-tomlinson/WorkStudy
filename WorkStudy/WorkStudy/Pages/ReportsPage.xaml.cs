@@ -8,20 +8,8 @@ namespace WorkStudy.Pages
         public ReportsPage()
         {
             InitializeComponent();
-            //chart.Source = ImageSource.FromFile("chart.png");
-            NavigationPage.SetHasNavigationBar(this, false);
-        }
-
-        void Submit_Clicked(object sender, System.EventArgs e)
-        {
-            //DataBase();
-            //chartView.IsVisible = true;
-        }
-
-        void Ok_Clicked(object sender, System.EventArgs e)
-        {
-            //DataBase();
-            //chartView.IsVisible = false;
+            NavigationPage.SetHasNavigationBar(this, true);
+            NavigationPage.SetBackButtonTitle(this, "");
         }
 
         protected override bool OnBackButtonPressed()

@@ -29,6 +29,8 @@ namespace WorkStudy.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             UINavigationBar.Appearance.TintColor = Color.White.ToUIColor();
+            UINavigationBar.Appearance.BackIndicatorImage = new UIImage();
+            UINavigationBar.Appearance.BackIndicatorTransitionMaskImage = new UIImage();
 
             if (options != null)
             {
