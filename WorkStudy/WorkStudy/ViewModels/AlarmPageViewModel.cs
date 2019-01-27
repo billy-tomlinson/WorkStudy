@@ -112,6 +112,7 @@ namespace WorkStudy.ViewModels
                 AlarmStatus = "ENABLED";
             else
                 AlarmStatus = "DISABLED";
+                
         }
 
         public AlarmPageViewModel()
@@ -147,6 +148,8 @@ namespace WorkStudy.ViewModels
                 intervalTime = intervalTime * 60;
                 
             AlarmNotificationService.SaveNewAlarmDetails(intervalTime, AlarmType, IsAlarmEnabled);
+
+            AlarmNotificationService.AlarmSetFromAlarmPage = true;
         }
 
         private bool IntervalIsValid(bool success)

@@ -9,6 +9,10 @@ namespace WorkStudy.Services
         public static string Random = "RANDOM";
 
         static bool restartAlarmCounter;
+
+        public static bool AlarmSetFromAlarmPage { get; set; }
+        public static string AlarmType { get; set; }
+
         public static bool RestartAlarmCounter
         {
             get => restartAlarmCounter;
@@ -18,7 +22,6 @@ namespace WorkStudy.Services
                 UpdateAlarm();
             }
         }
-
 
         static int nextIntervalTime;
         public static int NextIntervalTime
@@ -140,7 +143,8 @@ namespace WorkStudy.Services
                 if (restartAlarmCounter && Utilities.StudyId > 0)
                 {
                     var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                    AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                    if (alarm.Type != "CONSTANT" && AlarmSetFromAlarmPage)
+                        AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
                 }
             }
         }
@@ -160,7 +164,20 @@ namespace WorkStudy.Services
                 bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
 
                 if (notificationExpired)
-                    newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                {
+                    if (Device.RuntimePlatform == Device.iOS)
+                    {
+                        newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                    }
+                    else if (Device.RuntimePlatform == Device.Android)
+                    {
+                        if (alarm.Type != "CONSTANT" &&  AlarmSetFromAlarmPage)
+                        {
+                            newObsTime = AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                        }
+                    }
+                }
+
             }
 
             return newObsTime;

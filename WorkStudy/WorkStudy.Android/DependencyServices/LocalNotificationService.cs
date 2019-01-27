@@ -130,8 +130,9 @@ namespace WorkStudy.Droid.DependencyServices
         #region  - possible random alarm functionlity - -maybe...
         void HandleAction(INotificationResult obj)
         {
-           //DisableAlarmEvent();
-            EnableAlarmEvent();
+            if(AlarmNotificationService.AlarmSetFromAlarmPage && AlarmNotificationService.AlarmType != "CONSTANT")
+            //DisableAlarmEvent();
+                EnableAlarmEvent();
         }
 
         void EnableAlarmEvent()

@@ -108,6 +108,7 @@ namespace WorkStudy.ViewModels
                         {
                             TimeOfNextObservation = time;
                             AlarmNotificationService.RestartAlarmCounter = false;
+                            AlarmNotificationService.AlarmSetFromAlarmPage = false;
                         });
                     }
                     return true;
