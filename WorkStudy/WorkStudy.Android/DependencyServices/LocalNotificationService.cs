@@ -30,6 +30,7 @@ namespace WorkStudy.Droid.DependencyServices
 
             var pendingIntent = GeneratePendingIntent(title, body, id, notifyTime);
             var alarmManager = GetAlarmManager();
+            var nextAlarm = jan1St1970.AddMilliseconds(totalMilliSeconds);
             alarmManager.SetRepeating(AlarmType.RtcWakeup, totalMilliSeconds, repeatIntervalTime, pendingIntent);
         }
 
@@ -137,7 +138,7 @@ namespace WorkStudy.Droid.DependencyServices
         {
             DependencyService.Get<ILocalNotificationService>()
             .LocalNotification("Alert", "Next Observation Round", 0, 
-                AlarmNotificationService.NextAlarmTime, AlarmNotificationService.NextIntervalTime);
+                DateTime.Now, AlarmNotificationService.NextIntervalTime);
         }
 
         void DisableAlarmEvent()

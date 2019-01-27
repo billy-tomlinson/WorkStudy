@@ -59,8 +59,8 @@ namespace WorkStudy.Services
                     service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
                     break;
                 case Device.Android:
-                    //service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
-                    service.LocalNotification("Alert", "Next Observation Round", 0, NextAlarmTime, nextAlarm);
+                    service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
+                    //service.LocalNotification("Alert", "Next Observation Round", 0, NextAlarmTime, nextAlarm);
                     break;
             }
         }

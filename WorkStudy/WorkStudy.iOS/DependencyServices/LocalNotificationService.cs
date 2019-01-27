@@ -40,6 +40,7 @@ namespace WorkStudy.iOS.DependencyServices
             var requests = new string[] { "sampleRequest" };
             UNUserNotificationCenter.Current.RemovePendingNotificationRequests(requests);
             UNUserNotificationCenter.Current.RemoveDeliveredNotifications(requests);
+            UNUserNotificationCenter.Current.RemoveAllPendingNotificationRequests();
         }
     }
 }
