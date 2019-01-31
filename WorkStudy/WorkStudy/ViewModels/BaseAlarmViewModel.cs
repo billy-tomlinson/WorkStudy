@@ -93,6 +93,11 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        public bool IsAlarmSectionEnabled
+        {
+            get => Utilities.StudyId > 0;
+        }
+
         void Switch_Toggled_Type()
         {
             AlarmDetails = AlarmRepo.GetItems()
@@ -116,6 +121,20 @@ namespace WorkStudy.ViewModels
 
         void SaveAlarmDetails()
         {
+            if(Utilities.StudyId == 0 && IsAlarmEnabled)
+            {
+                ValidationText = $"Please submit study details before setting alarm.";
+                Opacity = 0.2;
+                IsInvalid = true;
+                ShowClose = true;
+                return;
+            }
+
+            if (Utilities.StudyId == 0 && !IsAlarmEnabled)
+            {
+                return;
+            }
+
             if (IsAlarmEnabled)
             {
                 var success = int.TryParse(IntervalMinutes, out int result);

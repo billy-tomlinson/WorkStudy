@@ -47,30 +47,30 @@
                     <StackLayout>
                         <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitAndFocusOperators}" CommandParameter="{x:Reference StudyDetailsView}" IsEnabled="{Binding IsActive}" />
                     </StackLayout>
-                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsPageEnabled, Source={x:Reference StudyDetailsView}}" Padding="20,0,0,0">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Interval type" />
-                            <Switch IsToggled="{Binding Path = BindingContext.IsRandom, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                        <StackLayout IsEnabled="{Binding Path = BindingContext.IsPageEnabled, Source={x:Reference StudyDetailsView}}" Padding="20,0,0,0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Style="{StaticResource studyLabel}" Text="Interval type" />
+                                <Switch IsToggled="{Binding Path = BindingContext.IsRandom, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Style="{StaticResource studyLabel}" />
+                                <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference StudyDetailsView}}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
+                                <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
+                            </StackLayout>
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" />
-                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference StudyDetailsView}}" />
+                        <StackLayout Padding="20,0,0,0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
+                                <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Style="{StaticResource studyLabel}" />
+                                <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}" HeightRequest="40" FontAttributes="Bold" />
+                            </StackLayout>
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
-                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
-                        </StackLayout>
-                    </StackLayout>
-                    <StackLayout Padding="20,0,0,0">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
-                            <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" />
-                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}" HeightRequest="40" FontAttributes="Bold" />
-                        </StackLayout>
-                    </StackLayout>
                 </StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                     <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />

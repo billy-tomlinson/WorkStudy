@@ -13,8 +13,6 @@ namespace WorkStudy.ViewModels
 
         public StudyDetailsViewModel() { ConstructorSetUp(); }
 
-        int intervalTime;
-
         public ICommand SubmitAndFocusOperators => new Command
         (
             (parameter) =>
@@ -30,7 +28,7 @@ namespace WorkStudy.ViewModels
                         {  
                             IsActive = false, 
                             Type = AlarmType, 
-                            Interval = intervalTime,
+                            Interval = IntervalTime,
                             StudyId = Utilities.StudyId
                         }
                     );
@@ -72,31 +70,6 @@ namespace WorkStudy.ViewModels
             set
             {
                 studyType = value;
-                OnPropertyChanged();
-            }
-        }
-
-
-        bool isRandom = false;
-        public bool IsRandom
-        {
-            get { return isRandom; }
-            set
-            {
-                isRandom = value;
-                Switch_Toggled_Type();
-                OnPropertyChanged();
-            }
-        }
-
-
-        static string alarmType = "CONSTANT";
-        public string AlarmType 
-        {
-            get => alarmType;
-            set
-            {
-                alarmType = value;
                 OnPropertyChanged();
             }
         }
