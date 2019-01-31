@@ -71,6 +71,7 @@ namespace WorkStudy.Services
                 headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
                 headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
                 headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                headerStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 headerStyle.EndUpdate();
 
 
@@ -82,6 +83,7 @@ namespace WorkStudy.Services
                 titleStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
                 titleStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
                 titleStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                titleStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 titleStyle.EndUpdate();
 
                 totalsStyle = workbook.Styles.Add("TotalsStyle");
@@ -92,6 +94,7 @@ namespace WorkStudy.Services
                 totalsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
                 totalsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
                 totalsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                totalsStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 totalsStyle.EndUpdate();
 
                 destSheetAll = workbook.Worksheets.Create("Summary");
@@ -434,7 +437,7 @@ namespace WorkStudy.Services
                 unRatedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
 
                 // Total All observations  - Add together total value added +  total value added +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula4 = $"=TEXT(SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex}), \"####\")";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
@@ -491,7 +494,7 @@ namespace WorkStudy.Services
 
 
                 // Total All observations  - Add together total value added +  total value added +  total unrated
-                var formula4 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex})";
+                var formula4 = $"=TEXT(SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex}), \"####\")";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
 
