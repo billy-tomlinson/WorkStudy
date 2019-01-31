@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace WorkStudy.ViewModels
 {
-    public class StudyDetailsViewModel : BaseViewModel
+    public class StudyDetailsViewModel : BaseAlarmViewModel
     {
         public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 
@@ -163,34 +163,12 @@ namespace WorkStudy.ViewModels
 
         }
 
-        private bool IntervalIsValid(bool success)
-        {
-
-            if (!success)
-            {
-                ValidationText = "Please enter valid minutes less than 99";
-                Opacity = 0.2;
-                IsInvalid = true;
-                ShowClose = true;
-                return false;
-            }
-            else
-                return true;
-
-        }
-
         private void ValidateValues()
         {
             ValidationText = "Please enter all study details";
             ShowClose = true;
             IsInvalid = true;
             Opacity = 0.2;
-
-            var success = int.TryParse(IntervalMinutes, out int result);
-
-            if (!IntervalIsValid(success)) return;
-
-            intervalTime = result * 60;
 
             if ((SampleStudy.Department != null && SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
