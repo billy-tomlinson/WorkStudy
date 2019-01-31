@@ -16,7 +16,7 @@ namespace WorkStudy.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-
+        
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -46,7 +46,7 @@ namespace WorkStudy.Droid
             string dbPath = Path.Combine(folderPath, dbName);
             string alarmDbPath = Path.Combine(folderPath, alarmDbName);
 
-            DependencyService.Register<ToastNotification>();
+            //DependencyService.Register<ToastNotification>();
             ToastNotification.Init(this, new PlatformOptions() 
             { 
                 SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo 

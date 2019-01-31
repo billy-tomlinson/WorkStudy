@@ -631,7 +631,8 @@ namespace WorkStudy.ViewModels
                         ObservedColour = System.Drawing.Color.Gray,
                         LimitsOfAccuracy = limitsReached.AccuracyReached,
                         TotalPercentageDouble = percentage,
-                        TotalPercentage = percentage.ToString() + "%"
+                        TotalPercentage = percentage.ToString() + "%",
+                        PercentageIsVisible = item.Observations.Count > 10 ? true : false
                     };
                     ops.Add(opObs);
                 }

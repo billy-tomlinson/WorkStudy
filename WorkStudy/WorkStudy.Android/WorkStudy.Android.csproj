@@ -100,6 +100,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveAndroid.cs" />
     <Compile Include="DependencyServices\LocalNotificationService.cs" />
+    <Compile Include="AlarmReceiver.cs" />
+    <Compile Include="BootReciever.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
