@@ -8,6 +8,7 @@ using WorkStudy.Model;
 using WorkStudy.Services;
 using Xamarin.Forms;
 using Android.Runtime;
+using Android.Support.V4.App;
 
 [assembly: Dependency(typeof(LocalNotificationService))]
 namespace WorkStudy.Droid.DependencyServices
@@ -30,28 +31,16 @@ namespace WorkStudy.Droid.DependencyServices
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(Android.App.Application.Context, 0, alarmIntent, 0);
         }
 
-       
-        private string SerializeNotification(LocalNotification notification)
-        {
-
-            var xmlSerializer = new XmlSerializer(notification.GetType());
-
-            using (var stringWriter = new StringWriter())
-            {
-                xmlSerializer.Serialize(stringWriter, notification);
-                return stringWriter.ToString();
-            }
-        }
-
         public void DisableLocalNotification(string title, string body, int id, DateTime notifyTime)
         {
-            //var pendingIntent = GeneratePendingIntent(title, body, id, notifyTime);
-            //var alarmManager = GetAlarmManager();
-            //alarmManager.Cancel(pendingIntent);
+            Intent alarmIntent = new Intent(Android.App.Application.Context, typeof(AlarmReceiver));
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(Android.App.Application.Context, 0, alarmIntent, 0); 
+            AlarmManager alarmManager = Android.App.Application.Context.GetSystemService(Context.AlarmService).JavaCast<AlarmManager>();
 
-            //var notificationManager = NotificationManagerCompat.From(Android.App.Application.Context);
-            //notificationManager.CancelAll();
-            //notificationManager.Cancel(id);
+            alarmManager.Cancel(pendingIntent);
+            var notificationManager = NotificationManagerCompat.From(Android.App.Application.Context);
+            notificationManager.CancelAll();
         }
     }
 }
+
