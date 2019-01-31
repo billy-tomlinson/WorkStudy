@@ -188,8 +188,6 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-
-                var formula1 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{allActivities.Count + startRowIndex})";
                 var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
                 var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
@@ -223,7 +221,6 @@ namespace WorkStudy.UnitTests
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "####";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
@@ -237,7 +234,6 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{allActivities.Count + startRowIndex})";
                 var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
                 var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
@@ -317,7 +313,6 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
@@ -346,7 +341,6 @@ namespace WorkStudy.UnitTests
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
@@ -361,7 +355,6 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
@@ -444,12 +437,9 @@ namespace WorkStudy.UnitTests
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
-                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 

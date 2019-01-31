@@ -51,8 +51,6 @@ namespace WorkStudy.Services
             timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
 
             string path;
-            Guid guid = Guid.NewGuid();
-           //string fileName = $"Workstudy_{Utilities.StudyId}.xlsx";
             string fileName = $"ActivitySample_Study_{Utilities.StudyId}.xlsx";
 
             using (var excelEngine = new ExcelEngine())
@@ -169,8 +167,6 @@ namespace WorkStudy.Services
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-
-                var formula1 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{allActivities.Count + startRowIndex})";
                 var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
                 var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
@@ -204,7 +200,6 @@ namespace WorkStudy.Services
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
@@ -218,7 +213,6 @@ namespace WorkStudy.Services
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRowIndex}:{columnAddress1}{allActivities.Count + startRowIndex})";
                 var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
                 var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
@@ -298,7 +292,6 @@ namespace WorkStudy.Services
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
@@ -327,7 +320,6 @@ namespace WorkStudy.Services
                             var totalActivity = totalObs.Count(x => x.ActivityName == v);
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
-                            var totalPerActivity = vv.TotalTime * totalActivity;
 
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
@@ -338,11 +330,9 @@ namespace WorkStudy.Services
                 }
 
                 //total all unrated totals of all operators
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
@@ -425,12 +415,9 @@ namespace WorkStudy.Services
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula1 = $"=SUM({columnAddress1}{startRow}:{columnAddress1}{allActivities.Count + startRow})";
                 var formula2 = $"=SUM({columnAddress2}{startRow}:{columnAddress2}{allActivities.Count + startRow})";
                 var formula3 = $"=SUM({columnAddress3}{startRow}:{columnAddress3}{allActivities.Count + startRow})";
 
-                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 2].Formula = formula1;
-                //destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
@@ -439,7 +426,7 @@ namespace WorkStudy.Services
                 // Total All observations  - Add together total value added +  total value added +  total unrated
                 var formula4 = $"=TEXT(SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex}), \"####\")";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
-                var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
+                var formula6 = $"=TEXT(SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex}, \"00.0\")";
 
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "###0";
@@ -496,7 +483,7 @@ namespace WorkStudy.Services
                 // Total All observations  - Add together total value added +  total value added +  total unrated
                 var formula4 = $"=TEXT(SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex}), \"####\")";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
-                var formula6 = $"=SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex})";
+                var formula6 = $"=TEXT(SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex}), \"00.0\")";
 
                 //**** THIS TOTALS ALL THE TOTALS AT THE END OF THE SHEET *********************************
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
