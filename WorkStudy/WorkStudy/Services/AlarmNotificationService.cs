@@ -62,6 +62,7 @@ namespace WorkStudy.Services
                     service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
                     break;
                 case Device.Android:
+                    service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
                     service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
                     //service.LocalNotification("Alert", "Next Observation Round", 0, NextAlarmTime, nextAlarm);
                     break;
@@ -165,17 +166,19 @@ namespace WorkStudy.Services
 
                 if (notificationExpired)
                 {
-                    if (Device.RuntimePlatform == Device.iOS)
-                    {
-                        newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-                    }
-                    else if (Device.RuntimePlatform == Device.Android)
-                    {
-                        if (alarm.Type != "CONSTANT" &&  AlarmSetFromAlarmPage)
-                        {
-                            newObsTime = AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-                        }
-                    }
+                    newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+
+                    //if (Device.RuntimePlatform == Device.iOS)
+                    //{
+                    //    newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                    //}
+                    //else if (Device.RuntimePlatform == Device.Android)
+                    //{
+                    //    if (alarm.Type != "CONSTANT" &&  AlarmSetFromAlarmPage)
+                    //    {
+                    //        newObsTime = AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                    //    }
+                    //}
                 }
 
             }
