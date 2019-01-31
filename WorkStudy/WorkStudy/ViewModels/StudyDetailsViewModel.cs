@@ -113,6 +113,11 @@ namespace WorkStudy.ViewModels
 
             Utilities.StudyId = 0;
 
+            AlarmType = Interval;
+            IsRandom = false;
+            IsAlarmEnabled = false;
+            IntervalMinutes = string.Empty;
+
             SampleStudy = new ActivitySampleStudy()
             {
                 IsRated = !IsUnRated,

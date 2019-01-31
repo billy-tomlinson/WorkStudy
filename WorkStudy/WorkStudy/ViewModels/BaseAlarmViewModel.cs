@@ -42,19 +42,24 @@ namespace WorkStudy.ViewModels
                 Switch_Toggled_Enabled();
                 if (!PageLoading)
                 {
+                    if (Utilities.StudyId == 0)
+                    {
+                        ShowValidationForEmptyStudyID();
+                        isAlarmEnabled = false;
+                        return;
+                    }
+
+                    OnPropertyChanged("IsPageEnabled");
+
                     SaveAlarmDetails();
+
                     if (value)
                     {
                         IsPageEnabled = false;
-                        OnPropertyChanged("IsPageEnabled");
-                        Opacity = 0.5;
                     }
-
                     else
                     {
                         IsPageEnabled = true;
-                        OnPropertyChanged("IsPageEnabled");
-                        Opacity = 1;
                     }
 
                 }
@@ -119,22 +124,20 @@ namespace WorkStudy.ViewModels
 
         }
 
-        void SaveAlarmDetails()
+        void ShowValidationForEmptyStudyID()
         {
-            if(Utilities.StudyId == 0 && IsAlarmEnabled)
+            if(IsAlarmEnabled)
             {
+                IsAlarmEnabled = false;
                 ValidationText = $"Please submit study details before setting alarm.";
                 Opacity = 0.2;
                 IsInvalid = true;
                 ShowClose = true;
-                return;
             }
+        }
 
-            if (Utilities.StudyId == 0 && !IsAlarmEnabled)
-            {
-                return;
-            }
-
+        void SaveAlarmDetails()
+        {
             if (IsAlarmEnabled)
             {
                 var success = int.TryParse(IntervalMinutes, out int result);
