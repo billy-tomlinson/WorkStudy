@@ -6,10 +6,7 @@ namespace WorkStudy.ViewModels
 {
     public class BaseAlarmViewModel : BaseViewModel
     {
-        public BaseAlarmViewModel(string conn = null, string alarmconn = null) : base(conn, alarmconn)
-        {
-
-        }
+        public BaseAlarmViewModel(string conn = null, string alarmconn = null) : base(conn, alarmconn) { }
 
         public const string Interval = "CONSTANT";
 
@@ -42,13 +39,6 @@ namespace WorkStudy.ViewModels
                 Switch_Toggled_Enabled();
                 if (!PageLoading)
                 {
-                    if (Utilities.StudyId == 0)
-                    {
-                        //ShowValidationForEmptyStudyID();
-                        //isAlarmEnabled = false;
-                        return;
-                    }
-
                     OnPropertyChanged("IsPageEnabled");
 
                     SaveAlarmDetails();
@@ -61,9 +51,7 @@ namespace WorkStudy.ViewModels
                     {
                         IsPageEnabled = true;
                     }
-
                 }
-
             }
         }
 
@@ -103,7 +91,7 @@ namespace WorkStudy.ViewModels
             get => Utilities.StudyId > 0;
         }
 
-        void Switch_Toggled_Type()
+        public void Switch_Toggled_Type()
         {
             AlarmDetails = AlarmRepo.GetItems()
                 .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
@@ -112,7 +100,7 @@ namespace WorkStudy.ViewModels
         }
 
 
-        void Switch_Toggled_Enabled()
+        public void Switch_Toggled_Enabled()
         {
             AlarmDetails = AlarmRepo.GetItems()
                 .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
@@ -149,9 +137,11 @@ namespace WorkStudy.ViewModels
             else
                 IntervalTime = IntervalTime * 60;
 
-            AlarmNotificationService.SaveNewAlarmDetails(IntervalTime, AlarmType, IsAlarmEnabled);
-
-            AlarmNotificationService.AlarmSetFromAlarmPage = true;
+            if (Utilities.StudyId != 0)
+            {
+                AlarmNotificationService.SaveNewAlarmDetails(IntervalTime, AlarmType, IsAlarmEnabled);
+                AlarmNotificationService.AlarmSetFromAlarmPage = true;
+            }
         }
 
         public bool IntervalIsValid(bool success)
@@ -169,10 +159,7 @@ namespace WorkStudy.ViewModels
                 return false;
 
             }
-            else
-                return true;
-
+            return true;
         }
-
     }
 }

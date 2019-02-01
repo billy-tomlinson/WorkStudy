@@ -79,12 +79,6 @@ namespace WorkStudy.ViewModels
             StudyType = _isUnRated == false ? "RATED" : "UNRATED";
         }
 
-
-        void Switch_Toggled_Type()
-        {
-            AlarmType = IsRandom == false ? "CONSTANT" : "RANDOM";
-        }
-
         bool isActive;
         public bool IsActive
         {
@@ -150,7 +144,7 @@ namespace WorkStudy.ViewModels
 
             var success = int.TryParse(IntervalMinutes, out int result);
 
-            if (!IntervalIsValid(success)) return;
+            if (!AlarmIntervalIsValid(success)) return;
 
             IntervalTime = result * 60;
 
@@ -164,6 +158,24 @@ namespace WorkStudy.ViewModels
 
         }
 
+        public bool AlarmIntervalIsValid(bool success)
+        {
+
+            if (!success)
+            {
+                ValidationText = "Please enter valid minutes less than 99";
+                Opacity = 0.2;
+                IsInvalid = true;
+                IsAlarmEnabled = false;
+                ShowClose = true;
+                Switch_Toggled_Enabled();
+                return false;
+
+            }
+            else
+                return true;
+
+        }
         public void CreateUnratedActivities()
         {
             var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "ABSENT");
