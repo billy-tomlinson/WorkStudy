@@ -48,7 +48,6 @@ namespace WorkStudy.ViewModels
 
         void GoStudyMenu(object obj)
         {
-            Utilities.StudyId = 0;
             Utilities.Navigate(new StudyMenuPage());
             App.MenuIsPresented = false;
         }

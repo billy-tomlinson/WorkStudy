@@ -11,7 +11,10 @@ namespace WorkStudy.ViewModels
     {
         public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 
-        public StudyDetailsViewModel() { ConstructorSetUp(); }
+        public StudyDetailsViewModel()
+        {
+            ConstructorSetUp(); 
+        }
 
         public ICommand SubmitAndFocusOperators => new Command
         (
@@ -21,6 +24,7 @@ namespace WorkStudy.ViewModels
 
                 if (!IsInvalid)
                 {
+                    StudyPageOpacity = 0.5;
                     SampleStudy.IsRated = !IsUnRated;
                     Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
 
@@ -45,7 +49,6 @@ namespace WorkStudy.ViewModels
                     IsActive = false;
                 }
 
-                Opacity = 0.5;
                 ShowClose = true;
             }
         );
@@ -62,6 +65,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        double studyPageOpacity = 1;
+        public double StudyPageOpacity
+        {
+            get { return studyPageOpacity; }
+            set
+            {
+                studyPageOpacity = value;
+                OnPropertyChanged();
+            }
+        }
 
         string studyType = "RATED";
         public string StudyType
@@ -103,8 +116,8 @@ namespace WorkStudy.ViewModels
 
         private void ConstructorSetUp()
         {
+       
             IsActive = true;
-
             Utilities.StudyId = 0;
 
             AlarmType = Interval;

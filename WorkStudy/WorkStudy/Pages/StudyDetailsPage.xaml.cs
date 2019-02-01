@@ -16,7 +16,6 @@ namespace WorkStudy.Pages
             studyName.Completed += studyName_Completed;
             studyDepartment.Completed += studyDepartment_Completed;
             studiedBy.Completed += studiedBy_Completed;
-               
         }
 
         public void studyName_Completed(object sender, EventArgs e)

@@ -21,7 +21,6 @@ namespace WorkStudy.Services
         public static string AlarmConnection { get; set; }
         public static DateTime LastNotification { get; set; } = DateTime.Now;
 
-
         public static bool OperatorTableUpdated { get; set; }
         public static bool ActivityTableUpdated { get; set; }
         public static bool ObservationTableUpdated { get; set; }

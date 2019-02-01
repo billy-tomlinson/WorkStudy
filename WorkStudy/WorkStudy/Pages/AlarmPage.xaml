@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewModels="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:views="clr-namespace:WorkStudy.Views" x:Name="AlarmDetailsView" x:Class="WorkStudy.Pages.AlarmPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
+             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" 
+             xmlns:views="clr-namespace:WorkStudy.Views" 
+             x:Name="AlarmPageView" 
+             x:Class="WorkStudy.Pages.AlarmPage">
     <ContentPage.BindingContext>
-        <viewModels:AlarmPageViewModel />
+        <local:AlarmPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
@@ -11,67 +17,70 @@
                 <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
                 <StackLayout BackgroundColor="Transparent" 
                              IsVisible="{Binding IsPageVisible}" 
-                             HorizontalOptions="Center" 
-                             Padding="5" 
-                             Margin="5" 
-                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                             AbsoluteLayout.LayoutFlags="All" 
-                             WidthRequest="400">
-                    <StackLayout BindingContext="{Binding AlarmPageViewModel}" Padding="20,20,20,20">
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,0" 
+                                 Opacity="0.5" 
+                                 IsEnabled="false">
+                        <views:StudyDetailsView />
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
                             <Label Text="Study Details" HeightRequest="40" FontSize="30" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Number" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.ActivtySample.StudyNumber, Source={x:Reference AlarmDetailsView}}" />
+                            <Entry WidthRequest="150" IsEnabled="false" Text="{Binding StudyNumber}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study Name" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.ActivtySample.Name, Source={x:Reference AlarmDetailsView}}" />
+                            <Entry x:Name="studyName" Placeholder="Name" WidthRequest="150" Text="{Binding Name}" MaxLength="20" IsEnabled="false" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Department" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.ActivtySample.Department, Source={x:Reference AlarmDetailsView}}" />
+                            <Entry x:Name="studyDepartment" Placeholder="Department" WidthRequest="150" Text="{Binding Department}" MaxLength="20" IsEnabled="false" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Studied By" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.ActivtySample.StudiedBy, Source={x:Reference AlarmDetailsView}}" />
+                            <Entry x:Name="studiedBy" Placeholder="Studied By" WidthRequest="150" Text="{Binding StudiedBy}" MaxLength="20" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Date" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.ActivtySample.DateFormatted, Source={x:Reference AlarmDetailsView}}" />
+                            <DatePicker WidthRequest="150" Date="{Binding Date}" IsEnabled="false" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Time" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.ActivtySample.TimeFormatted, Source={x:Reference AlarmDetailsView}}" />
+                            <TimePicker WidthRequest="150" Time="{Binding Time}" IsEnabled="false" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Study type" />
-                            <Label Style="{StaticResource studyLabel}" WidthRequest="150" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference AlarmDetailsView}}" />
-                        </StackLayout>
-                    </StackLayout>
-                    <StackLayout IsEnabled="{Binding IsPageEnabled}" Padding="20,0,0,0">
-                        <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Interval type" />
-                            <Switch IsToggled="{Binding IsRandom}" HorizontalOptions="Start" />
+                            <Switch IsToggled="{Binding Path = BindingContext.IsUnRated, Source={x:Reference AlarmPageView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" />
-                            <Label Style="{StaticResource studyLabel}" Text="{Binding AlarmType}" HeightRequest="40" FontAttributes="Bold" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference AlarmPageView}}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsPageEnabled, Source={x:Reference AlarmPageView}}" Padding="20,0,0,0">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Interval type" />
+                            <Switch IsToggled="{Binding Path = BindingContext.IsRandom, Source={x:Reference AlarmPageView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference AlarmPageView}}" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
-                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding IntervalMinutes}" />
+                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference AlarmPageView}}" />
                         </StackLayout>
                     </StackLayout>
                     <StackLayout Padding="20,0,0,0">
                         <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
-                            <Switch IsToggled="{Binding IsAlarmEnabled}" HorizontalOptions="Start" />
+                            <Label Style="{StaticResource studyLabel}" Text="Alarm Notification" />
+                            <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference AlarmPageView}}" HorizontalOptions="Start" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" />
-                            <Label Style="{StaticResource studyLabel}" Text="{Binding AlarmStatus}" HeightRequest="40" FontAttributes="Bold" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference AlarmPageView}}"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

@@ -8,7 +8,7 @@
             <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
                 <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,0" 
-                                 Opacity="{Binding Path = BindingContext.Opacity, Source={x:Reference StudyDetailsView}}" 
+                                 Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" 
                                  IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
                             <Label Text="Study Details" HeightRequest="40" FontSize="30" />
@@ -62,7 +62,7 @@
                     </StackLayout>
                     <StackLayout Padding="20,0,0,0">
                         <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" />
+                            <Label Style="{StaticResource studyLabel}" Text="Alarm Notification" />
                             <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
@@ -71,7 +71,7 @@
                         </StackLayout>
                     </StackLayout>
                     <StackLayout>
-                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitAndFocusOperators}" CommandParameter="{x:Reference StudyDetailsView}" IsEnabled="{Binding IsActive}" />
+                        <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitAndFocusOperators}" CommandParameter="{x:Reference StudyDetailsView}" IsVisible="{Binding IsActive}" />
                     </StackLayout>
                 </StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
