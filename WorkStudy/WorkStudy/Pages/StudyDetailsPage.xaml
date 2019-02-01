@@ -7,7 +7,9 @@
         <ScrollView>
             <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
                 <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20" Opacity="{Binding Path = BindingContext.Opacity, Source={x:Reference StudyDetailsView}}" IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
+                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20" 
+                                 Opacity="{Binding Path = BindingContext.Opacity, Source={x:Reference StudyDetailsView}}" 
+                                 IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
                             <Label Text="Study Details" HeightRequest="40" FontSize="30" />
                         </StackLayout>
@@ -44,33 +46,33 @@
                             <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference StudyDetailsView}}" />
                         </StackLayout>
                     </StackLayout>
+                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsPageEnabled, Source={x:Reference StudyDetailsView}}" Padding="20,0,0,0">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Interval type" />
+                            <Switch IsToggled="{Binding Path = BindingContext.IsRandom, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference StudyDetailsView}}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
+                            <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Padding="20,0,0,0">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
+                            <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource studyLabel}" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}" HeightRequest="40" FontAttributes="Bold" />
+                        </StackLayout>
+                    </StackLayout>
                     <StackLayout>
                         <Button Text="Submit Details" WidthRequest="150" Command="{Binding SubmitAndFocusOperators}" CommandParameter="{x:Reference StudyDetailsView}" IsEnabled="{Binding IsActive}" />
                     </StackLayout>
-                        <StackLayout IsEnabled="{Binding Path = BindingContext.IsPageEnabled, Source={x:Reference StudyDetailsView}}" Padding="20,0,0,0">
-                            <StackLayout Orientation="Horizontal">
-                                <Label Style="{StaticResource studyLabel}" Text="Interval type" />
-                                <Switch IsToggled="{Binding Path = BindingContext.IsRandom, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Style="{StaticResource studyLabel}" />
-                                <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmType, Source={x:Reference StudyDetailsView}}" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Style="{StaticResource studyLabel}" Text="Interval mins" />
-                                <Entry Placeholder="mins" WidthRequest="90" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
-                            </StackLayout>
-                        </StackLayout>
-                        <StackLayout Padding="20,0,0,0">
-                            <StackLayout Orientation="Horizontal">
-                                <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
-                                <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Style="{StaticResource studyLabel}" />
-                                <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}" HeightRequest="40" FontAttributes="Bold" />
-                            </StackLayout>
-                        </StackLayout>
                 </StackLayout>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                     <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />

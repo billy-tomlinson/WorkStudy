@@ -44,8 +44,8 @@ namespace WorkStudy.ViewModels
                 {
                     if (Utilities.StudyId == 0)
                     {
-                        ShowValidationForEmptyStudyID();
-                        isAlarmEnabled = false;
+                        //ShowValidationForEmptyStudyID();
+                        //isAlarmEnabled = false;
                         return;
                     }
 
@@ -154,7 +154,7 @@ namespace WorkStudy.ViewModels
             AlarmNotificationService.AlarmSetFromAlarmPage = true;
         }
 
-        private bool IntervalIsValid(bool success)
+        public bool IntervalIsValid(bool success)
         {
             if (!IsAlarmEnabled) return true;
 

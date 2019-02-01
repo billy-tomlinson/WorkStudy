@@ -26,7 +26,7 @@ namespace WorkStudy.ViewModels
 
                     AlarmRepo.SaveItem(new AlarmDetails 
                         {  
-                            IsActive = false, 
+                            IsActive = IsAlarmEnabled, 
                             Type = AlarmType, 
                             Interval = IntervalTime,
                             StudyId = Utilities.StudyId
@@ -147,6 +147,12 @@ namespace WorkStudy.ViewModels
             ShowClose = true;
             IsInvalid = true;
             Opacity = 0.2;
+
+            var success = int.TryParse(IntervalMinutes, out int result);
+
+            if (!IntervalIsValid(success)) return;
+
+            IntervalTime = result * 60;
 
             if ((SampleStudy.Department != null && SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
