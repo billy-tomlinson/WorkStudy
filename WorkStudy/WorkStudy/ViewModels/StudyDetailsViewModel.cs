@@ -163,7 +163,7 @@ namespace WorkStudy.ViewModels
 
             if (!success)
             {
-                ValidationText = "Please enter valid minutes less than 99";
+                ValidationText = "Please enter interval minutes less than 99";
                 Opacity = 0.2;
                 IsInvalid = true;
                 IsAlarmEnabled = false;

@@ -7,7 +7,7 @@
         <ScrollView>
             <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
                 <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,20" 
+                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,0" 
                                  Opacity="{Binding Path = BindingContext.Opacity, Source={x:Reference StudyDetailsView}}" 
                                  IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
                         <StackLayout Orientation="Horizontal" HeightRequest="70" HorizontalOptions="Center">
@@ -62,12 +62,12 @@
                     </StackLayout>
                     <StackLayout Padding="20,0,0,0">
                         <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" HeightRequest="40" />
+                            <Label Style="{StaticResource studyLabel}" Text="Disabled/Enabled" />
                             <Switch IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Style="{StaticResource studyLabel}" />
-                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}" HeightRequest="40" FontAttributes="Bold" />
+                            <Label Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}"/>
                         </StackLayout>
                     </StackLayout>
                     <StackLayout>
