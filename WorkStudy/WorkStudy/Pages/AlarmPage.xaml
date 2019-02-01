@@ -19,7 +19,8 @@
                              IsVisible="{Binding IsPageVisible}" 
                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                              AbsoluteLayout.LayoutFlags="All">
-                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,20,20,0" 
+                    <StackLayout BindingContext="{Binding SampleStudy}" 
+                                 Padding="20,20,20,0" 
                                  Opacity="0.5" 
                                  IsEnabled="false">
                         <views:StudyDetailsView />

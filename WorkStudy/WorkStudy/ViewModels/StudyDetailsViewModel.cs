@@ -44,7 +44,7 @@ namespace WorkStudy.ViewModels
 
                     var page = parameter as ContentPage;
                     var parentPage = page.Parent as TabbedPage;
-                    parentPage.CurrentPage = parentPage.Children[2];
+                    parentPage.CurrentPage = parentPage.Children[3];
 
                     IsActive = false;
                 }
