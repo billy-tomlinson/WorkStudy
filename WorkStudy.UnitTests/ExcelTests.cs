@@ -44,6 +44,7 @@ namespace WorkStudy.UnitTests
         IStyle headerStyle;
         IStyle titleStyle;
         IStyle totalsStyle;
+        IStyle detailsStyle;
 
 
         public ExcelTests()
@@ -77,7 +78,6 @@ namespace WorkStudy.UnitTests
 
                 //Create a workbook with a worksheet
                 workbook = excelEngine.Excel.Workbooks.Create(1);
-
                 headerStyle = workbook.Styles.Add("HeaderStyle");
                 headerStyle.BeginUpdate();
                 headerStyle.Color = Color.FromArgb(255, 174, 33);
@@ -112,17 +112,35 @@ namespace WorkStudy.UnitTests
                 totalsStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 totalsStyle.EndUpdate();
 
+
+                detailsStyle = workbook.Styles.Add("DetailsStyle");
+                detailsStyle.BeginUpdate();
+                detailsStyle.Color = Color.FromArgb(255, 255, 153);
+                detailsStyle.Font.Bold = true;
+                detailsStyle.Font.Size = 20;
+                detailsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                detailsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                detailsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                detailsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                detailsStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                detailsStyle.EndUpdate();
+
+                BuildStudyDetails();
+
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
                 BuildValueAddedRatedActivities();
                 BuildNonValueAddedRatedActivities();
                 BuildUnRatedActivities();
+                
 
+                workbook.Worksheets[0].Remove();
+                
                 using (MemoryStream ms = new MemoryStream())
                 {
                     workbook.SaveAs(ms);
                     workbook.Close();
-
+ 
                     ms.Seek(0, SeekOrigin.Begin);
 
                     using (FileStream fs = new FileStream("ReportOutputTestSQLSummary112.xlsx", FileMode.OpenOrCreate))
@@ -134,6 +152,45 @@ namespace WorkStudy.UnitTests
             }
         }
 
+        private void BuildStudyDetails()
+        {
+            var destSheetStudyDetails = workbook.Worksheets.Create("Study Details");
+
+            destSheetStudyDetails.Range["A2"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A3"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A4"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A5"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A6"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A7"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A8"].CellStyle = detailsStyle;
+
+            destSheetStudyDetails.Range["A2"].Text = "Study Number";
+            destSheetStudyDetails.Range["A3"].Text = "Name";
+            destSheetStudyDetails.Range["A4"].Text = "Department";
+            destSheetStudyDetails.Range["A5"].Text = "Studied By";
+            destSheetStudyDetails.Range["A6"].Text = "Date";
+            destSheetStudyDetails.Range["A7"].Text = "Time";
+            destSheetStudyDetails.Range["A8"].Text = "Rated";
+
+
+            destSheetStudyDetails.Range["B2"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B3"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B4"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B5"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B6"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B7"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B8"].CellStyle = detailsStyle;
+
+            destSheetStudyDetails.Range["B2"].Text = sample.StudyNumber.ToString();
+            destSheetStudyDetails.Range["B3"].Text = sample.Name;
+            destSheetStudyDetails.Range["B4"].Text = sample.Department;
+            destSheetStudyDetails.Range["B5"].Text = sample.StudiedBy;
+            destSheetStudyDetails.Range["B6"].Text = sample.DateFormatted;
+            destSheetStudyDetails.Range["B7"].Text = sample.TimeFormatted;
+            destSheetStudyDetails.Range["B8"].Text = sample.IsRated.ToString();
+
+            destSheetStudyDetails.Range[1,1,8,2].AutofitColumns();
+        }
 
         private void BuildValueAddedRatedActivities()
         {
