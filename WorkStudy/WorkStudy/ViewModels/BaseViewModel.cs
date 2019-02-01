@@ -326,6 +326,7 @@ namespace WorkStudy.ViewModels
             }
         }
 
+       
         public bool StudyInProcess
         {
             get => Get_Observations_By_StudyId().Count > 0;

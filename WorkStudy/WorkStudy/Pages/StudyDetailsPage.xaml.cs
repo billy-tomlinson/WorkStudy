@@ -1,6 +1,7 @@
 ﻿
 using System;
 using WorkStudy.Services;
+using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
