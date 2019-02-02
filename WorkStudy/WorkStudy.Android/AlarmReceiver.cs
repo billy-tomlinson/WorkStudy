@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Support.V4.App;
+using WorkStudy.Services;
 
 namespace WorkStudy.Droid
 {
@@ -10,7 +11,6 @@ namespace WorkStudy.Droid
     {
         public override void OnReceive(Context context, Intent intent)
         {
-
             NotificationManager mNotificationManager;
 
             NotificationCompat.Builder mBuilder =
@@ -19,14 +19,14 @@ namespace WorkStudy.Droid
             PendingIntent pendingIntent = PendingIntent.GetActivity(context, 0, ii, 0);
 
             NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-            bigText.BigText("hhhh");
-            bigText.SetBigContentTitle("Today's Bible Verse");
-            bigText.SetSummaryText("Text in detail");
+            bigText.BigText("Work Study");
+            bigText.SetBigContentTitle("Time for Next Observation.");
+            bigText.SetSummaryText("Time for Next Observation.");
 
             mBuilder.SetContentIntent(pendingIntent);
             mBuilder.SetSmallIcon(Resource.Drawable.hourglassempty);
-            mBuilder.SetContentTitle("Your Title");
-            mBuilder.SetContentText("Your text");
+            mBuilder.SetContentTitle("Work Study");
+            mBuilder.SetContentText("Time for Next Observation.");
             mBuilder.SetPriority(2);
             mBuilder.SetStyle(bigText);
 
@@ -44,6 +44,8 @@ namespace WorkStudy.Droid
             }
 
             mNotificationManager.Notify(0, mBuilder.Build());
+
+            AlarmNotificationService.RestartAlarmCounter = true;
 
         }
     }

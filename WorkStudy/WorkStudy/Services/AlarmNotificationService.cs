@@ -62,9 +62,7 @@ namespace WorkStudy.Services
                     service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
                     break;
                 case Device.Android:
-                    service.DisableLocalNotification("Alert", "Next Observation Round", 0, DateTime.Now);
                     service.LocalNotification("Alert", "Next Observation Round", 0, DateTime.Now, nextAlarm);
-                    //service.LocalNotification("Alert", "Next Observation Round", 0, NextAlarmTime, nextAlarm);
                     break;
             }
         }
@@ -119,42 +117,13 @@ namespace WorkStudy.Services
             Utilities.AlarmRepo.SaveItem(alarmDetails);
         }
 
-        public static DateTime AndroidSaveNewAlarmDetails(int intervalTime, string alarmType, bool isAlarmEnabled)
-        {
-            var alarmDetails = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-
-            alarmDetails.Interval = intervalTime;
-            alarmDetails.Type = alarmType;
-            alarmDetails.IsActive = isAlarmEnabled;
-            alarmDetails.StudyId = Utilities.StudyId;
-
-            var nextObsTime = alarmType == Random ? GenerateRandomInterval(intervalTime) : intervalTime;
-            alarmDetails.NextNotificationTime = DateTime.Now.AddSeconds(nextObsTime);
-            NextIntervalTime = nextObsTime;
-
-            Utilities.AlarmRepo.SaveItem(alarmDetails);
-            NextAlarmTime = DateTime.Now.AddSeconds(NextIntervalTime);
-            return alarmDetails.NextNotificationTime;
-        }
-
         private static void UpdateAlarm()
         {
-            if (Device.RuntimePlatform == Device.iOS)
+
+            if (restartAlarmCounter && Utilities.StudyId > 0)
             {
-                if (restartAlarmCounter && Utilities.StudyId > 0)
-                {
-                    var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                    SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-                }
-            }
-            else if (Device.RuntimePlatform == Device.Android)
-            {
-                if (restartAlarmCounter && Utilities.StudyId > 0)
-                {
-                    var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                    if (alarm.Type != "CONSTANT" && AlarmSetFromAlarmPage)
-                        AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-                }
+                var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+                SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
             }
         }
 
@@ -175,20 +144,7 @@ namespace WorkStudy.Services
                 if (notificationExpired)
                 {
                     newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-
-                    //if (Device.RuntimePlatform == Device.iOS)
-                    //{
-                    //    newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-                    //}
-                    //else if (Device.RuntimePlatform == Device.Android)
-                    //{
-                    //    if (alarm.Type != "CONSTANT" &&  AlarmSetFromAlarmPage)
-                    //    {
-                    //        newObsTime = AndroidSaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
-                    //    }
-                    //}
                 }
-
             }
 
             return newObsTime;
