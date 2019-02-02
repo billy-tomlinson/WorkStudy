@@ -24,10 +24,12 @@ namespace WorkStudy.Pages
             if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {
                 if (!Utilities.OperatorPageHasUpdatedActivityChanges
-                        || !Utilities.OperatorPageHasUpdatedOperatorChanges)
+                        || !Utilities.OperatorPageHasUpdatedOperatorChanges
+                        || !Utilities.OperatorPageHasUpdatedActivitySampleChanges)
                 {
                     Utilities.OperatorPageHasUpdatedActivityChanges = true;
                     Utilities.OperatorPageHasUpdatedOperatorChanges = true;
+                    Utilities.OperatorPageHasUpdatedActivitySampleChanges = true;
 
                     Utilities.UpdateTableFlags();
 

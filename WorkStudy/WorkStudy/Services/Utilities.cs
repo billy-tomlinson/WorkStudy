@@ -24,6 +24,7 @@ namespace WorkStudy.Services
         public static bool OperatorTableUpdated { get; set; }
         public static bool ActivityTableUpdated { get; set; }
         public static bool ObservationTableUpdated { get; set; }
+        public static bool ActivitySampleTableUpdated { get; set; }
 
         public static bool MainPageHasUpdatedActivityChanges { get; set; }
         public static bool MainPageHasUpdatedOperatorChanges { get; set; }
@@ -35,6 +36,7 @@ namespace WorkStudy.Services
 
         public static bool OperatorPageHasUpdatedActivityChanges { get; set; }
         public static bool OperatorPageHasUpdatedOperatorChanges { get; set; }
+        public static bool OperatorPageHasUpdatedActivitySampleChanges { get; set; }
 
         public static bool MergePageHasUpdatedActivityChanges { get; set; }
 
@@ -56,6 +58,9 @@ namespace WorkStudy.Services
 
             if (MainPageHasUpdatedObservationChanges && ActivityPageHasUpdatedObservationChanges)
                 ObservationTableUpdated = false;
+
+            if(OperatorPageHasUpdatedActivitySampleChanges)
+                ActivitySampleTableUpdated = false;
         }
 
         public static async Task Navigate(Page page)

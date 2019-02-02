@@ -148,6 +148,10 @@ namespace WorkStudy.Services
                     Utilities.ActivityPageHasUpdatedObservationChanges = false;
                     Utilities.MainPageHasUpdatedObservationChanges = false;
                     break;
+                case "ActivitySampleStudy":
+                    Utilities.ActivitySampleTableUpdated = true;
+                    Utilities.OperatorPageHasUpdatedActivitySampleChanges = false;
+                    break;
                 default:
                     break;
             }
