@@ -14,8 +14,8 @@
                         WidthRequest="420">
             <StackLayout BackgroundColor="Transparent" 
                          WidthRequest="320"
-                         Padding="5" 
-                         Margin="5" 
+                         Padding="2" 
+                         Margin="2" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All"
                          Opacity="{Binding Opacity}">

@@ -14,8 +14,8 @@
                             BackgroundColor="Transparent">
                 <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
                 <StackLayout BackgroundColor="Transparent"
-                             Padding="5" 
-                             Margin="5" 
+                             Padding="2" 
+                             Margin="2" 
                              IsVisible="{Binding IsPageVisible}" 
                              Opacity="{Binding Opacity}" 
                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 

@@ -14,7 +14,7 @@
                 </x:Arguments>
                 <ListView.Header>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <Grid Padding="5" Margin="5" HorizontalOptions="Start">
+                        <Grid Padding="2" Margin="2" HorizontalOptions="Start">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*">
                                 </RowDefinition>

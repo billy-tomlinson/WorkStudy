@@ -18,8 +18,8 @@
             <StackLayout BackgroundColor="#4174f4" 
                          Opacity="{Binding Opacity}"
                          IsVisible="{Binding IsPageVisible}" 
-                         Padding="5" 
-                         Margin="5" 
+                         Padding="2" 
+                         Margin="2" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
                 <views:StudyDetailsView BackgroundColor="#4174f4" 
