@@ -40,6 +40,7 @@ namespace WorkStudy.ViewModels
 
         void CloseApplicationEvent(object obj)
         {
+            AlarmNotificationService.DisableAlarmInDatabase();
             AlarmNotificationService.DisableAlarm();
             DependencyService.Get<ITerminateApplication>()
                 .CloseApplication();

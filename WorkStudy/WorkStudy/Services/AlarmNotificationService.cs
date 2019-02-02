@@ -110,6 +110,14 @@ namespace WorkStudy.Services
             return alarmDetails.NextNotificationTime;
         }
 
+        public static void DisableAlarmInDatabase()
+        {
+            var alarmDetails = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+
+            alarmDetails.IsActive = false;
+
+            Utilities.AlarmRepo.SaveItem(alarmDetails);
+        }
 
         public static DateTime AndroidSaveNewAlarmDetails(int intervalTime, string alarmType, bool isAlarmEnabled)
         {

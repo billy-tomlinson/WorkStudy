@@ -19,17 +19,24 @@
                          Margin="5" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                 <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text=" Time Of Next Round: "/>
-                    <Label Text="{Binding TimeOfNextObservation}"/>
+                <StackLayout Padding="1" Margin="1" Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Alarm status: " FontSize="15"/>
+                    <Label Text="{Binding AlarmStatus}" FontSize="15"/>
                 </StackLayout>
-                <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
-                    <views:StudyDetailsView />
-                    <Label Text=" Observed: " IsVisible="{Binding PercentagesVisible}"/>
-                    <Label Text="{Binding TotalPercent}" IsVisible="{Binding PercentagesVisible}"/>
-                    <Label Text="%" IsVisible="{Binding PercentagesVisible}"/>
+                 <StackLayout Padding="1" Margin="1" Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text=" Time Of Next Round: " FontSize="15"/>
+                    <Label Text="{Binding TimeOfNextObservation}" FontSize="15"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
+                <StackLayout Padding="1" Margin="1" Orientation="Horizontal" HorizontalOptions="Center">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Label Text="Study Number : " IsVisible="{Binding Isvisible}" FontSize="15" />
+                        <Label Text="{Binding StudyNumber}" IsVisible="{Binding Isvisible}" FontSize="15" />
+                    </StackLayout>
+                    <Label Text=" Observed: " IsVisible="{Binding PercentagesVisible}" FontSize="15"/>
+                    <Label Text="{Binding TotalPercent}" IsVisible="{Binding PercentagesVisible}" FontSize="15"/>
+                    <Label Text="%" IsVisible="{Binding PercentagesVisible}" FontSize="15"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="1,1,1,1" HorizontalOptions="Center">
                     <Label Text="Observation Round : " FontSize="15" HorizontalOptions="Start" />
                     <Label Text="{Binding ObservationRound}" FontSize="15" />
                     <Label Text="  Time : " FontSize="15" />
