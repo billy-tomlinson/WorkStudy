@@ -95,7 +95,7 @@
                                         <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="150" />
                                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="50" IsVisible="{Binding PercentageIsVisible}"/>
                                         <Label Grid.Row="0" Grid.Column="2" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="150" />
-                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="15" TextColor="Black" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
