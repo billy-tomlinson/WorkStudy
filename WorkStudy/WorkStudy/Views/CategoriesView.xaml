@@ -32,8 +32,8 @@
                     <Label  Grid.Row="0" Grid.Column="0" Style="{StaticResource studyLabel}" Text="Activity type" TextColor="Black"/>
                     <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding Path = BindingContext.IsNonValueAdded, Source={x:Reference ActivityCategoriesView}, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" />
                     <Label  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.ActivityType, Source={x:Reference ActivityCategoriesView}}" TextColor="Black" />
-                    <Button Grid.Row="2" Grid.Column="0" Text="OK" Style="{StaticResource popUpButton}" Command="{Binding SaveCategory}" HorizontalOptions="CenterAndExpand"/>
-                    <Button Grid.Row="2" Grid.Column="1" Text="Cancel" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseCategories}"/>
+                    <Button Grid.Row="2" Grid.Column="0" Text="OK" Style="{StaticResource popUpButton}" Command="{Binding SaveCategory}" HorizontalOptions="CenterAndExpand" Padding="5" Margin="5" FontSize="18"/>
+                    <Button Grid.Row="2" Grid.Column="1" Text="Cancel" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseCategories}" Padding="5" Margin="5" FontSize="18"/>
                 </Grid>
             </StackLayout>
                 </StackLayout>
