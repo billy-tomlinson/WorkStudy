@@ -27,7 +27,7 @@
                 <local:CustomListView 
                     ItemsSource="{Binding ItemsCollection}"
                     BackgroundColor="Gray" 
-                    HasUnevenRows="True" 
+                    HasUnevenRows="true" 
                     HorizontalOptions="Center" 
                     SeparatorVisibility="Default" 
                     SeparatorColor="#605F5F" HeightRequest="500"

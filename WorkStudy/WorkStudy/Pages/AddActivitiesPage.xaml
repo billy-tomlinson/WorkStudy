@@ -27,6 +27,7 @@
                              BackgroundColor="#FCFAFA" 
                              VerticalOptions="Center" >
                     <Entry Style="{StaticResource inputEntry}" 
+                           MaxLength="20"
                            Placeholder="Activity Name" 
                            Text="{Binding Name}" 
                            WidthRequest="240"
