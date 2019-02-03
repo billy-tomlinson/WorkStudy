@@ -49,11 +49,35 @@
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
+                   <ListView.Header>
+                        <StackLayout Padding="5,2,5,2" BackgroundColor="White">
+                            <Grid Padding="5,2,5,2" Margin="5,2,5,2">
+                                <Grid.RowDefinitions>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="6*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="1.5*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="4*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="1.5*">
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="Operator" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start"/>
+                            <Label Grid.Row="0" Grid.Column="1" Text="Tot %" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start"/>
+                            <Label Grid.Row="0" Grid.Column="2" Text="Activity" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start"/>
+                            <Label Grid.Row="0" Grid.Column="3" Text="Rating" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start"/>
+                        </Grid>
+                        </StackLayout>
+                    </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Padding="5" BackgroundColor="{Binding ObservedColour}">
-                                    <Grid Padding="5" Margin="5">
+                                <StackLayout Padding="5,5,5,5" BackgroundColor="{Binding ObservedColour}">
+                                    <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*">
                                             </RowDefinition>
@@ -63,18 +87,15 @@
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="*">
-                                            </ColumnDefinition>
                                             <ColumnDefinition Width="4*">
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" IsVisible="{Binding PercentageIsVisible}"/>
-                                        <Image Grid.Row="0" Grid.Column="2" Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}" WidthRequest="40" />
-                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
-                                        <Label Grid.Row="0" Grid.Column="4" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="150" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="50" IsVisible="{Binding PercentageIsVisible}"/>
+                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="150" />
+                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
