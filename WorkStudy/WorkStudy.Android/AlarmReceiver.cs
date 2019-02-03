@@ -1,8 +1,11 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Media;
+using Android.Net;
 using Android.OS;
 using Android.Support.V4.App;
 using WorkStudy.Services;
+using static Android.Media.Audiofx.BassBoost;
 
 namespace WorkStudy.Droid
 {
@@ -11,6 +14,8 @@ namespace WorkStudy.Droid
     {
         public override void OnReceive(Context context, Intent intent)
         {
+
+            Uri uri = RingtoneManager.GetDefaultUri(RingtoneType.Alarm);
             NotificationManager mNotificationManager;
 
             NotificationCompat.Builder mBuilder =
@@ -28,6 +33,7 @@ namespace WorkStudy.Droid
             mBuilder.SetContentTitle("Work Study");
             mBuilder.SetContentText("Time for Next Observation.");
             mBuilder.SetPriority(2);
+            mBuilder.SetSound(uri);
             mBuilder.SetStyle(bigText);
 
             mNotificationManager =
