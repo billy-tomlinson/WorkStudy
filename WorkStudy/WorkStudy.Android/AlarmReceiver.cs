@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Media;
 using Android.Net;
 using Android.OS;
@@ -15,7 +16,7 @@ namespace WorkStudy.Droid
         public override void OnReceive(Context context, Intent intent)
         {
 
-            Uri uri = RingtoneManager.GetDefaultUri(RingtoneType.Alarm);
+            Uri uri = RingtoneManager.GetDefaultUri(RingtoneType.Ringtone);
             NotificationManager mNotificationManager;
 
             NotificationCompat.Builder mBuilder =
@@ -34,6 +35,8 @@ namespace WorkStudy.Droid
             mBuilder.SetContentText("Time for Next Observation.");
             mBuilder.SetPriority(2);
             mBuilder.SetSound(uri);
+            mBuilder.SetVibrate(new long[] { 0, 1000, 1000, 1000, 1000 });
+            mBuilder.SetLights(Color.Blue, 3000, 3000);
             mBuilder.SetStyle(bigText);
 
             mNotificationManager =
