@@ -38,6 +38,7 @@ namespace WorkStudy.Droid
             mBuilder.SetVibrate(new long[] { 800, 800, 800, 800 });
             mBuilder.SetLights(Color.Blue, 3000, 3000);
             mBuilder.SetStyle(bigText);
+            mBuilder.SetDefaults((int)NotificationDefaults.All);
 
             mNotificationManager =
                 (NotificationManager)context.GetSystemService(Context.NotificationService);
