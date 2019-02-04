@@ -54,8 +54,8 @@
                     
                     <Label Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="5" Text="Next Obs:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
                     <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4" Text="{Binding TimeOfNextObservation}" Style="{StaticResource mainPageLabel}" TextColor="Black"/>
-                    <Label Grid.Row="1" Grid.Column="16" Grid.ColumnSpan="6" Text="Complete:" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="12"/>
-                    <Label Grid.Row="1" Grid.Column="22" Grid.ColumnSpan="3" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11"/>
+                    <Label Grid.Row="1" Grid.Column="16" Grid.ColumnSpan="5" Text="Complete:" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11"/>
+                    <Label Grid.Row="1" Grid.Column="21" Grid.ColumnSpan="4" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11"/>
 
                 </Grid>
                 <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" BackgroundColor="Gray" HasUnevenRows="true" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" HeightRequest="380">
