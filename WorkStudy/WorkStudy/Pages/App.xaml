@@ -86,6 +86,7 @@
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="HeightRequest" Value="20.5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             </Style>
             <Style x:Key="inputEntry" TargetType="Entry">
                 <Setter Property="TextColor" Value="Black" />

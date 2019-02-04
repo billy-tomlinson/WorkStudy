@@ -40,20 +40,20 @@
                             <ColumnDefinition Width="0.4*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="Study:" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}" FontSize="12"/>
-                    <Label Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Text="{Binding StudyNumber}" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}"/>
+                    <Label Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding StudyNumber}" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}"/>
                     
-                    <Label Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3" Text="Time:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
-                    <Label Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="6" Text="{Binding CurrentTime}" Style="{StaticResource mainPageLabel}"/>
+                    <Label Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="3" Text="Time:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
+                    <Label Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="6" Text="{Binding CurrentTime}" Style="{StaticResource mainPageLabel}"/>
                     
                    
-                    <Label Grid.Row="0" Grid.Column="15" Grid.ColumnSpan="4" Text="Alarm:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
-                    <Label Grid.Row="0" Grid.Column="19" Grid.ColumnSpan="6" Text="{Binding AlarmStatus}" Style="{StaticResource mainPageLabel}"/>
+                    <Label Grid.Row="0" Grid.Column="16" Grid.ColumnSpan="4" Text="Alarm:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
+                    <Label Grid.Row="0" Grid.Column="20" Grid.ColumnSpan="5" Text="{Binding AlarmStatus}" Style="{StaticResource mainPageLabel}" FontSize="11"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="Round:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
                     <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" Text="{Binding ObservationRound}" Style="{StaticResource mainPageLabel}"/>
                     
-                    <Label Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="5" Text="Next Obs:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
-                    <Label Grid.Row="1" Grid.Column="12" Grid.ColumnSpan="4" Text="{Binding TimeOfNextObservation}" Style="{StaticResource mainPageLabel}" TextColor="Black"/>
+                    <Label Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="3" Text="Next:" Style="{StaticResource mainPageLabel}" FontSize="12"/>
+                    <Label Grid.Row="1" Grid.Column="10" Grid.ColumnSpan="6" Text="{Binding TimeOfNextObservation}" Style="{StaticResource mainPageLabel}" TextColor="Black"/>
                     <Label Grid.Row="1" Grid.Column="16" Grid.ColumnSpan="5" Text="Complete:" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11"/>
                     <Label Grid.Row="1" Grid.Column="21" Grid.ColumnSpan="4" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11"/>
 

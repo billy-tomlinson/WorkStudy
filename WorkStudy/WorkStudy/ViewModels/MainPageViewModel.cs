@@ -99,7 +99,7 @@ namespace WorkStudy.ViewModels
 
                 AlarmStatus = alarmDetails.IsActive ? "ENABLED" : "DISABLED";
 
-                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutesWithoutSeconds);
+                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutes);
 
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                 {
@@ -107,7 +107,7 @@ namespace WorkStudy.ViewModels
                     {
                         AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                        var time = alarm.NextNotificationTime.ToString(FormatMinutesWithoutSeconds);
+                        var time = alarm.NextNotificationTime.ToString(FormatMinutes);
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TimeOfNextObservation = time;
