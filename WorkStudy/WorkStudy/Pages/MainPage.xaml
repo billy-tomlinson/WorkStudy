@@ -121,7 +121,7 @@
                     <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" FontSize="12" Margin="3" Padding="3" />
                 </StackLayout>
             </StackLayout>
-            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="350" VerticalOptions="Center" HorizontalOptions="Center" />
+            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="370" VerticalOptions="Center" HorizontalOptions="Center" />
             <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 20 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
