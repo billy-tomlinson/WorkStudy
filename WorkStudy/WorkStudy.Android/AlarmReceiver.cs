@@ -35,7 +35,7 @@ namespace WorkStudy.Droid
             mBuilder.SetContentText("Time for Next Observation.");
             mBuilder.SetPriority(2);
             mBuilder.SetSound(uri);
-            mBuilder.SetVibrate(new long[] { 0, 1000, 1000, 1000, 1000 });
+            mBuilder.SetVibrate(new long[] { 800, 800, 800, 800 });
             mBuilder.SetLights(Color.Blue, 3000, 3000);
             mBuilder.SetStyle(bigText);
 
@@ -48,10 +48,12 @@ namespace WorkStudy.Droid
                 var channel = new NotificationChannel(channelId,
                     "Channel human readable title",
                         NotificationImportance.Max);
+                channel.EnableLights(true);
+                channel.EnableVibration(true);
+                channel.Importance = NotificationImportance.Max;
                 mNotificationManager.CreateNotificationChannel(channel);
                 mBuilder.SetChannelId(channelId);
             }
-
             mNotificationManager.Notify(0, mBuilder.Build());
 
             AlarmNotificationService.RestartAlarmCounter = true;
