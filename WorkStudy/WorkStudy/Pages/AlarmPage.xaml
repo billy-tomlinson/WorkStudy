@@ -11,8 +11,14 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
-            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
-                <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            BackgroundColor="Transparent">
+               <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+                <StackLayout BackgroundColor="Transparent" 
+                             IsVisible="{Binding IsPageVisible}" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" 
                                  Padding="20,0,20,0" Opacity="0.5" 
                                  IsEnabled="false">

@@ -15,6 +15,7 @@ namespace WorkStudy.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private const string FormatMinutes = "HH:mm:ss";
+        private const string FormatMinutesWithoutSeconds = "HH:mm";
         private OperatorObservation operator1;
         List<Observation> observations = new List<Observation>();
 
@@ -98,7 +99,7 @@ namespace WorkStudy.ViewModels
 
                 AlarmStatus = alarmDetails.IsActive ? "ENABLED" : "DISABLED";
 
-                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutes);
+                TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutesWithoutSeconds);
 
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                 {
@@ -106,7 +107,7 @@ namespace WorkStudy.ViewModels
                     {
                         AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                        var time = alarm.NextNotificationTime.ToString(FormatMinutes);
+                        var time = alarm.NextNotificationTime.ToString(FormatMinutesWithoutSeconds);
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             TimeOfNextObservation = time;
@@ -205,7 +206,20 @@ namespace WorkStudy.ViewModels
             {
                 totalPercent = value;
                 OnPropertyChanged();
+                OnPropertyChanged("TotalPercentFormatted");
             }
+        }
+
+        static string totalPercentFormatted;
+        public string TotalPercentFormatted
+        {
+            get => $"{TotalPercent}%";
+            set
+            {
+                totalPercentFormatted = value;
+                OnPropertyChanged();
+            }
+
         }
 
         static string operatorName;
