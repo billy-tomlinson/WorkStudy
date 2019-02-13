@@ -26,8 +26,8 @@ namespace WorkStudy
             AlarmDatabasePath = alarmPath;
             Utilities.Connection = DatabasePath;
             Utilities.AlarmConnection = AlarmDatabasePath;
-            CallMain();
-            //MainPage = new NavigationPage(new ReportsPage());
+            //CallMain();
+            MainPage = new NavigationPage(new StopWatch());
         }
 
         public static NavigationPage NavigationPage { get; private set; }
