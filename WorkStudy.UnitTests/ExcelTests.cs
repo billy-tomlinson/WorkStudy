@@ -17,8 +17,8 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class ExcelTests
     {
-        //private const string connString = "/Users/billytomlinson/WorkStudyAA.db3";
-        private const string connString = "WorkStudy1.db3";
+        private const string connString = "/Users/billytomlinson/WorkStudyAA.db3";
+        //private const string connString = "WorkStudy1.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
@@ -36,6 +36,7 @@ namespace WorkStudy.UnitTests
 
         IWorkbook workbook;
         IWorksheet destSheetAll;
+        IWorksheet pieChartSheet;
 
         int startRowIndex;
         int valueAddedActivitiesTotalRowIndex;
@@ -50,6 +51,12 @@ namespace WorkStudy.UnitTests
         string valueAddedRatedActivitiesRange;
         string nonValueAddedRatedActivitiesRange;
         string unRatedActivitiesRange;
+        string valueAddedRatedActivitiesTotal;
+        string nonValueAddedRatedActivitiesTotal;
+        string unRatedActivitiesTotal;
+        int totalsColumn;
+
+        string unratedTotals;
 
         public ExcelTests()
         {
@@ -184,11 +191,12 @@ namespace WorkStudy.UnitTests
 
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
+                pieChartSheet = workbook.Worksheets.Create("PieChart");
+
                 BuildValueAddedRatedActivities();
                 BuildNonValueAddedRatedActivities();
                 BuildUnRatedActivities();
-                BuildPieChart();
-                
+                Build_ValueAdded_NonValueAdded_UnratedPieChart();
 
                 workbook.Worksheets[0].Remove();
                 
@@ -349,9 +357,16 @@ namespace WorkStudy.UnitTests
 
                 var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
                 var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
-
+         
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
+
+                //**** THIS COPIES UNRATED % TO THE PIE CHART SHEET *********************************
+                destSheetAll.EnableSheetCalculations();
+                var source = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].CalculatedValue;
+                pieChartSheet.Range["A1"].Text = "VALUE ADDED";
+                pieChartSheet.Range["B1"].Text = source;
+                //************************************
 
             }
 
@@ -473,6 +488,13 @@ namespace WorkStudy.UnitTests
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
+
+                //**** THIS COPIES UNRATED % TO THE PIE CHART SHEET *********************************
+                destSheetAll.EnableSheetCalculations();
+                var source = destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].CalculatedValue;
+                pieChartSheet.Range["A2"].Text = "NON VALUE ADDED";
+                pieChartSheet.Range["B2"].Text = source;
+                //************************************
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL NON VALUE ADDED";
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 4].CellStyle = headerStyle;
@@ -612,6 +634,13 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 3].Formula = formula2;
                 destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].Formula = formula3;
 
+                //**** THIS COPIES UNRATED % TO THE PIE CHART SHEET *********************************
+                destSheetAll.EnableSheetCalculations();
+                var source = destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].CalculatedValue;
+                pieChartSheet.Range["A3"].Text = "INNEFECTIVE";
+                pieChartSheet.Range["B3"].Text = source;
+                //************************************
+
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 4].CellStyle = headerStyle;
 
@@ -621,11 +650,17 @@ namespace WorkStudy.UnitTests
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=TEXT(SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex}), \"00.0\")";
 
+                valueAddedRatedActivitiesTotal = $"{columnAddress3}{valueAddedActivitiesTotalRowIndex}";
+                nonValueAddedRatedActivitiesTotal = $"{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}";
+                unRatedActivitiesTotal = $"{columnAddress3}{unRatedActivitiesTotalRowIndex}";
+
                 //**** THIS TOTALS ALL THE TOTALS AT THE END OF THE SHEET *********************************
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
+                totalsColumn = columnCount + 4;
+
                 //******************************************************************************************
 
 
@@ -706,7 +741,7 @@ namespace WorkStudy.UnitTests
             }
         }
 
-        private void BuildPieChart()
+        private void SampleForTesting()
         {
             var destSheet = workbook.Worksheets.Create("PieChart");
 
@@ -742,7 +777,35 @@ namespace WorkStudy.UnitTests
             chart.Elevation = 70;
             chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 
-           
+
+            chart.IsSeriesInRows = false;
+
+        }
+
+        private void Build_ValueAdded_NonValueAdded_UnratedPieChart()
+        {
+
+            IChartShape chart = pieChartSheet.Charts.Add();
+
+            chart.DataRange = pieChartSheet.Range["A1:B3"];
+
+            chart.ChartTitle = "All Activities";
+            chart.HasLegend = true;
+            chart.Legend.Position = ExcelLegendPosition.Right;
+
+            IChartSerie serie = chart.Series[0];
+            serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
+
+
+            chart.TopRow = 4;
+            chart.LeftColumn = 4;
+            chart.BottomRow = 23;
+            chart.RightColumn = 10;
+
+            chart.ChartType = ExcelChartType.Pie_Exploded;
+            chart.Elevation = 70;
+            chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
+
             chart.IsSeriesInRows = false;
 
         }
