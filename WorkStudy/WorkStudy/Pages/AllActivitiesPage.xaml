@@ -18,8 +18,8 @@
                          Opacity="{Binding Opacity}"
                          BackgroundColor="Transparent" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         Padding="5" 
-                         Margin="5" 
+                         Padding="2" 
+                         Margin="2" 
                          AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Padding="10" Margin ="10">
                     <Label Text="All Existing Activities" FontSize="20"/>
@@ -27,7 +27,7 @@
                 <local:CustomListView 
                     ItemsSource="{Binding ItemsCollection}"
                     BackgroundColor="Gray" 
-                    HasUnevenRows="True" 
+                    HasUnevenRows="true" 
                     HorizontalOptions="Center" 
                     SeparatorVisibility="Default" 
                     SeparatorColor="#605F5F" HeightRequest="500"

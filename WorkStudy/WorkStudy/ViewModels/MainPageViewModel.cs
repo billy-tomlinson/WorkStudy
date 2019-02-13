@@ -15,6 +15,7 @@ namespace WorkStudy.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private const string FormatMinutes = "HH:mm:ss";
+        private const string FormatMinutesWithoutSeconds = "HH:mm";
         private OperatorObservation operator1;
         List<Observation> observations = new List<Observation>();
 
@@ -69,7 +70,7 @@ namespace WorkStudy.ViewModels
 
             CreateOperatorObservations();
 
-            TotalPercent = GetStudyTotalPercent();
+            TotalPercent = (int)GetStudyTotalPercent();
 
             var obsStatus = ObservationRoundStatusRepo.GetItems()
                             .FirstOrDefault(x => x.ObservationId == ObservationRound);
@@ -95,6 +96,9 @@ namespace WorkStudy.ViewModels
                 AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                 var alarmDetails = AlarmRepo.GetItems()
                     .SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+
+                AlarmStatus = alarmDetails.IsActive ? "ENABLED" : "DISABLED";
+
                 TimeOfNextObservation = alarmDetails.NextNotificationTime.ToString(FormatMinutes);
 
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
@@ -194,15 +198,28 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        static double totalPercent;
-        public double TotalPercent
+        static int totalPercent;
+        public int TotalPercent
         {
             get => totalPercent;
             set
             {
                 totalPercent = value;
                 OnPropertyChanged();
+                OnPropertyChanged("TotalPercentFormatted");
             }
+        }
+
+        static string totalPercentFormatted;
+        public string TotalPercentFormatted
+        {
+            get => $"{TotalPercent}%";
+            set
+            {
+                totalPercentFormatted = value;
+                OnPropertyChanged();
+            }
+
         }
 
         static string operatorName;
@@ -305,7 +322,7 @@ namespace WorkStudy.ViewModels
             observations = new List<Observation>();
             UpdateObservationRound();
             CreateOperatorObservations();
-            TotalPercent = GetStudyTotalPercent();
+            TotalPercent = (int)GetStudyTotalPercent();
         }
 
         void TerminateStudy()
@@ -346,7 +363,8 @@ namespace WorkStudy.ViewModels
             var study = SampleRepo.GetItem(Utilities.StudyId);
             study.Completed = true;
             Utilities.IsCompleted = true;
-            SampleRepo.SaveItem(study); 
+            SampleRepo.SaveItem(study);
+            AlarmNotificationService.DisableAlarmInDatabase();
             AlarmNotificationService.DisableAlarm();
             Utilities.Navigate(new ReportsPage());
         }
@@ -358,6 +376,7 @@ namespace WorkStudy.ViewModels
 
         void NavigateToStudyMenu()
         {
+            AlarmNotificationService.DisableAlarmInDatabase();
             AlarmNotificationService.DisableAlarm();
             Utilities.Navigate(new StudyMenuPage());
         }

@@ -5,7 +5,6 @@ using Android.OS;
 using System.IO;
 using Android.Views;
 using Android.Content;
-using Xamarin.Forms;
 using Plugin.Toasts;
 
 namespace WorkStudy.Droid
@@ -23,8 +22,6 @@ namespace WorkStudy.Droid
             base.OnCreate(savedInstanceState);
 
             this.Window.AddFlags(WindowManagerFlags.Fullscreen); // hide the status bar
-
-            //SetContentView(Resource.Layout.Main);
 
             int uiOptions = (int)Window.DecorView.SystemUiVisibility;
 
@@ -46,7 +43,6 @@ namespace WorkStudy.Droid
             string dbPath = Path.Combine(folderPath, dbName);
             string alarmDbPath = Path.Combine(folderPath, alarmDbName);
 
-            //DependencyService.Register<ToastNotification>();
             ToastNotification.Init(this, new PlatformOptions() 
             { 
                 SmallIconDrawable = Android.Resource.Drawable.IcDialogInfo 

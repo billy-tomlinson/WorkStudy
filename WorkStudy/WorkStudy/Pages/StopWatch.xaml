@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.Pages.StopWatch">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="StopWatchLabel" Text="StopWatch" />
+            <Button Text="Start" Clicked="btn_Start_Clicked" />
+            <Button Text="Pause" Clicked="btn_Pause_Clicked" />
+            <Button Text="Stop" Clicked="btn_Stop_Clicked" />
+            <Button Text="ShowLapTimes" Clicked="btn_ShowLapTimes_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

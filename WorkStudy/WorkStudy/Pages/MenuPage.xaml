@@ -28,7 +28,7 @@
         <Button Text="Study Set Up" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding StudySetUp}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
-        <Button Text="Study Details" TextColor="DarkGray" BackgroundColor="White" 
+        <Button Text="Study Details/Alarm" TextColor="DarkGray" BackgroundColor="White" 
                 HorizontalOptions="StartAndExpand" Command="{Binding AlarmSetUp}"/>
         <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"/>
         <Button Text="Close Application" TextColor="DarkGray" BackgroundColor="White" 

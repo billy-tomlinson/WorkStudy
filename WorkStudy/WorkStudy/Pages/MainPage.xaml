@@ -1,52 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
-             xmlns:local="clr-namespace:WorkStudy.Custom" 
-             xmlns:views="clr-namespace:WorkStudy.Views" 
-             x:Class="WorkStudy.Pages.MainPage" 
-             x:Name="MainPage1">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" xmlns:local="clr-namespace:WorkStudy.Custom" xmlns:views="clr-namespace:WorkStudy.Views" x:Class="WorkStudy.Pages.MainPage" x:Name="MainPage1">
     <ContentPage.Content>
-        <AbsoluteLayout 
-            HorizontalOptions="Center" 
-            VerticalOptions="StartAndExpand" 
-            BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout BackgroundColor="Transparent" 
-                         IsVisible="{Binding IsPageVisible}" 
-                         Opacity="{Binding Opacity}"
-                         Padding="5" 
-                         Margin="5" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
-                 <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label Text=" Time Of Next Round: "/>
-                    <Label Text="{Binding TimeOfNextObservation}"/>
-                </StackLayout>
-                <StackLayout Padding="2" Margin="2" Orientation="Horizontal" HorizontalOptions="Center">
-                    <views:StudyDetailsView />
-                    <Label Text=" Observed: " IsVisible="{Binding PercentagesVisible}"/>
-                    <Label Text="{Binding TotalPercent}" IsVisible="{Binding PercentagesVisible}"/>
-                    <Label Text="%" IsVisible="{Binding PercentagesVisible}"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Padding="2,2,2,2" HorizontalOptions="Center">
-                    <Label Text="Observation Round : " FontSize="15" HorizontalOptions="Start" />
-                    <Label Text="{Binding ObservationRound}" FontSize="15" />
-                    <Label Text="  Time : " FontSize="15" />
-                    <Label Text="{Binding CurrentTime}" FontSize="15" WidthRequest="75"/>
-                </StackLayout>
-                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" 
-                                      BackgroundColor="Gray" HasUnevenRows="True" 
-                                      ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" HeightRequest="380">
+            <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}" Padding="2" Margin="2" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <Grid Margin="3" Padding="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.6*" />
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="2.4*" />
+                        <ColumnDefinition Width="1.6*" />
+                        <ColumnDefinition Width="0.4*" />
+                        <ColumnDefinition Width="1.6*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Study:" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding StudyNumber}" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}" />
+                    <Label Grid.Row="0" Grid.Column="2" Text="Time:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding CurrentTime}" Style="{StaticResource mainPageLabel}" />
+                    <Label Grid.Row="0" Grid.Column="4" Text="Alarm:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" Text="{Binding AlarmStatus}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="0" Text="Round:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding ObservationRound}" Style="{StaticResource mainPageLabel}" />
+                    <Label Grid.Row="1" Grid.Column="2" Text="Next:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="1" Grid.Column="3" Text="{Binding TimeOfNextObservation}" Style="{StaticResource mainPageLabel}" TextColor="Black" />
+                    <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Text="Complete:" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="6" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                </Grid>
+                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" BackgroundColor="Gray" HasUnevenRows="true" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" HeightRequest="380">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
+                    <ListView.Header>
+                        <StackLayout Padding="5,2,5,2" BackgroundColor="White">
+                            <Grid Padding="5,2,5,2" Margin="5,2,5,2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*">
+                                    </RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6*">
+                                    </ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*">
+                                    </ColumnDefinition>
+                                    <ColumnDefinition Width="4*">
+                                    </ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*">
+                                    </ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="Operator" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="Tot %" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="2" Text="Activity" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="3" Text="Rating" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                            </Grid>
+                        </StackLayout>
+                    </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Padding="5" BackgroundColor="{Binding ObservedColour}">
-                                    <Grid Padding="5" Margin="5">
+                                <StackLayout Padding="5,5,5,5" BackgroundColor="{Binding ObservedColour}">
+                                    <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*">
                                             </RowDefinition>
@@ -56,18 +73,15 @@
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="*">
-                                            </ColumnDefinition>
                                             <ColumnDefinition Width="4*">
                                             </ColumnDefinition>
                                             <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="140" />
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="40" IsVisible="{Binding PercentageIsVisible}"/>
-                                        <Image Grid.Row="0" Grid.Column="2" Source="thumb.png" IsVisible="{Binding LimitsOfAccuracy}" WidthRequest="40" />
-                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="140" />
-                                        <Label Grid.Row="0" Grid.Column="4" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="150" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="50" IsVisible="{Binding PercentageIsVisible}" />
+                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="150" />
+                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
@@ -75,12 +89,12 @@
                     </ListView.ItemTemplate>
                 </local:CustomListView>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="Next Observation" WidthRequest="170" MinimumWidthRequest="160" Command="{Binding SaveObservations}" FontSize="12" Margin="3" Padding="3"/>
-                    <Button Text="Pause" WidthRequest="60" Command="{Binding PauseStudy}" FontSize="12" Margin="3" Padding="3"/>
-                    <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" FontSize="12" Margin="3" Padding="3"/>
+                    <Button Text="Next Observation" WidthRequest="170" MinimumWidthRequest="160" Command="{Binding SaveObservations}" FontSize="12" Margin="3" Padding="3" />
+                    <Button Text="Pause" WidthRequest="60" Command="{Binding PauseStudy}" FontSize="12" Margin="3" Padding="3" />
+                    <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" FontSize="12" Margin="3" Padding="3" />
                 </StackLayout>
             </StackLayout>
-            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="350" VerticalOptions="Center" HorizontalOptions="Center" />
+            <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" HeightRequest="370" VerticalOptions="Center" HorizontalOptions="Center" />
             <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 20 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />

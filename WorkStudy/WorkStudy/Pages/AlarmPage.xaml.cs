@@ -24,17 +24,5 @@ namespace WorkStudy.Pages
         {
             return true;
         }
-
-        void ShowToast(INotificationOptions options)
-        {
-            var notificator = DependencyService.Get<IToastNotificator>();
-
-            // await notificator.Notify(options);
-
-            notificator.Notify((INotificationResult result) =>
-            {
-                System.Diagnostics.Debug.WriteLine("Notification [" + result.Id + "] Result Action: " + result.Action);
-            }, options);
-        }
     }
 }

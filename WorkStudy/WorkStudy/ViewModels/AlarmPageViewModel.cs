@@ -6,24 +6,28 @@ namespace WorkStudy.ViewModels
 {
     public class AlarmPageViewModel : BaseAlarmViewModel
     {
-
-        public bool CancelAlarm { get; set; }
-
-        public ActivitySampleStudy ActivtySample { get; set; }
+   
+        ActivitySampleStudy sampleStudy;
+        public ActivitySampleStudy SampleStudy
+        {
+            get { return sampleStudy; }
+            set
+            {
+                sampleStudy = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string StudyType { get; set; }
-
-        public bool ContinueTimer { get; set; } = true;
-
 
         public AlarmPageViewModel()
         {
             if (!IsPageVisible) return;
 
             PageLoading = true;
-            ActivtySample = SampleRepo.GetItem(Utilities.StudyId);
+            SampleStudy = SampleRepo.GetItem(Utilities.StudyId);
 
-            StudyType = ActivtySample.IsRated == false ? "RATED" : "UNRATED";
+            StudyType = SampleStudy.IsRated == false ? "RATED" : "UNRATED";
 
             AlarmDetails = AlarmRepo.GetItems()
                 .SingleOrDefault(x => x.StudyId == Utilities.StudyId) ?? new AlarmDetails();
@@ -34,6 +38,5 @@ namespace WorkStudy.ViewModels
             IntervalMinutes = (AlarmDetails.Interval / 60).ToString();
             PageLoading = false;
         }
-
     }
 }

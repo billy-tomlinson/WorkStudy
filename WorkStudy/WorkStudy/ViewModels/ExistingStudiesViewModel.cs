@@ -6,7 +6,6 @@ using WorkStudy.Services;
 using Xamarin.Forms;
 using WorkStudy.Custom;
 using System.Threading.Tasks;
-using System;
 
 namespace WorkStudy.ViewModels
 {

@@ -14,8 +14,8 @@
                         WidthRequest="420">
             <StackLayout BackgroundColor="Transparent" 
                          WidthRequest="320"
-                         Padding="5" 
-                         Margin="5" 
+                         Padding="2" 
+                         Margin="2" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All"
                          Opacity="{Binding Opacity}">
@@ -25,7 +25,7 @@
                 <local:CustomListView x:Name="List" Margin="0,10" 
                                       ItemsSource="{Binding ActivitySamples}" 
                                       BackgroundColor="Gray" 
-                                      HasUnevenRows="True" 
+                                      HasUnevenRows="true" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
                                       HorizontalOptions="Center" SeparatorVisibility="Default" 
                                       SeparatorColor="#605F5F" HeightRequest="500">

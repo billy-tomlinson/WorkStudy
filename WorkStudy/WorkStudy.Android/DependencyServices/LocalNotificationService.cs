@@ -15,19 +15,16 @@ namespace WorkStudy.Droid.DependencyServices
 {
     public class LocalNotificationService : ILocalNotificationService
     {
-        private int _notificationIconId { get; set; }
-        readonly DateTime jan1St1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
         public void LocalNotification(string title, string body, int id, DateTime notifyTime, double repeatInterval)
         {
-
+            BootReceiver.ReminderInterval = (long)repeatInterval;
             Intent alarmIntent = new Intent(Android.App.Application.Context, typeof(AlarmReceiver));
             alarmIntent.AddFlags(ActivityFlags.SingleTop);
             PendingIntent pending = PendingIntent.GetBroadcast(Android.App.Application.Context, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
             AlarmManager alarmManager = Android.App.Application.Context.GetSystemService(Context.AlarmService).JavaCast<AlarmManager>();
 
             //AlarmType.RtcWakeup – it will fire up the pending intent at a specified time, waking up the device
-            alarmManager.SetRepeating(AlarmType.RtcWakeup, BootReceiver.FirstReminder(), BootReceiver.reminderInterval, pending);
+            alarmManager.SetRepeating(AlarmType.RtcWakeup, BootReceiver.FirstReminder(), BootReceiver.ReminderInterval, pending);
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(Android.App.Application.Context, 0, alarmIntent, 0);
         }
 

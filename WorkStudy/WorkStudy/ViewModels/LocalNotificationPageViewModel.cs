@@ -23,7 +23,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-
         Command _disableCommand;
         public Command DisableCommand
         {
