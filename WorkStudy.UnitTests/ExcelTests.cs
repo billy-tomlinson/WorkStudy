@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Syncfusion.Drawing;
@@ -67,6 +68,57 @@ namespace WorkStudy.UnitTests
             timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
         }
 
+
+        [TestMethod]
+        public void Create_Excel_Spreadsheet_From_Other()
+        {
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Excel2016;
+                var filepath = @"C:\Users\TomlinsoB\Source\Repos\WorkStudy\WorkStudy.UnitTests\bin\Debug\netcoreapp2.0\InputTemplate.xlsx";
+                //Open existing workbook with data entered
+                //Assembly assembly = typeof(ExcelTests).GetTypeInfo().Assembly;
+                //Stream fileStream = assembly.GetManifestResourceStream(@"C:\Users\TomlinsoB\Source\Repos\WorkStudy\WorkStudy.UnitTests\bin\Debug\netcoreapp2.0\InputTemplate.xlsx");
+
+                //Open the stream and read it back.
+                FileStream fs = File.OpenRead(filepath);
+               
+                IWorkbook workbook = application.Workbooks.Open(fs);
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                //Initialize chart
+                IChartShape chart = worksheet.Charts.Add();
+                chart.ChartType = ExcelChartType.Pie_Exploded;
+
+                //Assign data
+                chart.DataRange = worksheet["A3:B7"];
+                chart.IsSeriesInRows = false;
+
+                //Apply chart elements
+                //Set chart title
+                chart.ChartTitle = "Exploded Pie Chart";
+
+                //Set legend
+                chart.HasLegend = true;
+                chart.Legend.Position = ExcelLegendPosition.Bottom;
+
+                //Set data labels
+                IChartSerie serie = chart.Series[0];
+                serie.DataPoints.DefaultDataPoint.DataLabels.IsValue = true;
+
+                //Positioning the chart in the worksheet
+                chart.TopRow = 8;
+                chart.LeftColumn = 1;
+                chart.BottomRow = 23;
+                chart.RightColumn = 8;
+
+                //Saving the workbook
+                Stream stream = File.Create("Output.xlsx");
+                workbook.SaveAs(stream);
+            }
+        }
+    
         [TestMethod]
         public void Create_Excel_Spreadsheet_From_SQL()
         {
@@ -74,7 +126,7 @@ namespace WorkStudy.UnitTests
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 //Set the default application version as Excel 2013.
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2016;
 
                 //Create a workbook with a worksheet
                 workbook = excelEngine.Excel.Workbooks.Create(1);
@@ -132,6 +184,7 @@ namespace WorkStudy.UnitTests
                 BuildValueAddedRatedActivities();
                 BuildNonValueAddedRatedActivities();
                 BuildUnRatedActivities();
+                BuildPieChart();
                 
 
                 workbook.Worksheets[0].Remove();
@@ -648,6 +701,18 @@ namespace WorkStudy.UnitTests
 
                 allTotals.Add(summary);
             }
+        }
+
+        private void BuildPieChart()
+        {
+            var destSheet = workbook.Worksheets.Create("PieChart");
+
+            IChartShape chart = destSheet.Charts.Add();
+
+            chart.ChartType = ExcelChartType.Pie_Exploded;
+
+            chart.DataRange = destSheetAll.Range["A11:C20"];
+
         }
     }
 }

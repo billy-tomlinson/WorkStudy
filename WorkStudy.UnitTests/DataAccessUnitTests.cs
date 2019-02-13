@@ -192,7 +192,7 @@ namespace WorkStudy.UnitTests
                 //    Assert.IsTrue(studyOperators.Count()> 0);
                 //}
 
-                CleanDatabase();
+                //CleanDatabase();
 
                 Link_UnRated_Activities_To_Operators();
 
@@ -1029,14 +1029,14 @@ namespace WorkStudy.UnitTests
                 mergedActivityRepo.CreateTable();
             }
 
-            [TestMethod]
-            public void CreateTable()
-            {
-                activityNameRepo.DropTable();
-                activityNameRepo.CreateTable();
-                activityRepo.DropTable();
-                activityRepo.CreateTable();
-            }
+            //[TestMethod]
+            //public void CreateTable()
+            //{
+            //    activityNameRepo.DropTable();
+            //    activityNameRepo.CreateTable();
+            //    activityRepo.DropTable();
+            //    activityRepo.CreateTable();
+            //}
 
             //[TestMethod]
             //public void Test_Operator_Activities_SumUp()
