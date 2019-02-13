@@ -244,7 +244,6 @@ namespace WorkStudy.UnitTests
 
             destSheetStudyDetails.Range[1,1,8,2].AutofitColumns();
         }
-
         private void BuildValueAddedRatedActivities()
         {
             startRowIndex = 5;
@@ -286,7 +285,7 @@ namespace WorkStudy.UnitTests
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "####";
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
@@ -332,7 +331,7 @@ namespace WorkStudy.UnitTests
                             var totalObsCount = totalObs.Count();
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
 
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "####";
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
@@ -410,7 +409,7 @@ namespace WorkStudy.UnitTests
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "####";
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
@@ -461,7 +460,6 @@ namespace WorkStudy.UnitTests
                 }
 
                 //total all unrated totals of all operators
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
                 var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
@@ -534,7 +532,7 @@ namespace WorkStudy.UnitTests
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "####";
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
@@ -560,9 +558,8 @@ namespace WorkStudy.UnitTests
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=TEXT(SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex}), \"00.0\")";
 
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].NumberFormat = "####";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "####";
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
 
@@ -589,7 +586,7 @@ namespace WorkStudy.UnitTests
                             var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
                             var totalPerActivity = vv.TotalTime * totalActivity;
 
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###";
+                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
@@ -612,15 +609,15 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1, allActivities.Count + startRow + 1, columnCount + 4].CellStyle = headerStyle;
 
+
                 // Total All observations  - Add together total value added +  total value added +  total unrated
                 var formula4 = $"=TEXT(SUM({columnAddress1}{startRowIndex}:{columnAddress1}{unRatedActivitiesTotalRowIndex}), \"####\")";
                 var formula5 = $"=SUM({columnAddress2}{valueAddedActivitiesTotalRowIndex}+{columnAddress2}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress2}{unRatedActivitiesTotalRowIndex})";
                 var formula6 = $"=TEXT(SUM({columnAddress3}{valueAddedActivitiesTotalRowIndex}+{columnAddress3}{nonValueAddedActivitiesTotalRowIndex}+{columnAddress3}{unRatedActivitiesTotalRowIndex}), \"00.0\")";
 
                 //**** THIS TOTALS ALL THE TOTALS AT THE END OF THE SHEET *********************************
-
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 2].Formula = formula4;
-                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "####";
+                destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].NumberFormat = "###0";
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
                 //******************************************************************************************
@@ -707,11 +704,40 @@ namespace WorkStudy.UnitTests
         {
             var destSheet = workbook.Worksheets.Create("PieChart");
 
+            //Assigns an object to the range of cells (90 rows) both for source and destination.
+            IRange source = destSheetAll.Range["A5:A9"];
+            IRange des = destSheet.Range["A5:A9"];
+            source.CopyTo(des);
+
+            source = destSheetAll.Range["Y5:Y9"];
+            des = destSheet.Range["B5:B9"];
+
+            //Copies from Source to Destination worksheet.
+            source.CopyTo(des);
+
             IChartShape chart = destSheet.Charts.Add();
 
-            chart.ChartType = ExcelChartType.Pie_Exploded;
+            chart.DataRange = destSheet.Range["A5:B9"];
 
-            chart.DataRange = destSheetAll.Range["A11:C20"];
+            chart.ChartTitle = "Exploded Pie Chart";
+            chart.HasLegend = true;
+            chart.Legend.Position = ExcelLegendPosition.Right;
+
+            IChartSerie serie = chart.Series[0];
+            serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
+
+
+            chart.TopRow = 4;
+            chart.LeftColumn = 4;
+            chart.BottomRow = 23;
+            chart.RightColumn = 10;
+
+            chart.ChartType = ExcelChartType.Pie_Exploded;
+            chart.Elevation = 70;
+            chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
+
+           
+            chart.IsSeriesInRows = false;
 
         }
     }
