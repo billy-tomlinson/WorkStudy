@@ -37,6 +37,7 @@ namespace WorkStudy.UnitTests
         IWorkbook workbook;
         IWorksheet destSheetAll;
         IWorksheet pieChartSheet;
+        IWorksheet pieChartAllSheet;
 
         int startRowIndex;
         int valueAddedActivitiesTotalRowIndex;
@@ -78,57 +79,6 @@ namespace WorkStudy.UnitTests
             timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);   
         }
 
-
-        [TestMethod]
-        public void Create_Excel_Spreadsheet_From_Other()
-        {
-            using (ExcelEngine excelEngine = new ExcelEngine())
-            {
-                IApplication application = excelEngine.Excel;
-                application.DefaultVersion = ExcelVersion.Excel2016;
-                var filepath = @"C:\Users\TomlinsoB\Source\Repos\WorkStudy\WorkStudy.UnitTests\bin\Debug\netcoreapp2.0\InputTemplate.xlsx";
-                //Open existing workbook with data entered
-                //Assembly assembly = typeof(ExcelTests).GetTypeInfo().Assembly;
-                //Stream fileStream = assembly.GetManifestResourceStream(@"C:\Users\TomlinsoB\Source\Repos\WorkStudy\WorkStudy.UnitTests\bin\Debug\netcoreapp2.0\InputTemplate.xlsx");
-
-                //Open the stream and read it back.
-                FileStream fs = File.OpenRead(filepath);
-               
-                IWorkbook workbook = application.Workbooks.Open(fs);
-                IWorksheet worksheet = workbook.Worksheets[0];
-
-                //Initialize chart
-                IChartShape chart = worksheet.Charts.Add();
-                chart.ChartType = ExcelChartType.Pie_Exploded;
-
-                //Assign data
-                chart.DataRange = worksheet["A3:B7"];
-                chart.IsSeriesInRows = false;
-
-                //Apply chart elements
-                //Set chart title
-                chart.ChartTitle = "Exploded Pie Chart";
-
-                //Set legend
-                chart.HasLegend = true;
-                chart.Legend.Position = ExcelLegendPosition.Bottom;
-
-                //Set data labels
-                IChartSerie serie = chart.Series[0];
-                serie.DataPoints.DefaultDataPoint.DataLabels.IsValue = true;
-
-                //Positioning the chart in the worksheet
-                chart.TopRow = 8;
-                chart.LeftColumn = 1;
-                chart.BottomRow = 23;
-                chart.RightColumn = 8;
-
-                //Saving the workbook
-                Stream stream = File.Create("Output.xlsx");
-                workbook.SaveAs(stream);
-            }
-        }
-    
         [TestMethod]
         public void Create_Excel_Spreadsheet_From_SQL()
         {
@@ -192,11 +142,13 @@ namespace WorkStudy.UnitTests
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
                 pieChartSheet = workbook.Worksheets.Create("PieChart");
+                pieChartAllSheet = workbook.Worksheets.Create("PieChartAll");
 
                 BuildValueAddedRatedActivities();
                 BuildNonValueAddedRatedActivities();
                 BuildUnRatedActivities();
-                Build_ValueAdded_NonValueAdded_UnratedPieChart();
+                Build_ValueAdded_NonValueAdded_Ineffective_PieChart();
+                Build_All_Activities_PieChart();
 
                 workbook.Worksheets[0].Remove();
                 
@@ -255,6 +207,7 @@ namespace WorkStudy.UnitTests
 
             destSheetStudyDetails.Range[1,1,8,2].AutofitColumns();
         }
+
         private void BuildValueAddedRatedActivities()
         {
             startRowIndex = 5;
@@ -347,6 +300,11 @@ namespace WorkStudy.UnitTests
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
+
+                            //**** THIS COPIES UNRATED % TO THE PIE CHART SHEET *********************************
+                            destSheetAll.EnableSheetCalculations();
+                            pieChartAllSheet.Range[c, 2].Text = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            //************************************
                         }
                     }
                 }
@@ -475,6 +433,11 @@ namespace WorkStudy.UnitTests
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
+
+                            //**** THIS COPIES UNRATED % TO THE PIE CHART SHEET *********************************
+                            destSheetAll.EnableSheetCalculations();
+                            pieChartAllSheet.Range[c, 2].Text = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            //************************************
                         }
                     }
                 }
@@ -564,6 +527,7 @@ namespace WorkStudy.UnitTests
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+
                         }
                     }
                 }
@@ -618,6 +582,11 @@ namespace WorkStudy.UnitTests
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
                             destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
+
+                            //**** THIS COPIES UNRATED % TO THE PIE CHART SHEET *********************************
+                            destSheetAll.EnableSheetCalculations();
+                            pieChartAllSheet.Range[c,2].Text = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            //************************************
                         }
                     }
                 }
@@ -782,12 +751,62 @@ namespace WorkStudy.UnitTests
 
         }
 
-        private void Build_ValueAdded_NonValueAdded_UnratedPieChart()
+        private void Build_ValueAdded_NonValueAdded_Ineffective_PieChart()
         {
 
             IChartShape chart = pieChartSheet.Charts.Add();
 
             chart.DataRange = pieChartSheet.Range["A1:B3"];
+
+            chart.ChartTitle = "Value Added, NonValueAdded, Ineffective";
+            chart.HasLegend = true;
+            chart.Legend.Position = ExcelLegendPosition.Right;
+
+            IChartSerie serie = chart.Series[0];
+            serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
+
+
+            chart.TopRow = 4;
+            chart.LeftColumn = 4;
+            chart.BottomRow = 23;
+            chart.RightColumn = 10;
+
+            chart.ChartType = ExcelChartType.Pie_Exploded;
+            chart.Elevation = 70;
+            chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
+
+            chart.IsSeriesInRows = false;
+
+        }
+
+        private void Build_All_Activities_PieChart()
+        {
+            startRowIndex = 5;
+
+            allTotals = new List<List<ObservationSummary>>();
+
+            var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
+                .Select(y => new { y.ActivityName.Name }).ToList();
+                
+            pieChartAllSheet.ImportData(allActivities, startRowIndex, 1, false);
+
+            allActivities = allStudyActivities.Where(x => x.Rated && !x.IsValueAdded)
+                .Select(y => new { y.ActivityName.Name }).ToList();
+
+            var startRow = valueAddedActivitiesTotalRowIndex + 2;
+
+            pieChartAllSheet.ImportData(allActivities, startRow, 1, false);
+
+            allActivities = allStudyActivities.Where(x => !x.Rated)
+                .Select(y => new { y.ActivityName.Name }).ToList();
+
+            startRow = nonValueAddedActivitiesTotalRowIndex + 2;
+
+            pieChartAllSheet.ImportData(allActivities, startRow, 1, false);
+
+            IChartShape chart = pieChartAllSheet.Charts.Add();
+
+            chart.DataRange = pieChartSheet.Range["A5:B32"]; //this nned to be calculated
 
             chart.ChartTitle = "All Activities";
             chart.HasLegend = true;
@@ -795,7 +814,6 @@ namespace WorkStudy.UnitTests
 
             IChartSerie serie = chart.Series[0];
             serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
-
 
             chart.TopRow = 4;
             chart.LeftColumn = 4;
