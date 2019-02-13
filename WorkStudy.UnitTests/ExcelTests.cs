@@ -47,6 +47,9 @@ namespace WorkStudy.UnitTests
         IStyle totalsStyle;
         IStyle detailsStyle;
 
+        string valueAddedRatedActivitiesRange;
+        string nonValueAddedRatedActivitiesRange;
+        string unRatedActivitiesRange;
 
         public ExcelTests()
         {
@@ -65,7 +68,7 @@ namespace WorkStudy.UnitTests
             var firstOb = totalObs.Min(y => y.Date);
             var lastOb = totalObs.Max(y => y.Date);
             totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
-            timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
+            timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);   
         }
 
 
@@ -261,6 +264,7 @@ namespace WorkStudy.UnitTests
             var columnCount = 1;
 
             var computedRange = $"A{startRowIndex}:A{allActivities.Count + startRowIndex}";
+            valueAddedRatedActivitiesRange = computedRange;
             var range = destSheetAll[computedRange].ToList();
 
             foreach (var item in allTotals)
@@ -392,6 +396,7 @@ namespace WorkStudy.UnitTests
             var columnCount = 1;
 
             var computedRange = $"A{startRow}:A{startRow + allActivities.Count}";
+            nonValueAddedRatedActivitiesRange = computedRange;
             var range = destSheetAll[computedRange].ToList();
 
             foreach (var item in allTotals)
@@ -514,6 +519,7 @@ namespace WorkStudy.UnitTests
             var columnCount = 1;
 
             var computedRange = $"A{startRow}:A{startRow + allActivities.Count}";
+            unRatedActivitiesRange = computedRange;
             var range = destSheetAll[computedRange].ToList();
 
             foreach (var item in allTotals)
