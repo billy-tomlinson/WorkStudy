@@ -33,8 +33,9 @@ namespace WorkStudy.UnitTests
 
         IWorkbook workbook;
         IWorksheet destSheetAll;
-        IWorksheet pieChartSheet;
-        IWorksheet pieChartAllSheet;
+        IWorksheet pieAllCategoriesTotal;
+        IWorksheet pieAllCategoriesIndividual;
+        IWorksheet pieAllNonValueAddedIndividual;
 
         int startRowIndex;
         int valueAddedActivitiesTotalRowIndex;
@@ -138,8 +139,9 @@ namespace WorkStudy.UnitTests
 
                 destSheetAll = workbook.Worksheets.Create("Summary");
 
-                pieChartSheet = workbook.Worksheets.Create("PieChart");
-                pieChartAllSheet = workbook.Worksheets.Create("PieChartAll");
+                pieAllCategoriesTotal = workbook.Worksheets.Create("Totals Chart");
+                pieAllCategoriesIndividual = workbook.Worksheets.Create("Activities Chart");
+                pieAllNonValueAddedIndividual = workbook.Worksheets.Create("Non Value Added Chart");
 
                 BuildValueAddedRatedActivities();
                 BuildNonValueAddedRatedActivities();
@@ -301,7 +303,7 @@ namespace WorkStudy.UnitTests
 
                             //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
                             destSheetAll.EnableSheetCalculations();
-                            pieChartAllSheet.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            pieAllCategoriesIndividual.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
                             //************************************
                         }
                     }
@@ -320,8 +322,8 @@ namespace WorkStudy.UnitTests
                 //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
                 destSheetAll.EnableSheetCalculations();
                 var source = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].CalculatedValue;
-                pieChartSheet.Range["A1"].Text = "VALUE ADDED";
-                pieChartSheet.Range["B1"].Value = source;
+                pieAllCategoriesTotal.Range["A1"].Text = "VALUE ADDED";
+                pieAllCategoriesTotal.Range["B1"].Value = source;
                 //************************************
 
             }
@@ -434,7 +436,8 @@ namespace WorkStudy.UnitTests
 
                             //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
                             destSheetAll.EnableSheetCalculations();
-                            pieChartAllSheet.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            pieAllCategoriesIndividual.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            pieAllNonValueAddedIndividual.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
                             //************************************
                         }
                     }
@@ -453,8 +456,8 @@ namespace WorkStudy.UnitTests
                 //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
                 destSheetAll.EnableSheetCalculations();
                 var source = destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].CalculatedValue;
-                pieChartSheet.Range["A2"].Text = "NON VALUE ADDED";
-                pieChartSheet.Range["B2"].Value = source;
+                pieAllCategoriesTotal.Range["A2"].Text = "NON VALUE ADDED";
+                pieAllCategoriesTotal.Range["B2"].Value = source;
                 //************************************
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL NON VALUE ADDED";
@@ -583,7 +586,7 @@ namespace WorkStudy.UnitTests
 
                             //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
                             destSheetAll.EnableSheetCalculations();
-                            pieChartAllSheet.Range[c,2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                            pieAllCategoriesIndividual.Range[c,2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
                             //************************************
                         }
                     }
@@ -604,8 +607,8 @@ namespace WorkStudy.UnitTests
                 //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
                 destSheetAll.EnableSheetCalculations();
                 var source = destSheetAll.Range[allActivities.Count + startRow + 1, columnCount + 4].CalculatedValue;
-                pieChartSheet.Range["A3"].Text = "INNEFECTIVE";
-                pieChartSheet.Range["B3"].Value = source;
+                pieAllCategoriesTotal.Range["A3"].Text = "INNEFECTIVE";
+                pieAllCategoriesTotal.Range["B3"].Value = source;
                 //************************************
 
                 destSheetAll.Range[allActivities.Count + startRow + 1, 1].Text = "SUB TOTAL INEFFECTIVE";
@@ -713,22 +716,22 @@ namespace WorkStudy.UnitTests
             //var destSheet = workbook.Worksheets.Create("PieChart");
 
             destSheetAll.EnableSheetCalculations();
-            pieChartSheet.EnableSheetCalculations();
+            pieAllCategoriesTotal.EnableSheetCalculations();
 
             //Assigns an object to the range of cells (90 rows) both for source and destination.
             IRange source = destSheetAll.Range["A5:A9"];
-            IRange des = pieChartSheet.Range["A5:A9"];
+            IRange des = pieAllCategoriesTotal.Range["A5:A9"];
             source.CopyTo(des);
 
             source = destSheetAll.Range["Y5:Y9"];
-            des = pieChartSheet.Range["B5:B9"];
+            des = pieAllCategoriesTotal.Range["B5:B9"];
 
             //Copies from Source to Destination worksheet.
             source.CopyTo(des);
 
-            IChartShape chart = pieChartSheet.Charts.Add();
+            IChartShape chart = pieAllCategoriesTotal.Charts.Add();
 
-            chart.DataRange = pieChartSheet.Range["A1:B3"];
+            chart.DataRange = pieAllCategoriesTotal.Range["A1:B3"];
 
             chart.ChartTitle = "Exploded Pie Chart";
             chart.HasLegend = true;
@@ -755,11 +758,11 @@ namespace WorkStudy.UnitTests
         private void Build_ValueAdded_NonValueAdded_Ineffective_PieChart()
         {
 
-            IChartShape chart = pieChartSheet.Charts.Add();
+            IChartShape chart = pieAllCategoriesTotal.Charts.Add();
 
-            pieChartSheet.InsertRow(1, 4);
-            chart.DataRange = pieChartSheet.Range["A5:B7"];
-            pieChartSheet.Range["A5:B7"].AutofitColumns();
+            pieAllCategoriesTotal.InsertRow(1, 4);
+            chart.DataRange = pieAllCategoriesTotal.Range["A5:B7"];
+            pieAllCategoriesTotal.Range["A5:B7"].AutofitColumns();
 
             chart.ChartTitle = "Value Added, NonValueAdded, Ineffective";
             chart.HasLegend = true;
@@ -790,34 +793,37 @@ namespace WorkStudy.UnitTests
             var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
                 .Select(y => new { y.ActivityName.Name }).ToList();
                 
-            pieChartAllSheet.ImportData(allActivities, startRowIndex, 1, false);
+            pieAllCategoriesIndividual.ImportData(allActivities, startRowIndex, 1, false);
 
             //delete empty rows under value added and move non value added up
-            pieChartAllSheet.Range[startRowIndex + allActivities.Count, 1 ,startRowIndex + allActivities.Count + 2 , 2].Clear(ExcelMoveDirection.MoveUp);
+            pieAllCategoriesIndividual.Range[startRowIndex + allActivities.Count, 1 ,startRowIndex + allActivities.Count + 2 , 2].Clear(ExcelMoveDirection.MoveUp);
 
             allActivities = allStudyActivities.Where(x => x.Rated && !x.IsValueAdded)
                 .Select(y => new { y.ActivityName.Name }).ToList();
 
             var startRow = valueAddedActivitiesTotalRowIndex - 1;
 
-            pieChartAllSheet.ImportData(allActivities, startRow, 1, false);
+            pieAllCategoriesIndividual.ImportData(allActivities, startRow, 1, false);
+            pieAllNonValueAddedIndividual.ImportData(allActivities, startRow + 3, 1, false);
+
+            var allNonValueAddedIndividualRange = $"A{startRow + 3}:B{startRow + 2 + allActivities.Count}";
 
             //delete empty rows under non value added and move ineefective up
-            pieChartAllSheet.Range[startRow + allActivities.Count, 1, startRow + allActivities.Count + 2, 2].Clear(ExcelMoveDirection.MoveUp);
+            pieAllCategoriesIndividual.Range[startRow + allActivities.Count, 1, startRow + allActivities.Count + 2, 2].Clear(ExcelMoveDirection.MoveUp);
 
             allActivities = allStudyActivities.Where(x => !x.Rated)
                 .Select(y => new { y.ActivityName.Name }).ToList();
 
             startRow = nonValueAddedActivitiesTotalRowIndex;
 
-            pieChartAllSheet.ImportData(allActivities, startRow - 4, 1, false);
+            pieAllCategoriesIndividual.ImportData(allActivities, startRow - 4, 1, false);
 
-            IChartShape chart = pieChartAllSheet.Charts.Add();
+            IChartShape chart = pieAllCategoriesIndividual.Charts.Add();
 
             var range = $"A5:B{startRow - 2}";
-            chart.DataRange = pieChartAllSheet.Range[range];
+            chart.DataRange = pieAllCategoriesIndividual.Range[range];
 
-            pieChartAllSheet.Range[range].AutofitColumns();
+            pieAllCategoriesIndividual.Range[range].AutofitColumns();
 
             chart.ChartTitle = "All Activities";
             chart.HasLegend = true;
@@ -837,6 +843,31 @@ namespace WorkStudy.UnitTests
             chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 
             chart.IsSeriesInRows = false;
+
+            IChartShape chart2 = pieAllNonValueAddedIndividual.Charts.Add();
+
+            chart2.DataRange = pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange];
+
+            pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange].AutofitColumns();
+
+            chart2.ChartTitle = "All Non Value Added";
+            chart2.HasLegend = true;
+            chart2.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
+            chart2.Legend.Position = ExcelLegendPosition.Right;
+
+            IChartSerie serie1 = chart2.Series[0];
+            serie1.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
+
+            chart2.TopRow = 1;
+            chart2.LeftColumn = 4;
+            chart2.BottomRow = 30;
+            chart2.RightColumn = 17;
+
+            chart2.ChartType = ExcelChartType.Pie_Exploded;
+            chart2.Elevation = 70;
+            chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
+
+            chart2.IsSeriesInRows = false;
 
         }
     }
