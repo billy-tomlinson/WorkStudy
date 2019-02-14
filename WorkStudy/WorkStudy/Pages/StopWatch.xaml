@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.Pages.StopWatch">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
+             xmlns:local="clr-namespace:WorkStudy.Custom" 
+             x:Class="WorkStudy.Pages.StopWatch">
+    <ContentPage.BindingContext>
+        <workStudy:StopWatchViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="StopWatchLabel" Text="StopWatch" />
-            <Button Text="Start" Clicked="btn_Start_Clicked" />
-            <Button Text="Pause" Clicked="btn_Pause_Clicked" />
-            <Button Text="Stop" Clicked="btn_Stop_Clicked" />
-            <Button Text="ShowLapTimes" Clicked="btn_ShowLapTimes_Clicked" />
+        <StackLayout BackgroundColor="Transparent" WidthRequest="320" Padding="2" Margin="2" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" Opacity="{Binding Opacity}">
+            <StackLayout>
+                <Label Text="{Binding StopWatchTime}" />
+                <Button Text="Start" Command="{Binding StartTimer}" />
+                <Button Text="Lap" Command="{Binding LapTimer}" />
+                <Button Text="Stop" Command="{Binding StopTimer}" />
+                <Button Text="Clear Lap Times" Command="{Binding ClearLaps}" />
+            </StackLayout>
+            <local:CustomListView Margin="0,10" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="500">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                </x:Arguments>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0">
+                                <Grid Padding="5" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*">
+                                        </RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="*">
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="12" HorizontalTextAlignment="Start" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Time}" HorizontalTextAlignment="Start" FontSize="12" />
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </local:CustomListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

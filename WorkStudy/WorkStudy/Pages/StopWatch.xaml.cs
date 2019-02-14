@@ -130,7 +130,7 @@ namespace WorkStudy.Pages
                 //dec = decimal.Floor(dec1);
                 //dec = decimal.Round(ticks / 60, 5, MidpointRounding.AwayFromZero);
 
-                StopWatchLabel.Text = dec.ToString("##.###");
+                //StopWatchLabel.Text = dec.ToString("##.###");
 
                 try
                 {
