@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
 using WorkStudy.Model;
 using WorkStudy.Services;
-using WorkStudy.ViewModels;
 
 namespace WorkStudy.UnitTests
 {
     [TestClass]
     public class ExcelTests
     {
-        private const string connString = "/Users/billytomlinson/WorkStudyAA.db3";
-        //private const string connString = "WorkStudy1.db3";
+        //private const string connString = "/Users/billytomlinson/WorkStudyAA.db3";
+        private const string connString = "WorkStudy1.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
@@ -149,6 +146,7 @@ namespace WorkStudy.UnitTests
                 BuildUnRatedActivities();
                 Build_ValueAdded_NonValueAdded_Ineffective_PieChart();
                 Build_All_Activities_PieChart();
+                SampleForTesting();
 
                 workbook.Worksheets[0].Remove();
                 
@@ -712,22 +710,22 @@ namespace WorkStudy.UnitTests
 
         private void SampleForTesting()
         {
-            var destSheet = workbook.Worksheets.Create("PieChart");
+            //var destSheet = workbook.Worksheets.Create("PieChart");
 
             //Assigns an object to the range of cells (90 rows) both for source and destination.
             IRange source = destSheetAll.Range["A5:A9"];
-            IRange des = destSheet.Range["A5:A9"];
+            IRange des = pieChartSheet.Range["A5:A9"];
             source.CopyTo(des);
 
             source = destSheetAll.Range["Y5:Y9"];
-            des = destSheet.Range["B5:B9"];
+            des = pieChartSheet.Range["B5:B9"];
 
             //Copies from Source to Destination worksheet.
             source.CopyTo(des);
 
-            IChartShape chart = destSheet.Charts.Add();
+            IChartShape chart = pieChartSheet.Charts.Add();
 
-            chart.DataRange = destSheet.Range["A5:B9"];
+            chart.DataRange = pieChartSheet.Range["A5:B9"];
 
             chart.ChartTitle = "Exploded Pie Chart";
             chart.HasLegend = true;
@@ -806,7 +804,7 @@ namespace WorkStudy.UnitTests
 
             IChartShape chart = pieChartAllSheet.Charts.Add();
 
-            chart.DataRange = pieChartSheet.Range["A5:B32"]; //this nned to be calculated
+            chart.DataRange = pieChartSheet.Range["A5:B9"]; //this nned to be calculated
 
             chart.ChartTitle = "All Activities";
             chart.HasLegend = true;
