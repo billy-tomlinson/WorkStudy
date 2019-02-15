@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using WorkStudy.Model;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -55,6 +56,7 @@ namespace WorkStudy.Pages
         {
             try
             {
+                //ListViewTimes.ScrollTo(LapTime, ScrollToPosition.End, true);
 
                 string sub1 = dec.ToString().Substring(0, 5);
                 string sub = dec.ToString().Substring(4, 1);

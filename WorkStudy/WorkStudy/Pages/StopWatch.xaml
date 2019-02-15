@@ -16,7 +16,7 @@
                 <Button Text="Stop" Command="{Binding StopTimer}" />
                 <Button Text="Clear Lap Times" Command="{Binding ClearLaps}" />
             </StackLayout>
-            <local:CustomListView Margin="0,10" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="500">
+            <local:CustomListView x:Name="ListViewTimes" Margin="0,10" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="500">
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>

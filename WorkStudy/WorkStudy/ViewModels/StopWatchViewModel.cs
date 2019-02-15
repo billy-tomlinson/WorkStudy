@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using WorkStudy.Model;
 using Xamarin.Forms;
 
@@ -58,7 +59,8 @@ namespace WorkStudy.ViewModels
                 string sub1 = dec.ToString().Substring(0, 5);
                 string sub = dec.ToString().Substring(4, 1);
 
-                LapTimes.Add(new LapTime { Time = sub1, Count = Counter});
+                lapTimesList.Add(new LapTime { Time = sub1, Count = Counter});
+                OnPropertyChanged("LapTimes");
             }
             catch (Exception ex)
             {
@@ -77,10 +79,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static List<LapTime> lapTimesList = new List<LapTime>();
+
         static ObservableCollection<LapTime> lapTimes;
         public ObservableCollection<LapTime> LapTimes
         {
-            get => lapTimes;
+            get
+            {
+                return new ObservableCollection<LapTime>(lapTimesList.OrderByDescending(x => x.Count));
+            }
             set
             {
                 lapTimes = value;
