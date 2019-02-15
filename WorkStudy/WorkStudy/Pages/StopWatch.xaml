@@ -27,6 +27,27 @@
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>
+                <ListView.Header>
+                    <StackLayout Padding="5,2,5,2" BackgroundColor="White">
+                        <Grid Padding="5" Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*">
+                                </RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="*">
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="Lap" FontSize="12" HorizontalTextAlignment="Start" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="Elapsed" HorizontalTextAlignment="Start" FontSize="12" />
+                            <Label Grid.Row="0" Grid.Column="2" Text="Lap" HorizontalTextAlignment="Start" FontSize="12" />
+                        </Grid>
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -72,8 +72,8 @@ namespace WorkStudy.ViewModels
                 lapTime = currentRunningTime - previousRunningTime;
                 previousRunningTime = currentRunningTime;
 
-                string currentRunningTimeFormatted = currentRunningTime.ToString().Substring(0, 5);
-                string lapTimeTimeFormatted = lapTime.ToString().Substring(0, 5);
+                string currentRunningTimeFormatted = currentRunningTime.ToString("00.000");
+                string lapTimeTimeFormatted = lapTime.ToString("00.000");
 
                 lapTimesList.Add(new LapTime { TotalElapsedTime = currentRunningTimeFormatted, Count = Counter, IndividualLapTime = lapTimeTimeFormatted });
                 OnPropertyChanged("LapTimes");
