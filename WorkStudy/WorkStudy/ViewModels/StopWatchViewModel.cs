@@ -16,8 +16,9 @@ namespace WorkStudy.ViewModels
         public Command ClearLaps { get; set; }
 
         private bool _isRunning;
-        public double runningTime { get; set; }
-        public double lastLapTime { get; set; }
+        public double currentRunningTime { get; set; }
+        public double previousRunningTime { get; set; }
+        public double lapTime { get; set; }
 
         static int Counter;
 
@@ -35,8 +36,10 @@ namespace WorkStudy.ViewModels
         public void StartTimerEvent()
         {
             if(_isRunning) return;
-
+            LapTimes = new ObservableCollection<LapTime>();
             Counter = 0;
+            previousRunningTime = 0;
+            currentRunningTime = 0;
             _isRunning = true;
             RunTimer();
         }
@@ -58,12 +61,13 @@ namespace WorkStudy.ViewModels
             try
             {
                 Counter = Counter + 1;
-                lastLapTime = runningTime - lastLapTime;
+                lapTime = currentRunningTime - previousRunningTime;
+                previousRunningTime = currentRunningTime;
 
-                string runningTimeFormatted = runningTime.ToString().Substring(0, 5);
-                string lastLapTimeFormatted = lastLapTime.ToString().Substring(0, 5);
+                string currentRunningTimeFormatted = currentRunningTime.ToString().Substring(0, 5);
+                string lapTimeTimeFormatted = lapTime.ToString().Substring(0, 5);
 
-                lapTimesList.Add(new LapTime { TotalElapsedTime = runningTimeFormatted, Count = Counter, IndividualLapTime = lastLapTimeFormatted });
+                lapTimesList.Add(new LapTime { TotalElapsedTime = currentRunningTimeFormatted, Count = Counter, IndividualLapTime = lapTimeTimeFormatted });
                 OnPropertyChanged("LapTimes");
             }
             catch (Exception ex)
@@ -111,9 +115,9 @@ namespace WorkStudy.ViewModels
 
                 TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
                 double ticks = TotalTime.Ticks / 1000000000;
-                runningTime = ticks / 600;
+                currentRunningTime = ticks / 600;
 
-                StopWatchTime = runningTime.ToString("##.###");
+                StopWatchTime = currentRunningTime.ToString("##.###");
 
                 try
                 {
@@ -124,7 +128,7 @@ namespace WorkStudy.ViewModels
                     if (rInt > 0)
                     {
                         ss = (double)rInt / 10000;
-                        runningTime = runningTime + ss;
+                        currentRunningTime = currentRunningTime + ss;
                     }
                 }
                 catch (Exception ex)
