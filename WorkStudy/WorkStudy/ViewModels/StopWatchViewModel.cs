@@ -16,7 +16,9 @@ namespace WorkStudy.ViewModels
         public Command ClearLaps { get; set; }
 
         private bool _isRunning;
-        public double dec { get; set; }
+        public double runningTime { get; set; }
+        public double lastLapTime { get; set; }
+
         static int Counter;
 
         public StopWatchViewModel()
@@ -56,10 +58,12 @@ namespace WorkStudy.ViewModels
             try
             {
                 Counter = Counter + 1;
-                string sub1 = dec.ToString().Substring(0, 5);
-                string sub = dec.ToString().Substring(4, 1);
+                lastLapTime = runningTime - lastLapTime;
 
-                lapTimesList.Add(new LapTime { Time = sub1, Count = Counter});
+                string runningTimeFormatted = runningTime.ToString().Substring(0, 5);
+                string lastLapTimeFormatted = lastLapTime.ToString().Substring(0, 5);
+
+                lapTimesList.Add(new LapTime { TotalElapsedTime = runningTimeFormatted, Count = Counter, IndividualLapTime = lastLapTimeFormatted });
                 OnPropertyChanged("LapTimes");
             }
             catch (Exception ex)
@@ -107,9 +111,9 @@ namespace WorkStudy.ViewModels
 
                 TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
                 double ticks = TotalTime.Ticks / 1000000000;
-                dec = ticks / 600;
+                runningTime = ticks / 600;
 
-                StopWatchTime = dec.ToString("##.###");
+                StopWatchTime = runningTime.ToString("##.###");
 
                 try
                 {
@@ -120,11 +124,8 @@ namespace WorkStudy.ViewModels
                     if (rInt > 0)
                     {
                         ss = (double)rInt / 10000;
-                        dec = dec + ss;
+                        runningTime = runningTime + ss;
                     }
-
-                    string sub1 = dec.ToString().Substring(0, 5);
-                    string sub = dec.ToString().Substring(5, 1);
                 }
                 catch (Exception ex)
                 {

@@ -16,7 +16,14 @@
                 <Button Text="Stop" Command="{Binding StopTimer}" />
                 <Button Text="Clear Lap Times" Command="{Binding ClearLaps}" />
             </StackLayout>
-            <local:CustomListView x:Name="ListViewTimes" Margin="0,10" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="500">
+            <local:CustomListView x:Name="ListViewTimes" Margin="0,10" 
+                                  ItemsSource="{Binding LapTimes}" 
+                                  BackgroundColor="Gray" 
+                                  HasUnevenRows="true" 
+                                  HorizontalOptions="Center" 
+                                  SeparatorVisibility="Default" 
+                                  SeparatorColor="#605F5F"
+                                  HeightRequest="500">
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>
@@ -34,9 +41,12 @@
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="*">
                                         </ColumnDefinition>
+                                        <ColumnDefinition Width="*">
+                                        </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="12" HorizontalTextAlignment="Start" />
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Time}" HorizontalTextAlignment="Start" FontSize="12" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="12" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>

@@ -2,7 +2,10 @@
 {
     public class LapTime
     {
-        public string Time { get; set; }
+        public string TotalElapsedTime { get; set; }
+
+        public string IndividualLapTime { get; set; }
+
         public int Count { get; set; }
     }
 }
