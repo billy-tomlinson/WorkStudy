@@ -72,8 +72,8 @@ namespace WorkStudy.ViewModels
                 lapTime = currentRunningTime - previousRunningTime;
                 previousRunningTime = currentRunningTime;
 
-                string currentRunningTimeFormatted = currentRunningTime.ToString("00.000");
-                string lapTimeTimeFormatted = lapTime.ToString("00.000");
+                string currentRunningTimeFormatted = currentRunningTime.ToString("0.000");
+                string lapTimeTimeFormatted = lapTime.ToString("0.000");
 
                 lapTimesList.Add(new LapTime { TotalElapsedTime = currentRunningTimeFormatted, Count = Counter, IndividualLapTime = lapTimeTimeFormatted });
                 OnPropertyChanged("LapTimes");
@@ -126,7 +126,7 @@ namespace WorkStudy.ViewModels
                 double ticks = TotalTime.Ticks / 1000000000;
                 currentRunningTime = ticks / 600;
 
-                StopWatchTime = currentRunningTime.ToString("##.###");
+                StopWatchTime = currentRunningTime.ToString("0.000");
 
                 try
                 {
