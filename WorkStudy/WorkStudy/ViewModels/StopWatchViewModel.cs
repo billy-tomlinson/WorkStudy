@@ -138,7 +138,7 @@ namespace WorkStudy.ViewModels
                         currentRunningTime = currentRunningTime + ss;
                     }
 
-                    StopWatchTime = currentRunningTime.ToString("0.###");
+                    StopWatchTime = currentRunningTime.ToString("0.000");
                 }
                 catch (Exception ex)
                 {
