@@ -126,7 +126,7 @@ namespace WorkStudy.ViewModels
                 double ticks = TotalTime.Ticks / 1000000000;
                 currentRunningTime = ticks / 600;
 
-                StopWatchTime = currentRunningTime.ToString("0.000");
+                StopWatchTime = currentRunningTime.ToString("0.###");
 
                 try
                 {

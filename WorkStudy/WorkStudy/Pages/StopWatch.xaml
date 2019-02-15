@@ -10,9 +10,9 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="Transparent" WidthRequest="320" Padding="2" Margin="2" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" Opacity="{Binding Opacity}">
             <StackLayout HorizontalOptions="CenterAndExpand" Padding="10" Margin="10">
-                <Label Text="{Binding StopWatchTime}" FontSize="25" />
+                <Label Text="{Binding StopWatchTime}" FontSize="40" />
             </StackLayout>
-            <StackLayout HorizontalOptions="CenterAndExpand" Padding="3" Margin="3">
+            <StackLayout HorizontalOptions="CenterAndExpand" Padding="3" Margin="3" Orientation="Horizontal">
                 <Button Text="Start" Command="{Binding StartTimer}" />
                 <Button Text="Lap" Command="{Binding LapTimer}" />
                 <Button Text="Stop" Command="{Binding StopTimer}" />
@@ -44,9 +44,9 @@
                                 <ColumnDefinition Width="*">
                                 </ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Text="Lap" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="Elapsed" HorizontalTextAlignment="Start" FontSize="10" TextColor="Black" />
-                            <Label Grid.Row="0" Grid.Column="2" Text="Lap" HorizontalTextAlignment="Start" FontSize="10" TextColor="Black" />
+                            <Label Grid.Row="0" Grid.Column="0" Text="Lap No" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="Total Elapsed" HorizontalTextAlignment="Start" FontSize="10" TextColor="Black" />
+                            <Label Grid.Row="0" Grid.Column="2" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="10" TextColor="Black" />
                         </Grid>
                     </StackLayout>
                 </ListView.Header>
