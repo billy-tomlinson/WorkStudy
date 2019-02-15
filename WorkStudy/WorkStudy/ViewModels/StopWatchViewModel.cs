@@ -36,11 +36,16 @@ namespace WorkStudy.ViewModels
         public void StartTimerEvent()
         {
             if(_isRunning) return;
+
             LapTimes = new ObservableCollection<LapTime>();
+            lapTimesList = new List<LapTime>();
+
             Counter = 0;
             previousRunningTime = 0;
             currentRunningTime = 0;
+
             _isRunning = true;
+
             RunTimer();
         }
 
@@ -53,6 +58,9 @@ namespace WorkStudy.ViewModels
         {
             LapTimes = new ObservableCollection<LapTime>();
             OnPropertyChanged("LapTimes");
+
+            lapTimesList = new List<LapTime>();
+
             Counter = 0;
         }
 
@@ -72,7 +80,8 @@ namespace WorkStudy.ViewModels
             }
             catch (Exception ex)
             {
-
+                lapTimesList.Add(new LapTime { TotalElapsedTime = ex.Message, Count = 0, IndividualLapTime = ex.Message });
+                OnPropertyChanged("LapTimes");
             }
         }
 
