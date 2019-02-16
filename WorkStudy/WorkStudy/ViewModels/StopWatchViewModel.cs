@@ -132,7 +132,7 @@ namespace WorkStudy.ViewModels
                         currentRunningTime = ticks / 600;
                         break;
                     case Device.Android:
-                        currentRunningTime = ticks / 587;
+                        currentRunningTime = ticks / 590; //this is a hack/sweetspot as anroid is slightly slower
                         break;
                 }
 
