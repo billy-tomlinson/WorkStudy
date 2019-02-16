@@ -118,13 +118,23 @@ namespace WorkStudy.ViewModels
 
             TimeSpan TotalTime;
             TimeSpan TimeElement = new TimeSpan();
-            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 1), () =>
+            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () =>
             {
                 if (!_isRunning) return false;
 
                 TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
-                double ticks = TotalTime.Ticks / 1000000000;
-                currentRunningTime = ticks / 600;
+
+                double ticks = TotalTime.Ticks / 10000000;
+
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.iOS:
+                        currentRunningTime = ticks / 600;
+                        break;
+                    case Device.Android:
+                        currentRunningTime = ticks / 587;
+                        break;
+                }
 
                 try
                 {
