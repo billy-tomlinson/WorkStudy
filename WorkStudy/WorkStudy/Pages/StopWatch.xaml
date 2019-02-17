@@ -55,7 +55,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout Padding="0">
+                                    <StackLayout Padding="5,2,5,2">
                                         <Grid Padding="5" Margin="5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*">
@@ -80,19 +80,19 @@
                     </local:CustomListView>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                    <Grid Padding="0,0,0,10" Margin="0,0,0,10" HorizontalOptions="CenterAndExpand">
+                    <Grid Padding="0,0,0,10" Margin="5,0,5,10" HorizontalOptions="CenterAndExpand">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*">
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto">
+                            <ColumnDefinition Width="*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="Auto">
+                            <ColumnDefinition Width="*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="Auto">
+                            <ColumnDefinition Width="*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="Auto">
+                            <ColumnDefinition Width="*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Text=" Start " Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
