@@ -15,7 +15,6 @@ namespace WorkStudy.Pages
             NavigationPage.SetBackButtonTitle(this, "");
             studyName.Completed += studyName_Completed;
             studyDepartment.Completed += studyDepartment_Completed;
-            studiedBy.Completed += studiedBy_Completed;
         }
 
         public void studyName_Completed(object sender, EventArgs e)
@@ -24,11 +23,6 @@ namespace WorkStudy.Pages
         }
 
         public void studyDepartment_Completed(object sender, EventArgs e)
-        {
-            studiedBy.Focus();
-        }
-
-        public void studiedBy_Completed(object sender, EventArgs e)
         {
             studiedBy.Focus();
         }

@@ -23,10 +23,10 @@
                                 Command="{Binding CloseView}" 
                                 FontSize="12" 
                                 IsVisible="{Binding ShowClose}" 
-                                HorizontalOptions="Center" />
+                                HorizontalOptions="CenterAndExpand" />
                         <Button Grid.Row="0" Grid.Column="1" Text="OVERRIDE" 
                                 Style="{StaticResource popUpButton}" 
-                                HorizontalOptions="Center" 
+                                HorizontalOptions="CenterAndExpand" 
                                 IsVisible="{Binding IsOverrideVisible}" 
                                 Command="{Binding Override}" 
                                 FontSize="12"/>
@@ -35,10 +35,10 @@
                                 Command="{Binding Override}" 
                                 FontSize="12" 
                                 IsVisible="{Binding ShowOkCancel}" 
-                                HorizontalOptions="Center" />
+                                HorizontalOptions="CenterAndExpand" />
                         <Button Grid.Row="0" Grid.Column="1" Text="CANCEL" 
                                 Style="{StaticResource popUpButton}" 
-                                HorizontalOptions="Center" 
+                                HorizontalOptions="CenterAndExpand" 
                                 IsVisible="{Binding ShowOkCancel}" 
                                 Command="{Binding CloseView}" 
                                 FontSize="12"/>

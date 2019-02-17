@@ -19,19 +19,19 @@
                     <Label Text="{Binding StopWatchTime}" FontSize="40" />
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                    <Grid Padding="7" Margin="7">
+                    <Grid Padding="5" Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*">
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3.2*">
+                            <ColumnDefinition Width="3*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="3.2*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="2.5*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="2.5*">
+                            <ColumnDefinition Width="2.7*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Text="Start" Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
