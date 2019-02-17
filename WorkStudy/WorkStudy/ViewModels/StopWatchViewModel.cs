@@ -38,6 +38,11 @@ namespace WorkStudy.ViewModels
 
             Counter = 0;
             previousRunningTime = 0;
+            currentRunningTime = 0;
+            pausedRunningTime = 0;
+            lapTime = 0;
+            CurrentTicks = 0;
+            StopWatchTime = "0.000";
             IsRunning = false;
             IsStartEnabled = true;
             IsLapEnabled = false;
