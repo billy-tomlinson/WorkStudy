@@ -15,10 +15,12 @@ namespace WorkStudy.ViewModels
         public Command StopTimer { get; set; }
         public Command ClearLaps { get; set; }
 
-        private bool _isRunning;
+        private bool IsRunning;
         public double currentRunningTime { get; set; }
         public double previousRunningTime { get; set; }
+        public static double pausedRunningTime;
         public double lapTime { get; set; }
+        public double CurrentTicks { get; set; }
 
         static int Counter;
 
@@ -29,45 +31,84 @@ namespace WorkStudy.ViewModels
             StopTimer = new Command(StopTimerEvent);
             LapTimer = new Command(LapTimerEvent);
             ClearLaps = new Command(ClearLapsEvent);
-
-            LapTimes = new ObservableCollection<LapTime>();
-        }
-
-        public void StartTimerEvent()
-        {
-            if(_isRunning) return;
+            Override = new Command(OverrideEvent);
 
             LapTimes = new ObservableCollection<LapTime>();
             lapTimesList = new List<LapTime>();
 
             Counter = 0;
             previousRunningTime = 0;
-            currentRunningTime = 0;
+            IsRunning = false;
+            IsStartEnabled = true;
+            IsLapEnabled = false;
+            IsStopEnabled = false;
+            IsClearEnabled = false;
+        }
 
-            _isRunning = true;
+        public void StartTimerEvent()
+        {
+            IsRunning = true;
+            IsStartEnabled = false;
+            IsLapEnabled = true;
+            IsStopEnabled = true;
+            IsClearEnabled = false;
+            currentRunningTime = 0;
 
             RunTimer();
         }
 
         public void StopTimerEvent()
         {
-            _isRunning = false;
+            IsRunning = false;
+            IsStartEnabled = true;
+            IsLapEnabled = false;
+            IsStopEnabled = false;
+            IsClearEnabled = true;
+            IsStartEnabled = true;
+            pausedRunningTime = currentRunningTime;
         }
 
         public void ClearLapsEvent()
+        {
+            ValidationText = "Are you sure you want to clear and reset the stop watch?";
+            ShowOkCancel = true;
+            IsOverrideVisible = false;
+            ShowClose = false;
+            Opacity = 0.2;
+            CloseColumnSpan = 1;
+            IsInvalid = true;
+        }
+
+        void OverrideEvent(object sender)
         {
             LapTimes = new ObservableCollection<LapTime>();
             OnPropertyChanged("LapTimes");
 
             lapTimesList = new List<LapTime>();
-
+            StopWatchTime = "0.000";
             Counter = 0;
+            pausedRunningTime = 0;
+            previousRunningTime = 0;
+            IsLapEnabled = false;
+            IsStopEnabled = false;
+            IsClearEnabled = false;
+            IsStartEnabled = true;
+
+
+            IsInvalid = false;
+            Opacity = 1;
         }
 
         public void LapTimerEvent()
         {
             try
             {
+
+                IsStartEnabled = false;
+                IsLapEnabled = true;
+                IsStopEnabled = true;
+                IsClearEnabled = false;
+
                 Counter = Counter + 1;
                 lapTime = currentRunningTime - previousRunningTime;
                 previousRunningTime = currentRunningTime;
@@ -85,7 +126,7 @@ namespace WorkStudy.ViewModels
             }
         }
 
-        static string stopWatchTime;
+        static string stopWatchTime = "0.000";
         public string StopWatchTime
         {
             get => stopWatchTime;
@@ -96,7 +137,49 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool isStartEnabled;
+        public bool IsStartEnabled
+        {
+            get => isStartEnabled;
+            set
+            {
+                isStartEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
+        static bool isStopEnabled;
+        public bool IsStopEnabled
+        {
+            get => isStopEnabled;
+            set
+            {
+                isStopEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static bool isLapEnabled;
+        public bool IsLapEnabled
+        {
+            get => isLapEnabled;
+            set
+            {
+                isLapEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static bool isClearEnabled;
+        public bool IsClearEnabled
+        {
+            get => isClearEnabled;
+            set
+            {
+                isClearEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         static List<LapTime> lapTimesList = new List<LapTime>();
 
         static ObservableCollection<LapTime> lapTimes;
@@ -120,19 +203,20 @@ namespace WorkStudy.ViewModels
             TimeSpan TimeElement = new TimeSpan();
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () =>
             {
-                if (!_isRunning) return false;
+                if (!IsRunning) return false;
 
                 TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
 
-                double ticks = TotalTime.Ticks / 10000000;
+                CurrentTicks = TotalTime.Ticks / 10000000;
 
                 switch (Device.RuntimePlatform)
                 {
                     case Device.iOS:
-                        currentRunningTime = ticks / 600;
+                        currentRunningTime = pausedRunningTime + CurrentTicks / 600;
                         break;
+
                     case Device.Android:
-                        currentRunningTime = ticks / 590; //this is a hack/sweetspot as anroid is slightly slower
+                        currentRunningTime = pausedRunningTime + CurrentTicks / 590; //this is a hack/sweetspot as anroid is slightly slower
                         break;
                 }
 
@@ -155,7 +239,7 @@ namespace WorkStudy.ViewModels
 
                 }
 
-                return _isRunning;
+                return IsRunning;
             });
         }
     }
