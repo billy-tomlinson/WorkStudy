@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WorkStudy.Model;
-using System.Timers;
 
 namespace WorkStudy.UnitTests
 {
@@ -98,87 +96,5 @@ namespace WorkStudy.UnitTests
         //and : idle(33%) n=4x33(100-33)/100= 88 obi req on idle
         //4th abs welding(80%) n=4x80(100-80)/100= 64 obi req on welding idle(20%) and so on.
 
-    }
-
-    public class Example
-    {
-        private static Timer aTimer;
-        public static double currentRunningTime { get; set; }
-        public static double previousRunningTime { get; set; }
-        public static double lapTime { get; set; }
-
-        private static string stopWatchTime;
-
-        private static int Counter;
-
-
-        private static TimeSpan TotalTime = new TimeSpan();
-        private static TimeSpan TimeElement = new TimeSpan();
-
-        public static void Main()
-        {
-            SetTimer();
-
-            Console.WriteLine("\nPress the Enter key to exit the application...\n");
-            Console.WriteLine("The application started at {0:HH:mm:ss.fff}", DateTime.Now);
-            Console.ReadLine();
-            aTimer.Stop();
-            aTimer.Dispose();
-
-            Console.WriteLine("Terminating the application...");
-        }
-
-        private static void SetTimer()
-        {
-            // Create a timer with a two second interval.
-            aTimer = new Timer(1000);
-            // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
-        }
-
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-
-            TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
-            double ticks = (double)TotalTime.Ticks / 1000000;
-            currentRunningTime = ticks / 600;
-            string runningtimeFormatted;
-            stopWatchTime = currentRunningTime.ToString("##.###");
-
-            try
-            {
-
-                Counter = Counter + 1;
-                lapTime = currentRunningTime - previousRunningTime;
-                previousRunningTime = currentRunningTime;
-
-                string currentRunningTimeFormatted = currentRunningTime.ToString("##.###");
-                //string lapTimeTimeFormatted = lapTime.ToString().Substring(0, 5);
-
-                double ss;
-
-                Random r = new Random();
-                int rInt = r.Next(0, 9);
-                if (rInt > 0)
-                {
-                    ss = (double)rInt / 10000;
-                    currentRunningTime = currentRunningTime + ss;
-                }
-
-                runningtimeFormatted = currentRunningTime.ToString("0.000");
-                string lapTimeTimeFormatted = lapTime.ToString("0.000");
-
-                Console.WriteLine($"The Elapsed event was raised at {runningtimeFormatted} - last lap time - {lapTimeTimeFormatted}");
-            }
-
-
-            catch (Exception ex)
-            {
-
-            }
-
-        }
     }
 }
