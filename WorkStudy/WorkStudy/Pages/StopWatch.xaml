@@ -18,28 +18,6 @@
                 <StackLayout HorizontalOptions="CenterAndExpand" >
                     <Label Text="{Binding StopWatchTime}" FontSize="40" />
                 </StackLayout>
-                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                    <Grid Padding="5" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*">
-                            </RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*">
-                            </ColumnDefinition>
-                            <ColumnDefinition Width="3.2*">
-                            </ColumnDefinition>
-                            <ColumnDefinition Width="2.5*">
-                            </ColumnDefinition>
-                            <ColumnDefinition Width="2.7*">
-                            </ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Row="0" Grid.Column="0" Text="Start" Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
-                        <Button Grid.Row="0" Grid.Column="1" Text="Lap" Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
-                        <Button Grid.Row="0" Grid.Column="2" Text="Stop" Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
-                        <Button Grid.Row="0" Grid.Column="3" Text="Reset" Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
-                    </Grid>
-                </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,10" Margin="0,0,0,10" Orientation="Horizontal">
                     <local:CustomListView x:Name="ListViewTimes" 
                                           Margin="0,10" 
@@ -68,9 +46,9 @@
                                         <ColumnDefinition Width="*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Text="Lap No" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
-                                    <Label Grid.Row="0" Grid.Column="1" Text="Total Elapsed" HorizontalTextAlignment="Start" FontSize="10" TextColor="Black" />
-                                    <Label Grid.Row="0" Grid.Column="2" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="10" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Lap No" FontSize="13" TextColor="Black" HorizontalTextAlignment="Start" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="Total Elapsed" HorizontalTextAlignment="Start" FontSize="13" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="13" TextColor="Black" />
                                 </Grid>
                             </StackLayout>
                         </ListView.Header>
@@ -91,15 +69,37 @@
                                                 <ColumnDefinition Width="*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="12" HorizontalTextAlignment="Start" />
-                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="12" />
-                                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" />
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="20" HorizontalTextAlignment="Start" />
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="20" />
+                                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="20" />
                                         </Grid>
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </local:CustomListView>
+                </StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                    <Grid Padding="0,0,0,10" Margin="0,0,0,10" HorizontalOptions="CenterAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="Auto">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="Auto">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="Auto">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Text=" Start " Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="     Lap     " Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="2" Text=" Stop " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
+                    </Grid>
                 </StackLayout>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
