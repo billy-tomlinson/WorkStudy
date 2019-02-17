@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WorkStudy.Model;
-using WorkStudy.Services;
-
-using System;
 using System.Timers;
 
 namespace WorkStudy.UnitTests
