@@ -8,6 +8,7 @@ namespace WorkStudy.ViewModels
     public class MenuPageViewModel : BaseViewModel
     {
         public ICommand StudyMenu { get; set; }
+        public ICommand StopWatch { get; set; }
         public ICommand AddActivities { get; set; }
         public ICommand MergeActivities { get; set; }
         public ICommand AddOperators { get; set; }
@@ -21,6 +22,7 @@ namespace WorkStudy.ViewModels
         public MenuPageViewModel()
         {
             StudyMenu = new Command(GoStudyMenu);
+            StopWatch = new Command(GoStopWatch);
             AddActivities = new Command(GoActivities);
             MergeActivities = new Command(GoMergeActivities);
             AddOperators = new Command(GoOperators);
@@ -50,6 +52,12 @@ namespace WorkStudy.ViewModels
         void GoStudyMenu(object obj)
         {
             Utilities.Navigate(new StudyMenuPage());
+            App.MenuIsPresented = false;
+        }
+
+        void GoStopWatch(object obj)
+        {
+            Utilities.Navigate(new StopWatch());
             App.MenuIsPresented = false;
         }
 
