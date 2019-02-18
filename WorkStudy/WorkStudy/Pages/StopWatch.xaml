@@ -16,7 +16,7 @@
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All" >
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
-                    <Label Text="{Binding StopWatchTime}" FontSize="40" />
+                    <Label Text="{Binding StopWatchTime}" FontSize="45" />
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,10" Margin="0,0,0,10" Orientation="Horizontal">
                     <local:CustomListView x:Name="ListViewTimes" 
@@ -69,9 +69,9 @@
                                                 <ColumnDefinition Width="*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="20" HorizontalTextAlignment="Start" />
-                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="20" />
-                                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="20" />
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="22" HorizontalTextAlignment="Start" />
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="22" />
+                                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="22" />
                                         </Grid>
                                     </StackLayout>
                                 </ViewCell>
@@ -88,7 +88,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="*">
+                            <ColumnDefinition Width="1.3*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="*">
                             </ColumnDefinition>
@@ -96,7 +96,7 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Text=" Start " Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
-                        <Button Grid.Row="0" Grid.Column="1" Text="     Lap     " Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="    Lap    " Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="2" Text=" Stop " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" />
                     </Grid>

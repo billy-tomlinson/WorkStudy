@@ -76,9 +76,10 @@
              <Style x:Key="stopWatchButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Padding" Value="3" />
-                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="23" />
+                <Setter Property="Padding" Value="0,12,0,12" />
+                <Setter Property="MinimumHeightRequest" Value="50" />
+                <Setter Property="Margin" Value="1" />
             </Style>
             <Style x:Key="studyLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
