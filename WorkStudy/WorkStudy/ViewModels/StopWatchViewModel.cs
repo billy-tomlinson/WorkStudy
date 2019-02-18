@@ -19,11 +19,7 @@ namespace WorkStudy.ViewModels
 
         private bool IsRunning;
         public double currentRunningTime { get; set; }
-        public double currentRunningTimeSync { get; set; }
-        public double previousRunningTime { get; set; }
         public double timeWhenLapButtonClicked { get; set; }
-        public double androidLapAdjustment { get; set; }
-        public static double pausedRunningTime;
         public double lapTime { get; set; }
         public double CurrentTicks { get; set; }
         public TimeSpan StartTime { get; set; }
@@ -43,9 +39,7 @@ namespace WorkStudy.ViewModels
             lapTimesList = new List<LapTime>();
 
             Counter = 0;
-            previousRunningTime = 0;
             currentRunningTime = 0;
-            pausedRunningTime = 0;
             lapTime = 0;
             CurrentTicks = 0;
             StopWatchTime = "0.000";
@@ -77,7 +71,6 @@ namespace WorkStudy.ViewModels
             IsStopEnabled = false;
             IsClearEnabled = true;
             IsStartEnabled = true;
-            pausedRunningTime = currentRunningTime;
         }
 
         public void ClearLapsEvent()
@@ -99,8 +92,6 @@ namespace WorkStudy.ViewModels
             lapTimesList = new List<LapTime>();
             StopWatchTime = "0.000";
             Counter = 0;
-            pausedRunningTime = 0;
-            previousRunningTime = 0;
             IsLapEnabled = false;
             IsStopEnabled = false;
             IsClearEnabled = false;
@@ -147,8 +138,6 @@ namespace WorkStudy.ViewModels
             OnPropertyChanged("LapTimes");
 
             timeWhenLapButtonClicked = RealTimeTicks;
-            previousRunningTime = (double)DateTime.Now.TimeOfDay.Ticks / 1000000000000;
-
         }
 
         static string stopWatchTime = "0.000";
@@ -283,8 +272,6 @@ namespace WorkStudy.ViewModels
 
                 StopWatchTime = RealTimeTicks.ToString("0.000");
 
-                currentRunningTime = pausedRunningTime + CurrentTicks / 600;
-               
                 return IsRunning;
             });
         }
