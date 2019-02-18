@@ -17,11 +17,6 @@
                          AbsoluteLayout.LayoutFlags="All" >
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                     <Label Text="{Binding StopWatchTime}" FontSize="40" />
-                    <Label Text="{Binding StartTimeFormatted}" FontSize="20" />
-                    <Label Text="{Binding CurrentTimeFormatted}" FontSize="20" />
-                    <Label Text="{Binding CurrentTimeFormattedDecimal}" FontSize="20" />
-<!--                    <Label Text="{Binding RealTimeTicks}" FontSize="10" />
-                    <Label Text="{Binding RealTimeTicks}" FontSize="10" />-->
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,10" Margin="0,0,0,10" Orientation="Horizontal">
                     <local:CustomListView x:Name="ListViewTimes" 

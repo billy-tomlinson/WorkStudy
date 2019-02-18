@@ -18,8 +18,8 @@ namespace WorkStudy.ViewModels
         public Command ClearLaps { get; set; }
 
         private bool IsRunning;
-        public double currentRunningTime { get; set; }
         public double timeWhenLapButtonClicked { get; set; }
+        public double timeWhenStopButtonClicked { get; set; }
         public double lapTime { get; set; }
         public double CurrentTicks { get; set; }
         public TimeSpan StartTime { get; set; }
@@ -39,7 +39,6 @@ namespace WorkStudy.ViewModels
             lapTimesList = new List<LapTime>();
 
             Counter = 0;
-            currentRunningTime = 0;
             lapTime = 0;
             CurrentTicks = 0;
             StopWatchTime = "0.000";
@@ -57,7 +56,6 @@ namespace WorkStudy.ViewModels
             IsLapEnabled = true;
             IsStopEnabled = true;
             IsClearEnabled = false;
-            currentRunningTime = 0;
             StartTime = DateTime.Now.TimeOfDay;
             StartTimeFormatted = StartTime.ToString(@"c");
             RunTimer();
@@ -71,6 +69,8 @@ namespace WorkStudy.ViewModels
             IsStopEnabled = false;
             IsClearEnabled = true;
             IsStartEnabled = true;
+
+            timeWhenStopButtonClicked = RealTimeTicks;
         }
 
         public void ClearLapsEvent()
@@ -97,6 +97,9 @@ namespace WorkStudy.ViewModels
             IsClearEnabled = false;
             IsStartEnabled = true;
 
+            timeWhenStopButtonClicked = 0;
+            timeWhenLapButtonClicked = 0;
+            lapTime = 0;
 
             IsInvalid = false;
             Opacity = 1;
@@ -112,8 +115,8 @@ namespace WorkStudy.ViewModels
 
             var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
 
-            var ttt = timeElaspedSinceStart.Ticks / 1000000;
-            RealTimeTicks = (double)ttt / 600;
+            var timeElaspedSinceStartDecimal = timeElaspedSinceStart.Ticks / 1000000;
+            RealTimeTicks = timeWhenStopButtonClicked + (double)timeElaspedSinceStartDecimal / 600;
             CurrentTimeFormatted = timeElaspedSinceStart.ToString();
             CurrentTimeFormattedDecimal = RealTimeTicks.ToString("0.000");
 
@@ -131,7 +134,6 @@ namespace WorkStudy.ViewModels
                 lapTime = lapTime + randomToForceRounding;
             }
 
-            string currentRunningTimeFormatted = currentRunningTime.ToString("0.000");
             string lapTimeTimeFormatted = lapTime.ToString("0.000");
             
             lapTimesList.Add(new LapTime { TotalElapsedTime = CurrentTimeFormattedDecimal, Count = Counter, IndividualLapTime = lapTimeTimeFormatted });
@@ -268,9 +270,9 @@ namespace WorkStudy.ViewModels
 
                 var realTicks = timeElaspedSinceStart.Ticks / 1000000;
 
-                RealTimeTicks = (double)realTicks / 600;
+                RealTimeTicks = timeWhenStopButtonClicked + (double)realTicks / 600;
 
-                StopWatchTime = RealTimeTicks.ToString("0.000");
+                StopWatchTime =  RealTimeTicks.ToString("0.000");
 
                 return IsRunning;
             });
