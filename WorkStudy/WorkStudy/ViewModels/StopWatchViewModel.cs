@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using WorkStudy.Model;
 using Xamarin.Forms;
 
@@ -17,10 +19,14 @@ namespace WorkStudy.ViewModels
 
         private bool IsRunning;
         public double currentRunningTime { get; set; }
+        public double currentRunningTimeSync { get; set; }
         public double previousRunningTime { get; set; }
+        public double timeWhenLapButtonClicked { get; set; }
+        public double androidLapAdjustment { get; set; }
         public static double pausedRunningTime;
         public double lapTime { get; set; }
         public double CurrentTicks { get; set; }
+        public TimeSpan StartTime { get; set; }
 
         static int Counter;
 
@@ -58,7 +64,8 @@ namespace WorkStudy.ViewModels
             IsStopEnabled = true;
             IsClearEnabled = false;
             currentRunningTime = 0;
-
+            StartTime = DateTime.Now.TimeOfDay;
+            StartTimeFormatted = StartTime.ToString(@"c");
             RunTimer();
         }
 
@@ -106,29 +113,42 @@ namespace WorkStudy.ViewModels
 
         public void LapTimerEvent()
         {
-            try
+
+            IsStartEnabled = false;
+            IsLapEnabled = true;
+            IsStopEnabled = true;
+            IsClearEnabled = false;
+
+            var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
+
+            var ttt = timeElaspedSinceStart.Ticks / 1000000;
+            RealTimeTicks = (double)ttt / 600;
+            CurrentTimeFormatted = timeElaspedSinceStart.ToString();
+            CurrentTimeFormattedDecimal = RealTimeTicks.ToString("0.000");
+
+            Counter = Counter + 1;
+
+            lapTime = RealTimeTicks - timeWhenLapButtonClicked;
+
+            double randomToForceRounding;
+
+            Random r = new Random();
+            int rInt = r.Next(0, 9);
+            if (rInt > 0)
             {
-
-                IsStartEnabled = false;
-                IsLapEnabled = true;
-                IsStopEnabled = true;
-                IsClearEnabled = false;
-
-                Counter = Counter + 1;
-                lapTime = currentRunningTime - previousRunningTime;
-                previousRunningTime = currentRunningTime;
-
-                string currentRunningTimeFormatted = currentRunningTime.ToString("0.000");
-                string lapTimeTimeFormatted = lapTime.ToString("0.000");
-
-                lapTimesList.Add(new LapTime { TotalElapsedTime = currentRunningTimeFormatted, Count = Counter, IndividualLapTime = lapTimeTimeFormatted });
-                OnPropertyChanged("LapTimes");
+                randomToForceRounding = (double)rInt / 10000;
+                lapTime = lapTime + randomToForceRounding;
             }
-            catch (Exception ex)
-            {
-                lapTimesList.Add(new LapTime { TotalElapsedTime = ex.Message, Count = 0, IndividualLapTime = ex.Message });
-                OnPropertyChanged("LapTimes");
-            }
+
+            string currentRunningTimeFormatted = currentRunningTime.ToString("0.000");
+            string lapTimeTimeFormatted = lapTime.ToString("0.000");
+            
+            lapTimesList.Add(new LapTime { TotalElapsedTime = CurrentTimeFormattedDecimal, Count = Counter, IndividualLapTime = lapTimeTimeFormatted });
+            OnPropertyChanged("LapTimes");
+
+            timeWhenLapButtonClicked = RealTimeTicks;
+            previousRunningTime = (double)DateTime.Now.TimeOfDay.Ticks / 1000000000000;
+
         }
 
         static string stopWatchTime = "0.000";
@@ -138,6 +158,49 @@ namespace WorkStudy.ViewModels
             set
             {
                 stopWatchTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static string startTimeFormatted;
+        public string StartTimeFormatted
+        {
+            get => startTimeFormatted;
+            set
+            {
+                startTimeFormatted = value;
+                OnPropertyChanged();
+            }
+        }
+        static string currentTimeFormatted;
+        public string CurrentTimeFormatted
+        {
+            get => currentTimeFormatted;
+            set
+            {
+                currentTimeFormatted = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static string currentTimeFormattedDecimal;
+        public string CurrentTimeFormattedDecimal
+        {
+            get => currentTimeFormattedDecimal;
+            set
+            {
+                currentTimeFormattedDecimal = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static double realTimeTicks;
+        public double RealTimeTicks
+        {
+            get => realTimeTicks;
+            set
+            {
+                realTimeTicks = value;
                 OnPropertyChanged();
             }
         }
@@ -212,38 +275,16 @@ namespace WorkStudy.ViewModels
 
                 TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
 
-                CurrentTicks = TotalTime.Ticks / 10000000;
+                var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
 
-                switch (Device.RuntimePlatform)
-                {
-                    case Device.iOS:
-                        currentRunningTime = pausedRunningTime + CurrentTicks / 600;
-                        break;
+                var realTicks = timeElaspedSinceStart.Ticks / 1000000;
 
-                    case Device.Android:
-                        currentRunningTime = pausedRunningTime + CurrentTicks / 590; //this is a hack/sweetspot as anroid is slightly slower
-                        break;
-                }
+                RealTimeTicks = (double)realTicks / 600;
 
-                try
-                {
-                    double ss;
+                StopWatchTime = RealTimeTicks.ToString("0.000");
 
-                    Random r = new Random();
-                    int rInt = r.Next(0, 9);
-                    if (rInt > 0)
-                    {
-                        ss = (double)rInt / 10000;
-                        currentRunningTime = currentRunningTime + ss;
-                    }
-
-                    StopWatchTime = currentRunningTime.ToString("0.000");
-                }
-                catch (Exception ex)
-                {
-
-                }
-
+                currentRunningTime = pausedRunningTime + CurrentTicks / 600;
+               
                 return IsRunning;
             });
         }
