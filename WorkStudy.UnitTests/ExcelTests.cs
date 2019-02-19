@@ -63,7 +63,7 @@ namespace WorkStudy.UnitTests
 
         public ExcelTests()
         {
-            Utilities.StudyId = 1;
+            Utilities.StudyId = 2;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
