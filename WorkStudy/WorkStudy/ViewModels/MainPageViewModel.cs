@@ -677,17 +677,42 @@ namespace WorkStudy.ViewModels
 
         private double GetStudyTotalPercent()
         {
-            double totalPercent = 0;
-            foreach (var op in OperatorObservations)
+            int totalObservationsTaken = 0;
+            int totalObservationsRequired = 0;
+
+            var observationsTaken = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+
+            totalObservationsTaken = observationsTaken.Count;
+            
+            if (totalObservationsTaken < 10)
             {
-                var percentage = op.TotalPercentageDouble < 100 ? op.TotalPercentageDouble : 100;
-                totalPercent = totalPercent + percentage;
+                PercentagesVisible = false;
+                return 0;
             }
 
-            if (totalPercent > 0)
-                totalPercent = totalPercent / OperatorObservations.Count();
+            var activtyIds = observationsTaken.Select(x => new { Id = x.AliasActivityId })
+                                              .Distinct().ToList();
 
-            return Math.Round(totalPercent, 1);
+            var distinctActivities = new List<dynamic>();
+
+            foreach (var item in activtyIds)
+            {
+                distinctActivities.Add(item);
+            }
+
+            foreach (var item in distinctActivities)
+            {
+                var count = observationsTaken.Count(x => x.AliasActivityId == item.Id);
+                double percentage = count > 0 ? (double)count / totalObservationsTaken : 0;
+
+                var totalRequired = Utilities.CalculateObservationsRequired(percentage * 100);
+
+                totalObservationsRequired = totalObservationsRequired + totalRequired;
+            }
+
+            double totalStudyPercent =  (double)totalObservationsTaken / totalObservationsRequired;
+
+            return Math.Round(totalStudyPercent * 100, 1);
         }
     }
 }
