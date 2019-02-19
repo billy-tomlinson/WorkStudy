@@ -8,5 +8,6 @@ namespace WorkStudy.Model
         public double TotalTime { get; set; }
         public double Percentage { get; set; }
         public string OperatorName { get; set; }
+        public int TotalRating { get; set; }
     }
 }

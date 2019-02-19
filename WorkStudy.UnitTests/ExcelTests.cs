@@ -14,22 +14,25 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class ExcelTests
     {
-        private const string connString = "/Users/billytomlinson/WorkStudyAA.db3";
+        private const string connString = "/Users/billytomlinson/WorkStudyNewFresh.db3";
         //private const string connString = "WorkStudy1.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
         private readonly IBaseRepository<Operator> operatorRepo;
         private readonly IBaseRepository<Observation> observationRepo;
+        private readonly IBaseRepository<AlarmDetails> alarmRepo;
 
         List<Operator> operators;
         ActivitySampleStudy sample;
+        AlarmDetails alarm;
         List<Activity> allStudyActivities;
         List<Observation> totalObs;
         List<List<ObservationSummary>> allTotals;
 
         double timePerObservation;
         double totalTimeMinutes;
+        int IntervalTime;
 
         IWorkbook workbook;
         IWorksheet destSheetAll;
@@ -46,6 +49,7 @@ namespace WorkStudy.UnitTests
         IStyle titleStyle;
         IStyle totalsStyle;
         IStyle detailsStyle;
+        IStyle summaryStyle;
 
         string valueAddedRatedActivitiesRange;
         string nonValueAddedRatedActivitiesRange;
@@ -64,9 +68,12 @@ namespace WorkStudy.UnitTests
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
             observationRepo = new BaseRepository<Observation>(connString);
+            alarmRepo = new BaseRepository<AlarmDetails>(connString);
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
+            alarm = alarmRepo.GetItem(Utilities.StudyId);
+            IntervalTime = alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
@@ -122,6 +129,11 @@ namespace WorkStudy.UnitTests
                 totalsStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 totalsStyle.EndUpdate();
 
+                summaryStyle = workbook.Styles.Add("SummaryStyle");
+                summaryStyle.BeginUpdate();
+                summaryStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                summaryStyle.EndUpdate();
+
 
                 detailsStyle = workbook.Styles.Add("DetailsStyle");
                 detailsStyle.BeginUpdate();
@@ -159,7 +171,7 @@ namespace WorkStudy.UnitTests
  
                     ms.Seek(0, SeekOrigin.Begin);
 
-                    using (FileStream fs = new FileStream("ReportOutputTestSQLSummary112.xlsx", FileMode.OpenOrCreate))
+                    using (FileStream fs = new FileStream("ReportOutputTestSQLSummary150.xlsx", FileMode.OpenOrCreate))
                     {
                         ms.CopyTo(fs);
                         fs.Flush();
@@ -233,6 +245,8 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[3, columnCount + 2].Text = "Obs Req";
                 destSheetAll.Range[3, columnCount + 3].Text = "Total Obs";
                 destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
+                destSheetAll.Range[3, columnCount + 5].Text = "Minutes Total";
+                destSheetAll.Range[3, columnCount + 6].Text = "BMS Total";
 
                 foreach (var cell in range.Where(x => x.Value != string.Empty))
                 {
@@ -250,10 +264,16 @@ namespace WorkStudy.UnitTests
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
+                            var totalMinutes = IntervalTime * vv.NumberOfObservations;
+                            var averageRating = vv.TotalRating / vv.NumberOfObservations;
+                            var bmi = (double)totalMinutes * averageRating /100;
+
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+                            destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
+                            destSheetAll.Range[c, columnCount + 6].Number = bmi;
                         }
                     }
                 }
@@ -270,7 +290,7 @@ namespace WorkStudy.UnitTests
 
                 valueAddedActivitiesTotalRowIndex = allActivities.Count + 6;
 
-                columnCount = columnCount + 4;
+                columnCount = columnCount + 6;
             }
 
             destSheetAll.Range[3, columnCount + 2].Text = "OBS REQ";
@@ -348,12 +368,14 @@ namespace WorkStudy.UnitTests
                 var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
                 var totalObsPerOperator = obs.Count();
 
-                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
-                    .Select(g => new ObservationSummary
-                    {
-                        ActivityName = g.Key.ActivityName,
-                        NumberOfObservations = g.Count()
-                    }).ToList();
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName, a.Rating })
+                   .Select(g => new ObservationSummary
+                   {
+                       ActivityName = g.Key.ActivityName,
+                       NumberOfObservations = g.Count(),
+                       TotalRating = g.Sum(a => a.Rating)
+
+                   }).ToList();
 
                 foreach (var item in summary)
                 {
@@ -387,10 +409,16 @@ namespace WorkStudy.UnitTests
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
+                            var totalMinutes = IntervalTime * vv.NumberOfObservations;
+                            var averageRating = vv.TotalRating / vv.NumberOfObservations;
+                            var bmi = (double)totalMinutes * averageRating / 100;
+
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+                            destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
+                            destSheetAll.Range[c, columnCount + 6].Number = bmi;
                         }
                     }
                 }
@@ -408,7 +436,7 @@ namespace WorkStudy.UnitTests
 
                 nonValueAddedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
 
-                columnCount = columnCount + 4;
+                columnCount = columnCount + 6;
             }
 
             foreach (var item in allTotals)
@@ -556,7 +584,7 @@ namespace WorkStudy.UnitTests
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
 
-                columnCount = columnCount + 4;
+                columnCount = columnCount + 6;
             }
 
             foreach (var item in allTotals)
@@ -686,21 +714,53 @@ namespace WorkStudy.UnitTests
                 destSheet.Range["A1"].Text = "Study";
                 destSheet.Range["B1"].Text = "Date";
                 destSheet.Range["C1"].Text = "Operator";
-                destSheet.Range["D1"].Text = "Observation Round";
+                destSheet.Range["D1"].Text = "Obs Round";
                 destSheet.Range["E1"].Text = "Activity";
                 destSheet.Range["F1"].Text = "Rating";
 
                 destSheet.ImportData(data, 3, 1, false);
 
+                destSheet.Range["A1:F1"].CellStyle = headerStyle;
+                destSheet.Range[1, 1, 1000, 6].AutofitColumns();
+
                 var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                     .Select(g => new ObservationSummary
                     {
                         ActivityName = g.Key.ActivityName,
-                        NumberOfObservations = g.Count()
+                        NumberOfObservations = g.Count(),
+                        TotalRating = g.Sum(a => a.Rating)
+
                     }).ToList();
 
+                int counter = 1;
                 foreach (var item in summary)
                 {
+                    if(item.TotalRating > 0)
+                    {
+                        var totalMinutes = IntervalTime * item.NumberOfObservations;
+                        var averageRating = (double)item.TotalRating / item.NumberOfObservations;
+
+                        destSheet.Range["I1:I1"].Text = "Summary";
+
+                        destSheet.Range[counter + 1, 8].Text = item.ActivityName;
+                        destSheet.Range[counter + 2, 8].Text = "Total Rating";
+                        destSheet.Range[counter + 2, 9].Text = "Total Obs";
+                        destSheet.Range[counter + 2, 10].Text = "Average Rating";
+                        destSheet.Range[counter + 3, 8].Number = item.TotalRating;
+                        destSheet.Range[counter + 3, 9].Number = item.NumberOfObservations;
+                        destSheet.Range[counter + 3, 10].Number = averageRating;
+
+                        destSheet.Range[counter + 1, 8, counter + 3, 10].CellStyle = summaryStyle;
+                        destSheet.Range[counter + 1, 8].CellStyle = titleStyle;
+                        destSheet.Range["H1:J1"].CellStyle = headerStyle;
+                        destSheet.Range[counter + 2, 8, counter + 2, 10].CellStyle = totalsStyle;
+                        destSheet.Range[counter + 3, 10].NumberFormat = "00.##";
+
+                        counter = counter + 4;
+                    }
+
+                    destSheet.Range[1, 7,  counter, 11].AutofitColumns();
+
                     var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
                     item.Percentage = totalPercentage;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
