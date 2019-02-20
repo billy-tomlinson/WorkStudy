@@ -95,6 +95,7 @@ namespace WorkStudy.UnitTests
 
                 //Create a workbook with a worksheet
                 workbook = excelEngine.Excel.Workbooks.Create(1);
+
                 headerStyle = workbook.Styles.Add("HeaderStyle");
                 headerStyle.BeginUpdate();
                 headerStyle.Color = Color.FromArgb(255, 174, 33);
@@ -754,7 +755,7 @@ namespace WorkStudy.UnitTests
                         destSheet.Range[counter + 1, 8].CellStyle = titleStyle;
                         destSheet.Range["H1:J1"].CellStyle = headerStyle;
                         destSheet.Range[counter + 2, 8, counter + 2, 10].CellStyle = totalsStyle;
-                        destSheet.Range[counter + 3, 10].NumberFormat = "00.##";
+                        destSheet.Range[counter + 3, 10].NumberFormat = "00.0#";
 
                         counter = counter + 4;
                     }

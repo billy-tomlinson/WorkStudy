@@ -16,9 +16,11 @@ namespace WorkStudy.Services
         private List<Activity> allStudyActivities;
         private List<Observation> totalObs;
         private List<List<ObservationSummary>> allTotals;
+        AlarmDetails alarm;
 
         private double timePerObservation;
         private double totalTimeMinutes;
+        int IntervalTime;
 
         IWorkbook workbook;
         IWorksheet destSheetAll;
@@ -35,6 +37,7 @@ namespace WorkStudy.Services
         IStyle titleStyle;
         IStyle totalsStyle;
         IStyle detailsStyle;
+        IStyle summaryStyle;
 
         string valueAddedRatedActivitiesRange;
         string nonValueAddedRatedActivitiesRange;
@@ -50,9 +53,12 @@ namespace WorkStudy.Services
             var activityRepo = new BaseRepository<Activity>(Utilities.Connection);
             var operatorRepo = new BaseRepository<Operator>(Utilities.Connection);
             var observationRepo = new BaseRepository<Observation>(Utilities.Connection);
+            var alarmRepo = new BaseRepository<AlarmDetails>(Utilities.Connection);
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
+            alarm = alarmRepo.GetItem(Utilities.StudyId);
+            IntervalTime = alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
@@ -84,7 +90,6 @@ namespace WorkStudy.Services
                 headerStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 headerStyle.EndUpdate();
 
-
                 titleStyle = workbook.Styles.Add("TitleStyle");
                 titleStyle.BeginUpdate();
                 titleStyle.Color = Syncfusion.Drawing.Color.FromArgb(93, 173, 226);
@@ -106,6 +111,11 @@ namespace WorkStudy.Services
                 totalsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
                 totalsStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 totalsStyle.EndUpdate();
+
+                summaryStyle = workbook.Styles.Add("SummaryStyle");
+                summaryStyle.BeginUpdate();
+                summaryStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                summaryStyle.EndUpdate();
 
                 detailsStyle = workbook.Styles.Add("DetailsStyle");
                 detailsStyle.BeginUpdate();
@@ -213,6 +223,8 @@ namespace WorkStudy.Services
                 destSheetAll.Range[3, columnCount + 2].Text = "Obs Req";
                 destSheetAll.Range[3, columnCount + 3].Text = "Total Obs";
                 destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
+                destSheetAll.Range[3, columnCount + 5].Text = "Minutes Total";
+                destSheetAll.Range[3, columnCount + 6].Text = "BMS Total";
 
                 foreach (var cell in range.Where(x => x.Value != string.Empty))
                 {
@@ -230,10 +242,16 @@ namespace WorkStudy.Services
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
+                            var totalMinutes = IntervalTime * vv.NumberOfObservations;
+                            var averageRating = vv.TotalRating / vv.NumberOfObservations;
+                            var bmi = (double)totalMinutes * averageRating / 100;
+
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+                            destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
+                            destSheetAll.Range[c, columnCount + 6].Number = bmi;
                         }
                     }
                 }
@@ -250,7 +268,7 @@ namespace WorkStudy.Services
 
                 valueAddedActivitiesTotalRowIndex = allActivities.Count + 6;
 
-                columnCount = columnCount + 4;
+                columnCount = columnCount + 6;
             }
 
             destSheetAll.Range[3, columnCount + 2].Text = "OBS REQ";
@@ -328,12 +346,14 @@ namespace WorkStudy.Services
                 var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
                 var totalObsPerOperator = obs.Count();
 
-                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
-                    .Select(g => new ObservationSummary
-                    {
-                        ActivityName = g.Key.ActivityName,
-                        NumberOfObservations = g.Count()
-                    }).ToList();
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName, a.Rating })
+                   .Select(g => new ObservationSummary
+                   {
+                       ActivityName = g.Key.ActivityName,
+                       NumberOfObservations = g.Count(),
+                       TotalRating = g.Sum(a => a.Rating)
+
+                   }).ToList();
 
                 foreach (var item in summary)
                 {
@@ -367,10 +387,16 @@ namespace WorkStudy.Services
                             var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
                             var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
+                            var totalMinutes = IntervalTime * vv.NumberOfObservations;
+                            var averageRating = vv.TotalRating / vv.NumberOfObservations;
+                            var bmi = (double)totalMinutes * averageRating / 100;
+
                             destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
                             destSheetAll.Range[c, columnCount + 2].Formula = formula;
                             destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
                             destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+                            destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
+                            destSheetAll.Range[c, columnCount + 6].Number = bmi;
                         }
                     }
                 }
@@ -388,7 +414,7 @@ namespace WorkStudy.Services
 
                 nonValueAddedActivitiesTotalRowIndex = allActivities.Count + startRow + 1;
 
-                columnCount = columnCount + 4;
+                columnCount = columnCount + 6;
             }
 
             foreach (var item in allTotals)
@@ -536,7 +562,7 @@ namespace WorkStudy.Services
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 3].Formula = formula5;
                 destSheetAll.Range[unRatedActivitiesTotalRowIndex + 2, columnCount + 4].Formula = formula6;
 
-                columnCount = columnCount + 4;
+                columnCount = columnCount + 6;
             }
 
             foreach (var item in allTotals)
@@ -666,21 +692,53 @@ namespace WorkStudy.Services
                 destSheet.Range["A1"].Text = "Study";
                 destSheet.Range["B1"].Text = "Date";
                 destSheet.Range["C1"].Text = "Operator";
-                destSheet.Range["D1"].Text = "Observation Round";
+                destSheet.Range["D1"].Text = "Obs Round";
                 destSheet.Range["E1"].Text = "Activity";
                 destSheet.Range["F1"].Text = "Rating";
 
                 destSheet.ImportData(data, 3, 1, false);
 
+                destSheet.Range["A1:F1"].CellStyle = headerStyle;
+                destSheet.Range[1, 1, 1000, 6].AutofitColumns();
+
                 var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                     .Select(g => new ObservationSummary
                     {
                         ActivityName = g.Key.ActivityName,
-                        NumberOfObservations = g.Count()
+                        NumberOfObservations = g.Count(),
+                        TotalRating = g.Sum(a => a.Rating)
+
                     }).ToList();
 
+                int counter = 1;
                 foreach (var item in summary)
                 {
+                    if (item.TotalRating > 0)
+                    {
+                        var totalMinutes = IntervalTime * item.NumberOfObservations;
+                        var averageRating = (double)item.TotalRating / item.NumberOfObservations;
+
+                        destSheet.Range["I1:I1"].Text = "Summary";
+
+                        destSheet.Range[counter + 1, 8].Text = item.ActivityName;
+                        destSheet.Range[counter + 2, 8].Text = "Total Rating";
+                        destSheet.Range[counter + 2, 9].Text = "Total Obs";
+                        destSheet.Range[counter + 2, 10].Text = "Average Rating";
+                        destSheet.Range[counter + 3, 8].Number = item.TotalRating;
+                        destSheet.Range[counter + 3, 9].Number = item.NumberOfObservations;
+                        destSheet.Range[counter + 3, 10].Number = averageRating;
+
+                        destSheet.Range[counter + 1, 8, counter + 3, 10].CellStyle = summaryStyle;
+                        destSheet.Range[counter + 1, 8].CellStyle = titleStyle;
+                        destSheet.Range["H1:J1"].CellStyle = headerStyle;
+                        destSheet.Range[counter + 2, 8, counter + 2, 10].CellStyle = totalsStyle;
+                        destSheet.Range[counter + 3, 10].NumberFormat = "00.0#";
+
+                        counter = counter + 4;
+                    }
+
+                    destSheet.Range[1, 7, counter, 11].AutofitColumns();
+
                     var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
                     item.Percentage = totalPercentage;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
@@ -690,6 +748,7 @@ namespace WorkStudy.Services
                 allTotals.Add(summary);
             }
         }
+
 
         private void Build_ValueAdded_NonValueAdded_Ineffective_PieChart()
         {
