@@ -18,6 +18,7 @@
             <StackLayout BackgroundColor="#4174f4" 
                          Opacity="{Binding Opacity}"
                          IsVisible="{Binding IsPageVisible}" 
+                         IsEnabled ="{Binding IsPageEnabled}" 
                          Padding="2" 
                          Margin="2" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 

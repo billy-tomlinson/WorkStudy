@@ -147,6 +147,7 @@ namespace WorkStudy.ViewModels
                     Opacity = 0.2;
                     IsInvalid = true;
                     ShowClose = true;
+                    IsPageEnabled = false;
                 }
 
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
@@ -167,6 +168,7 @@ namespace WorkStudy.ViewModels
             Opacity = 1;
             CommentsVisible = false;
             Comment = string.Empty;
+            IsPageEnabled = true;
         }
 
         void CancelCommentDetails()
@@ -174,6 +176,7 @@ namespace WorkStudy.ViewModels
             Opacity = 1;
             CommentsVisible = false;
             Comment = string.Empty;
+            IsPageEnabled = true;
         }
 
         public override void SubmitDetailsAndNavigate()
@@ -199,13 +202,14 @@ namespace WorkStudy.ViewModels
                 Comment = Activity.Comment;
                 Opacity = 0.2;
                 CommentsVisible = true;
+                IsPageEnabled = false;
             });
         }
 
         public void ValidateValues()
         {
             ValidationText = "Please Enter a valid Name";
-
+            IsPageEnabled = false;
             IsInvalid = true;
             ShowClose = true;
             Opacity = 0.2;
@@ -214,6 +218,7 @@ namespace WorkStudy.ViewModels
             {
                 Opacity = 1;
                 IsInvalid = false;
+                IsPageEnabled = true;
             }
         }
 
@@ -221,7 +226,7 @@ namespace WorkStudy.ViewModels
         {
 
             ValidationText = "Please add at least one Activity";
-
+            IsPageEnabled = false;
             IsInvalid = true;
             ShowClose = true;
             Opacity = 0.2;
@@ -232,6 +237,7 @@ namespace WorkStudy.ViewModels
             {
                 Opacity = 1;
                 IsInvalid = false;
+                IsPageEnabled = true;
             }
         }
 
@@ -239,6 +245,7 @@ namespace WorkStudy.ViewModels
         {
             Opacity = 1.0;
             CategoriesVisible = false;
+            IsPageEnabled = true;
         }
 
         void SaveCategoryEvent(object sender)
@@ -256,7 +263,8 @@ namespace WorkStudy.ViewModels
 
             Activity.IsValueAdded = !IsNonValueAdded;
             ActivityRepo.SaveItem(Activity);
-            Opacity = 1.0; 
+            Opacity = 1.0;
+            IsPageEnabled = true;
             ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities()
                 .OrderByDescending(x => x.Id));
 
@@ -271,6 +279,7 @@ namespace WorkStudy.ViewModels
             Comment = Activity.Comment;
             Opacity = 0.2;
             CommentsVisible = true;
+            IsPageEnabled = false;
         }
 
         async void DeleteSelectedEvent(object sender)
@@ -291,6 +300,7 @@ namespace WorkStudy.ViewModels
                     ValidationText = "Cannot delete an activity once used in Study.";
                     Opacity = 0.2;
                     IsInvalid = true;
+                    IsPageEnabled = false;
                     ShowClose = true;
                 }
                 else
@@ -325,6 +335,7 @@ namespace WorkStudy.ViewModels
             IsEnabled = true;
             IsBusy = false;
             Opacity = 1;
+            IsPageEnabled = true;
         }
 
         void ActivitySelectedEvent(object sender)
@@ -336,6 +347,7 @@ namespace WorkStudy.ViewModels
             {
                 Opacity = 0.2;
                 CategoriesVisible = true;
+                IsPageEnabled = false;
             }
         }
 
@@ -357,6 +369,7 @@ namespace WorkStudy.ViewModels
             var count = ItemsCollection.Count;
             Activity = new Activity();
             Activity.SettingsIcon = Utilities.CommentsImage;
+            IsPageEnabled = true;
         }
 
         private void CheckActivitiesInUse()

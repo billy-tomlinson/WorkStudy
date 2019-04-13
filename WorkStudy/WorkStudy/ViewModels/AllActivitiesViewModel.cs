@@ -38,6 +38,8 @@ namespace WorkStudy.ViewModels
                 }
             }
 
+            if(!allActivities.Any()) IsPageEnabled = false;
+
             return new ObservableCollection<ActivityName>(allActivities);
         }
 
@@ -74,6 +76,14 @@ namespace WorkStudy.ViewModels
                 };
 
                 collection.Add(activity);
+            }
+
+            if (!collection.Any())
+            {
+                IsBusy = false;
+                IsEnabled = true;
+                Opacity = 1.0;
+                return;
             }
 
             ActivityRepo.InsertAll(collection);

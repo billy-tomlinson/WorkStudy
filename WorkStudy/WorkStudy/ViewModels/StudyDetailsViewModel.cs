@@ -145,6 +145,7 @@ namespace WorkStudy.ViewModels
 
             SampleStudy.StudyNumber = lastStudyId;
             CloseView = new Command(CloseValidationView);
+            IsPageEnabled = true;
 
         }
 
@@ -167,6 +168,7 @@ namespace WorkStudy.ViewModels
             {
                 Opacity = 1;
                 IsInvalid = false;
+                IsPageEnabled = true;
             }
 
         }
@@ -179,6 +181,7 @@ namespace WorkStudy.ViewModels
                 ValidationText = "Please enter interval minutes less than 99";
                 Opacity = 0.2;
                 IsInvalid = true;
+                IsPageEnabled = false;
                 IsAlarmEnabled = false;
                 ShowClose = true;
                 Switch_Toggled_Enabled();

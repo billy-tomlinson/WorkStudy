@@ -123,6 +123,7 @@ namespace WorkStudy.ViewModels
                 RefreshActivities();
                 IsInvalid = true;
                 ShowClose = true;
+                IsPageEnabled = false;
                 return;
             }
 
@@ -182,6 +183,7 @@ namespace WorkStudy.ViewModels
                 RefreshActivities();
                 ShowClose = true;
                 IsInvalid = true;
+                IsPageEnabled = false;
                 return;
             }
 
@@ -196,6 +198,7 @@ namespace WorkStudy.ViewModels
                 RefreshActivities();
                 ShowClose = true;
                 IsInvalid = true;
+                IsPageEnabled = false;
                 return;
             }
 
@@ -249,6 +252,7 @@ namespace WorkStudy.ViewModels
             var studyNumber = Utilities.StudyId > 0 ? Utilities.StudyId.ToString() : string.Empty;
             InvalidText = $"There are no activities to merge for study {studyNumber}";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted && Activities.Count > 0);
+            IsPageEnabled = true;
         }
     }
 }

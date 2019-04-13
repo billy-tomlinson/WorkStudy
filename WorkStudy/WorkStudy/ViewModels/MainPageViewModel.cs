@@ -87,6 +87,8 @@ namespace WorkStudy.ViewModels
                 });
                 return true;
             });
+
+            IsPageEnabled = true;
         }
 
         private void SetUpNextObservationTimeWithTimer()
@@ -297,6 +299,7 @@ namespace WorkStudy.ViewModels
                 IsInvalid = true;
                 CloseColumnSpan = 1;
                 RequestToTerminateStudy = false;
+                IsPageEnabled = false;
             }
         }
 
@@ -338,6 +341,7 @@ namespace WorkStudy.ViewModels
                 CloseColumnSpan = 1;
                 IsInvalid = true;
                 RequestToTerminateStudy = true;
+                IsPageEnabled = false;
                 return;
             }
 
@@ -352,6 +356,7 @@ namespace WorkStudy.ViewModels
                 IsPageUnavailableVisible = false;
                 IsInvalid = true;
                 RequestToTerminateStudy = true;
+                IsPageEnabled = false;
                 return;
             }
 
@@ -394,11 +399,13 @@ namespace WorkStudy.ViewModels
             {
                 Opacity = 0.2;
                 RatingsVisible = true;
+                IsPageEnabled = false;
             }
             else
             {
                 Opacity = 1;
                 ActivitiesVisible = false;
+                IsPageEnabled = true;
                 AddObservation();
             }
 
@@ -416,6 +423,7 @@ namespace WorkStudy.ViewModels
 
             Opacity = 1;
             RatingsVisible = false;
+            IsPageEnabled = true;
         }
 
         private void AddObservation()
@@ -500,6 +508,7 @@ namespace WorkStudy.ViewModels
 
                 Opacity = 0.2;
                 ActivitiesVisible = true;
+                IsPageEnabled = false;
             });
         }
 
@@ -527,6 +536,7 @@ namespace WorkStudy.ViewModels
 
             IsInvalid = false;
             Opacity = 1;
+            IsPageEnabled = true;
         }
 
         private void GetObservationRound()

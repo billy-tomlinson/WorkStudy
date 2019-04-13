@@ -147,11 +147,13 @@ namespace WorkStudy.ViewModels
                 ValidationText = "More observations are required for accuracy.";
                 ShowClose = true;
                 IsInvalid = true;
+                IsPageEnabled = false;
             }
             else 
             {
                 Opacity = 0.2;
                 RunningTotalsVisible = true;
+                IsPageEnabled = false;
             }
 
         }
@@ -160,6 +162,7 @@ namespace WorkStudy.ViewModels
         {
             Opacity = 1.0;
             RunningTotalsVisible = false;
+            IsPageEnabled = true;
         }
 
         private void ConstructorSetUp()
@@ -176,6 +179,7 @@ namespace WorkStudy.ViewModels
             Operator.SettingsIcon = string.Empty;
             Name = string.Empty;
             Opacity = 1.0;
+            IsPageEnabled = true;
         }
 
         private void ValidateValues()
@@ -183,12 +187,14 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please Enter a valid Name";
             Opacity = 0.2;
             IsInvalid = true;
+            IsPageEnabled = false;
             ShowClose = true;
 
             if ((Name != null && Name?.Trim().Length > 0))
             {
                 Opacity = 1;
                 IsInvalid = false;
+                IsPageEnabled = true;
             }    
         }
 
@@ -196,6 +202,7 @@ namespace WorkStudy.ViewModels
         {
             ShowClose = true;
             IsInvalid = true;
+            IsPageEnabled = false;
             Opacity = 0.2;
 
             var studyOperators = OperatorRepo.GetAllWithChildren()
@@ -207,6 +214,7 @@ namespace WorkStudy.ViewModels
             }
 
             IsInvalid = false;
+            IsPageEnabled = true;
             Opacity = 1;
         }
 

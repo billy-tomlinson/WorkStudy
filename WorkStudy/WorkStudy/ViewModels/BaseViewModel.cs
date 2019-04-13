@@ -326,7 +326,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
-       
+        static bool isPageEnabled;
+        public bool IsPageEnabled
+        {
+            get => isPageEnabled;
+            set
+            {
+                isPageEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         public bool StudyInProcess
         {
             get => Get_Observations_By_StudyId().Count > 0;
@@ -418,6 +427,7 @@ namespace WorkStudy.ViewModels
         {
             Opacity = 1;
             IsInvalid = false;
+            IsPageEnabled = true;
         }
 
         public List<OperatorRunningTotal> GetRunningTotals(Operator op)
