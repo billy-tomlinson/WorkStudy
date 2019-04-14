@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:views="clr-namespace:WorkStudy.Views" 
              x:Name="StudyDetailsView" 
              x:Class="WorkStudy.Pages.StudyDetailsPage">
@@ -17,6 +16,7 @@
                             BackgroundColor="Transparent">
                 <StackLayout BackgroundColor="Transparent" 
                              IsVisible="{Binding IsPageVisible}" 
+                             IsEnabled="{Binding IsPageEnabled}" 
                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                              AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" 
@@ -54,7 +54,7 @@
                             <Label Grid.Row="6" Grid.Column="3" Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference StudyDetailsView}}" FontSize="13" />
                         </Grid>
                     </StackLayout>
-                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsPageEnabled, Source={x:Reference StudyDetailsView}}" 
+                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsAlarmPageEnabled, Source={x:Reference StudyDetailsView}}" 
                                  Padding="20,0,20,0">
                         <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                             <Grid.RowDefinitions>

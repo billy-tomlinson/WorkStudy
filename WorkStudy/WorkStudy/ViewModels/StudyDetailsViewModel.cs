@@ -47,12 +47,16 @@ namespace WorkStudy.ViewModels
                     parentPage.CurrentPage = parentPage.Children[3];
 
                     IsActive = false;
+                    IsPageEnabled = true;
                 }
+                else
+                    IsPageEnabled = false;
 
                 ShowClose = true;
+
             }
         );
-
+            
         bool _isUnRated;
         public bool IsUnRated
         {
@@ -154,6 +158,7 @@ namespace WorkStudy.ViewModels
             ValidationText = "Please enter all study details";
             ShowClose = true;
             IsInvalid = true;
+            IsPageEnabled = false;
             Opacity = 0.2;
 
             var success = int.TryParse(IntervalMinutes, out int result);
@@ -188,10 +193,13 @@ namespace WorkStudy.ViewModels
                 return false;
 
             }
-            else
+            {
+                IsPageEnabled = true;
                 return true;
+            }
 
         }
+
         public void CreateUnratedActivities()
         {
             var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "ABSENT");

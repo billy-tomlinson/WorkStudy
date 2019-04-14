@@ -45,11 +45,11 @@ namespace WorkStudy.ViewModels
 
                     if (value)
                     {
-                        IsPageEnabled = false;
+                        IsAlarmPageEnabled = false;
                     }
                     else
                     {
-                        IsPageEnabled = true;
+                        IsAlarmPageEnabled = true;
                     }
                 }
             }
@@ -70,18 +70,18 @@ namespace WorkStudy.ViewModels
                     var success = int.TryParse(IntervalMinutes, out int result);
                     IntervalIsValid(success);
                     IsPageEnabled = true;
-                    OnPropertyChanged("IsPageEnabled");
+                    OnPropertyChanged("IsAlarmPageEnabled");
                 }
             }
         }
 
-        static bool isPageEnabled;
-        public bool IsPageEnabled
+        static bool isAlarmPageEnabled;
+        public bool IsAlarmPageEnabled
         {
             get => !IsAlarmEnabled;
             set
             {
-                isPageEnabled = value;
+                isAlarmPageEnabled = value;
                 OnPropertyChanged();
             }
         }
