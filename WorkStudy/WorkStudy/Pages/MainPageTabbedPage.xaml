@@ -3,6 +3,21 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:pages="clr-namespace:WorkStudy.Pages" 
             x:Class="WorkStudy.Pages.MainPageTabbedPage" >
+     <NavigationPage.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="1*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <pages:MainPage Title="Study"  Icon="sandtimer.png" />
     <pages:AddActivitiesPage Title="Activities" Icon="tools.png" />
     <pages:AllActivitiesPage Title="Historic" Icon="tools.png" />
