@@ -321,6 +321,7 @@ namespace WorkStudy.ViewModels
 
         private void SetUpForNextObservationRound()
         {
+            Utilities.SetUpForNextObservationRound = true;
             Utilities.AllObservationsTaken = true;
             observations = new List<Observation>();
             UpdateObservationRound();
@@ -671,11 +672,11 @@ namespace WorkStudy.ViewModels
             Utilities.AllObservationsTaken = AllObservationsTaken;
         }
 
-        private ObservableCollection<Operator> GetAllEnabledOperators()
+        public ObservableCollection<Operator> GetAllEnabledOperators()
         {
             return new ObservableCollection<Operator>(OperatorRepo.GetAllWithChildren()
                                                           .Where(_ => _.StudyId == Utilities.StudyId
-                                                           && _.IsEnabled));
+                                                           && _.IsEnabled).OrderBy(x => x.Id));
         }
 
         private ObservableCollection<Operator> GetAllEnabledAndDisabledOperators()

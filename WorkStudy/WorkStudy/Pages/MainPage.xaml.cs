@@ -1,4 +1,6 @@
-﻿using WorkStudy.Services;
+﻿using System.Linq;
+using WorkStudy.Model;
+using WorkStudy.Services;
 using WorkStudy.ViewModels;
 using Xamarin.Forms;
 
@@ -26,6 +28,17 @@ namespace WorkStudy.Pages
 
         protected override void OnAppearing()
         {
+            var viewModel1 = new MainPageViewModel();
+            List.ItemAppearing += (sender, e) =>
+            {
+                if(Utilities.SetUpForNextObservationRound == true)
+                {
+                    var observations = viewModel1.OperatorObservations.OrderBy(x => x.Id).FirstOrDefault();
+                    List.ScrollTo(observations, ScrollToPosition.End, true);
+                    Utilities.SetUpForNextObservationRound = false;
+                }
+            };
+
             AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
 
             if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)

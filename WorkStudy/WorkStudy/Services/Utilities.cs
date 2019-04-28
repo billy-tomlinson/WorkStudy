@@ -17,6 +17,8 @@ namespace WorkStudy.Services
         public static bool IsCompleted { get; set; }
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
+        public static bool SetUpForNextObservationRound { get; set; }
+
         public static string Connection { get; set; }
         public static string AlarmConnection { get; set; }
         public static DateTime LastNotification { get; set; } = DateTime.Now;
