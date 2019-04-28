@@ -18,6 +18,7 @@ namespace WorkStudy.ViewModels
         public ICommand StudySetUp { get; set; }
         public ICommand AlarmSetUp { get; set; }
         public ICommand CloseApplication { get; set; }
+        public ICommand About { get; set; }
 
         public MenuPageViewModel()
         {
@@ -32,6 +33,7 @@ namespace WorkStudy.ViewModels
             StudySetUp = new Command(GoStudySetUp);
             AlarmSetUp = new Command(AlarmSetUpEvent);
             CloseApplication = new Command(CloseApplicationEvent);
+            About = new Command(AboutEvent);
         }
 
         void AlarmSetUpEvent(object obj)
@@ -101,6 +103,12 @@ namespace WorkStudy.ViewModels
         void GoReports(object obj)
         {
             Utilities.Navigate(new ReportsPage());
+            App.MenuIsPresented = false;
+        }
+
+        void AboutEvent(object obj)
+        {
+            Utilities.Navigate(new AboutPage());
             App.MenuIsPresented = false;
         }
     }
