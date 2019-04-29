@@ -235,7 +235,7 @@ namespace WorkStudy.Services
 
             var sqlCommand = "INSERT INTO ObservationHistoric SELECT o.* FROM Observation o INNER JOIN ActivitySampleStudy ass ON o.StudyId = ass.ID WHERE ass.Completed = 1";
             observationsHistoricRepo.ExecuteSQLCommand(sqlCommand);
-            sqlCommand = "DELETE FROM Observation WHERE StudyId in (SELECT StudyId from ActivitySampleStudy WHERE Completed = 1)";
+            sqlCommand = "DELETE FROM Observation WHERE StudyId in (SELECT Id from ActivitySampleStudy WHERE Completed = 1)";
             observationsRepo.ExecuteSQLCommand(sqlCommand);
         }
     }
