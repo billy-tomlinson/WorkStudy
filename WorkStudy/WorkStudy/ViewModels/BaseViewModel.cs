@@ -418,6 +418,7 @@ namespace WorkStudy.ViewModels
             AlarmRepo.CreateTable();
             OperatorRepo.CreateTable();
             ObservationRepo.CreateTable();
+            ObservationHistoricRepo.CreateTable();
             ActivityRepo.CreateTable();
             ActivityNameRepo.CreateTable();
             MergedActivityRepo.CreateTable();
