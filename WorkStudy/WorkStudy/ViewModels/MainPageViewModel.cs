@@ -141,7 +141,6 @@ namespace WorkStudy.ViewModels
                 TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString(FormatMinutes);
         }
 
-
         private Observation Observation { get; set; }
         private int ActivityId { get; set; }
         private int Rating { get; set; }
