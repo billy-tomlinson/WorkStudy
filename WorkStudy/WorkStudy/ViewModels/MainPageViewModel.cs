@@ -89,6 +89,8 @@ namespace WorkStudy.ViewModels
             });
 
             IsPageEnabled = true;
+
+            Utilities.MoveObservationsToHistoryTable();
         }
 
         private void SetUpNextObservationTimeWithTimer()

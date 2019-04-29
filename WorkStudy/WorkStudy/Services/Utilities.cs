@@ -44,12 +44,12 @@ namespace WorkStudy.Services
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
-        public static IBaseRepository<AlarmDetails> AlarmRepo = 
+        public static IBaseRepository<AlarmDetails> AlarmRepo =
             new BaseRepository<AlarmDetails>(AlarmConnection);
-            
+
         public static void UpdateTableFlags()
         {
-            if (MainPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 
+            if (MainPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges
                     && OperatorPageHasUpdatedActivityChanges && MergePageHasUpdatedActivityChanges
                     && AllActivitiesPageHasUpdatedActivityChanges)
                 ActivityTableUpdated = false;
@@ -61,7 +61,7 @@ namespace WorkStudy.Services
             if (MainPageHasUpdatedObservationChanges && ActivityPageHasUpdatedObservationChanges)
                 ObservationTableUpdated = false;
 
-            if(OperatorPageHasUpdatedActivitySampleChanges)
+            if (OperatorPageHasUpdatedActivitySampleChanges)
                 ActivitySampleTableUpdated = false;
         }
 
@@ -84,7 +84,7 @@ namespace WorkStudy.Services
         public const string DeleteImage = "delete.png";
         public static string UndoImage = "undo.png";
         public const string CommentsImage = "comments.png";
-        public static bool   CancelAlarm { get; set; }
+        public static bool CancelAlarm { get; set; }
 
         public static bool ContinueTimer { get; set; } = true;
 
@@ -151,7 +151,7 @@ namespace WorkStudy.Services
             var opsRepo = new BaseRepository<Operator>(Connection);
 
             var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
-                                   
+
             using (var excelEngine = new ExcelEngine())
             {
                 excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
@@ -168,7 +168,7 @@ namespace WorkStudy.Services
                         data.Add(new SpreadSheetObservation()
                         {
                             ActivityName = observation.ActivityName,
-                           // StudyId = StudyId,
+                            // StudyId = StudyId,
                             OperatorName = op.Name,
                             ObservationNumber = observation.ObservationNumber,
                             Rating = observation.Rating
@@ -227,5 +227,17 @@ namespace WorkStudy.Services
             return numberOfObservations;
 
         }
+
+        public static void MoveObservationsToHistoryTable()
+        {
+            var observationsHistoricRepo = new BaseRepository<ObservationHistoric>(Connection);
+            var observationsRepo = new BaseRepository<Observation>(Connection);
+
+            var sqlCommand = "INSERT INTO ObservationHistoric SELECT o.* FROM Observation o INNER JOIN ActivitySampleStudy ass ON o.StudyId = ass.ID WHERE ass.Completed = 1";
+            observationsHistoricRepo.ExecuteSQLCommand(sqlCommand);
+            sqlCommand = "DELETE FROM Observation WHERE StudyId in (SELECT StudyId from ActivitySampleStudy WHERE Completed = 1)";
+            observationsRepo.ExecuteSQLCommand(sqlCommand);
+        }
     }
+
 }

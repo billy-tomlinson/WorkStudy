@@ -124,6 +124,14 @@ namespace WorkStudy.Services
             }
         }
 
+        public void ExecuteSQLCommand(string sqlCommand)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Execute(sqlCommand);
+            }
+        }
+
         private void SetLastUpdatedTime(T item)
         {
             Type typeParameterType = typeof(T);

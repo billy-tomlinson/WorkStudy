@@ -26,6 +26,8 @@ namespace WorkStudy.ViewModels
             IsEnabled = false;
             Opacity = 0.2;
 
+            Utilities.MoveObservationsToHistoryTable();
+
             try 
             {
                 Task emailTask = Task.Run(() =>

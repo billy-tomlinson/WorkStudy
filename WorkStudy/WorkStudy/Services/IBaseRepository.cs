@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SQLite;
 using WorkStudy.Model;
 
 namespace WorkStudy.Services
@@ -31,5 +30,7 @@ namespace WorkStudy.Services
         void CreateTable();
 
         void DropTable();
+
+        void ExecuteSQLCommand(string sqlCommand);
     }
 }

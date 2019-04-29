@@ -42,6 +42,8 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 
+        public IBaseRepository<ObservationHistoric> ObservationHistoricRepo => new BaseRepository<ObservationHistoric>(conn);
+
         public IBaseRepository<Activity> ActivityRepo => new BaseRepository<Activity>(conn);
 
         public IBaseRepository<ActivityName> ActivityNameRepo => new BaseRepository<ActivityName>(conn);

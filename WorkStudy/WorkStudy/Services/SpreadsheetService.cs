@@ -14,7 +14,7 @@ namespace WorkStudy.Services
         private List<Operator> operators;
         private ActivitySampleStudy sample;
         private List<Activity> allStudyActivities;
-        private List<Observation> totalObs;
+        private List<ObservationHistoric> totalObs;
         private List<List<ObservationSummary>> allTotals;
         AlarmDetails alarm;
 
@@ -52,7 +52,7 @@ namespace WorkStudy.Services
             var sampleRepo = new BaseRepository<ActivitySampleStudy>(Utilities.Connection);
             var activityRepo = new BaseRepository<Activity>(Utilities.Connection);
             var operatorRepo = new BaseRepository<Operator>(Utilities.Connection);
-            var observationRepo = new BaseRepository<Observation>(Utilities.Connection);
+            var observationRepo = new BaseRepository<ObservationHistoric>(Utilities.Connection);
             var alarmRepo = new BaseRepository<AlarmDetails>(Utilities.Connection);
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
