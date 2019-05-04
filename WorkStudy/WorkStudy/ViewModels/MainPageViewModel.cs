@@ -631,7 +631,14 @@ namespace WorkStudy.ViewModels
                 }
             }
 
-            if (lowestPercentage == 100) lowestPercentage = 0;
+            if (lowestPercentage == 100)
+            {
+                lowestPercentage = 0;
+                TotalPercentageVisible = false;
+            }
+            else 
+                TotalPercentageVisible = true;
+
 
             foreach (var item in Operators)
             {
@@ -714,10 +721,6 @@ namespace WorkStudy.ViewModels
                 PercentagesVisible = false;
                 TotalPercentageVisible = false;
                 return 0;
-            }
-            else 
-            {
-                TotalPercentageVisible = true;
             }
 
             var activtyIds = observationsTaken.Select(x => new { Id = x.AliasActivityId })
