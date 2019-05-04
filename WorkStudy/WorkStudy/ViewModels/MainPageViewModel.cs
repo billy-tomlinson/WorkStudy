@@ -623,17 +623,15 @@ namespace WorkStudy.ViewModels
             double lowestPercentage = 100;
             foreach (var item in Operators)
             {
-                var limitsReached = LimitsOfAccuracyReached(item);
-
-                if (item.Observations.Count == 0) added = false;
-
-                foreach (var obs in item.Observations)
+                if (item.Observations.Count > 10)
                 {
-                    var percentage = limitsReached.TotalPercentagePerOperator < 100 ? limitsReached.TotalPercentagePerOperator : 100;
-                    if (percentage > 0 && percentage < lowestPercentage)
-                        lowestPercentage = percentage;
+                    var limitsReached = LimitsOfAccuracyReached(item);
+                    if (limitsReached.TotalPercentagePerOperator > 0 && limitsReached.TotalPercentagePerOperator < lowestPercentage)
+                        lowestPercentage = limitsReached.TotalPercentagePerOperator;
                 }
             }
+
+            if (lowestPercentage == 100) lowestPercentage = 0;
 
             foreach (var item in Operators)
             {
@@ -657,7 +655,7 @@ namespace WorkStudy.ViewModels
                             LimitsOfAccuracy = limitsReached.AccuracyReached,
                             TotalPercentageDouble = percentage,
                             TotalPercentagePerOperator = percentage.ToString() + "%",
-                            PercentageIsVisible = item.Observations.Count > 10  && percentage == lowestPercentage ? true : false
+                            PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                         };
 
                         ops.Add(opObservation);
