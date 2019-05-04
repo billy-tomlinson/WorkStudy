@@ -328,6 +328,17 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static bool totalPercentageVisible;
+        public bool TotalPercentageVisible
+        {
+            get => totalPercentageVisible;
+            set
+            {
+                totalPercentageVisible = value;
+                OnPropertyChanged();
+            }
+        }
         static bool isPageEnabled;
         public bool IsPageEnabled
         {
@@ -490,12 +501,12 @@ namespace WorkStudy.ViewModels
 
             TotalOperatorPercentage = string.Empty;
             TotalObservationsRequired = totalRequiredForOperator;
-            double totalPercentage = 0;
+            double TotalPercentagePerOperator = 0;
 
             if (TotalObservationsRequired > 0)
             {
-                totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-                var percentage = totalPercentage < 100 ? totalPercentage : 100;
+                TotalPercentagePerOperator = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
+                var percentage = TotalPercentagePerOperator < 100 ? TotalPercentagePerOperator : 100;
                 TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
             }
 

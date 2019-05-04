@@ -4,6 +4,6 @@
     {
        public bool AccuracyReached { get; set;}
 
-       public double TotalPercentage { get; set; }
+       public double TotalPercentagePerOperator { get; set; }
     }
 }

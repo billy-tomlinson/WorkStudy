@@ -381,8 +381,8 @@ namespace WorkStudy.Services
 
                 foreach (var item in summary)
                 {
-                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
-                    item.Percentage = totalPercentage;
+                    var TotalPercentagePerOperator = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = TotalPercentagePerOperator;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
                 }
@@ -523,8 +523,8 @@ namespace WorkStudy.Services
 
                 foreach (var item in summary)
                 {
-                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
-                    item.Percentage = totalPercentage;
+                    var TotalPercentagePerOperator = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = TotalPercentagePerOperator;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
                 }
@@ -763,8 +763,8 @@ namespace WorkStudy.Services
 
                     destSheet.Range[1, 7, counter, 11].AutofitColumns();
 
-                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
-                    item.Percentage = totalPercentage;
+                    var TotalPercentagePerOperator = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = TotalPercentagePerOperator;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
                 }
