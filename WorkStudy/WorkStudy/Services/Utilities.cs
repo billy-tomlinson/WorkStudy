@@ -18,6 +18,7 @@ namespace WorkStudy.Services
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static bool SetUpForNextObservationRound { get; set; }
+        public static ObservableCollection<OperatorObservation> OperatorObservations { get; set; }
 
         public static string Connection { get; set; }
         public static string AlarmConnection { get; set; }

@@ -690,6 +690,7 @@ namespace WorkStudy.ViewModels
             }
 
             OperatorObservations = ops;
+            Utilities.OperatorObservations = ops;
             Utilities.AllObservationsTaken = AllObservationsTaken;
         }
 
