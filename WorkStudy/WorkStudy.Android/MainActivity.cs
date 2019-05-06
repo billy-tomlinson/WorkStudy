@@ -9,7 +9,7 @@ using Plugin.Toasts;
 
 namespace WorkStudy.Droid
 {
-    [Activity(Label = "WorkStudy", Theme = "@style/MainTheme", MainLauncher = true, Icon = "@drawable/randomActivity", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
+    [Activity(Label = "Random Activity", Theme = "@style/MainTheme", MainLauncher = true, Icon = "@drawable/randomActivity", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
