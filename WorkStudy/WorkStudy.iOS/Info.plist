@@ -42,5 +42,7 @@
 	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>2</string>
+	<key>XSLaunchImageAssets</key>
+	<string>Assets.xcassets/LaunchImage.launchimage</string>
 </dict>
 </plist>

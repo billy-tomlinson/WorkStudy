@@ -7,7 +7,9 @@
              x:Class="WorkStudy.Pages.MainPage" 
              x:Name="MainPage1">
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout BackgroundColor="Transparent" 
                          IsVisible="{Binding IsPageVisible}" 
