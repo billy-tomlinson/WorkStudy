@@ -62,6 +62,30 @@ namespace WorkStudy.Services
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+
+            if(!totalObs.Any())
+            {
+                var obsRepo = new BaseRepository<Observation>(Utilities.Connection);
+                var totalObsX = obsRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
+                foreach (var item in totalObsX)
+                {
+                    var ob = new ObservationHistoric() 
+                    {
+                        ActivityId = item.ActivityId,
+                        ActivityName = item.ActivityName,
+                        AliasActivityId = item.AliasActivityId,
+                        Date = item.Date,
+                        Id = item.Id,
+                        ObservationNumber = item.ObservationNumber,
+                        OperatorId = item.OperatorId,
+                        Rating = item.Rating,
+                        StudyId = item.StudyId
+                    };
+
+                    totalObs.Add(ob);
+                }
+            }
+
             var totalCount = totalObs.Count();
             var firstOb = totalObs.Min(y => y.Date);
             var lastOb = totalObs.Max(y => y.Date);
@@ -357,8 +381,8 @@ namespace WorkStudy.Services
 
                 foreach (var item in summary)
                 {
-                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
-                    item.Percentage = totalPercentage;
+                    var TotalPercentagePerOperator = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = TotalPercentagePerOperator;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
                 }
@@ -499,8 +523,8 @@ namespace WorkStudy.Services
 
                 foreach (var item in summary)
                 {
-                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
-                    item.Percentage = totalPercentage;
+                    var TotalPercentagePerOperator = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = TotalPercentagePerOperator;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
                 }
@@ -739,8 +763,8 @@ namespace WorkStudy.Services
 
                     destSheet.Range[1, 7, counter, 11].AutofitColumns();
 
-                    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
-                    item.Percentage = totalPercentage;
+                    var TotalPercentagePerOperator = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
+                    item.Percentage = TotalPercentagePerOperator;
                     item.TotalTime = item.NumberOfObservations * timePerObservation;
                     item.OperatorName = op.Name;
                 }
@@ -839,30 +863,37 @@ namespace WorkStudy.Services
 
             chart.IsSeriesInRows = false;
 
-            IChartShape chart2 = pieAllNonValueAddedIndividual.Charts.Add();
+            try 
+            {
+                IChartShape chart2 = pieAllNonValueAddedIndividual.Charts.Add();
 
-            chart2.DataRange = pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange];
+                chart2.DataRange = pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange];
 
-            pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange].AutofitColumns();
+                pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange].AutofitColumns();
 
-            chart2.ChartTitle = "All Non Value Added";
-            chart2.HasLegend = true;
-            chart2.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
-            chart2.Legend.Position = ExcelLegendPosition.Right;
+                chart2.ChartTitle = "All Non Value Added";
+                chart2.HasLegend = true;
+                chart2.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
+                chart2.Legend.Position = ExcelLegendPosition.Right;
 
-            IChartSerie serie1 = chart2.Series[0];
-            serie1.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
+                IChartSerie serie1 = chart2.Series[0];
+                serie1.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
 
-            chart2.TopRow = 1;
-            chart2.LeftColumn = 4;
-            chart2.BottomRow = 30;
-            chart2.RightColumn = 17;
+                chart2.TopRow = 1;
+                chart2.LeftColumn = 4;
+                chart2.BottomRow = 30;
+                chart2.RightColumn = 17;
 
-            chart2.ChartType = ExcelChartType.Pie_Exploded;
-            chart2.Elevation = 70;
-            chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
+                chart2.ChartType = ExcelChartType.Pie_Exploded;
+                chart2.Elevation = 70;
+                chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 
-            chart2.IsSeriesInRows = false;
+                chart2.IsSeriesInRows = false;
+            }
+            catch(Exception ex)
+            {
+                //do nothing
+            }
 
         }
     }

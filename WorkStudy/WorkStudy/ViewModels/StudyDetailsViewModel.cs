@@ -235,21 +235,21 @@ namespace WorkStudy.ViewModels
                 ObservedColour = Utilities.InactiveColour
             };
 
-            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
+            //activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
 
-            if (activityName == null)
-                activityName = new ActivityName { Name = "OTHER" };
+            //if (activityName == null)
+            //    activityName = new ActivityName { Name = "OTHER" };
 
-            var unrated3 = new Activity()
-            {
-                ActivityName = activityName,
-                IsEnabled = true,
-                Rated = false,
-                StudyId = Utilities.StudyId,
-                DeleteIcon = string.Empty,
-                ItemColour = Utilities.InactiveColour,
-                ObservedColour = Utilities.InactiveColour
-            };
+            //var unrated3 = new Activity()
+            //{
+            //    ActivityName = activityName,
+            //    IsEnabled = true,
+            //    Rated = false,
+            //    StudyId = Utilities.StudyId,
+            //    DeleteIcon = string.Empty,
+            //    ItemColour = Utilities.InactiveColour,
+            //    ObservedColour = Utilities.InactiveColour
+            //};
 
             ActivityNameRepo.SaveItem(unrated1.ActivityName);
             ActivityRepo.SaveItem(unrated1);
@@ -259,9 +259,9 @@ namespace WorkStudy.ViewModels
             ActivityRepo.SaveItem(unrated2);
             ActivityRepo.UpdateWithChildren(unrated2);
 
-            ActivityNameRepo.SaveItem(unrated3.ActivityName);
-            ActivityRepo.SaveItem(unrated3);
-            ActivityRepo.UpdateWithChildren(unrated3);
+            //ActivityNameRepo.SaveItem(unrated3.ActivityName);
+            //ActivityRepo.SaveItem(unrated3);
+            //ActivityRepo.UpdateWithChildren(unrated3);
 
         }
     }

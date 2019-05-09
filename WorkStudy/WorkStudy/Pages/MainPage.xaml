@@ -7,7 +7,9 @@
              x:Class="WorkStudy.Pages.MainPage" 
              x:Name="MainPage1">
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout BackgroundColor="Transparent" 
                          IsVisible="{Binding IsPageVisible}" 
@@ -40,8 +42,8 @@
                     <Label Grid.Row="1" Grid.Column="1" Text="{Binding ObservationRound}" Style="{StaticResource mainPageLabel}" />
                     <Label Grid.Row="1" Grid.Column="2" Text="Next:" Style="{StaticResource mainPageLabel}" FontSize="12" />
                     <Label Grid.Row="1" Grid.Column="3" Text="{Binding TimeOfNextObservation}" Style="{StaticResource mainPageLabel}" TextColor="Black" />
-                    <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Text="Complete:" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
-                    <Label Grid.Row="1" Grid.Column="6" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Text="Complete:" IsVisible="{Binding TotalPercentageVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="6" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding TotalPercentageVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
                 </Grid>
                 <local:CustomListView x:Name="List" 
                                       Margin="0,10" 
@@ -63,17 +65,17 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="6*">
                                     </ColumnDefinition>
-                                    <!--<ColumnDefinition Width="1.5*">
-                                    </ColumnDefinition>-->
+                                    <ColumnDefinition Width="1.5*">
+                                    </ColumnDefinition>
                                     <ColumnDefinition Width="4*">
                                     </ColumnDefinition>
-                                    <ColumnDefinition Width="2*">
+                                    <ColumnDefinition Width="1.5*">
                                     </ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0" Grid.Column="0" Text="Operator" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
-                                <!--<Label Grid.Row="0" Grid.Column="1" Text="Tot %" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />-->
-                                <Label Grid.Row="0" Grid.Column="1" Text="Activity" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
-                                <Label Grid.Row="0" Grid.Column="2" Text="Rating" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="Tot %" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="2" Text="Activity" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="3" Text="Rating" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
                             </Grid>
                         </StackLayout>
                     </ListView.Header>
@@ -89,15 +91,15 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="6*">
                                             </ColumnDefinition>
-                                            <!--<ColumnDefinition Width="1.5*">
-                                            </ColumnDefinition>-->
+                                            <ColumnDefinition Width="1.5*">
+                                            </ColumnDefinition>
                                             <ColumnDefinition Width="4*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="2*">
+                                            <ColumnDefinition Width="1.5*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="150" />
-                                        <!--<Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentage}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="50" IsVisible="{Binding PercentageIsVisible}" />-->
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPercentagePerOperator}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="50" IsVisible="{Binding PercentageIsVisible}" />
                                         <Label Grid.Row="0" Grid.Column="2" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="150" />
                                         <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
                                     </Grid>

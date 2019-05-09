@@ -141,7 +141,6 @@ namespace WorkStudy.ViewModels
                 TimeOfNextObservation = DateTime.Now.AddSeconds(alarm.Interval).ToString(FormatMinutes);
         }
 
-
         private Observation Observation { get; set; }
         private int ActivityId { get; set; }
         private int Rating { get; set; }
@@ -469,19 +468,19 @@ namespace WorkStudy.ViewModels
                 TotalObservationsTaken = TotalObservationsTaken + item.NumberOfObservations;
             }
 
-            double totalPercentage = 0;
+            double TotalPercentagePerOperator = 0;
             if (TotalObservationsTaken > 0)
             {
-                totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-                var percentage = totalPercentage < 100 ? totalPercentage : 100;
+                TotalPercentagePerOperator = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
+                var percentage = TotalPercentagePerOperator < 100 ? TotalPercentagePerOperator : 100;
                 TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
             }
 
 
             return new LimitsOfAccuracy()
             {
-                AccuracyReached = totalPercentage >= 100,
-                TotalPercentage = totalPercentage
+                AccuracyReached = TotalPercentagePerOperator >= 100,
+                TotalPercentagePerOperator = TotalPercentagePerOperator
             };
 
         }
@@ -621,6 +620,26 @@ namespace WorkStudy.ViewModels
             var ops = new ObservableCollection<OperatorObservation>();
             bool added = false;
 
+            double lowestPercentage = 100;
+            foreach (var item in Operators)
+            {
+                if (item.Observations.Count > 10)
+                {
+                    var limitsReached = LimitsOfAccuracyReached(item);
+                    if (limitsReached.TotalPercentagePerOperator > 0 && limitsReached.TotalPercentagePerOperator < lowestPercentage)
+                        lowestPercentage = limitsReached.TotalPercentagePerOperator;
+                }
+            }
+
+            if (lowestPercentage == 100)
+            {
+                lowestPercentage = 0;
+                TotalPercentageVisible = false;
+            }
+            else 
+                TotalPercentageVisible = true;
+
+
             foreach (var item in Operators)
             {
                 var limitsReached = LimitsOfAccuracyReached(item);
@@ -629,7 +648,7 @@ namespace WorkStudy.ViewModels
 
                 foreach (var obs in item.Observations)
                 {
-                    var percentage = limitsReached.TotalPercentage < 100 ? limitsReached.TotalPercentage : 100;
+                    var percentage = limitsReached.TotalPercentagePerOperator < 100 ? limitsReached.TotalPercentagePerOperator : 100;
                     if (obs.ObservationNumber == ObservationRound)
                     {
                         var opObservation = new OperatorObservation
@@ -642,8 +661,8 @@ namespace WorkStudy.ViewModels
                             ObservedColour = System.Drawing.Color.Silver,
                             LimitsOfAccuracy = limitsReached.AccuracyReached,
                             TotalPercentageDouble = percentage,
-                            TotalPercentage = percentage.ToString() + "%",
-                            PercentageIsVisible = item.Observations.Count > 10 ? true : false
+                            TotalPercentagePerOperator = percentage.ToString() + "%",
+                            PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                         };
 
                         ops.Add(opObservation);
@@ -654,7 +673,7 @@ namespace WorkStudy.ViewModels
 
                 if (added == false)
                 {
-                    var percentage = limitsReached.TotalPercentage < 100 ? limitsReached.TotalPercentage : 100;
+                    var percentage = limitsReached.TotalPercentagePerOperator < 100 ? limitsReached.TotalPercentagePerOperator : 100;
                     var opObs = new OperatorObservation
                     {
                         Name = item.Name,
@@ -663,14 +682,15 @@ namespace WorkStudy.ViewModels
                         ObservedColour = System.Drawing.Color.Gray,
                         LimitsOfAccuracy = limitsReached.AccuracyReached,
                         TotalPercentageDouble = percentage,
-                        TotalPercentage = percentage.ToString() + "%",
-                        PercentageIsVisible = item.Observations.Count > 10 ? true : false
+                        TotalPercentagePerOperator = percentage.ToString() + "%",
+                        PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                     };
                     ops.Add(opObs);
                 }
             }
 
             OperatorObservations = ops;
+            Utilities.OperatorObservations = ops;
             Utilities.AllObservationsTaken = AllObservationsTaken;
         }
 
@@ -700,6 +720,7 @@ namespace WorkStudy.ViewModels
             if (totalObservationsTaken < 10)
             {
                 PercentagesVisible = false;
+                TotalPercentageVisible = false;
                 return 0;
             }
 
