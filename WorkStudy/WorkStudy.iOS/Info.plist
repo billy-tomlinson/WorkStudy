@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>R.A.S</string>
+	<string>Random Sampling</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.billy.-</string>
 	<key>CFBundleVersion</key>
