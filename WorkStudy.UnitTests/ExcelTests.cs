@@ -88,6 +88,9 @@ namespace WorkStudy.UnitTests
         public void Create_Excel_Spreadsheet_From_SQL()
         {
 
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTAwMjk5QDMxMzYyZTMzMmUzMEdpQVpZS0g1RHZMN2RGVUEreFpGOXp3UW12dmt4RW00U09OSFdnOVd6SG89;MTAwMzAwQDMxMzYyZTMzMmUzMElsS3RQMk4ycm1mUlJFa3JYY1A3cUpzMnRsYmdkSTdoTVBGcHlWa1BQU1U9");
+
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 //Set the default application version as Excel 2013.
