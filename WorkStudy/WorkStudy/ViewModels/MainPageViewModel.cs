@@ -92,6 +92,8 @@ namespace WorkStudy.ViewModels
 
             IsPageEnabled = true;
 
+            IsCancelEnabled = true;
+
             Utilities.MoveObservationsToHistoryTable();
         }
 

@@ -46,7 +46,7 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="10">
-                <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" FontSize="12"/>
+                <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" IsVisible="{Binding IsCancelEnabled}" FontSize="12"/>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>

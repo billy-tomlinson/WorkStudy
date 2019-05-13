@@ -99,6 +99,17 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool isCancelEnabled;
+        public bool IsCancelEnabled
+        {
+            get => isCancelEnabled;
+            set
+            {
+                isCancelEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         bool isInvalid = false;
         public bool IsInvalid
         {

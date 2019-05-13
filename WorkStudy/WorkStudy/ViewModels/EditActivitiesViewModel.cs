@@ -253,6 +253,7 @@ namespace WorkStudy.ViewModels
             InvalidText = $"There are no activities to merge for study {studyNumber}";
             IsPageVisible = (Utilities.StudyId > 0 && !Utilities.IsCompleted && Activities.Count > 0);
             IsPageEnabled = true;
+            IsCancelEnabled = false;
         }
     }
 }
