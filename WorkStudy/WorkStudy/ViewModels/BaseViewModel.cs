@@ -501,12 +501,12 @@ namespace WorkStudy.ViewModels
 
             TotalOperatorPercentage = string.Empty;
             TotalObservationsRequired = totalRequiredForOperator;
-            double TotalPercentagePerOperator = 0;
+            double totalPercentagePerOp = 0;
 
             if (TotalObservationsRequired > 0)
             {
-                TotalPercentagePerOperator = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-                var percentage = TotalPercentagePerOperator < 100 ? TotalPercentagePerOperator : 100;
+                totalPercentagePerOp = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
+                var percentage = totalPercentagePerOp < 100 ? totalPercentagePerOp : 100;
                 TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
             }
 
