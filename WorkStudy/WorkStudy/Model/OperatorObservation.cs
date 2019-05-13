@@ -23,6 +23,6 @@ namespace WorkStudy.Model
         public double TotalPercentageDouble { get; set; }
 
         [Ignore]
-        public bool PercentageIsVisible { get; set; }
+        public bool OperatorPercentageIsVisible { get; set; }
     }
 }

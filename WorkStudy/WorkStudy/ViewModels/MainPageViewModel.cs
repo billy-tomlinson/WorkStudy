@@ -620,24 +620,24 @@ namespace WorkStudy.ViewModels
             var ops = new ObservableCollection<OperatorObservation>();
             bool added = false;
 
-            double lowestPercentage = 100;
-            foreach (var item in Operators)
-            {
-                if (item.Observations.Count > 10)
-                {
-                    var limitsReached = LimitsOfAccuracyReached(item);
-                    if (limitsReached.TotalPercentagePerOperator > 0 && limitsReached.TotalPercentagePerOperator < lowestPercentage)
-                        lowestPercentage = limitsReached.TotalPercentagePerOperator;
-                }
-            }
+            //double lowestPercentage = 100;
+            //foreach (var item in Operators)
+            //{
+            //    if (item.Observations.Count > 10)
+            //    {
+            //        var limitsReached = LimitsOfAccuracyReached(item);
+            //        if (limitsReached.TotalPercentagePerOperator > 0 && limitsReached.TotalPercentagePerOperator < lowestPercentage)
+            //            lowestPercentage = limitsReached.TotalPercentagePerOperator;
+            //    }
+            //}
 
-            if (lowestPercentage == 100)
-            {
-                lowestPercentage = 0;
-                TotalPercentageVisible = false;
-            }
-            else 
-                TotalPercentageVisible = true;
+            //if (lowestPercentage == 100)
+            //{
+            //    lowestPercentage = 0;
+            //    TotalPercentageVisible = false;
+            //}
+            //else 
+                //TotalPercentageVisible = true;
 
 
             foreach (var item in Operators)
@@ -661,8 +661,8 @@ namespace WorkStudy.ViewModels
                             ObservedColour = System.Drawing.Color.Silver,
                             LimitsOfAccuracy = limitsReached.AccuracyReached,
                             TotalPercentageDouble = percentage,
-                            TotalPercentagePerOperator = percentage.ToString() + "%",
-                            PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
+                            TotalPercentagePerOperator = percentage.ToString() + "%"//,
+                            //PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                         };
 
                         ops.Add(opObservation);
@@ -682,8 +682,8 @@ namespace WorkStudy.ViewModels
                         ObservedColour = System.Drawing.Color.Gray,
                         LimitsOfAccuracy = limitsReached.AccuracyReached,
                         TotalPercentageDouble = percentage,
-                        TotalPercentagePerOperator = percentage.ToString() + "%",
-                        PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
+                        TotalPercentagePerOperator = percentage.ToString() + "%"//,
+                        //PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                     };
                     ops.Add(opObs);
                 }
@@ -712,16 +712,29 @@ namespace WorkStudy.ViewModels
         {
             int totalObservationsTaken = 0;
             int totalObservationsRequired = 0;
+            int maxObservationRound = 0;
 
             var observationsTaken = ObservationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObservationsTaken = observationsTaken.Count;
-            
-            if (totalObservationsTaken < 10)
+
+            if(totalObservationsTaken > 0)
+            {
+                maxObservationRound = observationsTaken
+                                             .Distinct()
+                                             .Max(x => x.ObservationNumber);
+            }
+           
+            if (maxObservationRound < 10 || totalObservationsTaken < 10)
             {
                 PercentagesVisible = false;
                 TotalPercentageVisible = false;
                 return 0;
+            }
+            else
+            {
+                PercentagesVisible = true;
+                TotalPercentageVisible = true;
             }
 
             var activtyIds = observationsTaken.Select(x => new { Id = x.AliasActivityId })
