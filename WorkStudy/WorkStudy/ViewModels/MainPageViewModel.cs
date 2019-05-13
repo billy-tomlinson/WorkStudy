@@ -620,35 +620,13 @@ namespace WorkStudy.ViewModels
             var ops = new ObservableCollection<OperatorObservation>();
             bool added = false;
 
-            //double lowestPercentage = 100;
-            //foreach (var item in Operators)
-            //{
-            //    if (item.Observations.Count > 10)
-            //    {
-            //        var limitsReached = LimitsOfAccuracyReached(item);
-            //        if (limitsReached.TotalPercentagePerOperator > 0 && limitsReached.TotalPercentagePerOperator < lowestPercentage)
-            //            lowestPercentage = limitsReached.TotalPercentagePerOperator;
-            //    }
-            //}
-
-            //if (lowestPercentage == 100)
-            //{
-            //    lowestPercentage = 0;
-            //    TotalPercentageVisible = false;
-            //}
-            //else 
-                //TotalPercentageVisible = true;
-
-
             foreach (var item in Operators)
             {
-                var limitsReached = LimitsOfAccuracyReached(item);
 
                 if (item.Observations.Count == 0) added = false;
 
                 foreach (var obs in item.Observations)
                 {
-                    var percentage = limitsReached.TotalPercentagePerOperator < 100 ? limitsReached.TotalPercentagePerOperator : 100;
                     if (obs.ObservationNumber == ObservationRound)
                     {
                         var opObservation = new OperatorObservation
@@ -659,10 +637,6 @@ namespace WorkStudy.ViewModels
                             Id = item.Id,
                             IsRated = obs.Rating > 0,
                             ObservedColour = System.Drawing.Color.Silver,
-                            LimitsOfAccuracy = limitsReached.AccuracyReached,
-                            TotalPercentageDouble = percentage,
-                            TotalPercentagePerOperator = percentage.ToString() + "%"//,
-                            //PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                         };
 
                         ops.Add(opObservation);
@@ -673,17 +647,12 @@ namespace WorkStudy.ViewModels
 
                 if (added == false)
                 {
-                    var percentage = limitsReached.TotalPercentagePerOperator < 100 ? limitsReached.TotalPercentagePerOperator : 100;
                     var opObs = new OperatorObservation
                     {
                         Name = item.Name,
                         Id = item.Id,
                         IsRated = false,
                         ObservedColour = System.Drawing.Color.Gray,
-                        LimitsOfAccuracy = limitsReached.AccuracyReached,
-                        TotalPercentageDouble = percentage,
-                        TotalPercentagePerOperator = percentage.ToString() + "%"//,
-                        //PercentageIsVisible = item.Observations.Count > 10 && percentage == lowestPercentage ? true : false
                     };
                     ops.Add(opObs);
                 }
