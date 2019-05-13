@@ -26,6 +26,8 @@
                                 </RowDefinition>
                                 <RowDefinition Height="*">
                                 </RowDefinition>
+                                <RowDefinition Height="*">
+                                </RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*">
@@ -39,6 +41,7 @@
                             <Label Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Start" FontSize="12" Text="{Binding Path = BindingContext.TotalObservationsTaken, Source={x:Reference RunningTotals}}" TextColor="White" BackgroundColor="Gray" />
                             <Label Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="Start" FontSize="12" Text="Total Percentage Completed: " TextColor="White" BackgroundColor="Gray" />
                             <Label Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Start" FontSize="12" Text="{Binding Path = BindingContext.TotalOperatorPercentage, Source={x:Reference RunningTotals}}" TextColor="White" BackgroundColor="Gray" />
+                            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" FontSize="12" Text="--------------------------------------------------" TextColor="White" BackgroundColor="Gray" />
                         </Grid>
                     </StackLayout>
                 </ListView.Header>
@@ -64,13 +67,13 @@
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Row="0" Grid.Column="0" Text="ActivityName: " FontSize="14" HorizontalTextAlignment="Start" WidthRequest="140" />
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="14" />
                                     <Label Grid.Row="1" Grid.Column="0" Text="Observations Required: " HorizontalTextAlignment="Start" FontSize="14" WidthRequest="140" />
-                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding ObservationsRequired}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding ObservationsRequired}" HorizontalTextAlignment="Start" FontSize="14" />
                                     <Label Grid.Row="2" Grid.Column="0" Text="Observations Taken" FontSize="14" HorizontalTextAlignment="Start" WidthRequest="140" />
-                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding NumberOfObservations}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding NumberOfObservations}" HorizontalTextAlignment="Start" FontSize="14" />
                                     <Label Grid.Row="3" Grid.Column="0" Text="Percentage of Total Obs" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="140" />
-                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding PercentageFormatted}" HorizontalTextAlignment="Start" FontSize="14" WidthRequest="40" />
+                                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding PercentageFormatted}" HorizontalTextAlignment="Start" FontSize="14" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>
