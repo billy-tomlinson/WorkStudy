@@ -25,6 +25,7 @@ namespace WorkStudy.ViewModels
         public Command EndStudy { get; set; }
         public Command PauseStudy { get; set; }
         public Command EditStudy { get; set; }
+        public Command CloseActivitiesView { get; set; }
 
         public MainPageViewModel(string conn) : base(conn)
         {
@@ -45,6 +46,7 @@ namespace WorkStudy.ViewModels
             EditStudy = new Command(EditStudyDetails);
             PauseStudy = new Command(NavigateToStudyMenu);
             Override = new Command(OverrideEvent);
+            CloseActivitiesView = new Command(CloseActivitiesViewEvent);
             Opacity = 1.0;
 
             Operators = GetAllEnabledOperators();
@@ -386,6 +388,13 @@ namespace WorkStudy.ViewModels
             AlarmNotificationService.DisableAlarmInDatabase();
             AlarmNotificationService.DisableAlarm();
             Utilities.Navigate(new StudyMenuPage());
+        }
+
+        public void CloseActivitiesViewEvent()
+        {
+            Opacity = 1;
+            ActivitiesVisible = false;
+            IsPageEnabled = true;
         }
 
         void ActivitySelectedEvent(object sender)
