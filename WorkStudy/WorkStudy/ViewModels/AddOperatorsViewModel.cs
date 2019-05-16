@@ -71,18 +71,6 @@ namespace WorkStudy.ViewModels
             }
         }
 
-
-        static bool runningTotalsVisible;
-        public bool RunningTotalsVisible
-        {
-            get => runningTotalsVisible;
-            set
-            {
-                runningTotalsVisible = value;
-                OnPropertyChanged();
-            }
-        }
-
         void SaveOperatorDetails()
         {
             ValidateValues();

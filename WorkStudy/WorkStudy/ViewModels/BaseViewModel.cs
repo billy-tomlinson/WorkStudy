@@ -65,6 +65,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static bool runningTotalsVisible;
+        public bool RunningTotalsVisible
+        {
+            get => runningTotalsVisible;
+            set
+            {
+                runningTotalsVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
         static string currentTime;
         public string CurrentTime

@@ -94,6 +94,8 @@ namespace WorkStudy.ViewModels
 
             IsCancelEnabled = true;
 
+            RunningTotalsVisible = false;
+
             Utilities.MoveObservationsToHistoryTable();
         }
 
