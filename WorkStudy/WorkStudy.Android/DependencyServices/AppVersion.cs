@@ -18,13 +18,13 @@ namespace WorkStudy.Droid.DependencyServices
             return info.VersionName;
         }
 
-        public int GetBuild()
+        public string GetBuild()
         {
             var context = global::Android.App.Application.Context;
             PackageManager manager = context.PackageManager;
             PackageInfo info = manager.GetPackageInfo(context.PackageName, 0);
 
-            return info.VersionCode;
+            return info.VersionCode.ToString();
         }
     }
 }
