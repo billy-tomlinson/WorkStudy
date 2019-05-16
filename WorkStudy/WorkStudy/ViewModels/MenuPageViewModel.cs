@@ -20,6 +20,8 @@ namespace WorkStudy.ViewModels
         public ICommand CloseApplication { get; set; }
         public ICommand About { get; set; }
 
+        public string VersionAndBuild => "version " + Utilities.Version + " build " + Utilities.Build;
+
         public MenuPageViewModel()
         {
             StudyMenu = new Command(GoStudyMenu);

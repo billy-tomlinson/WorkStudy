@@ -19,6 +19,8 @@ namespace WorkStudy.Services
         public static bool AllObservationsTaken { get; set; }
         public static bool SetUpForNextObservationRound { get; set; }
         public static bool CloseRunningTotals { get; set; }
+        public static string Version { get => DependencyService.Get<IAppVersion>().GetVersion();}
+        public static string Build { get => DependencyService.Get<IAppVersion>().GetBuild(); }
 
         public static ObservableCollection<OperatorObservation> OperatorObservations { get; set; }
 
