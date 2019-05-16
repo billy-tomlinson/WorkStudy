@@ -5,7 +5,7 @@
                      HeightRequest="450" 
                      HorizontalOptions="Center" 
                      VerticalOptions="Center" WidthRequest="330">
-            <custom:CustomListView x:Name="List" Margin="3" 
+            <custom:CustomListView x:Name="List" Margin="3"
                                    ItemsSource="{Binding RunningTotals}" 
                                    BackgroundColor="Gray" 
                                    HasUnevenRows="true" 

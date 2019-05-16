@@ -29,15 +29,15 @@ namespace WorkStudy.Pages
         protected override void OnAppearing()
         {
 
-            List.ItemDisappearing += (sender, e) =>
-            {
-                if (Utilities.SetUpForNextObservationRound == true)
-                {
-                    var observations = Utilities.OperatorObservations.OrderBy(x => x.Id).FirstOrDefault();
-                    List.ScrollTo(observations, ScrollToPosition.End, true);
-                    Utilities.SetUpForNextObservationRound = false;
-                }
-            };
+            //List.ItemDisappearing += (sender, e) =>
+            //{
+            //    if (Utilities.SetUpForNextObservationRound == true)
+            //    {
+            //        var observations = Utilities.OperatorObservations.OrderBy(x => x.Id).FirstOrDefault();
+            //        List.ScrollTo(observations, ScrollToPosition.End, true);
+            //        Utilities.SetUpForNextObservationRound = false;
+            //    }
+            //};
            
             AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
 

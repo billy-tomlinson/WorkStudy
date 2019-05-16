@@ -521,7 +521,7 @@ namespace WorkStudy.ViewModels
                 TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
             }
 
-            return totals;
+            return totals.OrderBy(x => x.ActivityId).ToList();
         }
     }
 }

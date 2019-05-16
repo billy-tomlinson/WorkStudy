@@ -163,6 +163,7 @@ namespace WorkStudy.ViewModels
             Opacity = 1.0;
             RunningTotalsVisible = false;
             IsPageEnabled = true;
+            Utilities.CloseRunningTotals = true;
         }
 
         private void ConstructorSetUp()
