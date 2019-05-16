@@ -10,7 +10,7 @@
                    BorderColor="White" OutlineColor="White" 
                    Padding="0" Margin="0">
             <StackLayout HeightRequest="350" Margin="7,5,10,10">
-                <ScrollView MinimumHeightRequest="350" Focused="Handle_Focused">
+                <ScrollView MinimumHeightRequest="350">
                     <local:RepeaterView ItemsSource="{Binding ItemsCollection}">
                         <local:RepeaterView.ItemTemplate>
                             <DataTemplate>

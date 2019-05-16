@@ -100,6 +100,7 @@
     <Compile Include="DependencyServices\LocalNotificationService.cs" />
     <Compile Include="AlarmReceiver.cs" />
     <Compile Include="BootReciever.cs" />
+    <Compile Include="DependencyServices\AppVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
