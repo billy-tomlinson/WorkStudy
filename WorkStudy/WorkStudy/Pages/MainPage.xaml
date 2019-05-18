@@ -18,7 +18,7 @@
                          Padding="2" Margin="2" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                <Grid Margin="3" Padding="3">
+                <Grid Margin="3" Padding="3" MinimumHeightRequest="80">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -51,7 +51,7 @@
                                       BackgroundColor="Gray" 
                                       HasUnevenRows="true"  
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" HeightRequest="380">
+                                      HorizontalOptions="Center" MinimumHeightRequest="80">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
