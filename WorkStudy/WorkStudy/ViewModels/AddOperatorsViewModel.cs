@@ -90,6 +90,8 @@ namespace WorkStudy.ViewModels
 
                 ItemsCollection = GetAllOperators();
 
+                HasElements = ItemsCollection.Count > 0;
+
                 Name = string.Empty;
             }
         }
@@ -121,6 +123,9 @@ namespace WorkStudy.ViewModels
             }
            
             ItemsCollection = GetAllOperators();
+
+            HasElements = ItemsCollection.Count > 0;
+
             Activities = Get_Rated_Enabled_Activities_WithChildren();
         }
 
@@ -162,6 +167,8 @@ namespace WorkStudy.ViewModels
             CloseRunningTotals = new Command(CloseRunningTotalsEvent);
 
             ItemsCollection = GetAllOperators();
+
+            HasElements = ItemsCollection.Count > 0;
 
             Activities = Get_Rated_Enabled_Activities_WithChildren();
             Operator = new Operator();

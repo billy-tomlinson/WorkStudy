@@ -54,6 +54,17 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<ObservationRoundStatus> ObservationRoundStatusRepo => new BaseRepository<ObservationRoundStatus>(conn);
 
+        static bool hasElements;
+        public bool HasElements
+        {
+            get => hasElements;
+            set
+            {
+                hasElements = value;
+                OnPropertyChanged();
+            }
+        }
+
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities
         {

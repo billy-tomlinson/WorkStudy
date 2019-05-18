@@ -152,6 +152,8 @@ namespace WorkStudy.ViewModels
 
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
 
+                HasElements = ItemsCollection.Count > 0;
+
                 Name = string.Empty;
             }
         }
@@ -332,6 +334,8 @@ namespace WorkStudy.ViewModels
 
             await deleteTask;
 
+            HasElements = ItemsCollection.Count > 0;
+
             IsEnabled = true;
             IsBusy = false;
             Opacity = 1;
@@ -366,6 +370,9 @@ namespace WorkStudy.ViewModels
             CheckActivitiesInUse();
 
             ItemsCollection = new ObservableCollection<Activity>(Get_All_Enabled_Activities().OrderByDescending(x => x.Id));
+
+            HasElements = ItemsCollection.Count > 0;
+
             var count = ItemsCollection.Count;
             Activity = new Activity();
             Activity.SettingsIcon = Utilities.CommentsImage;
