@@ -23,7 +23,7 @@
                          AbsoluteLayout.LayoutFlags="All">
                 <views:StudyDetailsView Padding="10" Margin="10" />
                 <StackLayout Orientation="Horizontal" HeightRequest="60" BackgroundColor="#FCFAFA" VerticalOptions="Center">
-                    <Entry Style="{StaticResource inputEntry}" Placeholder="Operator Name" Text="{Binding Name}" MinimumWidthRequest="240" MinimumHeightRequest="50" MaxLength="50"/>
+                    <Entry Style="{StaticResource inputEntry}" Placeholder="Operator Name" Text="{Binding Name}" MinimumWidthRequest="240" HeightRequest="50" MaxLength="50"/>
                     <Button Style="{StaticResource plusButton}" Command="{Binding SaveOperator}" BackgroundColor="Transparent" WidthRequest="50" />
                 </StackLayout>
                 <views:RepeaterControlView />
