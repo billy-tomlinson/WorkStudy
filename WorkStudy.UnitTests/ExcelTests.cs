@@ -884,7 +884,7 @@ namespace WorkStudy.UnitTests
 
             IChartShape chart = pieAllCategoriesIndividual.Charts.Add();
 
-            var range = $"A5:B{startRow - 2}";
+            var range = $"A5:B{startRow - 3}";
             chart.DataRange = pieAllCategoriesIndividual.Range[range];
 
             pieAllCategoriesIndividual.Range[range].AutofitColumns();
