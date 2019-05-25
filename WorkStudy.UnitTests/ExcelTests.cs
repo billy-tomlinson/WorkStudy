@@ -14,7 +14,7 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class ExcelTests
     {
-        private const string connString = "/Users/billytomlinson/WorkStudyNewFresh.db3";
+        private const string connString = "/Users/billytomlinson/RandomActivitySample.db3";
         //private const string connString = "WorkStudy1.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
@@ -63,7 +63,7 @@ namespace WorkStudy.UnitTests
 
         public ExcelTests()
         {
-            Utilities.StudyId = 2;
+            Utilities.StudyId = 1;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);

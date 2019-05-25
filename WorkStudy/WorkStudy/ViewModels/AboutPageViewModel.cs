@@ -18,10 +18,10 @@ namespace WorkStudy.ViewModels
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    demoUrl = "https://youtu.be/DJzYKROHQFY";
+                    demoUrl = "https://www.youtube.com/watch?v=o7cqNYnm2so&t=2s";
                     break;
                 case Device.Android:
-                    demoUrl = "https://youtu.be/Nyu9tgsonEM";
+                    demoUrl = "https://www.youtube.com/watch?v=o7cqNYnm2so&t=2s";
                     break;
             }
 
