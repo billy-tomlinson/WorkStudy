@@ -44,6 +44,8 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+<AndroidKeyStore>True</AndroidKeyStore>
+<AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
