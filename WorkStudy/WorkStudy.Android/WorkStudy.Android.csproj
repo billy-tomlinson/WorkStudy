@@ -15,7 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -33,7 +33,7 @@
     <AndroidKeyStore></AndroidKeyStore>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <AndroidSupportedAbis>x86;arm64-v8a;x86_64;armeabi-v7a</AndroidSupportedAbis>
-  </PropertyGroup>
+<RunCodeAnalysis>true</RunCodeAnalysis>  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
@@ -44,9 +44,9 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-<AndroidKeyStore>True</AndroidKeyStore>
+<AndroidKeyStore></AndroidKeyStore>
 <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
-  </PropertyGroup>
+<RunCodeAnalysis>true</RunCodeAnalysis>  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
      <Reference Include="System" />		
