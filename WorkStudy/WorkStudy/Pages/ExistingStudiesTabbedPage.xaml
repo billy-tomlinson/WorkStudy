@@ -18,6 +18,6 @@
             <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
         </Grid>
     </NavigationPage.TitleView>
-        <pages:PausedStudiesPage Title="Paused Staudies" Icon="hourglassfull.png"/> 
+        <pages:PausedStudiesPage Title="Paused Studies" Icon="hourglassfull.png"/> 
         <pages:CompletedStudiesPage Title="Completed Studies" Icon="hourglassempty.png"/>
 </TabbedPage>
