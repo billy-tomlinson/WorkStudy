@@ -112,9 +112,11 @@ namespace WorkStudy.Services
         {
             var alarmDetails = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
 
-            alarmDetails.IsActive = false;
-
-            Utilities.AlarmRepo.SaveItem(alarmDetails);
+            if(alarmDetails != null)
+            {
+                alarmDetails.IsActive = false;
+                Utilities.AlarmRepo.SaveItem(alarmDetails);
+            }
         }
 
         private static void UpdateAlarm()
