@@ -28,13 +28,13 @@ namespace WorkStudy.ViewModels
                     SampleStudy.IsRated = !IsUnRated;
                     Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
 
-                    AlarmRepo.SaveItem(new AlarmDetails 
-                        {  
-                            IsActive = IsAlarmEnabled, 
-                            Type = AlarmType, 
-                            Interval = IntervalTime,
-                            StudyId = Utilities.StudyId
-                        }
+                    AlarmRepo.SaveItem(new AlarmDetails
+                    {
+                        IsActive = IsAlarmEnabled,
+                        Type = AlarmType,
+                        Interval = IntervalTime,
+                        StudyId = Utilities.StudyId
+                    }
                     );
 
                     StudyNumber = Utilities.StudyId;
@@ -47,13 +47,14 @@ namespace WorkStudy.ViewModels
                     parentPage.CurrentPage = parentPage.Children[3];
 
                     IsActive = false;
+                    Opacity = 1.0;
                     IsPageEnabled = true;
                 }
                 else
+                    Opacity = 0.2;
                     IsPageEnabled = false;
 
                 ShowClose = true;
-
             }
         );
             
