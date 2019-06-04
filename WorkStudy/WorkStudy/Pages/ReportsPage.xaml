@@ -40,6 +40,12 @@
                 <StackLayout>
                     <Button Text="Send Report" Command="{Binding SendEmail}" IsEnabled="{Binding IsEnabled}" />
                 </StackLayout>
+                <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label Text="Click Send Report to forward the analysis report to recipients. " VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="Can be sent via email, or other communication media that the device supports." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="Reports can be sent to recipients as many times as required. Select previous studies by selecting Exisiting Studies and then select a study from the Completed Studies tab." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+                </StackLayout>
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />

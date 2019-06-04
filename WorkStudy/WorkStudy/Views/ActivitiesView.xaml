@@ -10,7 +10,7 @@
                             <local:RepeaterView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
+                                        <Grid Padding="1" Margin="1" BackgroundColor="Transparent" VerticalOptions="StartAndExpand">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
