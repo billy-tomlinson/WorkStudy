@@ -65,6 +65,18 @@ namespace WorkStudy.ViewModels
             }
         }
 
+
+        static bool removeObservationRequest;
+        public bool RemoveObservationRequest
+        {
+            get => removeObservationRequest;
+            set
+            {
+                removeObservationRequest = value;
+                OnPropertyChanged();
+            }
+        }
+
         static ObservableCollection<Activity> activities;
         public ObservableCollection<Activity> Activities
         {
@@ -454,6 +466,24 @@ namespace WorkStudy.ViewModels
             var returnId = ActivityRepo.SaveItem(activity);
             ActivityRepo.UpdateWithChildren(activity);
             return returnId;
+        }
+
+        public void RemoveObservation(string operatorName, int observationRound)
+        {
+            var operator1 = OperatorRepo.GetItems()
+                            .FirstOrDefault(x => x.Name == operatorName && x.StudyId == Utilities.StudyId);
+
+            var observation = ObservationRepo.GetItems()
+                              .Where(x => x.StudyId == Utilities.StudyId 
+                                    && x.OperatorId == operator1.Id 
+                                    && x.ObservationNumber == observationRound)
+                              .OrderByDescending(x => x.ObservationNumber)
+                              .FirstOrDefault();
+
+            if(observation != null)
+                ObservationRepo.DeleteItem(observation);
+
+            RemoveObservationRequest = false;
         }
 
         private void EnsureTableCreation()

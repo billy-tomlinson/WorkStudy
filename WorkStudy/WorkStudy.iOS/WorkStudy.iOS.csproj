@@ -114,6 +114,7 @@
     <Compile Include="CustomNavigationPage.cs" />
     <Compile Include="TabbedPageRenderer.cs" />
     <Compile Include="DependencyServices\AppVersion.cs" />
+    <Compile Include="iOSLongPressedEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

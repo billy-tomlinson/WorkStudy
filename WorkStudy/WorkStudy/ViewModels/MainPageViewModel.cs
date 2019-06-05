@@ -47,6 +47,7 @@ namespace WorkStudy.ViewModels
             PauseStudy = new Command(NavigateToStudyMenu);
             Override = new Command(OverrideEvent);
             CloseActivitiesView = new Command(CloseActivitiesViewEvent);
+
             Opacity = 1.0;
 
             Operators = GetAllEnabledOperators();
@@ -326,6 +327,17 @@ namespace WorkStudy.ViewModels
             ObservationRoundStatusRepo.SaveItem(ObservationRoundStatus);
         }
 
+        private void RemoveObservationForOperator()
+        {
+            RemoveObservation(OperatorName, ObservationRound);
+
+            Operators = GetAllEnabledOperators();
+
+            CreateOperatorObservations();
+
+            Utilities.MainPageHasUpdatedObservationChanges = true;
+        }
+
         private void SetUpForNextObservationRound()
         {
             Utilities.SetUpForNextObservationRound = true;
@@ -399,6 +411,29 @@ namespace WorkStudy.ViewModels
             Opacity = 1;
             ActivitiesVisible = false;
             IsPageEnabled = true;
+        }
+
+        public ICommand LongPress
+        {
+            get { return LongPressEvent(); }
+        }
+
+        Command LongPressEvent()
+        {
+            return new Command(item =>
+            {
+                ValidationText = $@"Do you want to undo the  observation for {OperatorName} from this round?";
+                ShowOkCancel = true;
+                IsOverrideVisible = false;
+                ShowClose = false;
+                Opacity = 0.2;
+                CloseColumnSpan = 1;
+                IsPageUnavailableVisible = false;
+                IsInvalid = true;
+                IsPageEnabled = false;
+                RemoveObservationRequest = true;
+                ActivitiesVisible = false;
+            });
         }
 
         void ActivitySelectedEvent(object sender)
@@ -541,7 +576,8 @@ namespace WorkStudy.ViewModels
         {
             if (RequestToTerminateStudy)
                 TerminateStudyProcess();
-
+            else if (RemoveObservationRequest)
+                RemoveObservationForOperator();
             else
             {
                 UpdateObservationRoundStatus();

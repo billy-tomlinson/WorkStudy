@@ -47,6 +47,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="10">
                 <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" IsVisible="{Binding IsCancelEnabled}" FontSize="12"/>
+                <Button Text="REMOVE OBSERVATION" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding LongPress}" IsVisible="{Binding IsCancelEnabled}" FontSize="12"/>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>

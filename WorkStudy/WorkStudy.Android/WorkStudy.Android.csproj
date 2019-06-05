@@ -53,6 +53,9 @@
      <Reference Include="System.Core" />		
      <Reference Include="System.Xml.Linq" />		
      <Reference Include="System.Xml" />
+     <Reference Include="Xamarin.iOS">
+       <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.8.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+     </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Syncfusion.Xamarin.XlsIO">
@@ -103,6 +106,7 @@
     <Compile Include="AlarmReceiver.cs" />
     <Compile Include="BootReciever.cs" />
     <Compile Include="DependencyServices\AppVersion.cs" />
+    <Compile Include="AndroidLongPressedEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
