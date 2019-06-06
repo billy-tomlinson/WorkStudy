@@ -44,7 +44,7 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-<AndroidKeyStore>True</AndroidKeyStore>
+<AndroidKeyStore></AndroidKeyStore>
 <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
 <RunCodeAnalysis>true</RunCodeAnalysis>  </PropertyGroup>
   <ItemGroup>
