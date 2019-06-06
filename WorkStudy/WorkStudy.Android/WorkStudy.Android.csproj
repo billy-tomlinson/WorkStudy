@@ -44,7 +44,7 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-<AndroidKeyStore></AndroidKeyStore>
+<AndroidKeyStore>True</AndroidKeyStore>
 <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
 <RunCodeAnalysis>true</RunCodeAnalysis>  </PropertyGroup>
   <ItemGroup>
@@ -53,9 +53,6 @@
      <Reference Include="System.Core" />		
      <Reference Include="System.Xml.Linq" />		
      <Reference Include="System.Xml" />
-     <Reference Include="Xamarin.iOS">
-       <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.8.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-     </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Syncfusion.Xamarin.XlsIO">

@@ -38,11 +38,11 @@
 		<string>voip</string>
 		<string>remote-notification</string>
 	</array>
-	<key>CFBundleShortVersionString</key>
-	<string>2</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
 	<key>CFBundleName</key>
 	<string>Activity Sampling</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3</string>
 </dict>
 </plist>
