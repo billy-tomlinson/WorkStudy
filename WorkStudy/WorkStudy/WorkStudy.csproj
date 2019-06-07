@@ -76,6 +76,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TimeStudyCustom\" />
     <Folder Include="TimeStudyServices\" />
     <Folder Include="TimeStudyViews\" />
     <Folder Include="TimeStudyViewModels\" />

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             x:Class="TimeStudy.Pages.TimeStudyMainPage"
+             x:Name="TimeStudyView">
+    <ContentPage.BindingContext>
+        <TimeStudy:TimeStudyMainPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout IsVisible="{Binding IsPageVisible}" IsEnabled="{Binding IsPageEnabled}" BackgroundColor="Transparent" Padding="2" Margin="2" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                    <Grid Padding="5" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.7*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width=".3*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="7*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="   " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding StopWatchTime}" TextColor="{Binding StopWatchColour}" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand" FontSize="{Binding Path = BindingContext.StopWatchFontSize, Source={x:Reference TimeStudyView}}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SwitchTimeFormat}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+                <StackLayout Padding="5,2,5,2" BackgroundColor="{StaticResource PopUpColour}">
+                    <Grid Padding="3" Margin="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="16">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="0.5*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="3.8*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="2*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="2*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="1.2*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Element" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                        <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                        <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                        <Label Grid.Row="0" Grid.Column="5" Text="Rating" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                    </Grid>
+                </StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimesCollection}" ItemClickedCommand="{Binding SwitchTimeFormat}" HeightRequest="410" IsEnabled="true">
+                        <x:Arguments>
+                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                        </x:Arguments>
+                        <ListView.Header>
+                            <StackLayout Padding="5,2,5,2" BackgroundColor="#FCBA20">
+                                <Grid Padding="5" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*">
+                                        </RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.7*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="0.5*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="3.8*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="2*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="2*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="1*">
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" Style="{StaticResource existingStudiesView}" FontSize="13" TextColor="White" />
+                                    <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Text="{Binding StopWatchTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="13" />
+                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" FontSize="11" TextColor="White" />
+                                </Grid>
+                            </StackLayout>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="5,2,5,2">
+                                        <Grid Padding="5" Margin="5" BackgroundColor="{Binding ElementColour}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*">
+                                                </RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.7*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="0.5*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="3.8*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="2*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="2*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="1*">
+                                                </ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" Style="{StaticResource existingStudiesView}" FontSize="13" />
+                                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                            <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Center" Style="{StaticResource existingStudiesView}" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </local:CustomListView>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                    <Grid Padding="0,0,0,5" Margin="5,0,5,5" HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowStandardElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" HeightRequest="75" />
+                        <Button Grid.Row="0" Grid.Column="2" Text=" Finish " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" HeightRequest="75" />
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+            <views:ElementsView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" MinimumHeightRequest="350" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" />
+            <views:ElementRatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 10 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ForeignElementsView IsVisible="{Binding ForeignElementsVisible}" Padding="0" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
