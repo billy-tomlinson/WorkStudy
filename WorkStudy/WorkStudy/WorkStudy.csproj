@@ -66,9 +66,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Custom\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Views\.DS_Store" />
     <None Remove=".DS_Store" />
     <None Remove="Pages\.DS_Store" />
@@ -77,5 +74,12 @@
     <EmbeddedResource Update="Views\RunningTotalsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TimeStudyServices\" />
+    <Folder Include="TimeStudyViews\" />
+    <Folder Include="TimeStudyViewModels\" />
+    <Folder Include="TimeStudyPages\" />
+    <Folder Include="TimeStudyModel\" />
   </ItemGroup>
 </Project>
