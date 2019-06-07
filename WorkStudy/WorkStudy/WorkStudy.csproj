@@ -76,11 +76,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TimeStudyCustom\" />
     <Folder Include="TimeStudyServices\" />
     <Folder Include="TimeStudyViews\" />
     <Folder Include="TimeStudyViewModels\" />
     <Folder Include="TimeStudyPages\" />
     <Folder Include="TimeStudyModel\" />
+    <Folder Include="TimeStudyCustom\" />
   </ItemGroup>
 </Project>
