@@ -75,7 +75,6 @@ namespace WorkStudy.Services
 
         public static async Task Navigate(Page page)
         {
-            await Task.Delay(500);
             await App.NavigationPage.Navigation.PushAsync(page);
         }
 
@@ -83,10 +82,15 @@ namespace WorkStudy.Services
         public static Color UnClicked = Color.FromHex("#4174f4");
 
         public const string ValueAddedColour = "#74D3AE";
-        public const string NonValueAddedColour = "#F7CE5B";
+        public const string NonValueAddedColour = "#E8D671";
         public const string InactiveColour = "#ED6A5A";
         public const string ValidColour = "#d5f0f1";
         public const string ClickedHex = "#CCCCCE";
+
+        public const string RASBackGroundColour = "#75A2B5";
+        public const string RAStudyTabBarBackgroundColour = "#75A2B5";
+
+        public const string StopWatchBackGroundColour = "#476C9B";
 
         public const string DeleteImage = "delete.png";
         public static string UndoImage = "undo.png";
@@ -253,7 +257,7 @@ namespace WorkStudy.Services
             var md = (MasterDetailPage)Application.Current.MainPage;
             md.Master = menuPage;
             var navPage = md.Detail as NavigationPage;
-            navPage.BarBackgroundColor = Color.Gold;
+            navPage.BarBackgroundColor = Color.FromHex(TimeStudy.Services.Utilities.TimeStudyTabBarBackgroundColour);
         }
 
         public static void SwitchRASMenuEvent()
@@ -263,7 +267,7 @@ namespace WorkStudy.Services
             var md = (MasterDetailPage)Application.Current.MainPage;
             md.Master = menuPage;
             var navPage = md.Detail as NavigationPage;
-            navPage.BarBackgroundColor = Color.Azure;
+            navPage.BarBackgroundColor = Color.FromHex(RASBackGroundColour);
         }
 
         public static void SwitchStopWatchMenuEvent()
@@ -273,7 +277,7 @@ namespace WorkStudy.Services
             var md = (MasterDetailPage)Application.Current.MainPage;
             md.Master = menuPage;
             var navPage = md.Detail as NavigationPage;
-            navPage.BarBackgroundColor = Color.Red;
+            navPage.BarBackgroundColor = Color.FromHex(StopWatchBackGroundColour);
         }
 
         public static void SwitchHomeMenuEvent()
@@ -283,7 +287,7 @@ namespace WorkStudy.Services
             var md = (MasterDetailPage)Application.Current.MainPage;
             md.Master = menuPage;
             var navPage = md.Detail as NavigationPage;
-            navPage.BarBackgroundColor = Color.FromHex("#75A2B5");
+            navPage.BarBackgroundColor = Color.FromHex(RASBackGroundColour);
         }
     }
 

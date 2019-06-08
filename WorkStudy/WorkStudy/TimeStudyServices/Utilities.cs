@@ -51,7 +51,6 @@ namespace TimeStudy.Services
 
         public static async Task Navigate(Page page)
         {
-            await Task.Delay(500);
             await WorkStudy.App.NavigationPage.Navigation.PushAsync(page);
         }
 
@@ -59,13 +58,13 @@ namespace TimeStudy.Services
         public static Color UnClicked = Color.FromHex("#4174f4");
 
         public const string ValueAddedColour = "#74D3AE";
-        public const string NonValueAddedColour = "#F7CE5B";
+        public const string NonValueAddedColour = "#E8D671";
         public const string InactiveColour = "#ED6A5A";
         public const string ValidColour = "#d5f0f1";
         public const string ClickedHex = "#CCCCCE";
 
-        public const string TimeStudyBackGroundColour = "#CCCCCE";
-        public const string TimeStudyTabBarBackgroundColour = "#CCCCCE";
+        public const string TimeStudyBackGroundColour = "#476C9B";
+        public const string TimeStudyTabBarBackgroundColour = "#476C9B";
 
 
         public const string DeleteImage = "delete.png";
