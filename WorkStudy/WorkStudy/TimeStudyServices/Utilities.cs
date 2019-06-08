@@ -52,7 +52,7 @@ namespace TimeStudy.Services
         public static async Task Navigate(Page page)
         {
             await Task.Delay(500);
-            await App.NavigationPage.Navigation.PushAsync(page);
+            await WorkStudy.App.NavigationPage.Navigation.PushAsync(page);
         }
 
         public static Color Clicked = Color.FromHex("#CCCCCE");
@@ -71,12 +71,12 @@ namespace TimeStudy.Services
 
         public static void ClearNavigation()
         {
-            var existingPages = App.NavigationPage?.Navigation.NavigationStack.ToList();
+            var existingPages = WorkStudy.App.NavigationPage?.Navigation.NavigationStack.ToList();
 
             for (int i = 0; i < existingPages?.Count; i++)
             {
                 if (i != existingPages.Count - 1)
-                    App.NavigationPage.Navigation.RemovePage(existingPages[i]);
+                    WorkStudy.App.NavigationPage.Navigation.RemovePage(existingPages[i]);
             }
         }
 

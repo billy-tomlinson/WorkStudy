@@ -35,51 +35,51 @@ namespace TimeStudy.ViewModels
         {
             DependencyService.Get<ITerminateApplication>()
                 .CloseApplication();
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void GoStudyMenu(object obj)
         {
             Utilities.Navigate(new TimeStudyMenuPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void CurrentStudyDetailsEvent(object obj)
         {
             Utilities.Navigate(new CurrentStudyDetailsPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void GoCurrentStudy(object obj)
         {
             //if (Utilities.StudyId == 0) return;
             Utilities.Navigate(new TimeStudyMainPageTabbedPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void GoStudySetUp(object obj)
         {
             Utilities.StudyId = 0;
             Utilities.Navigate(new TimeStudySetUpTabbedPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void GoExistingStudies(object obj)
         {
             Utilities.Navigate(new ExistingStudiesTabbedPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void GoReports(object obj)
         {
             Utilities.Navigate(new TimeStudyReportsPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
 
         void AboutEvent(object obj)
         {
             Utilities.Navigate(new TimeStudyAboutPage());
-            App.MenuIsPresented = false;
+            WorkStudy.App.MenuIsPresented = false;
         }
     }
 }

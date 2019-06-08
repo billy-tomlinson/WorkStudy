@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WorkStudy.App">
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="WorkStudy.App">
     <Application.Resources>
         <ResourceDictionary>
+            
+            <Color x:Key="ContentPageColour">#75A2B5</Color>
+            <Color x:Key="GreyColour">#E8EAEC</Color>
+            <Color x:Key="MenuHeaderColour">#38779E</Color>
+            <Color x:Key="PopUpColour">#F3FCF0</Color>
+            <Color x:Key="PopUpButton">#38779E</Color>
+            <Color x:Key="DarkTextColour">#5D4E60</Color>
+            
+            <OnPlatform x:TypeArguments="Font" Android="50" iOS="40" x:Key="RatingFontSize" />
+            <OnPlatform x:TypeArguments="Font" Android="30" iOS="35" x:Key="StopWatchFont" />
+            <OnPlatform x:TypeArguments="Font" Android="18" iOS="18" x:Key="StopWatchButtonFont" />
+            
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
                 <!-- <On Platform="iOS" Value="MarkerFelt-Thin" />-->
                 <On Platform="Android" Value="Roboto-Light" />
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
-            <OnPlatform x:TypeArguments="Font" Android="50" iOS="40" x:Key="RatingFontSize" />
+
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="Padding" Value="5" />

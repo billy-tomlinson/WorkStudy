@@ -29,6 +29,7 @@ namespace WorkStudy
             AlarmDatabasePath = alarmPath;
             Utilities.Connection = DatabasePath;
             Utilities.AlarmConnection = AlarmDatabasePath;
+            TimeStudy.Services.Utilities.Connection = DatabasePath;
             CallMain();
             //MainPage = new NavigationPage(new StopWatch());
         }

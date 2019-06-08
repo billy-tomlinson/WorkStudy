@@ -21,6 +21,9 @@ namespace TimeStudy.ViewModels
         public BaseViewModel(string conn = null)
         {
             this.conn = conn;
+            if (conn == null)
+                conn = Utilities.Connection;
+
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
             CloseView = new Command(CloseValidationView);
             EnsureTableCreation();

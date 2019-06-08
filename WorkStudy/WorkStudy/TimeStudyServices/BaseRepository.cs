@@ -15,7 +15,16 @@ namespace TimeStudy.Services
         public BaseRepository(string dbPath = null)
         {
             this.dbPath = dbPath;
-            connectionString = dbPath == null ? App.DatabasePath : dbPath;
+            connectionString = dbPath == null ? WorkStudy.App.DatabasePath : dbPath;
+
+            if (connectionString == null || connectionString == string.Empty)
+                connectionString = Utilities.Connection;
+        }
+
+        public BaseRepository()
+        {
+            if (connectionString == null || connectionString == string.Empty)
+                connectionString = Utilities.Connection;
         }
 
         public IEnumerable<T> GetItems()

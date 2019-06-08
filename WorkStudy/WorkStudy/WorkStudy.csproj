@@ -26,6 +26,8 @@
     <EmbeddedResource Remove="MasterPage.xaml" />
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
     <EmbeddedResource Remove="Views\ExistingStudiesView.xaml" />
+    <EmbeddedResource Remove="TimeStudyPages\TestDatabasePage.xaml" />
+    <EmbeddedResource Remove="TimeStudyPages\App.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ActivitySampleDatabase.cs" />
@@ -39,6 +41,8 @@
     <Compile Remove="Views\ExistingStudiesView.xaml.cs" />
     <Compile Remove="Pages\App.cs" />
     <Compile Remove="Services\AlarmService.cs" />
+    <Compile Remove="TimeStudyPages\MainPage.xaml.cs" />
+    <Compile Remove="TimeStudyPages\App.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">
