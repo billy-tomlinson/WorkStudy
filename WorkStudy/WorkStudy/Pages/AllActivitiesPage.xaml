@@ -27,12 +27,7 @@
                 </StackLayout>
                 <local:CustomListView 
                     ItemsSource="{Binding ItemsCollection}"
-                    BackgroundColor="Gray" 
-                    HasUnevenRows="true" 
-                    HorizontalOptions="Center" 
-                    SeparatorVisibility="Default" 
-                    SeparatorColor="#605F5F" HeightRequest="500"
-                    >
+                    HeightRequest="500">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -47,10 +42,11 @@
                                     <StackLayout VerticalOptions="CenterAndExpand">
                                         <Label Text="{Binding Name}" 
                                                HorizontalTextAlignment="Start" 
-                                               TextColor="White" 
+                                               TextColor="Black"
                                                Margin="5,5,5,5"/>
                                     </StackLayout>
                                     <Switch IsToggled="{Binding Selected}" 
+                                            OnColor="Gray"
                                             Grid.Column="1" 
                                             Margin="5,5,5,5"/>
                                 </Grid>
