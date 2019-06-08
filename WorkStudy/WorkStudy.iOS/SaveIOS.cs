@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.IO;
 using Xamarin.Forms;
+using WorkStudy.Services;
 
 [assembly: Dependency(typeof(SaveIOS))]
 

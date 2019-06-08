@@ -150,7 +150,7 @@ namespace TimeStudy.Services
                     workbook.SaveAs(stream);
                     workbook.Close();
 
-                    path = DependencyService.Get<ISave>()
+                    path = DependencyService.Get<WorkStudy.Services.ISave>()
                         .SaveSpreadSheet(fileName, "application/msexcel", stream)
                         .Result;
                 }

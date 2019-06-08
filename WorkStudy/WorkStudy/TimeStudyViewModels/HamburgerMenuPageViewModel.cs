@@ -33,7 +33,7 @@ namespace TimeStudy.ViewModels
 
         void CloseApplicationEvent(object obj)
         {
-            DependencyService.Get<ITerminateApplication>()
+            DependencyService.Get<WorkStudy.Services.ITerminateApplication>()
                 .CloseApplication();
             WorkStudy.App.MenuIsPresented = false;
         }

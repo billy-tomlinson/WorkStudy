@@ -43,6 +43,9 @@
     <Compile Remove="Services\AlarmService.cs" />
     <Compile Remove="TimeStudyPages\MainPage.xaml.cs" />
     <Compile Remove="TimeStudyPages\App.xaml.cs" />
+    <Compile Remove="TimeStudyServices\ISave.cs" />
+    <Compile Remove="TimeStudyServices\ITerminateApplication.cs" />
+    <Compile Remove="TimeStudyServices\IAppVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">

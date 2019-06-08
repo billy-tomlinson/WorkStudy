@@ -25,8 +25,8 @@ namespace TimeStudy.Services
         public static bool RatedStudy { get; set; }
         public static string Connection { get; set; }
         public static DateTime TimeStudyStarted { get; set; }
-        public static string Version { get => DependencyService.Get<IAppVersion>().GetVersion(); }
-        public static string Build { get => DependencyService.Get<IAppVersion>().GetBuild(); }
+        public static string Version { get => DependencyService.Get<WorkStudy.Services.IAppVersion>().GetVersion(); }
+        public static string Build { get => DependencyService.Get<WorkStudy.Services.IAppVersion>().GetBuild(); }
 
         public static bool WorkElementTableUpdated { get; set; }
         public static bool RatedTimeStudyTableUpdated { get; set; }
