@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="WorkStudy.App">
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.Custom" x:Class="WorkStudy.App">
     <Application.Resources>
         <ResourceDictionary>
-            
             <Color x:Key="ContentPageColour">#75A2B5</Color>
             <Color x:Key="GreyColour">#E8EAEC</Color>
             <Color x:Key="MenuHeaderColour">#38779E</Color>
             <Color x:Key="PopUpColour">#F3FCF0</Color>
             <Color x:Key="PopUpButton">#38779E</Color>
             <Color x:Key="DarkTextColour">#5D4E60</Color>
-            
             <OnPlatform x:TypeArguments="Font" Android="50" iOS="40" x:Key="RatingFontSize" />
             <OnPlatform x:TypeArguments="Font" Android="30" iOS="35" x:Key="StopWatchFont" />
             <OnPlatform x:TypeArguments="Font" Android="18" iOS="18" x:Key="StopWatchButtonFont" />
-            
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
                 <!-- <On Platform="iOS" Value="MarkerFelt-Thin" />-->
                 <On Platform="Android" Value="Roboto-Light" />
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
-
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="Padding" Value="5" />
             </Style>
-             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
+            <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor" Value="#4174f4" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="BarTextColor" Value="White" />
@@ -59,7 +53,7 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
             <Style TargetType="NavigationPage">
-               <Setter Property="BarBackgroundColor" Value="#4174f4"/>
+                <Setter Property="BarBackgroundColor" Value="#4174f4" />
             </Style>
             <Style TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="#E8AD00" />
@@ -81,7 +75,7 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
-             <Style x:Key="ratingButton" TargetType="Button">
+            <Style x:Key="ratingButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#eee" />
                 <Setter Property="TextColor" Value="#605F5F" />
                 <Setter Property="HeightRequest" Value="60" />
@@ -96,7 +90,7 @@
                 <Setter Property="Padding" Value="10,10,10,10" />
                 <Setter Property="Margin" Value="10,10,10,10" />
             </Style>
-             <Style x:Key="stopWatchButton" TargetType="Button">
+            <Style x:Key="stopWatchButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="18" />
@@ -111,7 +105,7 @@
                 <Setter Property="WidthRequest" Value="130" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
-             <Style x:Key="mainPageLabel" TargetType="Label">
+            <Style x:Key="mainPageLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
@@ -134,6 +128,25 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Text" Value="+" />
+            </Style>
+            <Style x:Key="ratingView" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+            <Style x:Key="existingStudiesView" TargetType="Label">
+                <Setter Property="Font" Value="{StaticResource StandardFont}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+            <Style TargetType="local:CustomListView">
+                <Setter Property="BackgroundColor" Value="{StaticResource GreyColour}" />
+                <Setter Property="HasUnevenRows" Value="true" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="SeparatorVisibility" Value="Default" />
+                <Setter Property="SeparatorColor" Value="#605F5F" />
             </Style>
             <Label.FontFamily>
             </Label.FontFamily>

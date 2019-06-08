@@ -12,20 +12,6 @@ namespace WorkStudy.ViewModels
         public Command SwitchTimeStudy { get; set; }
         public Command SwitchRAS { get; set; }
 
-        public static NavigationPage NavigationPage { get; private set; }
-        public static RootPage RootPage;
-        public static bool MenuIsPresented
-        {
-            get
-            {
-                return RootPage.IsPresented;
-            }
-            set
-            {
-                RootPage.IsPresented = value;
-            }
-        }
-
         public StudyMenuViewModel()
         {
             NewStudy = new Command(NewStudyPage);
