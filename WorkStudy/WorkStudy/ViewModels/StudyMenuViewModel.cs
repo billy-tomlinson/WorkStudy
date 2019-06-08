@@ -27,7 +27,7 @@ namespace WorkStudy.ViewModels
 
         void ExistingStudyPage()
         {
-            //Utilities.Navigate(new ExistingStudiesTabbedPage());
+            Utilities.Navigate(new WorkStudy.Pages.ExistingStudiesTabbedPage());
         }
 
         void SwitchTimeStudyMenu()
