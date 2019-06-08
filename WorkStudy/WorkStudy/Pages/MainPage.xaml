@@ -31,7 +31,12 @@
                     <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Text="Complete:" IsVisible="{Binding TotalPercentageVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
                     <Label Grid.Row="1" Grid.Column="6" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding TotalPercentageVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
                 </Grid>
-                <local:CustomListView x:Name="List" Margin="0,10" ItemsSource="{Binding OperatorObservations}" HasUnevenRows="true" ItemClickedCommand="{Binding ItemClickedCommand}" HorizontalOptions="Center" MinimumHeightRequest="80">
+                <local:CustomListView x:Name="List" Margin="0,10" 
+                                      ItemsSource="{Binding OperatorObservations}" 
+                                      HasUnevenRows="true" 
+                                      ItemClickedCommand="{Binding ItemClickedCommand}" 
+                                      HorizontalOptions="Center" 
+                                      MinimumHeightRequest="80">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -60,7 +65,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Padding="5,5,5,5" BackgroundColor="{Binding ObservedColour}">
+                                <StackLayout Padding="5,5,5,5" 
+                                             BackgroundColor="{Binding ObservedColour}">
                                     <Grid Padding="5,5,5,5" Margin="5,5,5,5" VerticalOptions="StartAndExpand">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*">

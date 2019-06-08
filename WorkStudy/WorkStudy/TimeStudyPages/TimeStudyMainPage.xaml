@@ -70,12 +70,18 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimesCollection}" ItemClickedCommand="{Binding SwitchTimeFormat}" HeightRequest="410" IsEnabled="true">
+                    <local:CustomListView x:Name="ListViewTimes" 
+                                          Margin="0,5" 
+                                          ItemsSource="{Binding LapTimesCollection}" 
+                                          ItemClickedCommand="{Binding SwitchTimeFormat}" 
+                                          HeightRequest="410" 
+                                          IsEnabled="true">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
                         <ListView.Header>
-                            <StackLayout Padding="5,2,5,2" BackgroundColor="White">
+                            <StackLayout Padding="5,2,5,2" 
+                                         BackgroundColor="White">
                                 <Grid Padding="5" Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*">

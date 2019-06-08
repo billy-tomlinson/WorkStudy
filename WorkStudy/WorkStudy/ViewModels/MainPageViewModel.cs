@@ -701,7 +701,7 @@ namespace WorkStudy.ViewModels
                         Name = item.Name,
                         Id = item.Id,
                         IsRated = false,
-                        ObservedColour = System.Drawing.Color.Gray,
+                        ObservedColour = Xamarin.Forms.Color.FromHex("#E8EAEC")
                     };
                     ops.Add(opObs);
                 }
