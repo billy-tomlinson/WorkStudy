@@ -50,7 +50,7 @@ namespace WorkStudy
 
         private void CallMain()
         {
-            var menuPage = new MenuPage(){ Title = "Main Page" , Icon="hamburger.png"  };
+            var menuPage = new HomeMenuPage(){ Title = "Main Page" , Icon="hamburger.png"  };
             NavigationPage = new NavigationPage(new WelcomePage());
             RootPage = new RootPage();
             RootPage.Master = menuPage;

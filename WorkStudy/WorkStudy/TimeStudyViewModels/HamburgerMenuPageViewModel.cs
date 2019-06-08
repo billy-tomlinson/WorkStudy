@@ -2,13 +2,14 @@
 using TimeStudy.Pages;
 using TimeStudy.Services;
 using TimeStudyApp.Pages;
+using WorkStudy.Pages;
 using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
     public class HamburgerMenuPageViewModel : BaseViewModel
     {
-        public ICommand StudyMenu { get; set; }
+        public ICommand HomePageMenu { get; set; }
         public ICommand ExistingStudies { get; set; }
         public ICommand Reports { get; set; }
         public ICommand CurrentStudy { get; set; }
@@ -21,7 +22,7 @@ namespace TimeStudy.ViewModels
 
         public HamburgerMenuPageViewModel()
         {
-            StudyMenu = new Command(GoStudyMenu);
+            HomePageMenu = new Command(GoHomePageMenu);
             ExistingStudies = new Command(GoExistingStudies);
             Reports = new Command(GoReports);
             CurrentStudy = new Command(GoCurrentStudy);
@@ -38,9 +39,10 @@ namespace TimeStudy.ViewModels
             WorkStudy.App.MenuIsPresented = false;
         }
 
-        void GoStudyMenu(object obj)
+        void GoHomePageMenu(object obj)
         {
-            Utilities.Navigate(new TimeStudyMenuPage());
+            SwitchHomeMenuEvent();
+            Utilities.Navigate(new HomePage());
             WorkStudy.App.MenuIsPresented = false;
         }
 
@@ -66,7 +68,7 @@ namespace TimeStudy.ViewModels
 
         void GoExistingStudies(object obj)
         {
-            Utilities.Navigate(new ExistingStudiesTabbedPage());
+            //Utilities.Navigate(new ExistingStudiesTabbedPage());
             WorkStudy.App.MenuIsPresented = false;
         }
 
@@ -80,6 +82,14 @@ namespace TimeStudy.ViewModels
         {
             Utilities.Navigate(new TimeStudyAboutPage());
             WorkStudy.App.MenuIsPresented = false;
+        }
+
+        private void SwitchHomeMenuEvent()
+        {
+            var menuPage = new HomeMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
         }
     }
 }

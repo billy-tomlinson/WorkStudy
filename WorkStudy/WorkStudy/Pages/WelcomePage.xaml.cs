@@ -26,7 +26,7 @@ namespace WorkStudy.Pages
 	    async void Navigate()
 	    {
 	        await System.Threading.Tasks.Task.Delay(3000);
-	        await Navigation.PushAsync(new StudyMenuPage());
+	        await Navigation.PushAsync(new HomePage());
 	    }
 
         protected override bool OnBackButtonPressed()

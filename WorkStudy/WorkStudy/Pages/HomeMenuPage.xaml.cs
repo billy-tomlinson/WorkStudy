@@ -1,12 +1,11 @@
-﻿
-using WorkStudy.Services;
+﻿using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class MenuPage : ContentPage
+    public partial class HomeMenuPage : ContentPage
     {
-        public MenuPage()
+        public HomeMenuPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

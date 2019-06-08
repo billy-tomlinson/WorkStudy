@@ -1,15 +1,16 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
 {
-    public partial class MenuPage : ContentPage
+    public partial class HomePage : ContentPage
     {
-        public MenuPage()
+        public HomePage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            NavigationPage.SetHasNavigationBar(this, true);
             NavigationPage.SetBackButtonTitle(this, "");
         }
 

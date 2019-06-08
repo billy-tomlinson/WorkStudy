@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" x:Class="TimeStudy.Pages.TimeStudyMenuPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:WorkStudy.ViewModels"
+             x:Class="WorkStudy.Pages.HomePage">
     <ContentPage.BindingContext>
-        <TimeStudy:TimeStudyMenuViewModel />
+        <viewModels:HomePageViewModel />
     </ContentPage.BindingContext>
     <NavigationPage.TitleView>
         <Grid>
@@ -24,15 +27,13 @@
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Study Options" FontSize="20" HorizontalOptions="Center" />
                 </StackLayout>
-                <Button Text="Begin New Study" WidthRequest="200" Command="{Binding NewStudy}" />
-                <Button Text="View Existing Studies" WidthRequest="200" Command="{Binding ExistingStudy}" />
-<!--                <Button Text="Time Studies" WidthRequest="200" Command="{Binding SwitchTimeStudy}" />
-                <Button Text="RAS Studies" WidthRequest="200" Command="{Binding SwitchRAS}" />-->
+                <Button Text="Time Studies" WidthRequest="200" Command="{Binding SwitchTimeStudy}" />
+                <Button Text="Random Activity Sample" WidthRequest="200" Command="{Binding SwitchRAS}" />
                 <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
                     <Label Text="Click Begin New Study to set up a new study. " VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
-                    <Label Text="Click View Existing Studies to view studies that have already been created or view completed studies." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
-                    <Label Text="To re-use an existing study, select a study from the Studies tab and a fresh study can be taken using the same elements." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
-                    <Label Text="To re-send an analysis report, select a study from the Completed Studies tab. Studies can be distinguished by study number/version number." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="Click View Existing Studies to view paused and completed studies." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="To resume a paused study, select a study from the Paused Studies tab and this can be resumed from the point it was last paused." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="To re-send an analysis report select a study from the Completed Studies tab." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
                     <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
                 </StackLayout>
             </StackLayout>

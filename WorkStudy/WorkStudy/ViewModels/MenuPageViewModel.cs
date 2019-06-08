@@ -7,7 +7,7 @@ namespace WorkStudy.ViewModels
 {
     public class MenuPageViewModel : BaseViewModel
     {
-        public ICommand StudyMenu { get; set; }
+        public ICommand HomePageMenu { get; set; }
         public ICommand StopWatch { get; set; }
         public ICommand AddActivities { get; set; }
         public ICommand MergeActivities { get; set; }
@@ -24,7 +24,7 @@ namespace WorkStudy.ViewModels
 
         public MenuPageViewModel()
         {
-            StudyMenu = new Command(GoStudyMenu);
+            HomePageMenu = new Command(GoHomePageMenu);
             StopWatch = new Command(GoStopWatch);
             AddActivities = new Command(GoActivities);
             MergeActivities = new Command(GoMergeActivities);
@@ -53,9 +53,10 @@ namespace WorkStudy.ViewModels
             App.MenuIsPresented = false;
         }
 
-        void GoStudyMenu(object obj)
+        void GoHomePageMenu(object obj)
         {
-            Utilities.Navigate(new StudyMenuPage());
+            SwitchHomeMenuEvent();
+            Utilities.Navigate(new HomePage());
             App.MenuIsPresented = false;
         }
 
@@ -112,6 +113,14 @@ namespace WorkStudy.ViewModels
         {
             Utilities.Navigate(new AboutPage());
             App.MenuIsPresented = false;
+        }
+
+        private void SwitchHomeMenuEvent()
+        {
+            var menuPage = new HomeMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
         }
     }
 }
