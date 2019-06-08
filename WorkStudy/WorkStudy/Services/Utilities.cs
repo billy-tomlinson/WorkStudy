@@ -48,6 +48,7 @@ namespace WorkStudy.Services
         public static bool MergePageHasUpdatedActivityChanges { get; set; }
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
+        public static bool LapButtonClicked { get; set; }
 
         public static IBaseRepository<AlarmDetails> AlarmRepo =
             new BaseRepository<AlarmDetails>(AlarmConnection);

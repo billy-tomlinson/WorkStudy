@@ -28,7 +28,8 @@
                     <Label Text="Study Options" FontSize="20" HorizontalOptions="Center" />
                 </StackLayout>
                 <Button Text="Time Studies" WidthRequest="200" Command="{Binding SwitchTimeStudy}" />
-                <Button Text="Random Activity Sample" WidthRequest="200" Command="{Binding SwitchRAS}" />
+                <Button Text="Activity Sample Studies" WidthRequest="200" Command="{Binding SwitchRAS}" />
+                <Button Text="CentiMinute StopWatch" WidthRequest="200" Command="{Binding SwitchStopWatch}" />
                 <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
                     <Label Text="Click Begin New Study to set up a new study. " VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
                     <Label Text="Click View Existing Studies to view paused and completed studies." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />

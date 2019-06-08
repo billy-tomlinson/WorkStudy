@@ -62,7 +62,7 @@ namespace WorkStudy.ViewModels
 
         void GoStopWatch(object obj)
         {
-            Utilities.Navigate(new StopWatch());
+            Utilities.Navigate(new StopWatch.StopWatchPage());
             App.MenuIsPresented = false;
         }
 

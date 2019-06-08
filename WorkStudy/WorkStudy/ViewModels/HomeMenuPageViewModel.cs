@@ -9,6 +9,7 @@ namespace WorkStudy.ViewModels
     public class HomeMenuPageViewModel : BaseViewModel
     {
         public ICommand TimeStudy { get; set; }
+        public ICommand StopWatch { get; set; }
         public ICommand ActivitySampling { get; set; }
         public ICommand CloseApplication { get; set; }
         public ICommand About { get; set; }
@@ -18,6 +19,7 @@ namespace WorkStudy.ViewModels
         public HomeMenuPageViewModel()
         {
             TimeStudy = new Command(TimeStudyEvent);
+            StopWatch = new Command(StopWatchEvent);
             ActivitySampling = new Command(ActivitySamplingEvent);
             CloseApplication = new Command(CloseApplicationEvent);
             About = new Command(AboutEvent);
@@ -36,6 +38,13 @@ namespace WorkStudy.ViewModels
         {
             SwitchTimeStudyMenuEvent();
             Utilities.Navigate(new TimeStudyMenuPage());
+            App.MenuIsPresented = false;
+        }
+
+        void StopWatchEvent(object obj)
+        {
+            SwitchStopWatchMenuEvent();
+            Utilities.Navigate(new StopWatch.StopWatchPage());
             App.MenuIsPresented = false;
         }
 
@@ -63,6 +72,13 @@ namespace WorkStudy.ViewModels
         private void SwitchRASMenuEvent()
         {
             var menuPage = new MenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
+        }
+        private void SwitchStopWatchMenuEvent()
+        {
+            var menuPage = new StopWatch.StopWatchMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
 
             var md = (MasterDetailPage)Application.Current.MainPage;
             md.Master = menuPage;
