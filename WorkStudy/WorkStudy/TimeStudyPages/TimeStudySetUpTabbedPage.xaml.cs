@@ -1,4 +1,5 @@
 ﻿
+using TimeStudy.Services;
 using Xamarin.Forms;
 
 namespace TimeStudy.Pages
@@ -7,6 +8,8 @@ namespace TimeStudy.Pages
     {
         public TimeStudySetUpTabbedPage()
         {
+            this.BackgroundColor = Color.FromHex(Utilities.TimeStudyBackGroundColour);
+            this.BarBackgroundColor = Color.FromHex(Utilities.TimeStudyTabBarBackgroundColour);
             InitializeComponent();
         }
     }

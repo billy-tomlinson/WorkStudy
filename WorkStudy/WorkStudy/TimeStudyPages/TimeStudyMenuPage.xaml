@@ -3,6 +3,12 @@
     <ContentPage.BindingContext>
         <TimeStudy:TimeStudyMenuViewModel />
     </ContentPage.BindingContext>
+        <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ContentPageColour">#E8EAEC</Color>
+            <Color x:Key="MenuHeaderColour">#E8EAEC</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid>
             <Grid.RowDefinitions>

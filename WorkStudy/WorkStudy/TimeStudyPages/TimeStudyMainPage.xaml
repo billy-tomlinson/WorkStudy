@@ -81,7 +81,7 @@
                         </x:Arguments>
                         <ListView.Header>
                             <StackLayout Padding="5,2,5,2" 
-                                         BackgroundColor="White">
+                                         BackgroundColor="{StaticResource MenuHeaderColour}">
                                 <Grid Padding="5" Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*">

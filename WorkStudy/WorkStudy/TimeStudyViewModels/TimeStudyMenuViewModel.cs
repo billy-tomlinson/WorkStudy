@@ -32,27 +32,12 @@ namespace TimeStudy.ViewModels
 
         void SwitchTimeStudyMenu()
         {
-            SwitchTimeStudyMenuEvent();
+            WorkStudy.Services.Utilities.SwitchTimeStudyMenuEvent();
         }
 
         void SwitchRASMenu()
         {
-            SwitchRASMenuEvent();
-        }
-
-        private void SwitchTimeStudyMenuEvent()
-        {
-            var menuPage = new HamburgerMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
-        }
-        private void SwitchRASMenuEvent()
-        {
-            var menuPage = new MenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
+            WorkStudy.Services.Utilities.SwitchRASMenuEvent();
         }
     }
 }

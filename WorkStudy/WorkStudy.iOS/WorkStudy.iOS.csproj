@@ -208,6 +208,7 @@
     <BundleResource Include="Resources\studysetup.png" />
     <BundleResource Include="Resources\hamburger.png" />
     <BundleResource Include="Resources\randomActivity.png" />
+    <BundleResource Include="Resources\timestudyicon.png" />
   </ItemGroup>
   <ItemGroup />
 </Project>

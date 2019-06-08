@@ -4,8 +4,13 @@
              x:Class="WorkStudy.Views.ValidationView">
     <ContentView.Content>
          <ContentView BackgroundColor="Transparent" Padding="10, 0">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
-                             Margin="10" WidthRequest="250" MinimumHeightRequest="130" BackgroundColor="#d0e6e4">
+                <StackLayout VerticalOptions="Center" 
+                             HorizontalOptions="Center" 
+                             Padding="10" 
+                             Margin="10" 
+                             WidthRequest="250" 
+                             MinimumHeightRequest="130" 
+                             BackgroundColor="{StaticResource PopUpColour}">
                     <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>

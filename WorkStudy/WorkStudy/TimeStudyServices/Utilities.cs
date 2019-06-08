@@ -64,6 +64,9 @@ namespace TimeStudy.Services
         public const string ValidColour = "#d5f0f1";
         public const string ClickedHex = "#CCCCCE";
 
+        public const string TimeStudyBackGroundColour = "#CCCCCE";
+        public const string TimeStudyTabBarBackgroundColour = "#CCCCCE";
+
 
         public const string DeleteImage = "delete.png";
         public static string UndoImage = "undo.png";

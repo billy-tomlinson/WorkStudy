@@ -20,44 +20,20 @@ namespace WorkStudy.ViewModels
 
         void SwitchTimeStudyMenu()
         {
-            SwitchTimeStudyMenuEvent();
+            Utilities.SwitchTimeStudyMenuEvent();
             Utilities.Navigate(new TimeStudyMenuPage());
         }
 
         void SwitchRASMenu()
         {
-            SwitchRASMenuEvent();
+            Utilities.SwitchRASMenuEvent();
             Utilities.Navigate(new StudyMenuPage());
         }
 
         void SwitchStopWatchMenu()
         {
-            SwitchStopWatchMenuEvent();
+            Utilities.SwitchStopWatchMenuEvent();
             Utilities.Navigate(new StopWatch.StopWatchPage());
-        }
-
-        private void SwitchTimeStudyMenuEvent()
-        {
-            var menuPage = new HamburgerMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
-        }
-
-        private void SwitchRASMenuEvent()
-        {
-            var menuPage = new MenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
-        }
-
-        private void SwitchStopWatchMenuEvent()
-        {
-            var menuPage = new StopWatch.StopWatchMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
         }
     }
 }

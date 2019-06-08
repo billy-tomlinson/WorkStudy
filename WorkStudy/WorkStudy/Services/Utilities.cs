@@ -6,7 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Messaging;
 using Syncfusion.XlsIO;
+using TimeStudy.Pages;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using Xamarin.Forms;
 
 namespace WorkStudy.Services
@@ -242,6 +244,46 @@ namespace WorkStudy.Services
             observationsHistoricRepo.ExecuteSQLCommand(sqlCommand);
             sqlCommand = "DELETE FROM Observation WHERE StudyId in (SELECT Id from ActivitySampleStudy WHERE Completed = 1)";
             observationsRepo.ExecuteSQLCommand(sqlCommand);
+        }
+
+        public static void SwitchTimeStudyMenuEvent()
+        {
+            var menuPage = new HamburgerMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
+            var navPage = md.Detail as NavigationPage;
+            navPage.BarBackgroundColor = Color.Gold;
+        }
+
+        public static void SwitchRASMenuEvent()
+        {
+            var menuPage = new MenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
+            var navPage = md.Detail as NavigationPage;
+            navPage.BarBackgroundColor = Color.Azure;
+        }
+
+        public static void SwitchStopWatchMenuEvent()
+        {
+            var menuPage = new StopWatch.StopWatchMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
+            var navPage = md.Detail as NavigationPage;
+            navPage.BarBackgroundColor = Color.Red;
+        }
+
+        public static void SwitchHomeMenuEvent()
+        {
+            var menuPage = new HomeMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
+
+            var md = (MasterDetailPage)Application.Current.MainPage;
+            md.Master = menuPage;
+            var navPage = md.Detail as NavigationPage;
+            navPage.BarBackgroundColor = Color.FromHex("#75A2B5");
         }
     }
 

@@ -12,6 +12,7 @@ namespace TimeStudy.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetBackButtonTitle(this, "");
+            this.BackgroundColor = Color.FromHex(Utilities.TimeStudyBackGroundColour);
         }
 
         protected override bool OnBackButtonPressed()

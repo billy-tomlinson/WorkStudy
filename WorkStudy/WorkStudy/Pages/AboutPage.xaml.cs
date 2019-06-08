@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using WorkStudy.Services;
+﻿using WorkStudy.Services;
 using Xamarin.Forms;
 
 namespace WorkStudy.Pages
@@ -10,7 +8,7 @@ namespace WorkStudy.Pages
         public AboutPage()
         {
             InitializeComponent();
-            timeStudy.Source = ImageSource.FromFile("stopwatch.png");
+            timeStudy.Source = ImageSource.FromFile("timestudyicon.png");
             NavigationPage.SetHasNavigationBar(this, true);
             NavigationPage.SetBackButtonTitle(this, "");
         }

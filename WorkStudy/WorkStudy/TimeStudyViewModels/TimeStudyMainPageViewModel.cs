@@ -156,6 +156,8 @@ namespace TimeStudy.ViewModels
             Utilities.MoveLapsToHistoryTable();
 
             SetUpFontSizes();
+
+            ActivitiesVisible = false;
         }
 
         private void SetUpFontSizes()

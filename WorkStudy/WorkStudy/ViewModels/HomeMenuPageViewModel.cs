@@ -36,21 +36,21 @@ namespace WorkStudy.ViewModels
 
         void TimeStudyEvent(object obj)
         {
-            SwitchTimeStudyMenuEvent();
+            Utilities.SwitchTimeStudyMenuEvent();
             Utilities.Navigate(new TimeStudyMenuPage());
             App.MenuIsPresented = false;
         }
 
         void StopWatchEvent(object obj)
         {
-            SwitchStopWatchMenuEvent();
+            Utilities.SwitchStopWatchMenuEvent();
             Utilities.Navigate(new StopWatch.StopWatchPage());
             App.MenuIsPresented = false;
         }
 
         void ActivitySamplingEvent(object obj)
         {
-            SwitchRASMenuEvent();
+            Utilities.SwitchRASMenuEvent();
             Utilities.Navigate(new StudyMenuPage());
             App.MenuIsPresented = false;
         }
@@ -59,29 +59,6 @@ namespace WorkStudy.ViewModels
         {
             Utilities.Navigate(new AboutPage());
             App.MenuIsPresented = false;
-        }
-
-        private void SwitchTimeStudyMenuEvent()
-        {
-            var menuPage = new HamburgerMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
-        }
-
-        private void SwitchRASMenuEvent()
-        {
-            var menuPage = new MenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
-        }
-        private void SwitchStopWatchMenuEvent()
-        {
-            var menuPage = new StopWatch.StopWatchMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
         }
     }
 }

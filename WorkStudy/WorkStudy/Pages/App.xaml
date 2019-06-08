@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:TimeStudy.Custom" 
              xmlns:localWorkStudy="clr-namespace:WorkStudy.Custom" 
+             xmlns:localStopWatch="clr-namespace:StopWatch" 
              x:Class="WorkStudy.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -10,7 +11,7 @@
             <Color x:Key="ContentPageColour">#75A2B5</Color>
             <Color x:Key="GreyColour">#E8EAEC</Color>
             <Color x:Key="MenuHeaderColour">#38779E</Color>
-            <Color x:Key="PopUpColour">#F3FCF0</Color>
+            <Color x:Key="PopUpColour">#FCFAFA</Color>
             <Color x:Key="PopUpButton">#38779E</Color>
             <Color x:Key="DarkTextColour">#5D4E60</Color>
             
@@ -58,7 +59,7 @@
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
-            <Style TargetType="NavigationPage">
+           <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource ContentPageColour}" />
             </Style>
             <Style TargetType="BoxView">
@@ -154,7 +155,14 @@
                 <Setter Property="SeparatorVisibility" Value="Default" />
                 <Setter Property="SeparatorColor" Value="#605F5F" />
             </Style>
-             <Style TargetType="localWorkStudy:CustomListView">
+            <Style TargetType="localWorkStudy:CustomListView">
+                <Setter Property="BackgroundColor" Value="{StaticResource GreyColour}" />
+                <Setter Property="HasUnevenRows" Value="true" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="SeparatorVisibility" Value="Default" />
+                <Setter Property="SeparatorColor" Value="#605F5F" />
+            </Style>
+             <Style TargetType="localStopWatch:CustomListView">
                 <Setter Property="BackgroundColor" Value="{StaticResource GreyColour}" />
                 <Setter Property="HasUnevenRows" Value="true" />
                 <Setter Property="HorizontalOptions" Value="Center" />

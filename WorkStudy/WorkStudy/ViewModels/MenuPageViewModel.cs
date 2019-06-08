@@ -55,7 +55,7 @@ namespace WorkStudy.ViewModels
 
         void GoHomePageMenu(object obj)
         {
-            SwitchHomeMenuEvent();
+            Utilities.SwitchHomeMenuEvent();
             Utilities.Navigate(new HomePage());
             App.MenuIsPresented = false;
         }
@@ -113,14 +113,6 @@ namespace WorkStudy.ViewModels
         {
             Utilities.Navigate(new AboutPage());
             App.MenuIsPresented = false;
-        }
-
-        private void SwitchHomeMenuEvent()
-        {
-            var menuPage = new HomeMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
         }
     }
 }

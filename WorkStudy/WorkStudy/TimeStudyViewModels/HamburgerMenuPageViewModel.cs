@@ -41,7 +41,7 @@ namespace TimeStudy.ViewModels
 
         void GoHomePageMenu(object obj)
         {
-            SwitchHomeMenuEvent();
+            WorkStudy.Services.Utilities.SwitchHomeMenuEvent();
             Utilities.Navigate(new HomePage());
             WorkStudy.App.MenuIsPresented = false;
         }
@@ -82,14 +82,6 @@ namespace TimeStudy.ViewModels
         {
             Utilities.Navigate(new TimeStudyAboutPage());
             WorkStudy.App.MenuIsPresented = false;
-        }
-
-        private void SwitchHomeMenuEvent()
-        {
-            var menuPage = new HomeMenuPage() { Title = "Main Page", Icon = "hamburger.png" };
-
-            var md = (MasterDetailPage)Application.Current.MainPage;
-            md.Master = menuPage;
         }
     }
 }

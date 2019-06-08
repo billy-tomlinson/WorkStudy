@@ -13,6 +13,8 @@ namespace TimeStudy.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, true);
             NavigationPage.SetBackButtonTitle(this, "");
+            this.BackgroundColor = Color.FromHex(Utilities.TimeStudyBackGroundColour);
+
             studyName.Completed += studyName_Completed;
             studyDepartment.Completed += studyDepartment_Completed;
         }
