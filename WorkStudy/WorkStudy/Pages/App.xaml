@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.Custom" x:Class="WorkStudy.App">
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             xmlns:localWorkStudy="clr-namespace:WorkStudy.Custom" 
+             x:Class="WorkStudy.App">
     <Application.Resources>
         <ResourceDictionary>
             
@@ -144,6 +148,13 @@
                 <Setter Property="TextColor" Value="Black" />
             </Style>
             <Style TargetType="local:CustomListView">
+                <Setter Property="BackgroundColor" Value="{StaticResource GreyColour}" />
+                <Setter Property="HasUnevenRows" Value="true" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="SeparatorVisibility" Value="Default" />
+                <Setter Property="SeparatorColor" Value="#605F5F" />
+            </Style>
+             <Style TargetType="localWorkStudy:CustomListView">
                 <Setter Property="BackgroundColor" Value="{StaticResource GreyColour}" />
                 <Setter Property="HasUnevenRows" Value="true" />
                 <Setter Property="HorizontalOptions" Value="Center" />

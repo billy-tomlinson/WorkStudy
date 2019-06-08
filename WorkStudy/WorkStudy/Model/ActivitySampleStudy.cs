@@ -25,7 +25,7 @@ namespace WorkStudy.Model
         public bool Completed { get; set; }
 
         [Ignore]
-        public string ObservedColour { get; set; } = Xamarin.Forms.Color.Gray.GetShortHexString();
+        public string ObservedColour { get; set; } = "#E8EAEC";
 
         [Ignore]
         public string DateTimeFormatted
