@@ -27,7 +27,7 @@ namespace TimeStudy.ViewModels
 
         void ExistingStudyPage()
         {
-            //Utilities.Navigate(new ExistingStudiesTabbedPage()); 
+            Utilities.Navigate(new TimeStudy.Pages.ExistingStudiesTabbedPage()); 
         }
 
         void SwitchTimeStudyMenu()
