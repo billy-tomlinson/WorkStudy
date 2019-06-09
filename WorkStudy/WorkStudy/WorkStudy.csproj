@@ -90,5 +90,9 @@
     <Folder Include="TimeStudyPages\" />
     <Folder Include="TimeStudyModel\" />
     <Folder Include="TimeStudyCustom\" />
+    <Folder Include="StopWatchCustom\" />
+    <Folder Include="StopWatchModel\" />
+    <Folder Include="StopWatchPages\" />
+    <Folder Include="StopWatchServices" />
   </ItemGroup>
 </Project>
