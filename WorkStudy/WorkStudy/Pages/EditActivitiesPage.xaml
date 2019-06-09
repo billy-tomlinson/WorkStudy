@@ -15,7 +15,7 @@
                         HeightRequest="800" 
                         WidthRequest="420">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
-            <StackLayout BackgroundColor="{StaticResource ContentPageColour}"
+            <StackLayout BackgroundColor="#75A2B5"
                          Opacity="{Binding Opacity}"
                          IsVisible="{Binding IsPageVisible}" 
                          IsEnabled ="{Binding IsPageEnabled}" 
@@ -23,7 +23,7 @@
                          Margin="2" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                          AbsoluteLayout.LayoutFlags="All">
-                <views:StudyDetailsView BackgroundColor="{StaticResource ContentPageColour}"
+                <views:StudyDetailsView BackgroundColor="#75A2B5"
                                         Padding="10" 
                                         Margin="10"/>
                 <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" 
