@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:TimeStudy.ViewModels" 
-             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-             xmlns:views="clr-namespace:TimeStudy.Views" 
-             x:Name="StudyDetailsView" 
-             x:Class="TimeStudy.Pages.TimeStudyDetailsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.ViewModels" xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" xmlns:views="clr-namespace:TimeStudy.Views" x:Name="StudyDetailsView" x:Class="TimeStudy.Pages.TimeStudyDetailsPage">
     <ContentPage.BindingContext>
         <local:TimeStudyDetailsViewModel />
     </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="1*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
-            <AbsoluteLayout HorizontalOptions="Center" 
-                            VerticalOptions="StartAndExpand"
-                            IsVisible="{Binding IsPageVisible}" 
-                            BackgroundColor="Transparent">
-                <StackLayout BackgroundColor="Transparent" 
-                             IsVisible="{Binding IsPageVisible}" 
-                             Opacity="{Binding Opacity}" 
-                             IsEnabled="{Binding IsPageEnabled}" 
-                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                             AbsoluteLayout.LayoutFlags="All">
-                    <StackLayout BindingContext="{Binding SampleStudy}" 
-                                 Padding="20,0,20,0" 
-                                 Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" 
-                                 IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
+            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
+                <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}" IsEnabled="{Binding IsPageEnabled}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,0,20,0" Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
                         <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />

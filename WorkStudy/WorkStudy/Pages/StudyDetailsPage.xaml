@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" 
-             xmlns:views="clr-namespace:WorkStudy.Views" 
-             x:Name="StudyDetailsView" 
-             x:Class="WorkStudy.Pages.StudyDetailsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:WorkStudy.ViewModels;assembly=WorkStudy" xmlns:views="clr-namespace:WorkStudy.Views" x:Name="StudyDetailsView" x:Class="WorkStudy.Pages.StudyDetailsPage">
     <ContentPage.BindingContext>
         <local:StudyDetailsViewModel />
     </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="1*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
-            <AbsoluteLayout HorizontalOptions="Center" 
-                            VerticalOptions="StartAndExpand"
-                            IsVisible="{Binding IsPageVisible}" 
-                            BackgroundColor="Transparent">
-                <StackLayout BackgroundColor="Transparent" 
-                             IsVisible="{Binding IsPageVisible}" 
-                             IsEnabled="{Binding IsPageEnabled}" 
-                             Opacity="{Binding Opacity}" 
-                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                             AbsoluteLayout.LayoutFlags="All">
-                    <StackLayout BindingContext="{Binding SampleStudy}" 
-                                 Padding="20,0,20,0" Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" 
-                                 IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
+            <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
+                <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" IsEnabled="{Binding IsPageEnabled}" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,0,20,0" Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
                         <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -55,8 +55,7 @@
                             <Label Grid.Row="6" Grid.Column="3" Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference StudyDetailsView}}" FontSize="13" />
                         </Grid>
                     </StackLayout>
-                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsAlarmPageEnabled, Source={x:Reference StudyDetailsView}}" 
-                                 Padding="20,0,20,0">
+                    <StackLayout IsEnabled="{Binding Path = BindingContext.IsAlarmPageEnabled, Source={x:Reference StudyDetailsView}}" Padding="20,0,20,0">
                         <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -75,7 +74,7 @@
                             <Entry Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Placeholder="mins" MaxLength="2" Text="{Binding Path = BindingContext.IntervalMinutes, Source={x:Reference StudyDetailsView}}" />
                         </Grid>
                     </StackLayout>
-                     <StackLayout Padding="20,0,20,0">
+                    <StackLayout Padding="20,0,20,0">
                         <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -87,7 +86,7 @@
                                 <ColumnDefinition Width="2.5*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Alarm Notification" />
-                            <Switch Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" VerticalOptions="Center"/>
+                            <Switch Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" IsToggled="{Binding Path = BindingContext.IsAlarmEnabled, Source={x:Reference StudyDetailsView}}" HorizontalOptions="Start" VerticalOptions="Center" />
                             <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="1" Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.AlarmStatus,  Source={x:Reference StudyDetailsView}}" FontSize="13" />
                         </Grid>
                     </StackLayout>
