@@ -23,11 +23,9 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Sampling</string>
+	<string>Work Study</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.billy.-</string>
-	<key>CFBundleVersion</key>
-	<string>2.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>XSAppIconAssets</key>
@@ -41,6 +39,8 @@
 	<key>CFBundleName</key>
 	<string>Activity Sampling</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3</string>
+	<string>2.1</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
 </dict>
 </plist>
