@@ -19,6 +19,7 @@ namespace WorkStudy.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetBackButtonTitle(this, "");
             BindingContext = new MainPageViewModel();
+            this.BackgroundColor = Color.FromHex(Utilities.RASBackGroundColour);
         }
 
         protected override bool OnBackButtonPressed()

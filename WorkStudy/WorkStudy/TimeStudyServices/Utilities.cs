@@ -63,8 +63,8 @@ namespace TimeStudy.Services
         public const string ValidColour = "#d5f0f1";
         public const string ClickedHex = "#CCCCCE";
 
-        public const string TimeStudyBackGroundColour = "#476C9B";
-        public const string TimeStudyTabBarBackgroundColour = "#476C9B";
+        public const string TimeStudyBackGroundColour = "#94A187";
+        public const string TimeStudyTabBarBackgroundColour = "#94A187";
 
 
         public const string DeleteImage = "delete.png";

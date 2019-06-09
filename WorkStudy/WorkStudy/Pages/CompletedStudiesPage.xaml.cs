@@ -11,6 +11,7 @@ namespace WorkStudy.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetBackButtonTitle(this, "");
+            this.BackgroundColor = Color.FromHex(Utilities.RASBackGroundColour);
 
             listOfStudies.BindingContext = new ExistingStudiesViewModel(true);
         }

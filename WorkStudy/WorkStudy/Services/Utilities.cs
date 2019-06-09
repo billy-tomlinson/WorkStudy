@@ -91,6 +91,8 @@ namespace WorkStudy.Services
         public const string RAStudyTabBarBackgroundColour = "#75A2B5";
 
         public const string StopWatchBackGroundColour = "#476C9B";
+        public const string HomePageBackGroundColour = "#B9746C";
+
 
         public const string DeleteImage = "delete.png";
         public static string UndoImage = "undo.png";
@@ -287,7 +289,7 @@ namespace WorkStudy.Services
             var md = (MasterDetailPage)Application.Current.MainPage;
             md.Master = menuPage;
             var navPage = md.Detail as NavigationPage;
-            navPage.BarBackgroundColor = Color.FromHex(RASBackGroundColour);
+            navPage.BarBackgroundColor = Color.FromHex(HomePageBackGroundColour);
         }
     }
 

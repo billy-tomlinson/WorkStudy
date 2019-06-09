@@ -12,6 +12,7 @@ namespace WorkStudy.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetBackButtonTitle(this, "");
+            this.BackgroundColor = Color.FromHex(Utilities.RASBackGroundColour);
         }
 
         protected override bool OnBackButtonPressed()
