@@ -31,7 +31,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidKeyStore></AndroidKeyStore>
+    <AndroidKeyStore>True</AndroidKeyStore>
 <RunCodeAnalysis>true</RunCodeAnalysis>  <AndroidLinkMode>None</AndroidLinkMode>
 <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
 </PropertyGroup>
