@@ -10,6 +10,7 @@ namespace WorkStudy.Pages
         public HomePage()
         {
             InitializeComponent();
+            timeStudy.Source = ImageSource.FromFile("timestudyicon.png");
             NavigationPage.SetHasNavigationBar(this, true);
             NavigationPage.SetBackButtonTitle(this, "");
             this.BackgroundColor = Color.FromHex(Utilities.HomePageBackGroundColour);
