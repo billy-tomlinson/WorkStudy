@@ -22,7 +22,7 @@ namespace WorkStudy.ViewModels
 
         void NewStudyPage()
         {
-            Utilities.Navigate(new StudySetUpTabbedPage());
+            Utilities.Navigate(new StudyDetailsPage());
         }
 
         void ExistingStudyPage()

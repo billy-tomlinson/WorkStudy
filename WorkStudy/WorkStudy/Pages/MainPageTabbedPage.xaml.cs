@@ -5,7 +5,7 @@ namespace WorkStudy.Pages
 {
     public partial class MainPageTabbedPage : TabbedPage
     {
-        public MainPageTabbedPage()
+        public MainPageTabbedPage(bool setUp = false)
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, true);
@@ -13,6 +13,8 @@ namespace WorkStudy.Pages
             this.BackgroundColor = Color.FromHex(Utilities.RASBackGroundColour);
             this.BarBackgroundColor = Color.FromHex(Utilities.RASBackGroundColour);
 
+            if(setUp)
+                this.CurrentPage = this.Children[3];
         }
 
         protected override bool OnBackButtonPressed()

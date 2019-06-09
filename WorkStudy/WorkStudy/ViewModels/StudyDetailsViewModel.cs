@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using WorkStudy.Model;
+using WorkStudy.Pages;
 using WorkStudy.Services;
 using Xamarin.Forms;
 
@@ -42,13 +43,11 @@ namespace WorkStudy.ViewModels
 
                     Utilities.RatedStudy = SampleStudy.IsRated;
 
-                    var page = parameter as ContentPage;
-                    var parentPage = page.Parent as TabbedPage;
-                    parentPage.CurrentPage = parentPage.Children[3];
-
                     IsActive = false;
                     Opacity = 1.0;
                     IsPageEnabled = true;
+
+                    Utilities.Navigate(new MainPageTabbedPage(true));
                 }
                 else
                     Opacity = 0.2;

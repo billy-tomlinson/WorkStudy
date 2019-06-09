@@ -75,7 +75,7 @@ namespace WorkStudy.ViewModels
         void GoStudySetUp(object obj)
         {
             Utilities.StudyId = 0;
-            Utilities.Navigate(new StudySetUpTabbedPage());
+            Utilities.Navigate(new StudyDetailsPage());
             App.MenuIsPresented = false;
         }
 
