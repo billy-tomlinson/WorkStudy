@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using TimeStudy.Model;
+using TimeStudy.Pages;
 using TimeStudy.Services;
 using Xamarin.Forms;
 
@@ -32,11 +33,9 @@ namespace TimeStudy.ViewModels
 
                     Utilities.RatedStudy = true;
 
-                    var page = parameter as ContentPage;
-                    var parentPage = page.Parent as TabbedPage;
-                    parentPage.CurrentPage = parentPage.Children[1];
-
                     IsActive = false;
+
+                    Utilities.Navigate(new TimeStudyMainPageTabbedPage(true));
                 }
 
                 ShowClose = true;

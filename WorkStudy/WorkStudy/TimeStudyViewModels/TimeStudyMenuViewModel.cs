@@ -22,7 +22,7 @@ namespace TimeStudy.ViewModels
 
         void NewStudyPage()
         {
-            Utilities.Navigate(new TimeStudySetUpTabbedPage());
+            Utilities.Navigate(new TimeStudyDetailsPage());
         }
 
         void ExistingStudyPage()

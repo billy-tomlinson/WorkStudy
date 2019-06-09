@@ -5,7 +5,7 @@ namespace TimeStudy.Pages
 {
     public partial class TimeStudyMainPageTabbedPage : TabbedPage
     {
-        public TimeStudyMainPageTabbedPage()
+        public TimeStudyMainPageTabbedPage(bool setUp = false)
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, true);
@@ -13,6 +13,9 @@ namespace TimeStudy.Pages
 
             this.BackgroundColor = Color.FromHex(Utilities.TimeStudyBackGroundColour);
             this.BarBackgroundColor = Color.FromHex(Utilities.TimeStudyTabBarBackgroundColour);
+
+            if(setUp)
+                this.CurrentPage = this.Children[1];
 
         }
 
@@ -31,7 +34,5 @@ namespace TimeStudy.Pages
         {
             base.OnCurrentPageChanged();
         }
-
-        //public Color TabColour { get => Color.LightYellow; }
     }
 }
