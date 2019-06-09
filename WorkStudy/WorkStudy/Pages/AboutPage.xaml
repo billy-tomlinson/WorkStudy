@@ -24,7 +24,7 @@
     <ScrollView>
         <StackLayout Padding="15, 40, 15 ,10" Spacing="15" CompressedLayout.IsHeadless="true" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
             <Label Text="Welcome to Tye Management Services Ltd" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
-            <Image x:Name="timeStudy" HeightRequest="250" WidthRequest="250">
+            <Image x:Name="timeStudy" HeightRequest="220" WidthRequest="220">
             </Image>
             <Label Text="Work study and continuous improvement since 1996. Training, projects and contracts" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
             <Label HorizontalOptions="Center" VerticalOptions="CenterAndExpand">

@@ -15,7 +15,8 @@
             <Color x:Key="PopUpColour">#FCFAFA</Color>
             <Color x:Key="PopUpButton">#38779E</Color>
             <Color x:Key="DarkTextColour">#5D4E60</Color>
-            
+            <Color x:Key="ApplicationsMenuColour">#000000</Color>
+
             <OnPlatform x:TypeArguments="Font" Android="50" iOS="40" x:Key="RatingFontSize" />
             <OnPlatform x:TypeArguments="Font" Android="30" iOS="35" x:Key="StopWatchFont" />
             <OnPlatform x:TypeArguments="Font" Android="18" iOS="18" x:Key="StopWatchButtonFont" />

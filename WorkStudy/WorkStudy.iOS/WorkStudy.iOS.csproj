@@ -84,7 +84,7 @@
     <CodesignProvision>billy iPhone profile</CodesignProvision>
     <CodesignKey>iPhone Developer: Billy Tomlinson (3PABKH7JTJ)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchSdkVersion>11.2</MtouchSdkVersion>
+    <MtouchSdkVersion>12.2</MtouchSdkVersion>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">

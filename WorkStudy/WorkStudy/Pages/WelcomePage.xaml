@@ -7,7 +7,7 @@
                     BackgroundColor="Transparent">
         <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
             <Label Text="Welcome to Tye Management Services Ltd" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
-            <Image x:Name="timeStudy" HeightRequest="300" WidthRequest="300">
+            <Image x:Name="timeStudy" HeightRequest="250" WidthRequest="250">
             </Image>
             <Label Text="Work study and continuous improvement since 1996. Training, projects and contracts" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
             <Label Text="https://tyemanagement.com" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="20" />

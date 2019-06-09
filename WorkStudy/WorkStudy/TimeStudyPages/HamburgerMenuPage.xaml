@@ -19,7 +19,7 @@
             </StackLayout>
             <ScrollView>
                 <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
-                    <Button Text="Main Menu" BackgroundColor="White" TextColor="{StaticResource DarkTextColour}" HorizontalOptions="StartAndExpand" Command="{Binding HomePageMenu}" />
+                    <Button Text="Applications Menu" BackgroundColor="White" TextColor="{StaticResource ApplicationsMenuColour}" HorizontalOptions="StartAndExpand" Command="{Binding HomePageMenu}" FontAttributes="Bold" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
                     <Button Text="Current Time Study" BackgroundColor="White" TextColor="{StaticResource DarkTextColour}" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
