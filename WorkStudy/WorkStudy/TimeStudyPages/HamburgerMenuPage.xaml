@@ -33,6 +33,8 @@
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
                     <Button Text="Close Application" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Label Text="Clicking a menu option whilst the study is running will terminate the study" TextColor="Red" BackgroundColor="White" HorizontalOptions="StartAndExpand" FontSize="11"/>
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
                 </StackLayout>
             </ScrollView>
         </StackLayout>

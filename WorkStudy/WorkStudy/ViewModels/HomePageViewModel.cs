@@ -20,6 +20,7 @@ namespace WorkStudy.ViewModels
 
         void SwitchTimeStudyMenu()
         {
+            DisableAlarm();
             Utilities.SwitchTimeStudyMenuEvent();
             Utilities.Navigate(new TimeStudyMenuPage());
         }
@@ -32,8 +33,15 @@ namespace WorkStudy.ViewModels
 
         void SwitchStopWatchMenu()
         {
+            DisableAlarm();
             Utilities.SwitchStopWatchMenuEvent();
             Utilities.Navigate(new StopWatch.StopWatchPage());
+        }
+
+        private void DisableAlarm()
+        {
+            AlarmNotificationService.DisableAlarmInDatabase();
+            AlarmNotificationService.DisableAlarm();
         }
     }
 }

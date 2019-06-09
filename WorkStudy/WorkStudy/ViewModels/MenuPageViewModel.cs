@@ -48,6 +48,7 @@ namespace WorkStudy.ViewModels
         {
             AlarmNotificationService.DisableAlarmInDatabase();
             AlarmNotificationService.DisableAlarm();
+
             DependencyService.Get<ITerminateApplication>()
                 .CloseApplication();
             App.MenuIsPresented = false;
@@ -55,6 +56,9 @@ namespace WorkStudy.ViewModels
 
         void GoHomePageMenu(object obj)
         {
+            AlarmNotificationService.DisableAlarmInDatabase();
+            AlarmNotificationService.DisableAlarm();
+
             Utilities.SwitchHomeMenuEvent();
             Utilities.Navigate(new HomePage());
             App.MenuIsPresented = false;
