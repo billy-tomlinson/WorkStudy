@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:StopWatch" 
+             BackgroundColor="{StaticResource ContentPageColour}" 
+             x:Class="StopWatch.StopWatchPage">
+    <ContentPage.BindingContext>
+        <local:StopWatchViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ContentPageColour">#E8EAEC</Color>
+            <Color x:Key="MenuHeaderColour">#E8EAEC</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="1*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+            <StackLayout BackgroundColor="Transparent" Padding="2" Margin="2" IsEnabled="{Binding IsPageEnabled}" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                    <Grid Padding="5" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.3*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="7.7*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding StopWatchTime}" TextColor="{Binding StopWatchColour}" FontSize="40" HorizontalTextAlignment="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SwitchTimeFormat}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" ItemClickedCommand="{Binding SwitchTimeFormat}" HeightRequest="430">
+                        <x:Arguments>
+                            <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                        </x:Arguments>
+                        <local:CustomListView.Header>
+                            <StackLayout Padding="5,2,5,2" BackgroundColor="White">
+                                <Grid Padding="5" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*">
+                                        </RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.8*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="4.1*">
+                                        </ColumnDefinition>
+                                        <ColumnDefinition Width="4.1*">
+                                        </ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Lap No" FontSize="12" TextColor="Black" HorizontalTextAlignment="Start" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="Total Elapsed" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
+                                </Grid>
+                            </StackLayout>
+                        </local:CustomListView.Header>
+                        <local:CustomListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="5,2,5,2">
+                                        <Grid Padding="5" Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*">
+                                                </RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.8*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="4.1*">
+                                                </ColumnDefinition>
+                                                <ColumnDefinition Width="4.1*">
+                                                </ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Count}" FontSize="20" HorizontalTextAlignment="Start" TextColor="Black" />
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="20" TextColor="Black" />
+                                            <Label Grid.Row="0" Grid.Column="2" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="20" TextColor="Black" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:CustomListView.ItemTemplate>
+                    </local:CustomListView>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                    <Grid Padding="0,0,0,5" Margin="5,0,5,5" HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="1.3*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="1.2*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Text=" Start " Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="   Lap   " Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="2" Text=" Stop " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <local:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
