@@ -23,7 +23,7 @@
             <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" IsVisible="{Binding IsPageVisible}" BackgroundColor="Transparent">
                 <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" IsEnabled="{Binding IsPageEnabled}" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" Padding="20,0,20,0" Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
-                        <Grid Padding="5,5,5,5" Margin="5,5,5,5">
+                        <Grid Padding="5,3,5,3" Margin="5,3,5,3">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -39,7 +39,7 @@
                                 <ColumnDefinition Width="2.5*" />
                                 <ColumnDefinition Width="2.5*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="Study Details" HeightRequest="40" FontSize="30" />
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="Study Details" HeightRequest="40" FontSize="25" />
                             <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Study Number" />
                             <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Style="{StaticResource studyLabel}" Text="{Binding StudyNumber}" />
                             <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Study Name" />
@@ -56,7 +56,7 @@
                         </Grid>
                     </StackLayout>
                     <StackLayout IsEnabled="{Binding Path = BindingContext.IsAlarmPageEnabled, Source={x:Reference StudyDetailsView}}" Padding="20,0,20,0">
-                        <Grid Padding="5,5,5,5" Margin="5,5,5,5">
+                        <Grid Padding="5,3,5,3" Margin="5,3,5,3">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -75,7 +75,7 @@
                         </Grid>
                     </StackLayout>
                     <StackLayout Padding="20,0,20,0">
-                        <Grid Padding="5,5,5,5" Margin="5,5,5,5">
+                        <Grid Padding="5,3,5,3" Margin="5,3,5,3">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
