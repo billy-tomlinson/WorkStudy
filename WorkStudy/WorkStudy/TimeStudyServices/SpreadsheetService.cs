@@ -410,10 +410,10 @@ namespace TimeStudy.Services
                 var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
                 var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
 
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 7].Formula = formula1;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 8].Formula = formula2; //caAllowance;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 9].Formula = formula3;  //raAllowance;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 10].Formula = formula3;  //raAllowance;
+                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 7].Formula = formula1;
+                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].Formula = formula2; //caAllowance;
+                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 9].Formula = formula3;  //raAllowance;
+                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 10].Formula = formula3;  //raAllowance;
 
                 totalCount = totalCount + 2;
             }
