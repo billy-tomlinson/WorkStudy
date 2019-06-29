@@ -31,9 +31,10 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidKeyStore></AndroidKeyStore>
 <RunCodeAnalysis>true</RunCodeAnalysis>  <AndroidLinkMode>None</AndroidLinkMode>
-<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+<AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+<AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
 </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
