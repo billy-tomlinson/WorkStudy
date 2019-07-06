@@ -5,7 +5,7 @@
              HorizontalOptions="CenterAndExpand">
     <ContentView.Content>
         <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" 
-                     VerticalOptions="Center" Padding="0,50,0,0">
+                     VerticalOptions="Center" Padding="10,50,0,0">
             <Label Text="{Binding InvalidText}" FontSize="20"  
                    HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
             <Image Source="alert.png"  HorizontalOptions="Center" />

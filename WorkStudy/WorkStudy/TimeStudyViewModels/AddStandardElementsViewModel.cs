@@ -103,10 +103,10 @@ namespace TimeStudy.ViewModels
 
         void Switch_Toggled()
         {
-            ActivityType = IsNonValueAdded == false ? "VALUE ADDED" : "NON VALUE ADDED";
+            ActivityType = IsNonValueAdded == false ? "STANDARD" : "OCCASIONAL";
         }
 
-        string activityType = "VALUE ADDED";
+        string activityType = "STANDARD";
         public string ActivityType
         {
             get { return activityType; }
@@ -129,7 +129,7 @@ namespace TimeStudy.ViewModels
 
                 if (duplicatesCheck == null)
                 {
-                    var activities = Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren().Count();
+                    var activities = WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).Count();
 
                     var activityName = new WorkElementName()
                     {
@@ -157,7 +157,7 @@ namespace TimeStudy.ViewModels
                 }
 
                 SetElementsColour();
-                ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
+                ItemsCollection = new ObservableCollection<WorkElement>(WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId)
                     .OrderByDescending(x => x.Id));
 
                 HasElements = ItemsCollection.Count > 0;
@@ -256,6 +256,7 @@ namespace TimeStudy.ViewModels
         {
             Opacity = 1.0;
             CategoriesVisible = false;
+            IsPageEnabled = true;
         }
 
         void SaveCategoryEvent(object sender)
@@ -274,64 +275,25 @@ namespace TimeStudy.ViewModels
             Activity.IsValueAdded = !IsNonValueAdded;
             WorkElementRepo.SaveItem(Activity);
             Opacity = 1.0;
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
+            IsPageEnabled = true;
+            ItemsCollection = new ObservableCollection<WorkElement>(WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId)
                 .OrderByDescending(x => x.Id));
 
             CategoriesVisible = false;
             Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
         }
 
-        void MoveElementUpOnePlace(object sender)
-        {
-            if (Activity.Sequence == 1 || Activity.Sequence <= 0) return;
-
-            int sequenceNumber;
-
-            var activity1 = Activity;
-            sequenceNumber = activity1.Sequence;
-            activity1.Sequence = sequenceNumber - 1;
-
-            var activity2 = WorkElementRepo.GetItems()
-                .FirstOrDefault(x => x.Sequence == sequenceNumber - 1 && x.StudyId == Utilities.StudyId);
-            activity2.Sequence = sequenceNumber;
-            WorkElementRepo.SaveItem(activity1);
-            WorkElementRepo.SaveItem(activity2);
-
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren().OrderBy(x => x.Sequence));
-        }
-
-        void MoveElementDownOnePlace(object sender)
-        {
-            if (Activity.Sequence >= ActivitiesCount || Activity.Sequence <= 0) return;
-
-            int sequenceNumber;
-
-            var activity1 = Activity;
-            sequenceNumber = activity1.Sequence;
-
-            activity1.Sequence = sequenceNumber + 1;
-
-            var activity2 = WorkElementRepo.GetItems()
-                .FirstOrDefault(x => x.Sequence == sequenceNumber + 1 && x.StudyId == Utilities.StudyId);
-            activity2.Sequence = sequenceNumber;
-            WorkElementRepo.SaveItem(activity1);
-            WorkElementRepo.SaveItem(activity2);
-
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
-                .OrderByDescending(x => x.Id));
-        }
-
         void ActivitySelectedEvent(object sender)
         {
-            //SetElementsColour();
-
-            //var value = (int)sender;
-            //Activity = ActivityRepo.GetItem(value);
-            //Activity.ItemColour = Utilities.NonValueAddedColour;
-            //Activity.ObservedColour = Utilities.NonValueAddedColour;
-            //ActivityRepo.SaveItem(Activity);
-
-            //ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+            var value = (int)sender;
+            Activity = WorkElementRepo.GetItem(value);
+            IsNonValueAdded = !Activity.IsValueAdded;
+            if (Activity.Rated)
+            {
+                Opacity = 0.2;
+                CategoriesVisible = true;
+                IsPageEnabled = false;
+            }
         }
 
         private void SetElementsColour()
@@ -368,13 +330,16 @@ namespace TimeStudy.ViewModels
         {
             if (StudyInProcess) return;
 
-            var activities = Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren();
+            var activities = WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId);
             foreach (var item in activities)
             {
-                item.Opacity = 1;
-                item.IsEnabled = true;
-                item.DeleteIcon = Utilities.DeleteImage;
-                WorkElementRepo.SaveItem(item);
+                if (item.Rated)
+                {
+                    item.Opacity = 1;
+                    item.IsEnabled = true;
+                    item.DeleteIcon = Utilities.DeleteImage;
+                    WorkElementRepo.SaveItem(item);
+                }
             }
         }
 
@@ -405,7 +370,7 @@ namespace TimeStudy.ViewModels
             }
 
             SetElementsColour();
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
+            ItemsCollection = new ObservableCollection<WorkElement>(WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId)
                 .OrderByDescending(x => x.Id));
 
             HasElements = ItemsCollection.Count > 0;
@@ -427,7 +392,7 @@ namespace TimeStudy.ViewModels
                 WorkElementNameRepo.DeleteItem(Activity.ActivityName);
 
                 SetElementsColour();
-                ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
+                ItemsCollection = new ObservableCollection<WorkElement>(WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId)
                     .OrderByDescending(x => x.Id));
                 ActivitiesCount = ItemsCollection.Count;
             });
@@ -447,8 +412,6 @@ namespace TimeStudy.ViewModels
             SaveComment = new Command(SaveCommentDetails);
             CancelComment = new Command(CancelCommentDetails);
             ItemSelected = new Command(ActivitySelectedEvent);
-            MoveUpSelected = new Command(MoveElementUpOnePlace);
-            MoveDownSelected = new Command(MoveElementDownOnePlace);
             CloseCategories = new Command(CloseCategoriesEvent);
             SaveCategory = new Command(SaveCategoryEvent);
             SettingsSelected = new Command(AddSelectedEvent);
@@ -460,7 +423,7 @@ namespace TimeStudy.ViewModels
             CheckActivitiesInUse();
             SetElementsColour();
             SetAllActivitiesBackToEnabled();
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
+            ItemsCollection = new ObservableCollection<WorkElement>(WorkElementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId)
                 .OrderByDescending(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
 
@@ -488,22 +451,6 @@ namespace TimeStudy.ViewModels
 
             foreach (var item in activities)
             {
-                //var obs = ObservationRepo.GetItems()
-                //                         .Where(x => x.ActivityId == item.Id || x.AliasActivityId == item.Id
-                //                          && x.StudyId == Utilities.StudyId)
-                //                         .ToList();
-
-                //var merged = MergedActivityRepo.GetItems()
-                //                               .Where(x => x.ActivityId == item.Id || x.MergedActivityId == item.Id)
-                //                               .ToList();
-
-                //var deleteIcon = item.Rated ? Utilities.DeleteImage : string.Empty;
-
-                //if (obs.Any() || merged.Any())
-                //{
-                //    deleteIcon = string.Empty;
-                //}
-
                 var deleteIcon = item.Rated ? Utilities.DeleteImage : string.Empty;
 
                 var activity = WorkElementRepo.GetWithChildren(item.Id);
