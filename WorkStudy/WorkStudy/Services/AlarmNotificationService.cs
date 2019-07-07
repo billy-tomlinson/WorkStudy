@@ -137,15 +137,21 @@ namespace WorkStudy.Services
         private static DateTime UpdateAlarmAfterBeingInBackroundOrAlarmOff()
         {
 
-            DateTime newObsTime = new DateTime();
+            var newObsTime = DateTime.Now;
+
             if (Utilities.StudyId > 0)
             {
                 var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
 
-                if (notificationExpired)
+                if (alarm != null)
                 {
-                    newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+
+                    bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
+
+                    if (notificationExpired)
+                    {
+                        newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                    }
                 }
             }
 
