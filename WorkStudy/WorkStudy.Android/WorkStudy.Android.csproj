@@ -22,6 +22,7 @@
     <AndroidKeyStore>true</AndroidKeyStore>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+    <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,8 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidKeyStore></AndroidKeyStore>
-<RunCodeAnalysis>true</RunCodeAnalysis>  <AndroidLinkMode>None</AndroidLinkMode>
-<AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+<RunCodeAnalysis>true</RunCodeAnalysis>  <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
 <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
 </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
