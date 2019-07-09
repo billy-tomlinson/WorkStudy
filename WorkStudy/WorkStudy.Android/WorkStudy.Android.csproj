@@ -46,6 +46,7 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidKeyStore></AndroidKeyStore>
 </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
