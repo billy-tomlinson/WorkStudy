@@ -6,10 +6,11 @@ using System.IO;
 using Android.Views;
 using Android.Content;
 using Plugin.Toasts;
+using Android.Content.PM;
 
 namespace WorkStudy.Droid
 {
-    [Activity(Label = "Work Study", Theme = "@style/MainTheme", MainLauncher = true, Icon = "@drawable/randomActivity", LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
+    [Activity(Label = "Work Study", Theme = "@style/MainTheme", MainLauncher = true, Icon = "@drawable/randomActivity", LaunchMode = Android.Content.PM.LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
