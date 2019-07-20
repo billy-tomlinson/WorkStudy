@@ -138,7 +138,7 @@ namespace TimeStudy.Services
         public static void SendEmail(TimeStudySpreadSheet spreadSheet)
         {
             var email = new EmailMessageBuilder()
-                .Subject("Activity Sample Results")
+                .Subject("Time Study Results")
                 .Body($"Attached are the results for Study {StudyId}")
                 .WithAttachment(Path.Combine(spreadSheet.FilePath, spreadSheet.FileName), "application/msexcel")
                 .Build();
