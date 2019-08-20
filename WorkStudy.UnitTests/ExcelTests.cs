@@ -902,7 +902,7 @@ namespace WorkStudy.UnitTests
             chart.BottomRow = 30;
             chart.RightColumn = 17;
 
-            chart.ChartType = ExcelChartType.Pie_Exploded;
+            chart.ChartType = ExcelChartType.Pie_Exploded_3D;
             chart.Elevation = 70;
             chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 
@@ -927,7 +927,7 @@ namespace WorkStudy.UnitTests
             chart2.BottomRow = 30;
             chart2.RightColumn = 17;
 
-            chart2.ChartType = ExcelChartType.Pie_Exploded;
+            chart2.ChartType = ExcelChartType.Pie_Exploded_3D;
             chart2.Elevation = 70;
             chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 

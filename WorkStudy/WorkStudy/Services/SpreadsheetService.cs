@@ -104,7 +104,7 @@ namespace WorkStudy.Services
                 using (var excelEngine = new ExcelEngine())
                 {
                     //Set the default application version as Excel 2013.
-                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2016;
 
                     //Create a workbook with a worksheet
                     workbook = excelEngine.Excel.Workbooks.Create(1);
@@ -868,7 +868,7 @@ namespace WorkStudy.Services
             chart.BottomRow = 30;
             chart.RightColumn = 17;
 
-            chart.ChartType = ExcelChartType.Pie_Exploded;
+            chart.ChartType = ExcelChartType.Pie_Exploded_3D;
             chart.Elevation = 70;
             chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 
@@ -895,7 +895,7 @@ namespace WorkStudy.Services
                 chart2.BottomRow = 30;
                 chart2.RightColumn = 17;
 
-                chart2.ChartType = ExcelChartType.Pie_Exploded;
+                chart2.ChartType = ExcelChartType.Pie_Exploded_3D;
                 chart2.Elevation = 70;
                 chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 

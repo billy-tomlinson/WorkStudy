@@ -204,6 +204,298 @@ namespace TimeStudy.Services
             destSheetStudyDetails.Range[1, 1, 8, 2].AutofitColumns();
         }
 
+        //private void BuildStudyAnalysisDetails()
+        //{
+
+        //    int summaryCount = 0;
+
+        //    var allRatedLapTimes = lapTimeRepo.GetItems()
+        //                .Where(x => x.StudyId == Utilities.StudyId
+        //                && x.Version == Utilities.StudyVersion
+        //                && x.Status == RunningStatus.Completed
+        //                && x.IsRated).ToList();
+
+        //    double totalBMS = allRatedLapTimes.Sum(x => x.IndividualLapBMS);
+        //    double totalObservedTime = allRatedLapTimes.Sum(x => x.IndividualLapTimeDouble);
+        //    double averageRating = totalBMS / totalObservedTime * 100;
+
+
+        //    var studyVersion = studyVersionRepo.GetItems()
+        //        .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Id == Utilities.StudyVersion);
+
+        //    var destSheetStudyDetails = workbook.Worksheets.Create("Study Analysis");
+
+        //    destSheetStudyDetails.Range[1, 1, 100, 10].CellStyle = worksheetStyle;
+
+        //    destSheetStudyDetails.Range[2, 1].Text = "Study Date";
+        //    destSheetStudyDetails.Range[3, 1].Text = "Start Time";
+        //    destSheetStudyDetails.Range[4, 1].Text = "Finish Timer";
+        //    destSheetStudyDetails.Range[5, 1].Text = "Elapsed Time";
+        //    destSheetStudyDetails.Range[6, 1].Text = "Average Rating";
+
+        //    destSheetStudyDetails.Range["A2:A6"].CellStyle = frequencyStyle;
+
+        //    TimeSpan studyElapsedTime = studyVersion.TimeStudyFinished.Subtract(studyVersion.TimeStudyStarted);
+
+        //    destSheetStudyDetails.Range[2, 2].Text = studyVersion.TimeStudyStarted.ToString("dd/MM/yyyy");
+        //    destSheetStudyDetails.Range[3, 2].Text = studyVersion.TimeStudyStarted.ToLongTimeString();
+        //    destSheetStudyDetails.Range[4, 2].Text = studyVersion.TimeStudyFinished.ToLongTimeString();
+        //    destSheetStudyDetails.Range[5, 2].TimeSpan = studyElapsedTime;
+        //    destSheetStudyDetails.Range[6, 2].Number = averageRating;
+        //    destSheetStudyDetails.Range[6, 2].NumberFormat = "###0.00";
+
+        //    startRowIndex = 10;
+
+        //    //get all standard rated non forerign laps
+        //    var allLapTimes = lapTimeRepo.GetItems()
+        //        .Where(x => x.StudyId == Utilities.StudyId
+        //        && x.Version == Utilities.StudyVersion
+        //        && x.Status == RunningStatus.Completed
+        //        && x.IsRated
+        //        && x.IsValueAdded).ToList();
+
+
+        //    var summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+        //                           .Select(g => new LapTimeSummary
+        //                           {
+        //                               ActivityId = g.Key.ActivityId,
+        //                               Element = g.Key.Element,
+        //                               NumberOfObservations = g.Count(),
+        //                               LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
+
+        //                           }).ToList();
+
+        //    summaryCount = summaryCount + 5 + summary.Count();
+
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 1].Text = "Element Number";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 2].Text = "Description";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 3].Text = "Total BMS";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 4].Text = "Observed Occassions";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 5].Text = "BMS Per Obs Occ";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 6].Text = "Frequency Req";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 7].Text = "BMS by Freq";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 8].Text = "CA. 3%";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 9].Text = "RA. 12%";
+        //    destSheetStudyDetails.Range[startRowIndex + 2, 10].Text = "Element Standard Mins";
+
+
+        //    destSheetStudyDetails.Range[startRowIndex + 4, 1].Text = "Standard Elements";
+        //    destSheetStudyDetails.Range[startRowIndex + 4, 1].CellStyle = frequencyStyle;
+
+        //    var totalCount = 0;
+
+        //    foreach (var item in summary)
+        //    {
+
+        //        var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
+        //        var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
+        //        var raAllowance = (caAllowance * 0.12) + caAllowance;
+
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 1].Number = item.ActivityId;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 2].Text = item.Element;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 3].Number = item.LapTimeTotal;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 4].Number = item.NumberOfObservations;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 5].Number = bmsPerOccassion; ;
+
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 6].CellStyle = frequencyStyle;
+
+        //        var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 5].AddressLocal;
+        //        var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 6].AddressLocal;
+        //        var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 8].AddressLocal;
+
+        //        var formula1 = $"={columnAddress1}*{columnAddress2}";
+        //        var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
+        //        var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 7].Formula = formula1;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 8].Formula = formula2; //caAllowance;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 9].Formula = formula3;  //raAllowance;
+        //        destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 10].Formula = formula3;  //raAllowance;
+
+        //        totalCount = totalCount + 2;
+        //    }
+
+        //    destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 1].Text = "Occassional Elements";
+        //    destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 1].CellStyle = frequencyStyle;
+
+        //    summaryCount = summaryCount + 5 + summary.Count();
+
+        //    allLapTimes = lapTimeRepo.GetItems()
+        //       .Where(x => x.StudyId == Utilities.StudyId
+        //       && x.Version == Utilities.StudyVersion
+        //       && x.Status == RunningStatus.Completed
+        //       && x.IsRated
+        //       && !x.IsValueAdded).ToList();
+
+        //    summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+        //                           .Select(g => new LapTimeSummary
+        //                           {
+        //                               ActivityId = g.Key.ActivityId,
+        //                               Element = g.Key.Element,
+        //                               NumberOfObservations = g.Count(),
+        //                               LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
+
+        //                           }).ToList();
+
+        //    foreach (var item in summary)
+        //    {
+        //        var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
+        //        var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
+        //        var raAllowance = (caAllowance * 0.12) + caAllowance;
+
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].Number = item.ActivityId;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 2].Text = item.Element;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 3].Number = item.LapTimeTotal;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 4].Number = item.NumberOfObservations;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 5].Number = bmsPerOccassion;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 6].CellStyle = frequencyStyle;
+
+        //        var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 5].AddressLocal;
+        //        var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 6].AddressLocal;
+        //        var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 8].AddressLocal;
+
+        //        var formula1 = $"={columnAddress1}*{columnAddress2}";
+        //        var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
+        //        var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 7].Formula = formula1;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 8].Formula = formula2; //caAllowance;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 9].Formula = formula3;  //raAllowance;
+        //        destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 10].Formula = formula3;  //raAllowance;
+
+        //        totalCount = totalCount + 2;
+        //    }
+
+        //    summaryCount = summaryCount + 5 + summary.Count();
+
+        //    destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].Text = "Ineffective Elements";
+        //    destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].CellStyle = frequencyStyle;
+
+        //    allLapTimes = lapTimeRepo.GetItems()
+        //        .Where(x => x.StudyId == Utilities.StudyId
+        //        && x.Version == Utilities.StudyVersion
+        //        && x.Status == RunningStatus.Completed
+        //        && !x.IsRated
+        //        && !x.IsValueAdded).ToList();
+
+        //    summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+        //                           .Select(g => new LapTimeSummary
+        //                           {
+        //                               ActivityId = g.Key.ActivityId,
+        //                               Element = g.Key.Element,
+        //                               NumberOfObservations = g.Count(),
+        //                               LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
+
+        //                           }).ToList();
+
+        //    foreach (var item in summary)
+        //    {
+        //        var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
+        //        var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
+        //        var raAllowance = (caAllowance * 0.12) + caAllowance;
+
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 1].Number = item.ActivityId;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 2].Text = item.Element;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 3].Number = item.LapTimeTotal;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 4].Number = item.NumberOfObservations;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].Number = bmsPerOccassion;
+
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].CellStyle = frequencyStyle;
+
+        //        var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].AddressLocal;
+        //        var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].AddressLocal;
+        //        var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].AddressLocal;
+
+        //        var formula1 = $"={columnAddress1}*{columnAddress2}";
+        //        var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
+        //        var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 7].Formula = formula1;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].Formula = formula2; //caAllowance;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 9].Formula = formula3;  //raAllowance;
+        //        destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 10].Formula = formula3;  //raAllowance;
+
+        //        totalCount = totalCount + 2;
+        //    }
+
+        //    destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 9].Text = "Total SMS";
+        //    var formula4 = $"=SUM(J16:J{startRowIndex + totalCount + 5})";
+        //    destSheetStudyDetails.Range[$"J{totalCount + startRowIndex + 12}"].Formula = formula4;
+        //    destSheetStudyDetails.Range[$"J{totalCount + startRowIndex + 12}"].CellStyle = frequencyStyle;
+        //    destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 9].CellStyle = frequencyStyle;
+
+        //    summaryCount = summaryCount + 5 + summary.Count();
+
+        //    destSheetStudyDetails.Range["A12:J12"].CellStyle = headerStyle;
+        //    destSheetStudyDetails.Range[1, 1, summaryCount + 10, 11].AutofitColumns();
+        //    destSheetStudyDetails.Range[1, 3, summaryCount + 10, 3].NumberFormat = "###0.000";
+        //    destSheetStudyDetails.Range[1, 5, summaryCount + 10, 5].NumberFormat = "###0.000";
+        //    destSheetStudyDetails.Range[1, 7, summaryCount + 10, 7].NumberFormat = "###0.000";
+        //    destSheetStudyDetails.Range[1, 8, summaryCount + 10, 8].NumberFormat = "###0.000";
+        //    destSheetStudyDetails.Range[1, 9, summaryCount + 10, 9].NumberFormat = "###0.000";
+        //    destSheetStudyDetails.Range[1, 10, summaryCount + 10, 10].NumberFormat = "###0.000";
+
+        //}
+
+        //private void CreateAllLapTimesSheet()
+        //{
+        //    var data = new List<SpreadSheetLapTime>();
+        //    var obs = totalLapTimes
+        //                .Where(x => x.StudyId == Utilities.StudyId
+        //                && x.Version == Utilities.StudyVersion
+        //                && x.Status == RunningStatus.Completed)
+        //                .OrderBy(x => x.TotalElapsedTimeDouble).ToList();
+
+        //    var totalLaptimes = obs.Count();
+        //    foreach (var lap in obs)
+        //    {
+        //        double individualLapTimeNormalised = 0;
+        //        if (lap.Rating != null && lap.Rating != 0)
+        //            individualLapTimeNormalised = lap.IndividualLapTimeDouble * (int)lap.Rating / 100;
+        //        else
+        //            individualLapTimeNormalised = lap.IndividualLapTimeDouble;
+
+        //        data.Add(new SpreadSheetLapTime()
+        //        {
+        //            StudyId = Utilities.StudyId,
+        //            TotalElapsedTime = lap.TotalElapsedTimeDouble,
+        //            IndividualLapTime = lap.IndividualLapTimeDouble,
+        //            IsForeignElement = !lap.IsValueAdded,
+        //            Element = lap.Element,
+        //            Rating = lap.Rating,
+        //            ElementId = lap.ActivityId,
+        //            IndividualLapTimeNormalised = lap.IndividualLapBMS
+        //        });
+        //    }
+
+        //    var destSheet = workbook.Worksheets.Create("Complete Study Details");
+        //    //destSheet.Range[1, 1, 200, 1000].CellStyle = worksheetStyle;
+
+        //    destSheet.Range["A1"].Text = "Study";
+        //    destSheet.Range["B1"].Text = "Element ID";
+        //    destSheet.Range["C1"].Text = "Element";
+        //    destSheet.Range["D1"].Text = "Elapsed Time";
+        //    destSheet.Range["E1"].Text = "Lap Time";
+        //    destSheet.Range["F1"].Text = "Foreign Element";
+        //    destSheet.Range["G1"].Text = "Rating";
+        //    destSheet.Range["H1"].Text = "Normalised Lap Time";
+
+        //    destSheet.ImportData(data, 3, 1, false);
+
+        //    destSheet.Range["A1:H1"].CellStyle = headerStyle;
+        //    destSheet.Range[1, 1, totalLaptimes + 10, 10].AutofitColumns();
+        //    destSheet.Range[1, 4, totalLaptimes + 10, 4].NumberFormat = "###0.000";
+        //    destSheet.Range[1, 5, totalLaptimes + 10, 5].NumberFormat = "###0.000";
+        //    destSheet.Range[1, 8, totalLaptimes + 10, 8].NumberFormat = "###0.000";
+
+        //    var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
+        //    var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
+        //    var formula6 = $"=SUM(H3:H{totalLaptimes + 3})";
+
+        //    destSheet.Range[$"E{totalLaptimes + 4}"].Formula = formula5;
+        //    destSheet.Range[$"H{totalLaptimes + 4}"].Formula = formula6;
+        //}
+
         private void BuildStudyAnalysisDetails()
         {
 
@@ -274,9 +566,13 @@ namespace TimeStudy.Services
             destSheetStudyDetails.Range[startRowIndex + 2, 5].Text = "BMS Per Obs Occ";
             destSheetStudyDetails.Range[startRowIndex + 2, 6].Text = "Frequency Req";
             destSheetStudyDetails.Range[startRowIndex + 2, 7].Text = "BMS by Freq";
-            destSheetStudyDetails.Range[startRowIndex + 2, 8].Text = "CA. 3%";
-            destSheetStudyDetails.Range[startRowIndex + 2, 9].Text = "RA. 12%";
+            destSheetStudyDetails.Range[startRowIndex + 2, 8].Text = "CA %";
+            destSheetStudyDetails.Range[startRowIndex + 2, 9].Text = "RA %";
             destSheetStudyDetails.Range[startRowIndex + 2, 10].Text = "Element Standard Mins";
+            destSheetStudyDetails.Range[startRowIndex + 3, 8].CellStyle = frequencyStyle;
+            destSheetStudyDetails.Range[startRowIndex + 3, 9].CellStyle = frequencyStyle;
+            destSheetStudyDetails.Range[startRowIndex + 3, 8].NumberFormat = "#0";
+            destSheetStudyDetails.Range[startRowIndex + 3, 9].NumberFormat = "#0";
 
 
             destSheetStudyDetails.Range[startRowIndex + 4, 1].Text = "Standard Elements";
@@ -286,26 +582,25 @@ namespace TimeStudy.Services
 
             foreach (var item in summary)
             {
-
                 var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
-                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
-                var raAllowance = (caAllowance * 0.12) + caAllowance;
 
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 1].Number = item.ActivityId;
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 2].Text = item.Element;
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 4].Number = item.NumberOfObservations;
-                destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 5].Number = bmsPerOccassion; ;
+                destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 5].Number = bmsPerOccassion;
 
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 6].CellStyle = frequencyStyle;
 
                 var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 5].AddressLocal;
                 var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 6].AddressLocal;
                 var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 8].AddressLocal;
+                var columnAddress4 = destSheetStudyDetails.Range[startRowIndex + 3, 8].AddressLocal;
+                var columnAddress5 = destSheetStudyDetails.Range[startRowIndex + 3, 9].AddressLocal;
 
                 var formula1 = $"={columnAddress1}*{columnAddress2}";
-                var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
-                var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+                var formula2 = $"=(({columnAddress1}*({columnAddress4}/100)) + {columnAddress1})*{columnAddress2}";
+                var formula3 = $"=({columnAddress3}*({columnAddress5}/100)) + {columnAddress3}";
 
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 7].Formula = formula1;
                 destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 8].Formula = formula2; //caAllowance;
@@ -340,8 +635,6 @@ namespace TimeStudy.Services
             foreach (var item in summary)
             {
                 var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
-                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
-                var raAllowance = (caAllowance * 0.12) + caAllowance;
 
                 destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].Number = item.ActivityId;
                 destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 2].Text = item.Element;
@@ -353,10 +646,12 @@ namespace TimeStudy.Services
                 var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 5].AddressLocal;
                 var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 6].AddressLocal;
                 var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 8].AddressLocal;
+                var columnAddress4 = destSheetStudyDetails.Range[startRowIndex + 3, 8].AddressLocal;
+                var columnAddress5 = destSheetStudyDetails.Range[startRowIndex + 3, 9].AddressLocal;
 
                 var formula1 = $"={columnAddress1}*{columnAddress2}";
-                var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
-                var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+                var formula2 = $"=(({columnAddress1}*({columnAddress4}/100)) + {columnAddress1})*{columnAddress2}";
+                var formula3 = $"=({columnAddress3}*({columnAddress5}/100)) + {columnAddress3}";
 
                 destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 7].Formula = formula1;
                 destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 8].Formula = formula2; //caAllowance;
@@ -391,8 +686,6 @@ namespace TimeStudy.Services
             foreach (var item in summary)
             {
                 var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
-                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
-                var raAllowance = (caAllowance * 0.12) + caAllowance;
 
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 1].Number = item.ActivityId;
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 2].Text = item.Element;
@@ -405,10 +698,12 @@ namespace TimeStudy.Services
                 var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].AddressLocal;
                 var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].AddressLocal;
                 var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].AddressLocal;
+                var columnAddress4 = destSheetStudyDetails.Range[startRowIndex + 3, 8].AddressLocal;
+                var columnAddress5 = destSheetStudyDetails.Range[startRowIndex + 3, 9].AddressLocal;
 
                 var formula1 = $"={columnAddress1}*{columnAddress2}";
-                var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
-                var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+                var formula2 = $"=(({columnAddress1}*({columnAddress4}/100)) + {columnAddress1})*{columnAddress2}";
+                var formula3 = $"=({columnAddress3}*({columnAddress5}/100)) + {columnAddress3}";
 
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 7].Formula = formula1;
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].Formula = formula2; //caAllowance;
@@ -428,12 +723,12 @@ namespace TimeStudy.Services
 
             destSheetStudyDetails.Range["A12:J12"].CellStyle = headerStyle;
             destSheetStudyDetails.Range[1, 1, summaryCount + 10, 11].AutofitColumns();
-            destSheetStudyDetails.Range[1, 3, summaryCount + 10, 3].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range[1, 5, summaryCount + 10, 5].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range[1, 7, summaryCount + 10, 7].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range[1, 8, summaryCount + 10, 8].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range[1, 9, summaryCount + 10, 9].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range[1, 10, summaryCount + 10, 10].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[startRowIndex + 4, 3, summaryCount + 10, 3].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[startRowIndex + 4, 5, summaryCount + 10, 5].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[startRowIndex + 4, 7, summaryCount + 10, 7].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[startRowIndex + 4, 8, summaryCount + 10, 8].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[startRowIndex + 4, 9, summaryCount + 10, 9].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[startRowIndex + 4, 10, summaryCount + 10, 10].NumberFormat = "###0.000";
 
         }
 
@@ -484,9 +779,9 @@ namespace TimeStudy.Services
 
             destSheet.Range["A1:H1"].CellStyle = headerStyle;
             destSheet.Range[1, 1, totalLaptimes + 10, 10].AutofitColumns();
-            destSheet.Range[1, 4, totalLaptimes + 10, 4].NumberFormat = "###0.000";
-            destSheet.Range[1, 5, totalLaptimes + 10, 5].NumberFormat = "###0.000";
-            destSheet.Range[1, 8, totalLaptimes + 10, 8].NumberFormat = "###0.000";
+            destSheet.Range[startRowIndex + 4, 4, totalLaptimes + 10, 4].NumberFormat = "###0.000";
+            destSheet.Range[startRowIndex + 4, 5, totalLaptimes + 10, 5].NumberFormat = "###0.000";
+            destSheet.Range[startRowIndex + 4, 8, totalLaptimes + 10, 8].NumberFormat = "###0.000";
 
             var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
             var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
