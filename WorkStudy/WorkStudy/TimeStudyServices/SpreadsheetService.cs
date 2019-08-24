@@ -693,7 +693,7 @@ namespace TimeStudy.Services
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 4].Number = item.NumberOfObservations;
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].Number = bmsPerOccassion;
 
-                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].CellStyle = frequencyStyle;
+                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].Number = 0;
 
                 var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].AddressLocal;
                 var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].AddressLocal;

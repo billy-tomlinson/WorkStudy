@@ -36,11 +36,11 @@
 	</array>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
-	<key>CFBundleName</key>
-	<string>Activity Sampling</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.5</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>CFBundleName</key>
+	<string>Work Study</string>
 </dict>
 </plist>
