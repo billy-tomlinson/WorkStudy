@@ -135,6 +135,7 @@ namespace StopWatch
             OnPropertyChanged("LapTimes");
 
             LapTimesList = new List<LapTime>();
+            OnPropertyChanged("LapTimes");
             StopWatchTime = IsImperial ? "0:0:00:00" : "00.000";
             Counter = 0;
             IsLapEnabled = false;
