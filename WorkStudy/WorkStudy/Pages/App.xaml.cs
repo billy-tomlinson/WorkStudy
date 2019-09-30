@@ -31,7 +31,7 @@ namespace WorkStudy
             Utilities.AlarmConnection = AlarmDatabasePath;
             TimeStudy.Services.Utilities.Connection = DatabasePath;
             CallMain();
-            //MainPage = new NavigationPage(new StopWatch());
+            //MainPage = new NavigationPage(new WelcomePage());
         }
 
         public static NavigationPage NavigationPage { get; private set; }
@@ -52,9 +52,11 @@ namespace WorkStudy
         {
             var menuPage = new HomeMenuPage(){ Title = "Main Page" , Icon="hamburger.png"  };
             NavigationPage = new NavigationPage(new WelcomePage());
-            RootPage = new RootPage();
-            RootPage.Master = menuPage;
-            RootPage.Detail = NavigationPage;
+            RootPage = new RootPage
+            {
+                Master = menuPage,
+                Detail = NavigationPage
+            };
             MainPage = RootPage;
         }
 
