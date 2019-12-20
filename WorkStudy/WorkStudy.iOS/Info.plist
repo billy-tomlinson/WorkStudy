@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>13.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>Work Study</string>
 	<key>CFBundleIdentifier</key>
@@ -41,6 +41,6 @@
 	<key>CFBundleName</key>
 	<string>Work Study</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0</string>
+	<string>3.2</string>
 </dict>
 </plist>
