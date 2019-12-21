@@ -110,12 +110,19 @@ namespace WorkStudy.Services
 
         public static void DisableAlarmInDatabase()
         {
-            var alarmDetails = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-
-            if(alarmDetails != null)
+            try
             {
-                alarmDetails.IsActive = false;
-                Utilities.AlarmRepo.SaveItem(alarmDetails);
+                var alarmDetails = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
+
+                if (alarmDetails != null)
+                {
+                    alarmDetails.IsActive = false;
+                    Utilities.AlarmRepo.SaveItem(alarmDetails);
+                }
+            }
+            catch (Exception ex)
+            {
+                //some databse error
             }
         }
 
@@ -136,25 +143,32 @@ namespace WorkStudy.Services
 
         private static DateTime UpdateAlarmAfterBeingInBackroundOrAlarmOff()
         {
-
             var newObsTime = DateTime.Now;
 
-            if (Utilities.StudyId > 0)
+            try
             {
-                var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-
-                if (alarm != null)
+                if (Utilities.StudyId > 0)
                 {
+                    var alarm = Utilities.AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
 
-                    bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
-
-                    if (notificationExpired)
+                    if (alarm != null)
                     {
-                        newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+
+                        bool notificationExpired = alarm.NextNotificationTime < DateTime.Now;
+
+                        if (notificationExpired)
+                        {
+                            newObsTime = SaveNewAlarmDetails(alarm.Interval, alarm.Type, alarm.IsActive);
+                        }
                     }
                 }
             }
 
+            catch (Exception ex)
+            {
+                // some database error
+            }
+            
             return newObsTime;
         }
     }
