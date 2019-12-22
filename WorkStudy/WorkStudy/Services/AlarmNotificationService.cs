@@ -122,7 +122,9 @@ namespace WorkStudy.Services
             }
             catch (Exception ex)
             {
-                //some databse error
+
+                // some database error - probably alarmdetails table not created
+                Utilities.AlarmRepo.CreateTable();
             }
         }
 
@@ -166,7 +168,8 @@ namespace WorkStudy.Services
 
             catch (Exception ex)
             {
-                // some database error
+                // some database error - probably alarmdetails table not created
+                Utilities.AlarmRepo.CreateTable();
             }
             
             return newObsTime;
