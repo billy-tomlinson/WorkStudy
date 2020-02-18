@@ -24,6 +24,8 @@ namespace WorkStudy.Model
 
         public bool Completed { get; set; }
 
+        public string DeleteIcon => Utilities.DeleteImage;
+
         [Ignore]
         public string ObservedColour { get; set; } = "#E8EAEC";
 

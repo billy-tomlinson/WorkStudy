@@ -118,13 +118,16 @@ namespace WorkStudy.ViewModels
                     {
                         AlarmNotificationService.CheckIfAlarmHasExpiredWhilstInBackgroundOrAlarmOff();
                         var alarm = AlarmRepo.GetItems().SingleOrDefault(x => x.StudyId == Utilities.StudyId);
-                        var time = alarm.NextNotificationTime.ToString(FormatMinutes);
-                        Device.BeginInvokeOnMainThread(() =>
+                        if(alarm != null)
                         {
-                            TimeOfNextObservation = time;
-                            AlarmNotificationService.RestartAlarmCounter = false;
-                            AlarmNotificationService.AlarmSetFromAlarmPage = false;
-                        });
+                            var time = alarm.NextNotificationTime.ToString(FormatMinutes);
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                TimeOfNextObservation = time;
+                                AlarmNotificationService.RestartAlarmCounter = false;
+                                AlarmNotificationService.AlarmSetFromAlarmPage = false;
+                            });
+                        }
                     }
                     return true;
                 });

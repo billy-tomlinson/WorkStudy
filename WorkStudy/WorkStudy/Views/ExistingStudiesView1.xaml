@@ -5,7 +5,8 @@
              xmlns:workStudy="clr-namespace:WorkStudy.ViewModels" 
              xmlns:local="clr-namespace:WorkStudy.Custom" 
              xmlns:views="clr-namespace:WorkStudy.Views" 
-             BackgroundColor="Transparent">
+             BackgroundColor="Transparent"
+             x:Name="ExistingStudies">
     <ContentView.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="StartAndExpand" 
@@ -46,9 +47,11 @@
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*">
+                                            <ColumnDefinition Width="3.5*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="*">
+                                            <ColumnDefinition Width="5.3*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="1.2*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="NAME: " Style="{StaticResource existingStudiesView}" />
@@ -59,6 +62,14 @@
                                         <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" Style="{StaticResource existingStudiesView}" />
+                                        <local:CustomImage Source="{Binding DeleteIcon}" Grid.Row="1"
+                                                               Grid.RowSpan="2"
+                                                               Grid.Column="2"
+                                                               Margin="3">
+                                                <local:CustomImage.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference ExistingStudies}}" CommandParameter="{Binding Id}" />
+                                                </local:CustomImage.GestureRecognizers>
+                                        </local:CustomImage>
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>

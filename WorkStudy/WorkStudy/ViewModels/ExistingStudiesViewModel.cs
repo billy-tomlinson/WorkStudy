@@ -12,12 +12,35 @@ namespace WorkStudy.ViewModels
     public class ExistingStudiesViewModel : BaseViewModel
     {
         bool completed;
+        public Command DeleteSelected { get; set; }
+
         public ExistingStudiesViewModel(bool completed)
         {
+            DeleteSelected = new Command(DeleteSelectedEvent);
+
             Opacity = 1;
             IsBusy = false;
 
             this.completed = completed;
+            ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
+                                  .Where(_ => _.Completed == completed));
+        }
+
+        void DeleteSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+
+            var sample = SampleRepo.GetItem(value);
+
+            SampleRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYSAMPLESTUDY WHERE ID = " + value);
+            AlarmRepo.ExecuteSQLCommand("DELETE FROM ALARMDETAILS WHERE STUDYID = " + value);
+            ObservationRepo.ExecuteSQLCommand("DELETE FROM OBSERVATION WHERE STUDYID = " + value);
+            ObservationHistoricRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONHISTORIC WHERE STUDYID = " + value);
+            ObservationRoundStatusRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONROUNDSTATUS WHERE STUDYID = " + value);
+            OperatorRepo.ExecuteSQLCommand("DELETE FROM OPERATOR WHERE STUDYID = " + value);
+            MergedActivityRepo.ExecuteSQLCommand("DELETE FROM MERGEDACTIVITIES WHERE ACTIVITYID IN (SELECT ID FROM ACTIVITY WHERE STUDYID == " + value + ")");
+            ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID IN (SELECT ACTIVITYNAMEID FROM ACTIVITY WHERE STUDYID == " + value + ")");
+            ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                   .Where(_ => _.Completed == completed));
         }

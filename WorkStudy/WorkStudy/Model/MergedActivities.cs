@@ -11,5 +11,6 @@ namespace WorkStudy.Model
 
         [ForeignKey(typeof(Activity))]
         public int MergedActivityId { get; set; }
+
     }
 }
