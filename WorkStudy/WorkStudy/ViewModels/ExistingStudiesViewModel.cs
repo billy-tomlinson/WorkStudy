@@ -17,6 +17,7 @@ namespace WorkStudy.ViewModels
         public ExistingStudiesViewModel(bool completed)
         {
             DeleteSelected = new Command(DeleteSelectedEvent);
+            Override = new Command(OverrideEvent);
 
             Opacity = 1;
             IsBusy = false;
@@ -26,9 +27,14 @@ namespace WorkStudy.ViewModels
                                   .Where(_ => _.Completed == completed));
         }
 
-        void DeleteSelectedEvent(object sender)
+
+        void OverrideEvent(object sender)
         {
-            var value = (int)sender;
+            IsInvalid = false;
+            Opacity = 1;
+            IsPageEnabled = true;
+
+            var value = Utilities.StudyId;
 
             var sample = SampleRepo.GetItem(value);
 
@@ -43,6 +49,23 @@ namespace WorkStudy.ViewModels
             ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                   .Where(_ => _.Completed == completed));
+        }
+
+        void DeleteSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+
+            ValidationText = "Are you Sure ????????. Override?";
+            IsOverrideVisible = true;
+            ShowClose = true;
+            ShowOkCancel = false;
+            IsPageUnavailableVisible = false;
+            Opacity = 0.2;
+            CloseColumnSpan = 1;
+            IsInvalid = true;
+            IsPageEnabled = false;
+            Utilities.StudyId = value;
+            return;
         }
 
         static ObservableCollection<ActivitySampleStudy> activitySamples;
