@@ -55,7 +55,7 @@ namespace WorkStudy.ViewModels
         {
             var value = (int)sender;
 
-            ValidationText = "Are you Sure ????????. Override?";
+            ValidationText = "Are you sure you want to delete this study. This cannot be undone and all data related to this study will be deleted?";
             IsOverrideVisible = true;
             ShowClose = true;
             ShowOkCancel = false;

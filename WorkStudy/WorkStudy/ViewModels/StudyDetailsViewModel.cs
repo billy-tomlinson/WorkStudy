@@ -29,6 +29,8 @@ namespace WorkStudy.ViewModels
                     SampleStudy.IsRated = !IsUnRated;
                     Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
 
+                    SampleRepo.ExecuteSQLCommand("UPDATE ACTIVITYSAMPLESTUDY SET STUDYNUMBER = " + Utilities.StudyId + " WHERE ID == " + Utilities.StudyId);
+
                     AlarmRepo.SaveItem(new AlarmDetails
                     {
                         IsActive = IsAlarmEnabled,
@@ -144,6 +146,10 @@ namespace WorkStudy.ViewModels
             if (studies.Count > 0)
                 lastStudyId = studies.OrderByDescending(x => x.Id)
                                         .FirstOrDefault().Id;
+            else
+            {
+                lastStudyId = SampleRepo.SaveItem(new ActivitySampleStudy { Name = "Initial Study to Invoke ID count" });
+            }
 
             lastStudyId = lastStudyId + 1;
 
