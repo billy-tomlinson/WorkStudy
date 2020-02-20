@@ -82,7 +82,7 @@
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
             </StackLayout>
                         <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}"  MinimumHeightRequest="250"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentView.Content>

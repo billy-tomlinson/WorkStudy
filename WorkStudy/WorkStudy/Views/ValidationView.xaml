@@ -9,9 +9,9 @@
                              Padding="10" 
                              Margin="10" 
                              WidthRequest="250" 
-                             MinimumHeightRequest="130" 
+                             
                              BackgroundColor="{StaticResource PopUpColour}">
-                    <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
+                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
                  <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
