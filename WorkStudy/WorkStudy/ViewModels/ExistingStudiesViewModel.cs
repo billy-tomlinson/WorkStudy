@@ -55,10 +55,10 @@ namespace WorkStudy.ViewModels
         {
             var value = (int)sender;
 
-            ValidationText = "Are you sure you want to delete this study. This cannot be undone and all data related to this study will be deleted?";
-            IsOverrideVisible = true;
+            ValidationText = "Are you sure you want to delete study " + Utilities.StudyId + " ? This cannot be undone and all data related to this study will be deleted";
+            IsOverrideVisible = false;
             ShowClose = true;
-            ShowOkCancel = false;
+            ShowOkCancel = true;
             IsPageUnavailableVisible = false;
             Opacity = 0.2;
             CloseColumnSpan = 1;

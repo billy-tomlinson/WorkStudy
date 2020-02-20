@@ -11,7 +11,7 @@
                              WidthRequest="250" 
                              
                              BackgroundColor="{StaticResource PopUpColour}">
-                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" WidthRequest="200" >
+                    <StackLayout Orientation="Vertical" MinimumHeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
                  <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
