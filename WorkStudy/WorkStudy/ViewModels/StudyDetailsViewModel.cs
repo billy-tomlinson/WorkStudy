@@ -148,7 +148,9 @@ namespace WorkStudy.ViewModels
                                         .FirstOrDefault().Id;
             else
             {
-                lastStudyId = SampleRepo.SaveItem(new ActivitySampleStudy { Name = "Initial Study to Invoke ID count" });
+                var study = new ActivitySampleStudy { Name = "Initial Study to Invoke ID count" };
+                lastStudyId = SampleRepo.SaveItem(study);
+                SampleRepo.DeleteItem(study);
             }
 
             lastStudyId = lastStudyId + 1;

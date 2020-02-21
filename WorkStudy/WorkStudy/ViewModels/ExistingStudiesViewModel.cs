@@ -45,8 +45,8 @@ namespace WorkStudy.ViewModels
             ObservationRoundStatusRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONROUNDSTATUS WHERE STUDYID = " + value);
             OperatorRepo.ExecuteSQLCommand("DELETE FROM OPERATOR WHERE STUDYID = " + value);
             MergedActivityRepo.ExecuteSQLCommand("DELETE FROM MERGEDACTIVITIES WHERE ACTIVITYID IN (SELECT ID FROM ACTIVITY WHERE STUDYID == " + value + ")");
-            ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID IN (SELECT ACTIVITYNAMEID FROM ACTIVITY WHERE STUDYID == " + value + ")");
             ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
+            ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                   .Where(_ => _.Completed == completed));
         }
@@ -55,7 +55,7 @@ namespace WorkStudy.ViewModels
         {
             var value = (int)sender;
 
-            ValidationText = "Are you sure you want to delete study " + Utilities.StudyId + " ? This cannot be undone and all data related to this study will be deleted";
+            ValidationText = "Are you sure you want to delete study " + value + " ? This cannot be undone and all data related to this study will be deleted";
             IsOverrideVisible = false;
             ShowClose = true;
             ShowOkCancel = true;
