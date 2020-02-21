@@ -16,6 +16,7 @@ namespace WorkStudy.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public Command CloseView { get; set; }
         public Command Override { get; set; }
+        public Command ConfirmationOverride { get; set; }
 
         private readonly string conn;
         private readonly string alarmconn;
@@ -54,6 +55,8 @@ namespace WorkStudy.ViewModels
 
         public IBaseRepository<ObservationRoundStatus> ObservationRoundStatusRepo => new BaseRepository<ObservationRoundStatus>(conn);
 
+        public int RandomGeneratedCode { get; set; }
+
         static bool hasElements;
         public bool HasElements
         {
@@ -65,7 +68,48 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        static string confirmationStudyNumberLabel;
+        public string ConfirmationStudyNumberLabel
+        {
+            get => confirmationStudyNumberLabel;
+            set
+            {
+                confirmationStudyNumberLabel = value;
+                OnPropertyChanged();
+            }
+        }
 
+        static string confirmationValidationCodeLabel;
+        public string ConfirmationValidationCodeLabel
+        {
+            get => confirmationValidationCodeLabel;
+            set
+            {
+                confirmationValidationCodeLabel = value;
+                OnPropertyChanged();
+            }
+        }
+        static int? confirmationStudyNumber;
+        public int? ConfirmationStudyNumber
+        {
+            get => confirmationStudyNumber;
+            set
+            {
+                confirmationStudyNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static int? confirmationValidationCode;
+        public int? ConfirmationValidationCode
+        {
+            get => confirmationValidationCode;
+            set
+            {
+                confirmationValidationCode = value;
+                OnPropertyChanged();
+            }
+        }
         static bool removeObservationRequest;
         public bool RemoveObservationRequest
         {
@@ -154,6 +198,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        bool isConfirmation = false;
+        public bool IsConfirmation
+        {
+            get { return isConfirmation; }
+            set
+            {
+                isConfirmation = value;
+                OnPropertyChanged();
+            }
+        }
 
         double opacity = 1;
         public double Opacity
@@ -503,8 +557,10 @@ namespace WorkStudy.ViewModels
         {
             Opacity = 1;
             IsInvalid = false;
+            IsConfirmation = false;
             IsPageEnabled = true;
-            Utilities.DeleteCount = 0;
+            ConfirmationValidationCode = null;
+            ConfirmationStudyNumber = null;
         }
 
         public List<OperatorRunningTotal> GetRunningTotals(Operator op)

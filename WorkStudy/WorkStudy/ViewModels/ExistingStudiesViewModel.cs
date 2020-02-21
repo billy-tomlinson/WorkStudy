@@ -6,6 +6,7 @@ using WorkStudy.Services;
 using Xamarin.Forms;
 using WorkStudy.Custom;
 using System.Threading.Tasks;
+using System;
 
 namespace WorkStudy.ViewModels
 {
@@ -18,6 +19,7 @@ namespace WorkStudy.ViewModels
         {
             DeleteSelected = new Command(DeleteSelectedEvent);
             Override = new Command(OverrideEvent);
+            ConfirmationOverride = new Command(ConfirmationOverrideEvent);
 
             Opacity = 1;
             IsBusy = false;
@@ -27,16 +29,14 @@ namespace WorkStudy.ViewModels
                                   .Where(_ => _.Completed == completed));
         }
 
-
-        void OverrideEvent(object sender)
+        void ConfirmationOverrideEvent(object sender)
         {
             var value = Utilities.StudyId;
 
-            Utilities.DeleteCount++;
-
-            if (Utilities.DeleteCount == 2)
+            if(ConfirmationStudyNumber == value && RandomGeneratedCode == ConfirmationValidationCode)
             {
                 IsInvalid = false;
+                IsConfirmation = false;
                 Opacity = 1;
                 IsPageEnabled = true;
 
@@ -53,23 +53,52 @@ namespace WorkStudy.ViewModels
                 ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
                 ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                       .Where(_ => _.Completed == completed));
-
-                Utilities.DeleteCount = 0;
             }
             else
             {
-                ValidationText = "You are about to delete study " + value + ". Press OK to confirm.";
+                ValidationText = "You have entered incorrect details.";
                 IsOverrideVisible = false;
                 ShowClose = true;
-                ShowOkCancel = true;
+                ShowOkCancel = false;
                 IsPageUnavailableVisible = false;
                 Opacity = 0.2;
-                CloseColumnSpan = 1;
+                CloseColumnSpan = 2;
                 IsInvalid = true;
+                IsConfirmation = false;
                 IsPageEnabled = false;
                 Utilities.StudyId = value;
+                ConfirmationValidationCode = null;
+                ConfirmationStudyNumber = null;
                 return;
             }
+        }
+
+        void OverrideEvent(object sender)
+        {
+            var rand = new Random();
+            int num = rand.Next(1000,9999);
+
+            Utilities.RandomGeneratedCode = num;
+            RandomGeneratedCode = Utilities.RandomGeneratedCode;
+
+            ConfirmationStudyNumberLabel = "Study Number : " + Utilities.StudyId;
+            ConfirmationValidationCodeLabel = "Code : " + Utilities.RandomGeneratedCode;
+
+            var value = Utilities.StudyId;
+
+            ValidationText = "You are about to delete study " + value + ". Enter Study number and Code and press OK to confirm.";
+            IsOverrideVisible = false;
+            ShowClose = true;
+            ShowOkCancel = true;
+            IsPageUnavailableVisible = false;
+            Opacity = 0.2;
+            CloseColumnSpan = 1;
+            IsInvalid = false;
+            IsConfirmation = true;
+            IsPageEnabled = false;
+            Utilities.StudyId = value;
+            return;
+
         }
 
         void DeleteSelectedEvent(object sender)
@@ -85,6 +114,7 @@ namespace WorkStudy.ViewModels
             CloseColumnSpan = 1;
             IsInvalid = true;
             IsPageEnabled = false;
+            IsConfirmation = false;
             Utilities.StudyId = value;
             return;
         }
