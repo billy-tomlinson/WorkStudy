@@ -504,6 +504,7 @@ namespace WorkStudy.ViewModels
             Opacity = 1;
             IsInvalid = false;
             IsPageEnabled = true;
+            Utilities.DeleteCount = 0;
         }
 
         public List<OperatorRunningTotal> GetRunningTotals(Operator op)

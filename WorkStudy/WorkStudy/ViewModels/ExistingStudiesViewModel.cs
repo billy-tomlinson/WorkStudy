@@ -30,25 +30,46 @@ namespace WorkStudy.ViewModels
 
         void OverrideEvent(object sender)
         {
-            IsInvalid = false;
-            Opacity = 1;
-            IsPageEnabled = true;
-
             var value = Utilities.StudyId;
 
-            var sample = SampleRepo.GetItem(value);
+            Utilities.DeleteCount++;
 
-            SampleRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYSAMPLESTUDY WHERE ID = " + value);
-            AlarmRepo.ExecuteSQLCommand("DELETE FROM ALARMDETAILS WHERE STUDYID = " + value);
-            ObservationRepo.ExecuteSQLCommand("DELETE FROM OBSERVATION WHERE STUDYID = " + value);
-            ObservationHistoricRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONHISTORIC WHERE STUDYID = " + value);
-            ObservationRoundStatusRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONROUNDSTATUS WHERE STUDYID = " + value);
-            OperatorRepo.ExecuteSQLCommand("DELETE FROM OPERATOR WHERE STUDYID = " + value);
-            MergedActivityRepo.ExecuteSQLCommand("DELETE FROM MERGEDACTIVITIES WHERE ACTIVITYID IN (SELECT ID FROM ACTIVITY WHERE STUDYID == " + value + ")");
-            ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
-            ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
-            ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
-                                  .Where(_ => _.Completed == completed));
+            if (Utilities.DeleteCount == 2)
+            {
+                IsInvalid = false;
+                Opacity = 1;
+                IsPageEnabled = true;
+
+                var sample = SampleRepo.GetItem(value);
+
+                SampleRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYSAMPLESTUDY WHERE ID = " + value);
+                AlarmRepo.ExecuteSQLCommand("DELETE FROM ALARMDETAILS WHERE STUDYID = " + value);
+                ObservationRepo.ExecuteSQLCommand("DELETE FROM OBSERVATION WHERE STUDYID = " + value);
+                ObservationHistoricRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONHISTORIC WHERE STUDYID = " + value);
+                ObservationRoundStatusRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONROUNDSTATUS WHERE STUDYID = " + value);
+                OperatorRepo.ExecuteSQLCommand("DELETE FROM OPERATOR WHERE STUDYID = " + value);
+                MergedActivityRepo.ExecuteSQLCommand("DELETE FROM MERGEDACTIVITIES WHERE ACTIVITYID IN (SELECT ID FROM ACTIVITY WHERE STUDYID == " + value + ")");
+                ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
+                ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
+                ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
+                                      .Where(_ => _.Completed == completed));
+
+                Utilities.DeleteCount = 0;
+            }
+            else
+            {
+                ValidationText = "You are about to delete study " + value + ". Press OK to confirm.";
+                IsOverrideVisible = false;
+                ShowClose = true;
+                ShowOkCancel = true;
+                IsPageUnavailableVisible = false;
+                Opacity = 0.2;
+                CloseColumnSpan = 1;
+                IsInvalid = true;
+                IsPageEnabled = false;
+                Utilities.StudyId = value;
+                return;
+            }
         }
 
         void DeleteSelectedEvent(object sender)
