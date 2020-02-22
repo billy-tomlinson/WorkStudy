@@ -69,10 +69,11 @@ namespace WorkStudy.ViewModels
                 IsConfirmation = false;
                 IsPageEnabled = false;
                 Utilities.StudyId = value;
-                ConfirmationValidationCode = null;
-                ConfirmationStudyNumber = null;
                 return;
             }
+
+            ConfirmationValidationCode = null;
+            ConfirmationStudyNumber = null;
         }
 
         void OverrideEvent(object sender)
