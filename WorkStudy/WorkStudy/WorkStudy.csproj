@@ -47,6 +47,7 @@
     <Compile Remove="TimeStudyServices\ITerminateApplication.cs" />
     <Compile Remove="TimeStudyServices\IAppVersion.cs" />
     <Compile Remove="StopWatchPages\StopWatchAboutPage.xaml.cs" />
+    <Compile Remove="Model\Comment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MasterPage.xaml.cs">

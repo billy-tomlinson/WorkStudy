@@ -1,5 +1,6 @@
 ﻿using System;
 using SQLiteNetExtensions.Attributes;
+using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {
@@ -23,5 +24,8 @@ namespace WorkStudy.Model
 
         [ForeignKey(typeof(ActivitySampleStudy))]
         public int StudyId { get; set; }
+
+        public string Comment { get; set; }
+
     }
 }

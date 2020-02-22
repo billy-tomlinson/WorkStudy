@@ -14,7 +14,7 @@ namespace WorkStudy.UnitTests
     [TestClass]
     public class ExcelTests
     {
-        private const string connString = "/Users/billytomlinson/RandomActivitySample.db3";
+        private const string connString = "/Users/billytomlinson/TyeManagementLtd.db3";
         //private const string connString = "WorkStudy1.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
@@ -63,7 +63,7 @@ namespace WorkStudy.UnitTests
 
         public ExcelTests()
         {
-            Utilities.StudyId = 1;
+            Utilities.StudyId = 36;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
@@ -73,7 +73,7 @@ namespace WorkStudy.UnitTests
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
             alarm = alarmRepo.GetItem(Utilities.StudyId);
-            IntervalTime = alarm.Interval / 60;
+            IntervalTime = 10;//alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
@@ -175,7 +175,7 @@ namespace WorkStudy.UnitTests
  
                     ms.Seek(0, SeekOrigin.Begin);
 
-                    using (FileStream fs = new FileStream("ReportOutputTestSQLSummary150.xlsx", FileMode.OpenOrCreate))
+                    using (FileStream fs = new FileStream("ReportOutputTestSQLSummary200.xlsx", FileMode.OpenOrCreate))
                     {
                         ms.CopyTo(fs);
                         fs.Flush();
@@ -231,9 +231,10 @@ namespace WorkStudy.UnitTests
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
-                .Select(y => new { y.ActivityName.Name }).ToList();
+                .Select(y => new { y.ActivityName.Name , y.Comment }).ToList();
 
             destSheetAll.Range[3, 1].Text = "Activity";
+            destSheetAll.Range[3, 2].Text = "Comments";
             destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
 
             CreateSheetPerOperator();
@@ -361,7 +362,7 @@ namespace WorkStudy.UnitTests
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated && !x.IsValueAdded)
-             .Select(y => new { y.ActivityName.Name }).ToList();
+             .Select(y => new { y.ActivityName.Name, y.Comment }).ToList();
 
             var startRow = valueAddedActivitiesTotalRowIndex + 2;
 
@@ -505,7 +506,7 @@ namespace WorkStudy.UnitTests
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => !x.Rated)
-             .Select(y => new { y.ActivityName.Name }).ToList();
+             .Select(y => new { y.ActivityName.Name, y.Comment }).ToList();
 
             var startRow = nonValueAddedActivitiesTotalRowIndex + 2;
 

@@ -240,9 +240,10 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
-                .Select(y => new { y.ActivityName.Name }).ToList();
+                .Select(y => new { y.ActivityName.Name, y.Comment }).ToList();
 
             destSheetAll.Range[3, 1].Text = "Activity";
+            destSheetAll.Range[3, 1].Text = "Comments";
             destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
 
             CreateSheetPerOperator();
@@ -370,7 +371,7 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => x.Rated && !x.IsValueAdded)
-             .Select(y => new { y.ActivityName.Name }).ToList();
+             .Select(y => new { y.ActivityName.Name, y.Comment }).ToList();
 
             var startRow = valueAddedActivitiesTotalRowIndex + 2;
 
@@ -514,7 +515,7 @@ namespace WorkStudy.Services
             allTotals = new List<List<ObservationSummary>>();
 
             var allActivities = allStudyActivities.Where(x => !x.Rated)
-             .Select(y => new { y.ActivityName.Name }).ToList();
+             .Select(y => new { y.ActivityName.Name, y.Comment }).ToList();
 
             var startRow = nonValueAddedActivitiesTotalRowIndex + 2;
 

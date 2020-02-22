@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using WorkStudy.Services;
 
 namespace WorkStudy.Model
 {
@@ -24,5 +25,9 @@ namespace WorkStudy.Model
 
         [Ignore]
         public bool OperatorPercentageIsVisible { get; set; }
+
+        public string SettingsIcon { get; set; } = Utilities.CommentsImage;
+
+        public string Comment { get; set; }
     }
 }
