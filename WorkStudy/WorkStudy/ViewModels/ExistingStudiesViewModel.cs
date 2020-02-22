@@ -53,6 +53,8 @@ namespace WorkStudy.ViewModels
                 ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
                 ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
                                       .Where(_ => _.Completed == completed));
+
+                Utilities.StudyId = 0;
             }
             else
             {
