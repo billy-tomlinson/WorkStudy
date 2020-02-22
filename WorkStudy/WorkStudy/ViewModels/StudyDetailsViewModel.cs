@@ -171,6 +171,8 @@ namespace WorkStudy.ViewModels
 
             var success = int.TryParse(IntervalMinutes, out int result);
 
+            if (result < 1) success = false;
+
             if (!AlarmIntervalIsValid(success)) return;
 
             IntervalTime = result * 60;
@@ -191,7 +193,7 @@ namespace WorkStudy.ViewModels
 
             if (!success)
             {
-                ValidationText = "Please enter interval minutes less than 99";
+                ValidationText = "Please enter interval in minutes between 1 and 99";
                 Opacity = 0.2;
                 IsInvalid = true;
                 IsPageEnabled = false;
