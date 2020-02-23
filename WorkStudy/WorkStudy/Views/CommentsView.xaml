@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="WorkStudy.Views.CommentsView"
+                BackgroundColor="Transparent" 
+                AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
+                AbsoluteLayout.LayoutFlags="All">
+    <StackLayout VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    BackgroundColor="#FCFAFA">
+        <StackLayout Orientation="Vertical" 
+                        Padding="5" Margin="5" 
+                        WidthRequest="260" 
+                        HeightRequest="200" 
+                        BackgroundColor="#FCFAFA">
+            <Label Text="Comments" TextColor="Black" />
+            <Editor Text="{Binding Comment}" HeightRequest="90" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Save" 
+                        Command="{Binding SaveComment}" Style="{StaticResource popUpButton}" />
+                <Button Text="Cancel" 
+                        Command="{Binding CancelComment}" Style="{StaticResource popUpButton}" />
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ContentView>

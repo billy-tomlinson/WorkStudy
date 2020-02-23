@@ -89,7 +89,7 @@
                                         <Label Grid.Row="0" Grid.Column="2" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black"/>
                                         <local:CustomImage Source="{Binding SettingsIcon}" Grid.Row="0" Grid.Column="3" Margin="3" WidthRequest="50">
                                             <local:CustomImage.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding Id}" />
+                                                <TapGestureRecognizer Command="{Binding Path = BindingContext.SettingsSelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding Id}" />
                                             </local:CustomImage.GestureRecognizers>
                                         </local:CustomImage>
                                     </Grid>
@@ -109,6 +109,8 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
+            <views:CommentsView x:Name="commentsView" 
+                                      IsVisible="{Binding CommentsVisible}" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

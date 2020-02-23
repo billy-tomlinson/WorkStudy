@@ -26,6 +26,9 @@ namespace WorkStudy.ViewModels
         public Command PauseStudy { get; set; }
         public Command EditStudy { get; set; }
         public Command CloseActivitiesView { get; set; }
+        public Command SettingsSelected { get; set; }
+        public Command SaveComment { get; set; }
+        public Command CancelComment { get; set; }
 
         public MainPageViewModel(string conn) : base(conn)
         {
@@ -47,6 +50,9 @@ namespace WorkStudy.ViewModels
             PauseStudy = new Command(NavigateToStudyMenu);
             Override = new Command(OverrideEvent);
             CloseActivitiesView = new Command(CloseActivitiesViewEvent);
+            SettingsSelected = new Command(AddSelectedEvent);
+            SaveComment = new Command(SaveCommentDetails);
+            CancelComment = new Command(CancelCommentDetails);
 
             Opacity = 1.0;
 
@@ -477,6 +483,55 @@ namespace WorkStudy.ViewModels
             Opacity = 1;
             RatingsVisible = false;
             IsPageEnabled = true;
+        }
+
+        void AddSelectedEvent(object sender)
+        {
+            var value = (int)sender;
+
+            var existingObservation = ObservationRepo.GetItems()
+                          .SingleOrDefault(x => x.OperatorId == value
+                          && x.ObservationNumber == ObservationRound);
+
+            //Activity = ActivityRepo.GetItem(value);
+            //Comment = Activity.Comment;
+            Opacity = 0.2;
+            CommentsVisible = true;
+            IsPageEnabled = false;
+        }
+
+        void SaveCommentDetails()
+        {
+            //if (Comment != null)
+            //{
+                //Activity.Comment = Comment.ToUpper();
+                //ActivityRepo.SaveItem(Activity);
+                //Utilities.ActivityPageHasUpdatedActivityChanges = true;
+            //}
+
+            Opacity = 1;
+            CommentsVisible = false;
+            //Comment = string.Empty;
+            IsPageEnabled = true;
+        }
+
+        void CancelCommentDetails()
+        {
+            Opacity = 1;
+            CommentsVisible = false;
+            //Comment = string.Empty;
+            IsPageEnabled = true;
+        }
+
+        static bool commentsVisible;
+        public bool CommentsVisible
+        {
+            get => commentsVisible;
+            set
+            {
+                commentsVisible = value;
+                OnPropertyChanged();
+            }
         }
 
         private void AddObservation()
