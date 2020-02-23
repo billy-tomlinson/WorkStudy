@@ -280,6 +280,16 @@ namespace WorkStudy.ViewModels
             }
         }
 
+        private string comment;
+        public string Comment
+        {
+            get => comment;
+            set
+            {
+                comment = value;
+                OnPropertyChanged();
+            }
+        }
 
         static ObservationRoundStatus observationRoundStatus;
         public ObservationRoundStatus ObservationRoundStatus
@@ -490,11 +500,14 @@ namespace WorkStudy.ViewModels
             var value = (int)sender;
 
             var existingObservation = ObservationRepo.GetItems()
-                          .SingleOrDefault(x => x.OperatorId == value
-                          && x.ObservationNumber == ObservationRound);
+              .SingleOrDefault(x => x.OperatorId == value
+                && x.ObservationNumber == ObservationRound);
 
-            //Activity = ActivityRepo.GetItem(value);
-            //Comment = Activity.Comment;
+            Comment = existingObservation?.Comment;
+
+
+            Observation = existingObservation;
+
             Opacity = 0.2;
             CommentsVisible = true;
             IsPageEnabled = false;
@@ -502,16 +515,14 @@ namespace WorkStudy.ViewModels
 
         void SaveCommentDetails()
         {
-            //if (Comment != null)
-            //{
-                //Activity.Comment = Comment.ToUpper();
-                //ActivityRepo.SaveItem(Activity);
-                //Utilities.ActivityPageHasUpdatedActivityChanges = true;
-            //}
+            if (Comment != null)
+            {
+                Observation.Comment = Comment.ToUpper();
+                ObservationRepo.SaveItem(Observation);
+            }
 
             Opacity = 1;
             CommentsVisible = false;
-            //Comment = string.Empty;
             IsPageEnabled = true;
         }
 
@@ -519,7 +530,7 @@ namespace WorkStudy.ViewModels
         {
             Opacity = 1;
             CommentsVisible = false;
-            //Comment = string.Empty;
+            Comment = string.Empty;
             IsPageEnabled = true;
         }
 
@@ -547,6 +558,7 @@ namespace WorkStudy.ViewModels
             Observation.ActivityId = ActivityId;
             Observation.Rating = Rating;
             Observation.AliasActivityId = ActivityId;
+            Observation.CommentsVisible = true;
 
             observations.Add(Observation);
 
@@ -744,6 +756,7 @@ namespace WorkStudy.ViewModels
                             Id = item.Id,
                             IsRated = obs.Rating > 0,
                             ObservedColour = System.Drawing.Color.Silver,
+                            CommentsVisible = true
                         };
 
                         ops.Add(opObservation);
@@ -759,7 +772,8 @@ namespace WorkStudy.ViewModels
                         Name = item.Name,
                         Id = item.Id,
                         IsRated = false,
-                        ObservedColour = Xamarin.Forms.Color.FromHex("#E8EAEC")
+                        ObservedColour = Xamarin.Forms.Color.FromHex("#E8EAEC"),
+                        CommentsVisible = false
                     };
                     ops.Add(opObs);
                 }

@@ -10,6 +10,7 @@ namespace WorkStudy.Model
         public int ObservationNumber { get; set; }
         public string ActivityName { get; set; }
         public int Rating { get; set; }
+        public string Comment { get; set; }
 
     }
 }

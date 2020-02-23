@@ -1,4 +1,5 @@
 ﻿using System;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 using WorkStudy.Services;
 
@@ -26,6 +27,10 @@ namespace WorkStudy.Model
         public int StudyId { get; set; }
 
         public string Comment { get; set; }
+
+        [Ignore]
+        public bool CommentsVisible { get; set; }
+        
 
     }
 }

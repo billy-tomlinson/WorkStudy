@@ -29,5 +29,7 @@ namespace WorkStudy.Model
         public string SettingsIcon { get; set; } = Utilities.CommentsImage;
 
         public string Comment { get; set; }
+
+        public bool CommentsVisible { get; set; }
     }
 }

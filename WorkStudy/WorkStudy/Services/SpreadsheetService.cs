@@ -719,7 +719,8 @@ namespace WorkStudy.Services
                         OperatorName = op.Name,
                         ObservationNumber = observation.ObservationNumber,
                         Rating = observation.Rating,
-                        Date = formattedDate
+                        Date = formattedDate,
+                        Comment = observation.Comment
                     });
                 }
 
@@ -731,11 +732,13 @@ namespace WorkStudy.Services
                 destSheet.Range["D1"].Text = "Obs Round";
                 destSheet.Range["E1"].Text = "Activity";
                 destSheet.Range["F1"].Text = "Rating";
+                destSheet.Range["G1"].Text = "Comment";
+
 
                 destSheet.ImportData(data, 3, 1, false);
 
-                destSheet.Range["A1:F1"].CellStyle = headerStyle;
-                destSheet.Range[1, 1, 1000, 6].AutofitColumns();
+                destSheet.Range["A1:G1"].CellStyle = headerStyle;
+                destSheet.Range[1, 1, 1000, 7].AutofitColumns();
 
                 var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                     .Select(g => new ObservationSummary
