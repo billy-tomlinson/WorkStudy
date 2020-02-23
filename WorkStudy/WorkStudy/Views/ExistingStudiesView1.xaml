@@ -49,9 +49,9 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="3.5*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="5.3*">
+                                            <ColumnDefinition Width="5.5*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="1.2*">
+                                            <ColumnDefinition Width="1*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="NAME: " Style="{StaticResource existingStudiesView}" />

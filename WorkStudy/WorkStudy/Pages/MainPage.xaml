@@ -49,18 +49,19 @@
                                     </RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5*">
-                                    </ColumnDefinition>
                                     <ColumnDefinition Width="4*">
                                     </ColumnDefinition>
-                                    <ColumnDefinition Width="2*">
+                                    <ColumnDefinition Width="3.8*">
                                     </ColumnDefinition>
-                                     <ColumnDefinition Width="1*">
+                                    <ColumnDefinition Width="1.2*">
+                                    </ColumnDefinition>
+                                     <ColumnDefinition Width="*">
                                     </ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0" Grid.Column="0" Text="Operator" WidthRequest="150" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
-                                <Label Grid.Row="0" Grid.Column="1" Text="Activity" WidthRequest="150" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
-                                <Label Grid.Row="0" Grid.Column="2" Text="Rating" WidthRequest="50" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="0" Text="Operator" MinimumWidthRequest="150" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="Activity" MinimumWidthRequest="150" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="2" Text="Rating" MinimumWidthRequest="50" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="3" MinimumWidthRequest="50" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" />
                             </Grid>
                         </StackLayout>
                     </ListView.Header>
@@ -75,19 +76,19 @@
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5*">
-                                            </ColumnDefinition>
                                             <ColumnDefinition Width="4*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="2*">
+                                            <ColumnDefinition Width="3.8*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="1*">
+                                            <ColumnDefinition Width="1.2*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label x:Name="OperatorName" Grid.Row="0" Grid.Column="0" Text="{Binding Name}" Style="{StaticResource existingStudiesView}" FontSize="15" HorizontalTextAlignment="Start" WidthRequest="150"/>
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="150"/>
-                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black"/>
-                                        <local:CustomImage Source="{Binding SettingsIcon}" IsVisible="{Binding CommentsVisible}" Grid.Row="0" Grid.Column="3" Margin="3" WidthRequest="50">
+                                        <Label x:Name="OperatorName" Grid.Row="0" Grid.Column="0" Text="{Binding Name}" Style="{StaticResource existingStudiesView}" FontSize="15" HorizontalTextAlignment="Start" MinimumWidthRequest="150"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" FontSize="12" MinimumWidthRequest="150"/>
+                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" MinimumWidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black"/>
+                                        <local:CustomImage Source="{Binding SettingsIcon}" IsVisible="{Binding CommentsVisible}" Grid.Row="0" Grid.Column="3" Aspect="AspectFill" HeightRequest="15" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="1" >
                                             <local:CustomImage.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path = BindingContext.SettingsSelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding Id}" />
                                             </local:CustomImage.GestureRecognizers>
