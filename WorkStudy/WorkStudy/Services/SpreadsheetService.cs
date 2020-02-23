@@ -57,7 +57,8 @@ namespace WorkStudy.Services
 
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            alarm = alarmRepo.GetItem(Utilities.StudyId);
+            var alarmId = alarmRepo.ExecuteScalarSQLCommand<int>("SELECT ID FROM ALARMDETAILS WHERE STUDYID = " + Utilities.StudyId);
+            alarm = alarmRepo.GetItem(alarmId);
             IntervalTime = alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
@@ -243,7 +244,7 @@ namespace WorkStudy.Services
                 .Select(y => new { y.ActivityName.Name, y.Comment }).ToList();
 
             destSheetAll.Range[3, 1].Text = "Activity";
-            destSheetAll.Range[3, 1].Text = "Comments";
+            destSheetAll.Range[3, 2].Text = "Comments";
             destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
 
             CreateSheetPerOperator();

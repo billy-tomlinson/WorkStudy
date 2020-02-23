@@ -32,5 +32,7 @@ namespace WorkStudy.Services
         void DropTable();
 
         void ExecuteSQLCommand(string sqlCommand);
+
+        T1 ExecuteScalarSQLCommand<T1>(string sqlCommand);
     }
 }
