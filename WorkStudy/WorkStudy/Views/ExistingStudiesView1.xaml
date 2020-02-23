@@ -56,7 +56,7 @@
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="NAME: " Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource existingStudiesView}" />
-                                        <Label Grid.Row="1" Grid.Column="0" Text="STUDY NUMBER: " Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="NUMBER: " Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding StudyNumber}" Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="2" Grid.Column="0" Text="DATE: " Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" Style="{StaticResource existingStudiesView}" />

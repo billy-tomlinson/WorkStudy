@@ -58,6 +58,7 @@ namespace WorkStudy.Pages
                     {
                         RatingsVisible = false,
                         ActivitiesVisible = false,
+                        CommentsVisible = false
                     };
                     BindingContext = viewModel;
                 }

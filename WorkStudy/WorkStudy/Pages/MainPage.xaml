@@ -85,14 +85,16 @@
                                             <ColumnDefinition Width="*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label x:Name="OperatorName" Grid.Row="0" Grid.Column="0" Text="{Binding Name}" Style="{StaticResource existingStudiesView}" FontSize="15" HorizontalTextAlignment="Start" MinimumWidthRequest="150"/>
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" FontSize="12" MinimumWidthRequest="150"/>
-                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" MinimumWidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black"/>
-                                        <local:CustomImage Source="{Binding SettingsIcon}" IsVisible="{Binding CommentsVisible}" Grid.Row="0" Grid.Column="3" Aspect="AspectFill" HeightRequest="15" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="1" >
+                                        <Label x:Name="OperatorName" Grid.Row="0" Grid.Column="0" Text="{Binding Name}" Style="{StaticResource existingStudiesView}" FontSize="12" HorizontalTextAlignment="Start" MinimumWidthRequest="150" FontAttributes="Bold" TextColor="DarkBlue"/>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ActivityName}" Style="{StaticResource existingStudiesView}" HorizontalTextAlignment="Start" FontSize="12" MinimumWidthRequest="150" FontAttributes="Bold" />
+                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" MinimumWidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" FontAttributes="Bold" TextColor="OrangeRed"/>
+                                        <StackLayout Padding="2,2,2,2" Margin="2,2,2,2" Grid.Row="0" Grid.Column="3" HeightRequest="17" HorizontalOptions="Center" VerticalOptions="Center">
+                                            <local:CustomImage Source="{Binding SettingsIcon}" IsVisible="{Binding CommentsVisible}" Grid.Row="0" Grid.Column="3" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" >
                                             <local:CustomImage.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Path = BindingContext.SettingsSelected, Source={x:Reference MainPage1}}" CommandParameter="{Binding Id}" />
                                             </local:CustomImage.GestureRecognizers>
                                         </local:CustomImage>
+                                        </StackLayout>  
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
