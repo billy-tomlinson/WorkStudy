@@ -383,7 +383,7 @@ namespace WorkStudy.Services
                 var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
                 var totalObsPerOperator = obs.Count();
 
-                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName, a.Rating })
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                    .Select(g => new ObservationSummary
                    {
                        ActivityName = g.Key.ActivityName,

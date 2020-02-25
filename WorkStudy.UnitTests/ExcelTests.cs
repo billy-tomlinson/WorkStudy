@@ -63,7 +63,7 @@ namespace WorkStudy.UnitTests
 
         public ExcelTests()
         {
-            Utilities.StudyId = 36;
+            Utilities.StudyId = 41;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
@@ -374,7 +374,7 @@ namespace WorkStudy.UnitTests
                 var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
                 var totalObsPerOperator = obs.Count();
 
-                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName, a.Rating })
+                var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName})
                    .Select(g => new ObservationSummary
                    {
                        ActivityName = g.Key.ActivityName,
