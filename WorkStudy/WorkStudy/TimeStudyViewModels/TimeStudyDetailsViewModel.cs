@@ -28,6 +28,9 @@ namespace TimeStudy.ViewModels
                     StudyPageOpacity = 0.5;
                     SampleStudy.IsRated = true;
                     Utilities.StudyId = RatedTimeStudyRepo.SaveItem(SampleStudy);
+
+                    RatedTimeStudyRepo.ExecuteSQLCommand("UPDATE RATEDTIMESTUDY SET STUDYNUMBER = " + Utilities.StudyId + " WHERE ID == " + Utilities.StudyId);
+
                     StudyNumber = Utilities.StudyId;
                     CreateUnratedActivities();
 

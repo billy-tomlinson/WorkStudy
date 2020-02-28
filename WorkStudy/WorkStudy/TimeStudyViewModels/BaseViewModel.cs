@@ -15,6 +15,7 @@ namespace TimeStudy.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public Command CloseView { get; set; }
         public Command Override { get; set; }
+        public Command ConfirmationOverride { get; set; }
 
         private readonly string conn;
 
@@ -48,6 +49,8 @@ namespace TimeStudy.ViewModels
         public IBaseRepository<WorkElementName> WorkElementNameRepo => new BaseRepository<WorkElementName>(conn);
 
         public IBaseRepository<Model.RatedTimeStudy> RatedTimeStudyRepo => new BaseRepository<RatedTimeStudy>(conn);
+
+        public int RandomGeneratedCode { get; set; }
 
         static ObservableCollection<WorkElement> workElements;
         public ObservableCollection<WorkElement> WorkElements
@@ -277,6 +280,61 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        bool isConfirmation = false;
+        public bool IsConfirmation
+        {
+            get { return isConfirmation; }
+            set
+            {
+                isConfirmation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static string confirmationValidationCodeLabel;
+        public string ConfirmationValidationCodeLabel
+        {
+            get => confirmationValidationCodeLabel;
+            set
+            {
+                confirmationValidationCodeLabel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static string confirmationStudyNumberLabel;
+        public string ConfirmationStudyNumberLabel
+        {
+            get => confirmationStudyNumberLabel;
+            set
+            {
+                confirmationStudyNumberLabel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static int? confirmationStudyNumber;
+        public int? ConfirmationStudyNumber
+        {
+            get => confirmationStudyNumber;
+            set
+            {
+                confirmationStudyNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static int? confirmationValidationCode;
+        public int? ConfirmationValidationCode
+        {
+            get => confirmationValidationCode;
+            set
+            {
+                confirmationValidationCode = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool StudyInProcess
         {
             get => Get_LapTimes_By_StudyId().Count > 0;
@@ -466,7 +524,10 @@ namespace TimeStudy.ViewModels
         {
             Opacity = 1;
             IsInvalid = false;
+            IsConfirmation = false;
             IsPageEnabled = true;
+            ConfirmationValidationCode = null;
+            ConfirmationStudyNumber = null;
         }
     }
 }

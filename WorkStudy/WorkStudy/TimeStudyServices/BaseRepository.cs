@@ -150,6 +150,14 @@ namespace TimeStudy.Services
             }
         }
 
+        public T1 ExecuteScalarSQLCommand<T1>(string sqlCommand)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                return connection.ExecuteScalar<T1>(sqlCommand);
+            }
+        }
+
         private void SetLastUpdatedTime(T item)
         {
             Type typeParameterType = typeof(T);

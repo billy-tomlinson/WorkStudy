@@ -40,6 +40,10 @@ namespace TimeStudy.Services
 
         public static bool LapButtonClicked { get; set; }
 
+        public static int RandomGeneratedCode { get; set; }
+
+        public static RatedTimeStudy.VersionDetails VersionDetails { get; set; }
+
         public static void UpdateTableFlags()
         {
             if (TimeStudyMainPageHasUpdatedWorkElementChanges)

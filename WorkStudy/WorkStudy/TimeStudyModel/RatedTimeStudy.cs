@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using TimeStudy.Custom;
+using TimeStudy.Services;
 using TimeStudyApp.Model;
 
 namespace TimeStudy.Model
@@ -25,6 +26,8 @@ namespace TimeStudy.Model
         public bool IsRated { get; set; }
 
         public bool Completed { get; set; }
+
+        public string DeleteIcon => Utilities.DeleteImage;
 
         [OneToMany]
         public List<RatedTimeStudyHistoryVersion> HistoricalVersions { get; set; }
@@ -53,5 +56,20 @@ namespace TimeStudy.Model
         [Ignore]
         public int Version { get; set; }
 
+        [Ignore]
+        public VersionDetails StudyVersionDetails
+        {
+            get
+            {
+                return new VersionDetails { StudyId = Id, Version = Version };
+            }
+
+        }
+
+        public class VersionDetails
+        {
+            public int StudyId { get; set; }
+            public int Version { get; set; }
+        }
     }
 }

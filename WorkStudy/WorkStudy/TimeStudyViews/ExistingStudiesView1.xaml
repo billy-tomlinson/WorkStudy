@@ -5,7 +5,8 @@
              xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
              xmlns:local="clr-namespace:TimeStudy.Custom" 
              xmlns:views="clr-namespace:TimeStudy.Views" 
-             BackgroundColor="Transparent">
+             BackgroundColor="Transparent"
+             x:Name="ExistingTimeStudies">
     <ContentView.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="StartAndExpand" 
@@ -47,10 +48,12 @@
                                             <RowDefinition Height="*">
                                             </RowDefinition>
                                         </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*">
+                                       <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3.5*">
                                             </ColumnDefinition>
-                                            <ColumnDefinition Width="*">
+                                            <ColumnDefinition Width="5.5*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="1*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Row="0" Grid.Column="0" Text="NAME: " Style="{StaticResource existingStudiesView}" />
@@ -63,6 +66,14 @@
                                         <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="4" Grid.Column="0" Text="VERSION: " Style="{StaticResource existingStudiesView}" />
                                         <Label Grid.Row="4" Grid.Column="1" Text="{Binding Version}" Style="{StaticResource existingStudiesView}" />
+                                        <local:CustomImage Source="{Binding DeleteIcon}" Grid.Row="1"
+                                                               Grid.RowSpan="2"
+                                                               Grid.Column="2"
+                                                               Margin="3">
+                                                <local:CustomImage.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference ExistingTimeStudies}}" CommandParameter="{Binding StudyVersionDetails}" />
+                                                </local:CustomImage.GestureRecognizers>
+                                        </local:CustomImage>
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
@@ -73,6 +84,12 @@
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}"  MinimumHeightRequest="250"/>
+            </StackLayout>
+             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ConfirmationView x:Name="confirmationView" IsVisible="{Binding IsConfirmation}"  MinimumHeightRequest="250"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentView.Content>

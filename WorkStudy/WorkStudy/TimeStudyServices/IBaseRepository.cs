@@ -35,5 +35,7 @@ namespace TimeStudy.Services
         void DeleteAllItems();
 
         void ExecuteSQLCommand(string sqlCommand);
+
+        T1 ExecuteScalarSQLCommand<T1>(string sqlCommand);
     }
 }

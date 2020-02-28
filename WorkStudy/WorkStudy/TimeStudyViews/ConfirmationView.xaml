@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="WorkStudy.Views.ValidationView">
+             x:Class="TimeStudy.Views.ConfirmationView">
     <ContentView.Content>
-         <ContentView BackgroundColor="Transparent"
-                      Padding="10, 0">
+         <ContentView BackgroundColor="Transparent" Padding="10, 0">
                 <StackLayout VerticalOptions="Center" 
                              HorizontalOptions="Center" 
                              Padding="10" 
@@ -14,6 +13,14 @@
                              BackgroundColor="{StaticResource PopUpColour}">
                     <StackLayout Orientation="Vertical" MinimumHeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" MinimumHeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
+                        <Label Text="{Binding ConfirmationStudyNumberLabel}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
+                        <Entry Text="{Binding ConfirmationStudyNumber}" Placeholder="Study Number" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" MinimumHeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
+                        <Label Text="{Binding ConfirmationValidationCodeLabel}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
+                        <Entry Text="{Binding ConfirmationValidationCode}" Placeholder="Code" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
                  <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
                                             <Grid.RowDefinitions>
@@ -34,11 +41,11 @@
                                 Style="{StaticResource popUpButton}" 
                                 HorizontalOptions="CenterAndExpand" 
                                 IsVisible="{Binding IsOverrideVisible}" 
-                                Command="{Binding Override}" 
+                                Command="{Binding ConfirmationOverride}" 
                                 FontSize="12"/>
                         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
                                 Text="OK" Style="{StaticResource popUpButton}" 
-                                Command="{Binding Override}" 
+                                Command="{Binding ConfirmationOverride}" 
                                 FontSize="12" 
                                 IsVisible="{Binding ShowOkCancel}" 
                                 HorizontalOptions="CenterAndExpand" />
