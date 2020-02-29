@@ -101,6 +101,12 @@ namespace TimeStudy.ViewModels
             if (studies.Count > 0)
                 lastStudyId = studies.OrderByDescending(x => x.Id)
                                         .FirstOrDefault().Id;
+            else
+            {
+                var study = new RatedTimeStudy { Name = "Initial Study to Invoke ID count" };
+                lastStudyId = RatedTimeStudyRepo.SaveItem(study);
+                RatedTimeStudyRepo.DeleteItem(study);
+            }
 
             lastStudyId = lastStudyId + 1;
 

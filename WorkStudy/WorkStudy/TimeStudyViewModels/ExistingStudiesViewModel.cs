@@ -72,31 +72,12 @@ namespace TimeStudy.ViewModels
 
             if (ConfirmationStudyNumber == value.StudyId && RandomGeneratedCode == ConfirmationValidationCode)
             {
-                IsInvalid = false;
+                IsInvalid = true;
                 IsConfirmation = false;
-                Opacity = 1;
-                IsPageEnabled = true;
-
-                if (value.Version > 0)// this is a completed study
-                {
-                    var sample = StudyHistoryVersionRepo.GetItem(value.Version);
-
-                    if (sample.StudyId == value.StudyId)
-                    {
-                        StudyHistoryVersionRepo.ExecuteSQLCommand("DELETE FROM RATEDTIMESTUDYHISTORYVERSION WHERE STUDYID = " + sample.StudyId + " AND ID = " + sample.Id);
-                        RefreshActivitySamples(true);
-                    }
-                }
-                else if (value.Version == 0)// this is a blueprint study  with no attached completed studies
-                {
-                    RatedTimeStudyRepo.ExecuteSQLCommand("DELETE FROM RATEDTIMESTUDY WHERE ID = " + value.StudyId);
-                    WorkElementRepo.ExecuteSQLCommand("DELETE FROM WORKELEMENT WHERE STUDYID = " + value.StudyId);
-                    WorkElementNameRepo.ExecuteSQLCommand("DELETE FROM WORKELEMENTNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM WORKELEMENT)");
-                    RefreshActivitySamples(true);
-                }
-
-                Utilities.StudyId = 0;
-                Utilities.VersionDetails = null;
+                Opacity = 0.2;
+                IsPageEnabled = false;
+                ValidationText = "To confirm you want to delete study " + ConfirmationStudyNumber + " , version " + value.Version + " click OK.";
+                Utilities.DeleteConfirmedDisplayed = true;
             }
             else
             {
@@ -118,32 +99,69 @@ namespace TimeStudy.ViewModels
             ConfirmationStudyNumber = null;
         }
 
+        private void DeleteAllRecords(RatedTimeStudy.VersionDetails value)
+        {
+            if (value.Version > 0)// this is a completed study
+            {
+                var sample = StudyHistoryVersionRepo.GetItem(value.Version);
+
+                if (sample.StudyId == value.StudyId)
+                {
+                    StudyHistoryVersionRepo.ExecuteSQLCommand("DELETE FROM RATEDTIMESTUDYHISTORYVERSION WHERE STUDYID = " + sample.StudyId + " AND ID = " + sample.Id);
+                    RefreshActivitySamples(true);
+                }
+            }
+            else if (value.Version == 0)// this is a blueprint study  with no attached completed studies
+            {
+                RatedTimeStudyRepo.ExecuteSQLCommand("DELETE FROM RATEDTIMESTUDY WHERE ID = " + value.StudyId);
+                WorkElementRepo.ExecuteSQLCommand("DELETE FROM WORKELEMENT WHERE STUDYID = " + value.StudyId);
+                WorkElementNameRepo.ExecuteSQLCommand("DELETE FROM WORKELEMENTNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM WORKELEMENT)");
+                RefreshActivitySamples(true);
+            }
+
+            Utilities.StudyId = 0;
+            Utilities.VersionDetails = null;
+
+            IsInvalid = false;
+            IsConfirmation = false;
+            Opacity = 1;
+            IsPageEnabled = true;
+
+        }
+
         void OverrideEvent(object sender)
         {
-            var rand = new Random();
-            int num = rand.Next(1000, 9999);
+            if(Utilities.DeleteConfirmedDisplayed)
+            {
+                DeleteAllRecords(Utilities.VersionDetails);
+                Utilities.DeleteConfirmedDisplayed = false;
+            }
+            else
+            {
+                var rand = new Random();
+                int num = rand.Next(1000, 9999);
 
-            Utilities.RandomGeneratedCode = num;
-            RandomGeneratedCode = Utilities.RandomGeneratedCode;
+                Utilities.RandomGeneratedCode = num;
+                RandomGeneratedCode = Utilities.RandomGeneratedCode;
 
-            ConfirmationStudyNumberLabel = "Study Number : " + Utilities.StudyId;
-            ConfirmationValidationCodeLabel = "Code : " + Utilities.RandomGeneratedCode;
+                ConfirmationStudyNumberLabel = "Study Number : " + Utilities.StudyId;
+                ConfirmationValidationCodeLabel = "Code : " + Utilities.RandomGeneratedCode;
 
-            var value = Utilities.StudyId;
+                var value = Utilities.StudyId;
 
-            ValidationText = "You are about to delete study " + value + ". Enter Study number and Code and press OK to confirm.";
-            IsOverrideVisible = false;
-            ShowClose = true;
-            ShowOkCancel = true;
-            IsPageUnavailableVisible = false;
-            Opacity = 0.2;
-            CloseColumnSpan = 1;
-            IsInvalid = false;
-            IsConfirmation = true;
-            IsPageEnabled = false;
-            Utilities.StudyId = value;
-            return;
-
+                ValidationText = "You are about to delete study " + value + ". Enter Study number and Code and press OK to confirm.";
+                IsOverrideVisible = false;
+                ShowClose = true;
+                ShowOkCancel = true;
+                IsPageUnavailableVisible = false;
+                Opacity = 0.2;
+                CloseColumnSpan = 1;
+                IsInvalid = false;
+                IsConfirmation = true;
+                IsPageEnabled = false;
+                Utilities.StudyId = value;
+                return;
+            }
         }
 
         void DeleteSelectedEvent(object sender)
@@ -158,7 +176,7 @@ namespace TimeStudy.ViewModels
 
                 if (studyVersionCount > 0)
                 {
-                    ValidationText = "Cannot delete study " + value.StudyId + " until all versions of this study have been deleted in the Completed tab.";
+                    ValidationText = "Cannot delete study " + value.StudyId + ", version " + value.Version + " until all versions of this study have been deleted in the Completed Studies tab.";
                     IsOverrideVisible = false;
                     ShowClose = true;
                     ShowOkCancel = false;
@@ -166,7 +184,7 @@ namespace TimeStudy.ViewModels
                 }
                 else
                 {
-                    ValidationText = "Are you sure you want to delete study " + value.StudyId + " ? This cannot be undone and all data related to this study will be deleted";
+                    ValidationText = "Are you sure you want to delete study " + value.StudyId + ", version " + value.Version +  " ? This cannot be undone and all data related to this study will be deleted";
                     IsOverrideVisible = false;
                     ShowOkCancel = true;
                     CloseColumnSpan = 1;
@@ -190,6 +208,7 @@ namespace TimeStudy.ViewModels
             return;
 
         }
+
         public Command Navigate()
         {
 

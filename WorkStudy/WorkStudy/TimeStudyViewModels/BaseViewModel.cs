@@ -528,6 +528,7 @@ namespace TimeStudy.ViewModels
             IsPageEnabled = true;
             ConfirmationValidationCode = null;
             ConfirmationStudyNumber = null;
+            Utilities.DeleteConfirmedDisplayed = false;
         }
     }
 }

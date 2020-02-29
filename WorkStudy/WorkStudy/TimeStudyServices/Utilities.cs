@@ -44,6 +44,8 @@ namespace TimeStudy.Services
 
         public static RatedTimeStudy.VersionDetails VersionDetails { get; set; }
 
+        public static bool DeleteConfirmedDisplayed { get; set; }
+
         public static void UpdateTableFlags()
         {
             if (TimeStudyMainPageHasUpdatedWorkElementChanges)
