@@ -108,6 +108,7 @@ namespace TimeStudy.ViewModels
                 if (sample.StudyId == value.StudyId)
                 {
                     StudyHistoryVersionRepo.ExecuteSQLCommand("DELETE FROM RATEDTIMESTUDYHISTORYVERSION WHERE STUDYID = " + sample.StudyId + " AND ID = " + sample.Id);
+                    LapTimeHistoricRepo.ExecuteSQLCommand("DELETE FROM LAPTIMEHISTORIC WHERE STUDYID = " + sample.StudyId + " AND VERSION = " + value.Version);
                     RefreshActivitySamples(true);
                 }
             }

@@ -54,6 +54,8 @@ namespace WorkStudy.Services
 
         public static int RandomGeneratedCode { get; set; }
 
+        public static bool DeleteConfirmedDisplayed { get; set; }
+
         public static IBaseRepository<AlarmDetails> AlarmRepo =
             new BaseRepository<AlarmDetails>(AlarmConnection);
 

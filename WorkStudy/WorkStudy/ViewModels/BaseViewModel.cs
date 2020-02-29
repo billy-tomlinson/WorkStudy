@@ -561,6 +561,7 @@ namespace WorkStudy.ViewModels
             IsPageEnabled = true;
             ConfirmationValidationCode = null;
             ConfirmationStudyNumber = null;
+            Utilities.DeleteConfirmedDisplayed = false;
         }
 
         public List<OperatorRunningTotal> GetRunningTotals(Operator op)

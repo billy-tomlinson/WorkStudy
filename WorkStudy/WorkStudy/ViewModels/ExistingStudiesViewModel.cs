@@ -35,26 +35,12 @@ namespace WorkStudy.ViewModels
 
             if(ConfirmationStudyNumber == value && RandomGeneratedCode == ConfirmationValidationCode)
             {
-                IsInvalid = false;
+                IsInvalid = true;
                 IsConfirmation = false;
-                Opacity = 1;
-                IsPageEnabled = true;
-
-                var sample = SampleRepo.GetItem(value);
-
-                SampleRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYSAMPLESTUDY WHERE ID = " + value);
-                AlarmRepo.ExecuteSQLCommand("DELETE FROM ALARMDETAILS WHERE STUDYID = " + value);
-                ObservationRepo.ExecuteSQLCommand("DELETE FROM OBSERVATION WHERE STUDYID = " + value);
-                ObservationHistoricRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONHISTORIC WHERE STUDYID = " + value);
-                ObservationRoundStatusRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONROUNDSTATUS WHERE STUDYID = " + value);
-                OperatorRepo.ExecuteSQLCommand("DELETE FROM OPERATOR WHERE STUDYID = " + value);
-                MergedActivityRepo.ExecuteSQLCommand("DELETE FROM MERGEDACTIVITIES WHERE ACTIVITYID IN (SELECT ID FROM ACTIVITY WHERE STUDYID == " + value + ")");
-                ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
-                ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
-                ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
-                                      .Where(_ => _.Completed == completed));
-
-                Utilities.StudyId = 0;
+                Opacity = 0.2;
+                IsPageEnabled = false;
+                ValidationText = "To confirm you want to delete study " + ConfirmationStudyNumber + " click OK.";
+                Utilities.DeleteConfirmedDisplayed = true;
             }
             else
             {
@@ -76,32 +62,63 @@ namespace WorkStudy.ViewModels
             ConfirmationStudyNumber = null;
         }
 
+        private void DeleteAllRecords(int value)
+        {
+            var sample = SampleRepo.GetItem(value);
+
+            SampleRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYSAMPLESTUDY WHERE ID = " + value);
+            AlarmRepo.ExecuteSQLCommand("DELETE FROM ALARMDETAILS WHERE STUDYID = " + value);
+            ObservationRepo.ExecuteSQLCommand("DELETE FROM OBSERVATION WHERE STUDYID = " + value);
+            ObservationHistoricRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONHISTORIC WHERE STUDYID = " + value);
+            ObservationRoundStatusRepo.ExecuteSQLCommand("DELETE FROM OBSERVATIONROUNDSTATUS WHERE STUDYID = " + value);
+            OperatorRepo.ExecuteSQLCommand("DELETE FROM OPERATOR WHERE STUDYID = " + value);
+            MergedActivityRepo.ExecuteSQLCommand("DELETE FROM MERGEDACTIVITIES WHERE ACTIVITYID IN (SELECT ID FROM ACTIVITY WHERE STUDYID == " + value + ")");
+            ActivityRepo.ExecuteSQLCommand("DELETE FROM ACTIVITY WHERE STUDYID = " + value);
+            ActivityNameRepo.ExecuteSQLCommand("DELETE FROM ACTIVITYNAME WHERE ID NOT IN (SELECT ACTIVITYNAMEID FROM ACTIVITY)");
+            ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
+                                  .Where(_ => _.Completed == completed));
+
+            Utilities.StudyId = 0;
+
+            IsInvalid = false;
+            IsConfirmation = false;
+            Opacity = 1;
+            IsPageEnabled = true;
+        }
+
         void OverrideEvent(object sender)
         {
-            var rand = new Random();
-            int num = rand.Next(1000,9999);
+            if (Utilities.DeleteConfirmedDisplayed)
+            {
+                DeleteAllRecords(Utilities.StudyId);
+                Utilities.DeleteConfirmedDisplayed = false;
+            }
+            else
+            {
+                var rand = new Random();
+                int num = rand.Next(1000, 9999);
 
-            Utilities.RandomGeneratedCode = num;
-            RandomGeneratedCode = Utilities.RandomGeneratedCode;
+                Utilities.RandomGeneratedCode = num;
+                RandomGeneratedCode = Utilities.RandomGeneratedCode;
 
-            ConfirmationStudyNumberLabel = "Study Number : " + Utilities.StudyId;
-            ConfirmationValidationCodeLabel = "Code : " + Utilities.RandomGeneratedCode;
+                ConfirmationStudyNumberLabel = "Study Number : " + Utilities.StudyId;
+                ConfirmationValidationCodeLabel = "Code : " + Utilities.RandomGeneratedCode;
 
-            var value = Utilities.StudyId;
+                var value = Utilities.StudyId;
 
-            ValidationText = "You are about to delete study " + value + ". Enter Study number and Code and press OK to confirm.";
-            IsOverrideVisible = false;
-            ShowClose = true;
-            ShowOkCancel = true;
-            IsPageUnavailableVisible = false;
-            Opacity = 0.2;
-            CloseColumnSpan = 1;
-            IsInvalid = false;
-            IsConfirmation = true;
-            IsPageEnabled = false;
-            Utilities.StudyId = value;
-            return;
-
+                ValidationText = "You are about to delete study " + value + ". Enter Study number and Code and press OK to confirm.";
+                IsOverrideVisible = false;
+                ShowClose = true;
+                ShowOkCancel = true;
+                IsPageUnavailableVisible = false;
+                Opacity = 0.2;
+                CloseColumnSpan = 1;
+                IsInvalid = false;
+                IsConfirmation = true;
+                IsPageEnabled = false;
+                Utilities.StudyId = value;
+                return;
+            }
         }
 
         void DeleteSelectedEvent(object sender)
