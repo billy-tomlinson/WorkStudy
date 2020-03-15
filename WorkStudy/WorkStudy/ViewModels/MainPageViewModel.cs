@@ -729,9 +729,12 @@ namespace WorkStudy.ViewModels
         private void SaveActivitySampleStudyStartedTime()
         {
             var study = SampleRepo.GetItem(Utilities.StudyId);
-            study.StudyStartedDate = DateTime.Now;
-            study.StudyStartedTime = DateTime.Now.TimeOfDay;
-            SampleRepo.SaveItem(study);
+            if(study != null)
+            {
+                study.StudyStartedDate = DateTime.Now;
+                study.StudyStartedTime = DateTime.Now.TimeOfDay;
+                SampleRepo.SaveItem(study);
+            }
         }
 
         private bool IsStudyValid()
