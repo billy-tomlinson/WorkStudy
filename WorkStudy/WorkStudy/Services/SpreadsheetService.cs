@@ -223,7 +223,7 @@ namespace WorkStudy.Services
             destSheetStudyDetails.Range["A10"].Text = "Completed Date";
             destSheetStudyDetails.Range["A11"].Text = "Completed Time";
             destSheetStudyDetails.Range["A12"].Text = "Rated";
-            destSheetStudyDetails.Range["A12"].Text = "Interval(mins)";
+            destSheetStudyDetails.Range["A13"].Text = "Interval(mins)";
 
 
             destSheetStudyDetails.Range["B2"].CellStyle = detailsStyle;
