@@ -205,6 +205,7 @@ namespace WorkStudy.UnitTests
             destSheetStudyDetails.Range["A10"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["A11"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["A12"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A13"].CellStyle = detailsStyle;
 
             destSheetStudyDetails.Range["A2"].Text = "Study Number";
             destSheetStudyDetails.Range["A3"].Text = "Name";
@@ -217,6 +218,7 @@ namespace WorkStudy.UnitTests
             destSheetStudyDetails.Range["A10"].Text = "Completed Date";
             destSheetStudyDetails.Range["A11"].Text = "Completed Time";
             destSheetStudyDetails.Range["A12"].Text = "Rated";
+            destSheetStudyDetails.Range["A13"].Text = "Interval(mins)";
 
 
             destSheetStudyDetails.Range["B2"].CellStyle = detailsStyle;
@@ -230,6 +232,7 @@ namespace WorkStudy.UnitTests
             destSheetStudyDetails.Range["B10"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["B11"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["B12"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B13"].CellStyle = detailsStyle;
 
             destSheetStudyDetails.Range["B2"].Text = sample.StudyNumber.ToString();
             destSheetStudyDetails.Range["B3"].Text = sample.Name;
@@ -242,6 +245,7 @@ namespace WorkStudy.UnitTests
             destSheetStudyDetails.Range["B10"].Text = sample.CompletedDateFormatted;
             destSheetStudyDetails.Range["B11"].Text = sample.CompletedTimeFormatted;
             destSheetStudyDetails.Range["B12"].Text = sample.IsRated.ToString();
+            destSheetStudyDetails.Range["B13"].Text = IntervalTime.ToString();
 
             destSheetStudyDetails.Range[1,1,12,2].AutofitColumns();
         }
@@ -255,6 +259,8 @@ namespace WorkStudy.UnitTests
             var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
                 .Select(y => new { y.ActivityName.Name , y.Comment }).ToList();
 
+            destSheetAll.Range[1, 1].CellStyle = totalsStyle;
+            destSheetAll.Range[1, 1].Text = "1 x Observation = " + IntervalTime + " mins";
             destSheetAll.Range[3, 1].Text = "Activity";
             destSheetAll.Range[3, 2].Text = "Comments";
             destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
