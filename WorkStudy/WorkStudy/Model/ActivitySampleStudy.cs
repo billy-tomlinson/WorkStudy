@@ -18,6 +18,14 @@ namespace WorkStudy.Model
 
         public TimeSpan Time { get; set; }
 
+        public DateTime StudyStartedDate { get; set; }
+
+        public TimeSpan StudyStartedTime { get; set; }
+
+        public DateTime StudyCompletedDate { get; set; }
+
+        public TimeSpan StudyCompletedTime { get; set; }
+
         public int StudyNumber { get; set; }
 
         public bool IsRated { get; set; }
@@ -47,5 +55,28 @@ namespace WorkStudy.Model
             get { return $"{Time.ToString(@"hh\:mm")}"; }
         }
 
+        [Ignore]
+        public string StartDateFormatted
+        {
+            get { return $"{StudyStartedDate.ToString("dd/MM/yyyy")}"; }
+        }
+
+        [Ignore]
+        public string StartTimeFormatted
+        {
+            get { return $"{StudyStartedTime.ToString(@"hh\:mm")}"; }
+        }
+
+        [Ignore]
+        public string CompletedDateFormatted
+        {
+            get { return $"{StudyCompletedDate.ToString("dd/MM/yyyy")}"; }
+        }
+
+        [Ignore]
+        public string CompletedTimeFormatted
+        {
+            get { return $"{StudyCompletedTime.ToString(@"hh\:mm")}"; }
+        }
     }
 }

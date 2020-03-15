@@ -406,6 +406,8 @@ namespace WorkStudy.ViewModels
         {
             var study = SampleRepo.GetItem(Utilities.StudyId);
             study.Completed = true;
+            study.StudyCompletedDate = DateTime.Now;
+            study.StudyCompletedTime = DateTime.Now.TimeOfDay;
             Utilities.IsCompleted = true;
             SampleRepo.SaveItem(study);
             AlarmNotificationService.DisableAlarmInDatabase();
@@ -669,8 +671,13 @@ namespace WorkStudy.ViewModels
             if (lastObservationRound == 0)
             {
                 ObservationRound = 1;
+
                 if (ObservationRoundStatus?.Id == null)
+                {
                     SaveInitialObservationRoundStatus();
+                    SaveActivitySampleStudyStartedTime();
+                }
+                    
                 return;
             }
 
@@ -717,6 +724,14 @@ namespace WorkStudy.ViewModels
             });
 
             ObservationRoundStatus = ObservationRoundStatusRepo.GetItem(id);
+        }
+
+        private void SaveActivitySampleStudyStartedTime()
+        {
+            var study = SampleRepo.GetItem(Utilities.StudyId);
+            study.StudyStartedDate = DateTime.Now;
+            study.StudyStartedTime = DateTime.Now.TimeOfDay;
+            SampleRepo.SaveItem(study);
         }
 
         private bool IsStudyValid()

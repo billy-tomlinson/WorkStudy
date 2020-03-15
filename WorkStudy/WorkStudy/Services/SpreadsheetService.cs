@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -205,14 +206,22 @@ namespace WorkStudy.Services
             destSheetStudyDetails.Range["A6"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["A7"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["A8"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A9"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A10"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A11"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["A12"].CellStyle = detailsStyle;
 
             destSheetStudyDetails.Range["A2"].Text = "Study Number";
             destSheetStudyDetails.Range["A3"].Text = "Name";
             destSheetStudyDetails.Range["A4"].Text = "Department";
             destSheetStudyDetails.Range["A5"].Text = "Studied By";
-            destSheetStudyDetails.Range["A6"].Text = "Date";
-            destSheetStudyDetails.Range["A7"].Text = "Time";
-            destSheetStudyDetails.Range["A8"].Text = "Rated";
+            destSheetStudyDetails.Range["A6"].Text = "Created Date";
+            destSheetStudyDetails.Range["A7"].Text = "Created Time";
+            destSheetStudyDetails.Range["A8"].Text = "Started Date";
+            destSheetStudyDetails.Range["A9"].Text = "Started Time";
+            destSheetStudyDetails.Range["A10"].Text = "Completed Date";
+            destSheetStudyDetails.Range["A11"].Text = "Completed Time";
+            destSheetStudyDetails.Range["A12"].Text = "Rated";
 
 
             destSheetStudyDetails.Range["B2"].CellStyle = detailsStyle;
@@ -222,6 +231,10 @@ namespace WorkStudy.Services
             destSheetStudyDetails.Range["B6"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["B7"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["B8"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B9"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B10"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B11"].CellStyle = detailsStyle;
+            destSheetStudyDetails.Range["B12"].CellStyle = detailsStyle;
 
             destSheetStudyDetails.Range["B2"].Text = sample.StudyNumber.ToString();
             destSheetStudyDetails.Range["B3"].Text = sample.Name;
@@ -229,9 +242,13 @@ namespace WorkStudy.Services
             destSheetStudyDetails.Range["B5"].Text = sample.StudiedBy;
             destSheetStudyDetails.Range["B6"].Text = sample.DateFormatted;
             destSheetStudyDetails.Range["B7"].Text = sample.TimeFormatted;
-            destSheetStudyDetails.Range["B8"].Text = sample.IsRated.ToString();
+            destSheetStudyDetails.Range["B8"].Text = sample.StartDateFormatted;
+            destSheetStudyDetails.Range["B9"].Text = sample.StartTimeFormatted;
+            destSheetStudyDetails.Range["B10"].Text = sample.CompletedDateFormatted;
+            destSheetStudyDetails.Range["B11"].Text = sample.CompletedTimeFormatted;
+            destSheetStudyDetails.Range["B12"].Text = sample.IsRated.ToString();
 
-            destSheetStudyDetails.Range[1, 1, 8, 2].AutofitColumns();
+            destSheetStudyDetails.Range[1, 1, 12, 2].AutofitColumns();
         }
 
         private void BuildValueAddedRatedActivities()
@@ -721,25 +738,27 @@ namespace WorkStudy.Services
                         ObservationNumber = observation.ObservationNumber,
                         Rating = observation.Rating,
                         Date = formattedDate,
-                        Comment = observation.Comment
+                        Comment = observation.Comment,
+                        ObservationTime = CalculateElapsedTimeBetweenObservations(observation.ObservationNumber, formattedDate, obs)
                     });
                 }
 
                 var destSheet = workbook.Worksheets.Create(op.Name);
 
                 destSheet.Range["A1"].Text = "Study";
-                destSheet.Range["B1"].Text = "Date";
+                destSheet.Range["B1"].Text = "Obs Start Time";
                 destSheet.Range["C1"].Text = "Operator";
                 destSheet.Range["D1"].Text = "Obs Round";
                 destSheet.Range["E1"].Text = "Activity";
                 destSheet.Range["F1"].Text = "Rating";
                 destSheet.Range["G1"].Text = "Comment";
+                destSheet.Range["H1"].Text = "Obs Time";
 
 
                 destSheet.ImportData(data, 3, 1, false);
 
-                destSheet.Range["A1:G1"].CellStyle = headerStyle;
-                destSheet.Range[1, 1, 1000, 7].AutofitColumns();
+                destSheet.Range["A1:I1"].CellStyle = headerStyle;
+                destSheet.Range[1, 1, 1000, 8].AutofitColumns();
 
                 var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
                     .Select(g => new ObservationSummary
@@ -760,24 +779,24 @@ namespace WorkStudy.Services
 
                         destSheet.Range["I1:I1"].Text = "Summary";
 
-                        destSheet.Range[counter + 1, 8].Text = item.ActivityName;
-                        destSheet.Range[counter + 2, 8].Text = "Total Rating";
-                        destSheet.Range[counter + 2, 9].Text = "Total Obs";
-                        destSheet.Range[counter + 2, 10].Text = "Average Rating";
-                        destSheet.Range[counter + 3, 8].Number = item.TotalRating;
-                        destSheet.Range[counter + 3, 9].Number = item.NumberOfObservations;
-                        destSheet.Range[counter + 3, 10].Number = averageRating;
+                        destSheet.Range[counter + 1, 9].Text = item.ActivityName;
+                        destSheet.Range[counter + 2, 9].Text = "Total Rating";
+                        destSheet.Range[counter + 2, 10].Text = "Total Obs";
+                        destSheet.Range[counter + 2, 11].Text = "Average Rating";
+                        destSheet.Range[counter + 3, 9].Number = item.TotalRating;
+                        destSheet.Range[counter + 3, 10].Number = item.NumberOfObservations;
+                        destSheet.Range[counter + 3, 11].Number = averageRating;
 
-                        destSheet.Range[counter + 1, 8, counter + 3, 10].CellStyle = summaryStyle;
-                        destSheet.Range[counter + 1, 8].CellStyle = titleStyle;
-                        destSheet.Range["H1:J1"].CellStyle = headerStyle;
-                        destSheet.Range[counter + 2, 8, counter + 2, 10].CellStyle = totalsStyle;
-                        destSheet.Range[counter + 3, 10].NumberFormat = "00.0#";
+                        destSheet.Range[counter + 1, 9, counter + 3, 10].CellStyle = summaryStyle;
+                        destSheet.Range[counter + 1, 9].CellStyle = titleStyle;
+                        destSheet.Range["J1:K1"].CellStyle = headerStyle;
+                        destSheet.Range[counter + 2, 9, counter + 2, 11].CellStyle = totalsStyle;
+                        destSheet.Range[counter + 3, 11].NumberFormat = "00.0#";
 
                         counter = counter + 4;
                     }
 
-                    destSheet.Range[1, 7, counter, 11].AutofitColumns();
+                    destSheet.Range[1, 8, counter, 11].AutofitColumns();
 
                     var totalPercentagePerOp = Math.Round((double)item.NumberOfObservations / totalObsPerOperator * 100, 2);
                     item.Percentage = totalPercentagePerOp;
@@ -789,6 +808,31 @@ namespace WorkStudy.Services
             }
         }
 
+        private string CalculateElapsedTimeBetweenObservations(int obsNumber, string thisObsTime, List<ObservationHistoric> obs)
+        {
+            TimeSpan observationTime;
+
+            CultureInfo culture = new CultureInfo("en-GB");
+            var obsDate = Convert.ToDateTime(thisObsTime, culture);
+            var nextObs = obs.Where(x => x.ObservationNumber == obsNumber + 1).FirstOrDefault();
+            if (nextObs != null)
+            {
+                var nextObsTime = nextObs.Date;
+                observationTime = nextObsTime - obsDate;
+            }
+            else
+            {
+                if (sample.StudyCompletedDate > sample.Date)
+                {
+                    observationTime = sample.StudyCompletedDate - obsDate;
+                }
+                else
+                    observationTime = new TimeSpan();
+            }
+
+            var formattedTime = observationTime.ToString(@"hh\:mm\:ss");
+            return formattedTime;
+        }
 
         private void Build_ValueAdded_NonValueAdded_Ineffective_PieChart()
         {
@@ -849,6 +893,8 @@ namespace WorkStudy.Services
             allActivities = allStudyActivities.Where(x => !x.Rated)
                 .Select(y => new { y.ActivityName.Name }).ToList();
 
+            var nonValueAddedCount = allActivities.Count;
+
             startRow = nonValueAddedActivitiesTotalRowIndex;
 
             pieAllCategoriesIndividual.ImportData(allActivities, startRow - 4, 1, false);
@@ -881,30 +927,34 @@ namespace WorkStudy.Services
 
             try 
             {
-                IChartShape chart2 = pieAllNonValueAddedIndividual.Charts.Add();
+                if (nonValueAddedCount > 0)
+                {
+                    IChartShape chart2 = pieAllNonValueAddedIndividual.Charts.Add();
 
-                chart2.DataRange = pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange];
+                    chart2.DataRange = pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange];
 
-                pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange].AutofitColumns();
+                    pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange].AutofitColumns();
 
-                chart2.ChartTitle = "All Non Value Added";
-                chart2.HasLegend = true;
-                chart2.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
-                chart2.Legend.Position = ExcelLegendPosition.Right;
+                    chart2.ChartTitle = "All Non Value Added";
+                    chart2.HasLegend = true;
+                    chart2.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
+                    chart2.Legend.Position = ExcelLegendPosition.Right;
 
-                IChartSerie serie1 = chart2.Series[0];
-                serie1.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
+                    IChartSerie serie1 = chart2.Series[0];
+                    serie1.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
 
-                chart2.TopRow = 1;
-                chart2.LeftColumn = 4;
-                chart2.BottomRow = 30;
-                chart2.RightColumn = 17;
+                    chart2.TopRow = 1;
+                    chart2.LeftColumn = 4;
+                    chart2.BottomRow = 30;
+                    chart2.RightColumn = 17;
 
-                chart2.ChartType = ExcelChartType.Pie_Exploded_3D;
-                chart2.Elevation = 70;
-                chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
+                    chart2.ChartType = ExcelChartType.Pie_Exploded_3D;
+                    chart2.Elevation = 70;
+                    chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
 
-                chart2.IsSeriesInRows = false;
+                    chart2.IsSeriesInRows = false;
+                }
+                    
             }
             catch(Exception ex)
             {
