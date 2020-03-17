@@ -501,6 +501,10 @@ namespace TimeStudy.Services
 
             int summaryCount = 0;
 
+            double overallObservedTime;
+            DateTime calculatedTimeStudyFinished;
+            TimeSpan timeStudyFinishedDate;
+
             var allRatedLapTimes = lapTimeRepo.GetItems()
                         .Where(x => x.StudyId == Utilities.StudyId
                         && x.Version == Utilities.StudyVersion
@@ -508,18 +512,28 @@ namespace TimeStudy.Services
                         && x.IsRated).ToList();
 
 
-            var overallObservedTime = lapTimeRepo.GetItems()
+            var allCompletedObs = lapTimeRepo.GetItems()
             .Where(x => x.StudyId == Utilities.StudyId
             && x.Version == Utilities.StudyVersion
             && x.Status == RunningStatus.Completed)
-            .Select(x => x.TotalElapsedTimeDouble).Max();
+            .ToList();
 
-            TimeSpan timeStudyFinishedDate = TimeSpan.FromSeconds(overallObservedTime * 60);
 
             var studyVersion = studyVersionRepo.GetItems()
                 .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Id == Utilities.StudyVersion);
 
-            var calculatedTimeStudyFinished = studyVersion.TimeStudyStarted.Add(timeStudyFinishedDate);
+            if (allCompletedObs.Count > 0)
+            {
+                overallObservedTime = allCompletedObs.Select(x => x.TotalElapsedTimeDouble).Max();
+                timeStudyFinishedDate = TimeSpan.FromSeconds(overallObservedTime * 60);
+                calculatedTimeStudyFinished = studyVersion.TimeStudyStarted.Add(timeStudyFinishedDate);
+            }
+            else
+            {
+                timeStudyFinishedDate = studyVersion.TimeStudyFinished.Subtract(studyVersion.TimeStudyStarted);
+                calculatedTimeStudyFinished = studyVersion.TimeStudyFinished;
+            }
+
 
             double totalBMS = allRatedLapTimes.Sum(x => x.IndividualLapBMS);
             double totalObservedTime = allRatedLapTimes.Sum(x => x.IndividualLapTimeDouble);
@@ -536,8 +550,6 @@ namespace TimeStudy.Services
             destSheetStudyDetails.Range[6, 1].Text = "Average Rating";
 
             destSheetStudyDetails.Range["A2:A6"].CellStyle = frequencyStyle;
-
-            TimeSpan studyElapsedTime = studyVersion.TimeStudyFinished.Subtract(studyVersion.TimeStudyStarted);
 
             destSheetStudyDetails.Range[2, 2].Text = studyVersion.TimeStudyStarted.ToString("dd/MM/yyyy");
             destSheetStudyDetails.Range[3, 2].Text = studyVersion.TimeStudyStarted.ToLongTimeString();
