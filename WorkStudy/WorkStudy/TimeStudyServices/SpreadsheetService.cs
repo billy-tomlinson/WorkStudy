@@ -507,13 +507,23 @@ namespace TimeStudy.Services
                         && x.Status == RunningStatus.Completed
                         && x.IsRated).ToList();
 
-            double totalBMS = allRatedLapTimes.Sum(x => x.IndividualLapBMS);
-            double totalObservedTime = allRatedLapTimes.Sum(x => x.IndividualLapTimeDouble);
-            double averageRating = totalBMS / totalObservedTime * 100;
 
+            var overallObservedTime = lapTimeRepo.GetItems()
+            .Where(x => x.StudyId == Utilities.StudyId
+            && x.Version == Utilities.StudyVersion
+            && x.Status == RunningStatus.Completed)
+            .Select(x => x.TotalElapsedTimeDouble).Max();
+
+            TimeSpan timeStudyFinishedDate = TimeSpan.FromSeconds(overallObservedTime * 60);
 
             var studyVersion = studyVersionRepo.GetItems()
                 .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Id == Utilities.StudyVersion);
+
+            var calculatedTimeStudyFinished = studyVersion.TimeStudyStarted.Add(timeStudyFinishedDate);
+
+            double totalBMS = allRatedLapTimes.Sum(x => x.IndividualLapBMS);
+            double totalObservedTime = allRatedLapTimes.Sum(x => x.IndividualLapTimeDouble);
+            double averageRating = totalBMS / totalObservedTime * 100;
 
             var destSheetStudyDetails = workbook.Worksheets.Create("Study Analysis");
 
@@ -521,7 +531,7 @@ namespace TimeStudy.Services
 
             destSheetStudyDetails.Range[2, 1].Text = "Study Date";
             destSheetStudyDetails.Range[3, 1].Text = "Start Time";
-            destSheetStudyDetails.Range[4, 1].Text = "Finish Timer";
+            destSheetStudyDetails.Range[4, 1].Text = "Finish Time";
             destSheetStudyDetails.Range[5, 1].Text = "Elapsed Time";
             destSheetStudyDetails.Range[6, 1].Text = "Average Rating";
 
@@ -531,8 +541,8 @@ namespace TimeStudy.Services
 
             destSheetStudyDetails.Range[2, 2].Text = studyVersion.TimeStudyStarted.ToString("dd/MM/yyyy");
             destSheetStudyDetails.Range[3, 2].Text = studyVersion.TimeStudyStarted.ToLongTimeString();
-            destSheetStudyDetails.Range[4, 2].Text = studyVersion.TimeStudyFinished.ToLongTimeString();
-            destSheetStudyDetails.Range[5, 2].TimeSpan = studyElapsedTime;
+            destSheetStudyDetails.Range[4, 2].Text = calculatedTimeStudyFinished.ToLongTimeString();
+            destSheetStudyDetails.Range[5, 2].TimeSpan = timeStudyFinishedDate;
             destSheetStudyDetails.Range[6, 2].Number = averageRating;
             destSheetStudyDetails.Range[6, 2].NumberFormat = "###0.00";
 
@@ -779,9 +789,9 @@ namespace TimeStudy.Services
 
             destSheet.Range["A1:H1"].CellStyle = headerStyle;
             destSheet.Range[1, 1, totalLaptimes + 10, 10].AutofitColumns();
-            destSheet.Range[startRowIndex + 4, 4, totalLaptimes + 10, 4].NumberFormat = "###0.000";
-            destSheet.Range[startRowIndex + 4, 5, totalLaptimes + 10, 5].NumberFormat = "###0.000";
-            destSheet.Range[startRowIndex + 4, 8, totalLaptimes + 10, 8].NumberFormat = "###0.000";
+            destSheet.Range[startRowIndex + 3, 4, totalLaptimes + 10, 4].NumberFormat = "###0.000";
+            destSheet.Range[startRowIndex + 3, 5, totalLaptimes + 10, 5].NumberFormat = "###0.000";
+            destSheet.Range[startRowIndex + 3, 8, totalLaptimes + 10, 8].NumberFormat = "###0.000";
 
             var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
             var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
